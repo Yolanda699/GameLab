@@ -131,7 +131,7 @@ p {
     left: 0;
     background: #333;
     padding: 12px 0;
-    min-width: 500px;
+    min-width: 300px;
     border-radius: 6px;
     flex-direction: column;
     z-index: 20;
