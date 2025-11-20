@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>River of Forgetting</title>
+    <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+
+<body class="riverOfForgetting">
+
+<nav class="nav">
+
+    <!-- ABOUT -->
+    <a href="../index.html">About</a>
+
+    <!-- INDEPENDENT PROJECTS -->
+    <div class="dropdown">
+        <button class="dropbutton dropdown-toggle">Independent Projects</button>
+        <div class="dropdowncontent">
+            <a href="theFeeding.html">The Feeding</a>
+            <a href="brokenStage.html">Broken Stage</a>
+            <a href="riverOfForgetting.html">River of Forgetting</a>
+            <a href="travelTrove.html">Travel Trove</a>
+        </div>
+    </div>
+
+    <!-- GROUP PROJECTS -->
+    <div class="dropdown">
+        <button class="dropbutton dropdown-toggle">Group Projects</button>
+        <div class="dropdowncontent">
+            <a href="rhythmEcho.html">Rhythm: Echo of the Disciple</a>
+            <a href="puppetMystery.html">Puppet Mystery</a>
+        </div>
+    </div>
+
+</nav>
+
+<header class="header">
+    <h1>River of Forgetting</h1>
+    <p>3D short cooking game developed with Unity</p>
+</header>
+
+<div class="video-responsive">
+    <iframe width="560" height="315"
+        src="https://www.youtube.com/embed/PhgodEf7-8c?si=8qwDHehtTLFIViyD"
+        title="YouTube video player" frameborder="0"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+        referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+</div>
+
+<div class="gallery">
+    <!-- Replace with your images -->
+    <img src="../assets/img/3-1.jpg" alt="River of Forgetting image one">
+    <img src="../assets/img/3-2.jpg" alt="River of Forgetting image two">
+    <img src="../assets/img/3-3.jpg" alt="River of Forgetting image three">
+    <img src="../assets/img/3-4.jpg" alt="River of Forgetting image four">
+    <img src="../assets/img/3-5.jpg" alt="River of Forgetting image five">
+</div>
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+
+    const dropdowns = document.querySelectorAll(".dropdown");
+
+    dropdowns.forEach(drop => {
+        const button = drop.querySelector(".dropbutton");
+
+        // Toggle dropdown on click
+        button.addEventListener("click", function (event) {
+            event.stopPropagation();
+            closeAllDropdowns();
+            drop.classList.toggle("open");
+        });
+    });
+
+    // Click anywhere outside closes ALL dropdowns
+    document.addEventListener("click", function () {
+        closeAllDropdowns();
+    });
+
+    function closeAllDropdowns() {
+        dropdowns.forEach(d => d.classList.remove("open"));
+    }
+});
+</script>
+
+</body>
+</html>

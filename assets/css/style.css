@@ -1,0 +1,217 @@
+/* ============================================================
+   GLOBAL TEXT AND LAYOUT
+============================================================ */
+
+html {
+    font-size: 20px;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    color: inherit;
+}
+
+h1 {
+    font-size: 2.8rem;
+    font-weight: 700;
+    margin-bottom: 12px;
+}
+
+h2 {
+    font-size: 2rem;
+    font-weight: 600;
+    margin-top: 40px;
+}
+
+p {
+    font-size: 1.3rem;
+    line-height: 1.65;
+}
+
+.header p {
+    font-size: 1.3rem;
+    opacity: 0.85;
+}
+
+/* ============================================================
+   ABOUT PAGE — WIDER, FULLY RESPONSIVE, TOP-ALIGNED
+============================================================ */
+
+.about-wrapper {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 20px;
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 50px;                 /* slightly reduced gap */
+}
+
+/* Profile image */
+.about-photo {
+    width: 360px;               /* bigger and more balanced */
+    height: auto;
+    border-radius: 6px;
+}
+
+/* Text column */
+.about-text {
+    flex: 1;
+    max-width: 100%;           /* ← allow wide text but still readable */
+}
+
+/* ============================================================
+   NAVIGATION BAR (PERFECTLY ALIGNED)
+============================================================ */
+
+.nav {
+    background: #222;
+    padding: 24px 48px;
+    display: flex;
+    align-items: center;
+    gap: 60px;
+    position: relative;
+    z-index: 10;
+}
+
+/* Make <a> and dropdown buttons perfectly aligned */
+.nav a,
+.dropbutton {
+    display: flex;                   /* identical internal layout */
+    align-items: center;             /* vertical centering */
+    justify-content: center;
+    height: 52px;                    /* same height */
+    padding: 0 28px;                 /* same horizontal spacing */
+    line-height: 1;                  /* remove baseline mismatches */
+    font-size: 1.6rem;
+    color: white;
+    text-decoration: none;
+    border-radius: 6px;
+}
+
+/* Pure button styling */
+.dropbutton {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-family: inherit;
+}
+
+/* Hover style for ALL top-level tabs */
+.nav a:hover,
+.dropbutton:hover {
+    background: #444;
+}
+
+/* ============================================
+   CLICK-BASED DROPDOWN (keeps hover color)
+============================================ */
+
+/* Dropdown wrapper */
+.dropdown {
+    position: relative;
+}
+
+/* Top-level buttons still get hover color */
+.dropbutton:hover {
+    background: #444;
+}
+
+/* Dropdown panel (default hidden) */
+.dropdowncontent {
+    display: none;
+    position: absolute;
+    top: 76px;
+    left: 0;
+    background: #333;
+    padding: 12px 0;
+    min-width: 500px;
+    border-radius: 6px;
+    flex-direction: column;
+    z-index: 20;
+}
+
+/* When dropdown is opened via JS */
+.dropdown.open .dropdowncontent {
+    display: flex;
+}
+
+/* Dropdown items hover effect */
+.dropdowncontent a:hover {
+    background: #555;
+}
+
+/* ============================================================
+   HEADER SECTION
+============================================================ */
+
+.header {
+    padding: 120px 40px;
+    text-align: center;
+}
+
+/* ============================================================
+   PAGE BACKGROUNDS
+============================================================ */
+
+.aboutPage {
+    background: white;
+    color: black;
+}
+
+.theFeeding {
+    background: black;
+    color: white;
+}
+
+.brokenStage {
+    background: white;
+    color: black;
+}
+
+.riverOfForgetting {
+    background: #0A1E3F;
+    color: white;
+}
+
+.travelTrove {
+    background: #F1EEEE;
+    color: black;
+}
+
+/* ============================================================
+   RESPONSIVE VIDEO (16:9)
+============================================================ */
+
+.video-responsive {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    overflow: hidden;
+}
+
+.video-responsive iframe {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border: none;
+    top: 0;
+    left: 0;
+}
+
+/* ============================================================
+   FULL-WIDTH IMAGE GALLERY
+============================================================ */
+
+.gallery {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+.gallery img {
+    width: 100%;
+    height: auto;
+    display: block;
+}

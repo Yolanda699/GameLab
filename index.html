@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Yolanda</title>
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+
+<body class="aboutPage">
+
+    <!-- NAVIGATION BAR -->
+    <nav class="nav">
+
+        <!-- ABOUT -->
+        <a href="index.html">About</a>
+
+        <!-- INDEPENDENT PROJECTS -->
+        <div class="dropdown">
+            <button class="dropbutton dropdown-toggle">Independent Projects</button>
+            <div class="dropdowncontent">
+                <a href="projects/theFeeding.html">The Feeding</a>
+                <a href="projects/brokenStage.html">Broken Stage</a>
+                <a href="projects/riverOfForgetting.html">River of Forgetting</a>
+                <a href="projects/travelTrove.html">Travel Trove</a>
+            </div>
+        </div>
+
+        <!-- GROUP PROJECTS -->
+        <div class="dropdown">
+            <button class="dropbutton dropdown-toggle">Group Projects</button>
+            <div class="dropdowncontent">
+                <a href="projects/rhythmEcho.html">Rhythm: Echo of the Disciple</a>
+                <a href="projects/puppetMystery.html">Puppet Mystery</a>
+            </div>
+        </div>
+
+    </nav>
+
+    <!-- HEADER -->
+    <header class="header">
+        <h1>About</h1>
+        <p>Hi there, welcome to Yolanda's game lab!</p>
+    </header>
+
+    <!-- ABOUT CONTENT (RESPONSIVE LAYOUT) -->
+    <main>
+
+        <div class="about-wrapper">
+
+            <!-- PROFILE IMAGE -->
+            <div class="about-photo-container">
+                <img src="assets/img/profile.PNG" 
+                     alt="Portrait of Yolanda"
+                     class="about-photo">
+            </div>
+
+            <!-- TEXT COLUMN -->
+            <div class="about-text">
+
+                <h2>Introduction</h2>
+
+                <p>
+                    I am Yolanda, an undergraduate student in Communications and New Media at the National University of Singapore.
+                    My academic journey is shaped by a deep interest in game studies and game development, especially in understanding
+                    how interactive media can influence the way people think, feel, and connect with the world around them.
+                </p>
+
+                <p>
+                    I believe that games hold powerful potential as a creative medium. They offer unique ways to tell stories,
+                    spark meaningful conversations, and encourage players to reflect on social issues. With this in mind, I hope
+                    to create experiences that weave cultural heritage into thoughtful and engaging gameplay.
+                </p>
+
+                <p>
+                    My work is driven by curiosity and a desire to explore how digital media can preserve traditions, share diverse
+                    perspectives, and inspire communities. I am continually learning, experimenting, and collaborating to understand
+                    how design, technology, and storytelling can come together to create impact.
+                </p>
+
+                <h2>Curriculum Vitae</h2>
+                <p>
+                    <a href="https://drive.google.com/file/d/1VtxyaNnFvg7M4eTvH7OLGXI6QuSb3IWa/view?usp=sharing"
+                       target="_blank" rel="noopener noreferrer">
+                        View my CV (As of November 2025)
+                    </a>
+                </p>
+
+                <h2>Contact</h2>
+                <p><b>Email:</b> <a href="mailto:yolandaliuxy@outlook.com">yolandaliuxy@outlook.com</a></p>
+                <p><b>LinkedIn:</b> 
+                    <a href="https://www.linkedin.com/in/liu-xingyan-yolanda6" target="_blank">
+                        linkedin.com/in/liu-xingyan-yolanda6
+                    </a>
+                </p>
+
+            </div>
+
+        </div>
+
+    </main>
+
+    <!-- DROPDOWN CLICK LOGIC -->
+    <script>
+    document.addEventListener("DOMContentLoaded", function () {
+
+        const dropdowns = document.querySelectorAll(".dropdown");
+
+        dropdowns.forEach(drop => {
+            const button = drop.querySelector(".dropbutton");
+
+            // Toggle dropdown on click
+            button.addEventListener("click", function (event) {
+                event.stopPropagation();
+                closeAllDropdowns();
+                drop.classList.toggle("open");
+            });
+        });
+
+        // Close when clicking outside
+        document.addEventListener("click", function () {
+            closeAllDropdowns();
+        });
+
+        function closeAllDropdowns() {
+            dropdowns.forEach(d => d.classList.remove("open"));
+        }
+    });
+    </script>
+
+</body>
+</html>

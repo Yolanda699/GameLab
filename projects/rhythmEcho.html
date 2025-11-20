@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Broken Stage</title>
+    <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+
+<body class="brokenStage">
+
+<nav class="nav">
+
+    <!-- ABOUT -->
+    <a href="../index.html">About</a>
+
+    <!-- INDEPENDENT PROJECTS -->
+    <div class="dropdown">
+        <button class="dropbutton dropdown-toggle">Independent Projects</button>
+        <div class="dropdowncontent">
+            <a href="theFeeding.html">The Feeding</a>
+            <a href="brokenStage.html">Broken Stage</a>
+            <a href="riverOfForgetting.html">River of Forgetting</a>
+            <a href="travelTrove.html">Travel Trove</a>
+        </div>
+    </div>
+
+    <!-- GROUP PROJECTS -->
+    <div class="dropdown">
+        <button class="dropbutton dropdown-toggle">Group Projects</button>
+        <div class="dropdowncontent">
+            <a href="rhythmEcho.html">Rhythm: Echo of the Disciple</a>
+            <a href="puppetMystery.html">Puppet Mystery</a>
+        </div>
+    </div>
+
+</nav>
+
+<header class="header">
+    <h1>Rhythm: Echo of the Disciple</h1>
+    <p>3D rhythm and puzzle game developed with Unreal Engine 5.6</p>
+    <p>Role: Producer, Developer</p>
+</header>
+
+<div class="gallery">
+    <img src="../assets/img/5-1.png" alt="rhythmEcho image one">
+</div>
+
+<div class="video-responsive">
+    <iframe width="560" height="315" src="https://www.youtube.com/embed/724kNPAQR84?si=4rk2hNCHsXyiigkD" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+</div>
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+
+    const dropdowns = document.querySelectorAll(".dropdown");
+
+    dropdowns.forEach(drop => {
+        const button = drop.querySelector(".dropbutton");
+
+        // Toggle dropdown on click
+        button.addEventListener("click", function (event) {
+            event.stopPropagation();
+            closeAllDropdowns();
+            drop.classList.toggle("open");
+        });
+    });
+
+    // Click anywhere outside closes ALL dropdowns
+    document.addEventListener("click", function () {
+        closeAllDropdowns();
+    });
+
+    function closeAllDropdowns() {
+        dropdowns.forEach(d => d.classList.remove("open"));
+    }
+});
+</script>
+
+</body>
+</html
