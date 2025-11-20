@@ -3,7 +3,7 @@
 ============================================================ */
 
 html {
-    font-size: 20px;
+    font-size: 16px;
 }
 
 body {
@@ -13,24 +13,24 @@ body {
 }
 
 h1 {
-    font-size: 2.8rem;
+    font-size: 2.4rem;
     font-weight: 700;
-    margin-bottom: 12px;
+    margin-bottom: 10px;
 }
 
 h2 {
-    font-size: 2rem;
+    font-size: 1.6rem;
     font-weight: 600;
-    margin-top: 40px;
+    margin-top: 28px;
 }
 
 p {
-    font-size: 1.3rem;
-    line-height: 1.65;
+    font-size: 1.05rem;
+    line-height: 1.7;
 }
 
 .header p {
-    font-size: 1.3rem;
+    font-size: 1.05rem;
     opacity: 0.85;
 }
 
@@ -41,16 +41,16 @@ p {
 .about-wrapper {
     max-width: 1400px;
     margin: 0 auto;
-    padding: 0 20px;
+    padding: 0 24px;
     display: flex;
     flex-direction: row;
     align-items: flex-start;
-    gap: 50px;                 /* slightly reduced gap */
+    gap: 32px;                 /* slightly reduced gap */
 }
 
 /* Profile image */
 .about-photo {
-    width: 360px;               /* bigger and more balanced */
+    width: 320px;               /* bigger and more balanced */
     height: auto;
     border-radius: 6px;
 }
@@ -58,7 +58,11 @@ p {
 /* Text column */
 .about-text {
     flex: 1;
-    max-width: 100%;           /* ← allow wide text but still readable */
+    max-width: 100%;
+}
+
+.about-text h2:first-of-type {
+    margin-top: 0;
 }
 
 /* ============================================================
@@ -67,10 +71,10 @@ p {
 
 .nav {
     background: #222;
-    padding: 24px 48px;
+    padding: 16px 32px;
     display: flex;
     align-items: center;
-    gap: 60px;
+    gap: 32px;
     position: relative;
     z-index: 10;
 }
@@ -81,13 +85,14 @@ p {
     display: flex;                   /* identical internal layout */
     align-items: center;             /* vertical centering */
     justify-content: center;
-    height: 52px;                    /* same height */
-    padding: 0 28px;                 /* same horizontal spacing */
+    height: 44px;                    /* same height */
+    padding: 0 18px;                 /* same horizontal spacing */
     line-height: 1;                  /* remove baseline mismatches */
-    font-size: 1.6rem;
+    font-size: 1rem;
+    font-weight: 600;
     color: white;
     text-decoration: none;
-    border-radius: 6px;
+    border-radius: 4px;
 }
 
 /* Pure button styling */
@@ -122,7 +127,7 @@ p {
 .dropdowncontent {
     display: none;
     position: absolute;
-    top: 76px;
+    top: 64px;
     left: 0;
     background: #333;
     padding: 12px 0;
@@ -147,7 +152,7 @@ p {
 ============================================================ */
 
 .header {
-    padding: 120px 40px;
+    padding: 80px 32px;
     text-align: center;
 }
 
@@ -178,6 +183,16 @@ p {
 .travelTrove {
     background: #F1EEEE;
     color: black;
+}
+
+.rhythmEcho {
+    background: #b8904a;
+    color: #0a0a0a;
+}
+
+.puppetMystery {
+    background: black;
+    color: white;
 }
 
 /* ============================================================
