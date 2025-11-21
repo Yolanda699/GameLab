@@ -133,24 +133,84 @@ p {
    HERO SECTION
 ============================================================ */
 .hero-section {
-    height: 80vh;
+    height: 100vh; /* Make it full height */
     display: flex;
     align-items: center;
     justify-content: center;
     text-align: center;
-    background: linear-gradient(to bottom, #e9ecef, #f8f9fa);
+    /* New gradient background */
+    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+    overflow: hidden; /* Hide overflowing pseudo-elements */
+    position: relative; /* For positioning pseudo-elements */
 }
 
+/* Add some decorative shapes */
+.hero-section::before,
+.hero-section::after {
+    content: '';
+    position: absolute;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.1);
+    animation: float 15s infinite ease-in-out;
+}
+
+.hero-section::before {
+    width: 300px;
+    height: 300px;
+    top: 10%;
+    left: 10%;
+}
+
+.hero-section::after {
+    width: 200px;
+    height: 200px;
+    bottom: 15%;
+    right: 15%;
+    animation-delay: -5s; /* Stagger animation */
+}
+
+
 .hero-text h1 {
-    font-size: 4.5rem;
-    animation: fadeIn 1s ease-in-out;
+    font-size: 5rem; /* Slightly larger */
+    font-weight: 800; /* Bolder */
+    margin-bottom: 1rem;
+    /* Gradient text effect */
+    background: -webkit-linear-gradient(45deg, #3a7bd5, #3a6073);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: slideInUp 1s ease-out;
 }
 
 .hero-text p {
     font-size: 1.5rem;
-    color: #6c757d;
-    animation: fadeIn 1s ease-in-out 0.5s;
+    color: #556270; /* Darker, more saturated color */
+    margin-bottom: 2.5rem;
+    animation: slideInUp 1s ease-out 0.3s;
+    animation-fill-mode: both; /* Keep state after animation */
+}
+
+/* "Explore Now" button styling */
+.explore-button {
+    display: inline-block;
+    padding: 15px 35px;
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: #fff;
+    background: linear-gradient(45deg, #3a7bd5, #00d2ff);
+    border: none;
+    border-radius: 50px;
+    text-decoration: none;
+    cursor: pointer;
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+    animation: pulse 2s infinite ease-in-out, slideInUp 1s ease-out 0.6s;
     animation-fill-mode: both;
+}
+
+.explore-button:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 25px rgba(0, 0, 0, 0.15);
+    background: linear-gradient(45deg, #00d2ff, #3a7bd5);
 }
 
 
@@ -158,23 +218,30 @@ p {
    PROFILE SECTION
 ============================================================ */
 .profile-section {
-    padding: 80px 0;
+    padding: 40px 0; /* More vertical space */
     background-color: #fff;
+    border-top: 1px solid #e9ecef;
 }
 
 .profile-section .container {
     display: flex;
     align-items: center;
-    gap: 40px;
+    gap: 60px; /* Increased gap */
 }
 
 .profile-pic {
-    width: 250px;
-    height: 250px;
+    width: 300px;
+    height: 300px;
     border-radius: 50%;
     object-fit: cover;
-    border: 5px solid #fff;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    border: 8px solid #fff;
+    /* More pronounced shadow */
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1), 0 0 0 10px rgba(60, 120, 215, 0.1);
+    transition: transform 0.3s ease;
+}
+
+.profile-pic:hover {
+    transform: scale(1.05); /* Slight zoom on hover */
 }
 
 .profile-text {
@@ -186,6 +253,7 @@ p {
 ============================================================ */
 .links-section {
     padding: 80px 0;
+    background-color: #f8f9fa; /* Match body color */
 }
 
 .links-container {
@@ -197,7 +265,7 @@ p {
 .link-category h3 {
     font-size: 1.5rem;
     margin-bottom: 1rem;
-    color: #007bff;
+    color: #3a7bd5; /* Match new theme color */
 }
 
 .link-category ul {
@@ -213,12 +281,13 @@ p {
     text-decoration: none;
     font-weight: 500;
     border-bottom: 1px solid #eee;
-    transition: padding-left 0.2s ease-in-out;
+    transition: all 0.2s ease-in-out;
 }
 
 .link-category li a:hover {
     padding-left: 10px;
-    color: #007bff;
+    color: #00d2ff;
+    border-bottom-color: #00d2ff;
 }
 
 
@@ -229,10 +298,16 @@ p {
     .profile-section .container {
         flex-direction: column;
         text-align: center;
+        gap: 40px;
+    }
+    
+    .profile-pic {
+        width: 200px;
+        height: 200px;
     }
 
     .hero-text h1 {
-        font-size: 3rem;
+        font-size: 3.5rem;
     }
 
     .hero-text p {
@@ -249,16 +324,37 @@ p {
 /* ============================================================
    KEYFRAME ANIMATIONS
 ============================================================ */
-@keyframes fadeIn {
+@keyframes slideInUp {
     from {
         opacity: 0;
-        transform: translateY(20px);
+        transform: translateY(50px);
     }
     to {
         opacity: 1;
         transform: translateY(0);
     }
 }
+
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.03);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+@keyframes float {
+    0% { transform: translateY(0) translateX(0); }
+    25% { transform: translateY(-20px) translateX(10px); }
+    50% { transform: translateY(0) translateX(20px); }
+    75% { transform: translateY(20px) translateX(-10px); }
+    100% { transform: translateY(0) translateX(0); }
+}
+
 
 /* ============================================================
    PAGE BACKGROUNDS (Simplified)

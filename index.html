@@ -5,6 +5,51 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Yolanda's Game Lab</title>
     <link rel="stylesheet" href="assets/css/style.css">
+    <style>
+        .profile-section, .links-section {
+            opacity: 0;
+            transform: translateY(50px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        }
+        .profile-section.is-visible, .links-section.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        #page-container {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .page {
+            width: 100%;
+            transition: opacity 0.8s ease-in-out, transform 0.8s ease-in-out;
+        }
+
+        #page2 {
+            opacity: 0;
+            transform: translateY(100vh);
+            position: absolute;
+            top: -100vh; /* Start off-screen */
+            left: 0;
+            pointer-events: none;
+        }
+
+        body.show-page2 #page1 {
+            opacity: 0;
+            transform: translateY(-100%);
+            pointer-events: none;
+            position: absolute;
+        }
+
+        body.show-page2 #page2 {
+            opacity: 1;
+            transform: translateY(0);
+            position: relative;
+            pointer-events: auto;
+            top: 0;
+        }
+    </style>
 </head>
 
 <body class="aboutPage">
@@ -37,82 +82,95 @@
 
     </nav>
 
-    <!-- HERO SECTION -->
-    <header class="hero-section">
-        <div class="hero-text">
-            <h1>Hi there...</h1>
-            <p>Welcome to Yolanda's game lab!</p>
-        </div>
-    </header>
-
-    <!-- PROFILE SECTION -->
-    <section id="profile" class="profile-section">
-        <div class="container">
-            <img src="assets/img/profile.PNG" alt="Portrait of Yolanda" class="profile-pic">
-            <div class="profile-text">
-                <h2>Introduction</h2>
-                <p>
-                    I am Yolanda, an undergraduate student in Communications and New Media at the National University of Singapore.
-                    My academic journey is shaped by a deep interest in game studies and game development, especially in understanding
-                    how interactive media can influence the way people think, feel, and connect with the world around them.
-                </p>
-                <p>
-                    I believe that games hold powerful potential as a creative medium. They offer unique ways to tell stories,
-                    spark meaningful conversations, and encourage players to reflect on social issues. With this in mind, I hope
-                    to create experiences that weave cultural heritage into thoughtful and engaging gameplay.
-                </p>
-                <p>
-                    My work is driven by curiosity and a desire to explore how digital media can preserve traditions, share diverse
-                    perspectives, and inspire communities. I am continually learning, experimenting, and collaborating to understand
-                    how design, technology, and storytelling can come together to create impact.
-                </p>
-            </div>
-        </div>
-    </section>
-
-    <!-- LINKS SECTION -->
-    <section id="links" class="links-section">
-        <div class="container">
-            <h2>Projects & Contact</h2>
-            <div class="links-container">
-                <div class="link-category">
-                    <h3>Independent Projects</h3>
-                    <ul>
-                        <li><a href="projects/theFeeding.html">The Feeding</a></li>
-                        <li><a href="projects/brokenStage.html">Broken Stage</a></li>
-                        <li><a href="projects/riverOfForgetting.html">River of Forgetting</a></li>
-                        <li><a href="projects/travelTrove.html">Travel Trove</a></li>
-                    </ul>
+    <div id="page-container">
+        <!-- PAGE 1: HERO -->
+        <div id="page1" class="page">
+            <header class="hero-section">
+                <div class="hero-text">
+                    <h1>Hi there...</h1>
+                    <p>Welcome to Yolanda's game lab!</p>
+                    <a href="#profile" class="explore-button">Explore Now</a>
                 </div>
-                <div class="link-category">
-                    <h3>Group Projects</h3>
-                    <ul>
-                        <li><a href="projects/rhythmEcho.html">Rhythm: Echo of the Disciple</a></li>
-                        <li><a href="projects/puppetMystery.html">Puppet Mystery</a></li>
-                    </ul>
-                </div>
-                <div class="link-category">
-                    <h3>Contact & CV</h3>
-                    <ul>
-                        <li><a href="https://drive.google.com/file/d/1VtxyaNnFvg7M4eTvH7OLGXI6QuSb3IWa/view?usp=sharing" target="_blank" rel="noopener noreferrer">View my CV</a></li>
-                        <li><a href="mailto:yolandaliuxy@outlook.com">Email</a></li>
-                        <li><a href="https://www.linkedin.com/in/liu-xingyan-yolanda6" target="_blank">LinkedIn</a></li>
-                    </ul>
-                </div>
-            </div>
+            </header>
         </div>
-    </section>
 
-    <!-- DROPDOWN CLICK LOGIC -->
+        <!-- PAGE 2: CONTENT -->
+        <div id="page2" class="page">
+            <!-- PROFILE SECTION -->
+            <section id="profile" class="profile-section">
+                <div class="container">
+                    <img src="assets/img/profile.PNG" alt="Portrait of Yolanda" class="profile-pic">
+                    <div class="profile-text">
+                        <h2>Introduction</h2>
+                        <p>
+                            I am Yolanda, an undergraduate student in Communications and New Media at the National University of Singapore.
+                            My academic journey is shaped by a deep interest in game studies and game development, especially in understanding
+                            how interactive media can influence the way people think, feel, and connect with the world around them.
+                        </p>
+                        <p>
+                            I believe that games hold powerful potential as a creative medium. They offer unique ways to tell stories,
+                            spark meaningful conversations, and encourage players to reflect on social issues. With this in mind, I hope
+                            to create experiences that weave cultural heritage into thoughtful and engaging gameplay.
+                        </p>
+                        <p>
+                            My work is driven by curiosity and a desire to explore how digital media can preserve traditions, share diverse
+                            perspectives, and inspire communities. I am continually learning, experimenting, and collaborating to understand
+                            how design, technology, and storytelling can come together to create impact.
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- LINKS SECTION -->
+            <section id="links" class="links-section">
+                <div class="container">
+                    <h2>Projects & Contact</h2>
+                    <div class="links-container">
+                        <div class="link-category">
+                            <h3>Independent Projects</h3>
+                            <ul>
+                                <li><a href="projects/theFeeding.html">The Feeding</a></li>
+                                <li><a href="projects/brokenStage.html">Broken Stage</a></li>
+                                <li><a href="projects/riverOfForgetting.html">River of Forgetting</a></li>
+                                <li><a href="projects/travelTrove.html">Travel Trove</a></li>
+                            </ul>
+                        </div>
+                        <div class="link-category">
+                            <h3>Group Projects</h3>
+                            <ul>
+                                <li><a href="projects/rhythmEcho.html">Rhythm: Echo of the Disciple</a></li>
+                                <li><a href="projects/puppetMystery.html">Puppet Mystery</a></li>
+                            </ul>
+                        </div>
+                        <div class="link-category">
+                            <h3>Contact & CV</h3>
+                            <ul>
+                                <li><a href="https://drive.google.com/file/d/1VtxyaNnFvg7M4eTvH7OLGXI6QuSb3IWa/view?usp=sharing" target="_blank" rel="noopener noreferrer">View my CV</a></li>
+                                <li><a href="mailto:yolandaliuxy@outlook.com">Email</a></li>
+                                <li><a href="https://www.linkedin.com/in/liu-xingyan-yolanda6" target="_blank">LinkedIn</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <!-- DROPDOWN AND SCROLL ANIMATION LOGIC -->
     <script>
     document.addEventListener("DOMContentLoaded", function () {
 
-        const dropdowns = document.querySelectorAll(".dropdown");
+        // --- Page Transition Logic ---
+        document.querySelector('.explore-button').addEventListener('click', function(e) {
+            e.preventDefault();
+            document.body.classList.add('show-page2');
+            document.getElementById('page2').style.top = '0';
+        });
 
+        // --- Dropdown Logic ---
+        const dropdowns = document.querySelectorAll(".dropdown");
         dropdowns.forEach(drop => {
             const button = drop.querySelector(".dropbutton");
-
-            // Toggle dropdown on click
             button.addEventListener("click", function (event) {
                 event.stopPropagation();
                 closeAllDropdowns();
@@ -120,7 +178,6 @@
             });
         });
 
-        // Close when clicking outside
         document.addEventListener("click", function () {
             closeAllDropdowns();
         });
@@ -128,6 +185,22 @@
         function closeAllDropdowns() {
             dropdowns.forEach(d => d.classList.remove("open"));
         }
+
+        // --- Scroll Animation Logic ---
+        const sections = document.querySelectorAll('.profile-section, .links-section');
+
+        const scrollObserver = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('is-visible');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.1 });
+
+        sections.forEach(section => {
+            scrollObserver.observe(section);
+        });
     });
     </script>
 
