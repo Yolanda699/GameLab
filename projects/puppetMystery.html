@@ -7,13 +7,11 @@
     <link rel="stylesheet" href="../assets/css/style.css">
 </head>
 
-<body class="puppetMystery">
+<body class="project-page puppetMystery">
 
 <nav class="nav">
-
     <!-- ABOUT -->
     <a href="../index.html">About</a>
-
     <!-- INDEPENDENT PROJECTS -->
     <div class="dropdown">
         <button class="dropbutton dropdown-toggle">Independent Projects</button>
@@ -24,7 +22,6 @@
             <a href="travelTrove.html">Travel Trove</a>
         </div>
     </div>
-
     <!-- GROUP PROJECTS -->
     <div class="dropdown">
         <button class="dropbutton dropdown-toggle">Group Projects</button>
@@ -33,19 +30,24 @@
             <a href="puppetMystery.html">Puppet Mystery</a>
         </div>
     </div>
-
 </nav>
 
 <header class="header">
-    <h1>Puppet Mystery</h1>
-    <p>2D short puzzle game developed with Unity</p>
-    <p><em>Role: Producer, Lead Developer, Level Designer</em></p>
-    <p><b>Try the Game:</b> <a href="https://yollienarae.itch.io/puppetmystery">Puppet Mystery at itch.io</a></p>
+    <div class="container">
+        <h1>Puppet Mystery</h1>
+        <p>2D short puzzle game developed with Unity</p>
+        <p><em>Role: Producer, Lead Developer, Level Designer</em></p>
+        <p><b>Try the Game:</b> <a href="https://yollienarae.itch.io/puppetmystery">Puppet Mystery at itch.io</a></p>
+    </div>
 </header>
 
-<div class="video-responsive">
-    <iframe width="560" height="315" src="https://www.youtube.com/embed/4LisNuyYGOQ?si=sM_ldX014q34hlNn" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-</div>
+<main>
+    <div class="container">
+        <div class="video-responsive">
+            <iframe width="560" height="315" src="https://www.youtube.com/embed/4LisNuyYGOQ?si=sM_ldX014q34hlNn" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+        </div>
+    </div>
+</main>
 
 <script>
 document.addEventListener("DOMContentLoaded", function () {
@@ -55,7 +57,6 @@ document.addEventListener("DOMContentLoaded", function () {
     dropdowns.forEach(drop => {
         const button = drop.querySelector(".dropbutton");
 
-        // Toggle dropdown on click
         button.addEventListener("click", function (event) {
             event.stopPropagation();
             closeAllDropdowns();
@@ -63,7 +64,6 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     });
 
-    // Click anywhere outside closes ALL dropdowns
     document.addEventListener("click", function () {
         closeAllDropdowns();
     });
@@ -75,4 +75,4 @@ document.addEventListener("DOMContentLoaded", function () {
 </script>
 
 </body>
-</html
+</html>

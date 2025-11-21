@@ -4,98 +4,75 @@
 
 html {
     font-size: 16px;
+    scroll-behavior: smooth;
 }
 
 body {
     margin: 0;
-    font-family: Arial, sans-serif;
-    color: inherit;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    color: #333;
+    background-color: #f8f9fa;
 }
 
 h1 {
-    font-size: 2.4rem;
+    font-size: 3rem;
     font-weight: 700;
-    margin-bottom: 10px;
+    margin-bottom: 1rem;
 }
 
 h2 {
-    font-size: 1.6rem;
+    font-size: 2.2rem;
     font-weight: 600;
-    margin-top: 28px;
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+    border-bottom: 2px solid #eee;
+    padding-bottom: 0.5rem;
 }
 
 p {
-    font-size: 1.05rem;
+    font-size: 1.1rem;
     line-height: 1.7;
 }
 
-.header p {
-    font-size: 1.05rem;
-    opacity: 0.85;
-}
-
-/* ============================================================
-   ABOUT PAGE — WIDER, FULLY RESPONSIVE, TOP-ALIGNED
-============================================================ */
-
-.about-wrapper {
-    max-width: 1400px;
+.container {
+    max-width: 1200px;
     margin: 0 auto;
     padding: 0 24px;
-    display: flex;
-    flex-direction: row;
-    align-items: flex-start;
-    gap: 32px;                 /* slightly reduced gap */
-}
-
-/* Profile image */
-.about-photo {
-    width: 320px;               /* bigger and more balanced */
-    height: auto;
-    border-radius: 6px;
-}
-
-/* Text column */
-.about-text {
-    flex: 1;
-    max-width: 100%;
-}
-
-.about-text h2:first-of-type {
-    margin-top: 0;
 }
 
 /* ============================================================
-   NAVIGATION BAR (PERFECTLY ALIGNED)
+   NAVIGATION BAR
 ============================================================ */
 
 .nav {
-    background: #222;
+    background: #fff;
     padding: 16px 32px;
     display: flex;
     align-items: center;
     gap: 32px;
-    position: relative;
-    z-index: 10;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    border-bottom: 1px solid #e9ecef;
 }
 
-/* Make <a> and dropdown buttons perfectly aligned */
 .nav a,
 .dropbutton {
-    display: flex;                   /* identical internal layout */
-    align-items: center;             /* vertical centering */
+    display: flex;
+    align-items: center;
     justify-content: center;
-    height: 44px;                    /* same height */
-    padding: 0 18px;                 /* same horizontal spacing */
-    line-height: 1;                  /* remove baseline mismatches */
+    height: 44px;
+    padding: 0 18px;
+    line-height: 1;
     font-size: 1rem;
     font-weight: 600;
-    color: white;
+    color: #333;
     text-decoration: none;
     border-radius: 4px;
+    transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
 }
 
-/* Pure button styling */
 .dropbutton {
     background: none;
     border: none;
@@ -103,100 +80,210 @@ p {
     font-family: inherit;
 }
 
-/* Hover style for ALL top-level tabs */
 .nav a:hover,
-.dropbutton:hover {
-    background: #444;
+.dropbutton:hover,
+.dropdown.open .dropbutton {
+    background: #f1f3f5;
+    color: #000;
 }
 
-/* ============================================
-   CLICK-BASED DROPDOWN (keeps hover color)
-============================================ */
-
-/* Dropdown wrapper */
+/* Dropdown */
 .dropdown {
     position: relative;
 }
 
-/* Top-level buttons still get hover color */
-.dropbutton:hover {
-    background: #444;
-}
-
-/* Dropdown panel (default hidden) */
 .dropdowncontent {
     display: none;
     position: absolute;
-    top: 64px;
+    top: 100%;
     left: 0;
-    background: #333;
-    padding: 12px 0;
-    min-width: 300px;
+    background: #fff;
+    padding: 8px 0;
+    min-width: 250px;
     border-radius: 6px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    border: 1px solid #e9ecef;
     flex-direction: column;
     z-index: 20;
+    margin-top: 8px;
 }
 
-/* When dropdown is opened via JS */
 .dropdown.open .dropdowncontent {
     display: flex;
 }
 
-/* Dropdown items hover effect */
+.dropdowncontent a {
+    color: #333;
+    padding: 12px 20px;
+    text-decoration: none;
+    display: block;
+    width: 100%;
+    text-align: left;
+    height: auto;
+    border-radius: 0;
+    box-sizing: border-box;
+}
+
 .dropdowncontent a:hover {
-    background: #555;
+    background-color: #f1f3f5;
+}
+
+
+/* ============================================================
+   HERO SECTION
+============================================================ */
+.hero-section {
+    height: 80vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    background: linear-gradient(to bottom, #e9ecef, #f8f9fa);
+}
+
+.hero-text h1 {
+    font-size: 4.5rem;
+    animation: fadeIn 1s ease-in-out;
+}
+
+.hero-text p {
+    font-size: 1.5rem;
+    color: #6c757d;
+    animation: fadeIn 1s ease-in-out 0.5s;
+    animation-fill-mode: both;
+}
+
+
+/* ============================================================
+   PROFILE SECTION
+============================================================ */
+.profile-section {
+    padding: 80px 0;
+    background-color: #fff;
+}
+
+.profile-section .container {
+    display: flex;
+    align-items: center;
+    gap: 40px;
+}
+
+.profile-pic {
+    width: 250px;
+    height: 250px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 5px solid #fff;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+.profile-text {
+    flex: 1;
 }
 
 /* ============================================================
-   HEADER SECTION
+   LINKS SECTION
+============================================================ */
+.links-section {
+    padding: 80px 0;
+}
+
+.links-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 40px;
+}
+
+.link-category h3 {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+    color: #007bff;
+}
+
+.link-category ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.link-category li a {
+    display: block;
+    padding: 12px 0;
+    color: #333;
+    text-decoration: none;
+    font-weight: 500;
+    border-bottom: 1px solid #eee;
+    transition: padding-left 0.2s ease-in-out;
+}
+
+.link-category li a:hover {
+    padding-left: 10px;
+    color: #007bff;
+}
+
+
+/* ============================================================
+   RESPONSIVE DESIGN
+============================================================ */
+@media (max-width: 768px) {
+    .profile-section .container {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .hero-text h1 {
+        font-size: 3rem;
+    }
+
+    .hero-text p {
+        font-size: 1.2rem;
+    }
+
+    .nav {
+        flex-direction: column;
+        padding: 16px;
+    }
+}
+
+
+/* ============================================================
+   KEYFRAME ANIMATIONS
+============================================================ */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ============================================================
+   PAGE BACKGROUNDS (Simplified)
 ============================================================ */
 
-.header {
+.theFeeding { background: #111; color: white; }
+.brokenStage { background: white; color: black; }
+.riverOfForgetting { background: #0A1E3F; color: white; }
+.travelTrove { background: #F1EEEE; color: black; }
+.rhythmEcho { background: #b8904a; color: #0a0a0a; }
+.puppetMystery { background: black; color: white; }
+
+/* Generic project page styling */
+.project-page .header {
     padding: 80px 32px;
     text-align: center;
 }
 
-/* ============================================================
-   PAGE BACKGROUNDS
-============================================================ */
-
-.aboutPage {
-    background: white;
-    color: black;
+.project-page main {
+    padding: 20px 0;
 }
 
-.theFeeding {
-    background: black;
-    color: white;
-}
-
-.brokenStage {
-    background: white;
-    color: black;
-}
-
-.riverOfForgetting {
-    background: #0A1E3F;
-    color: white;
-}
-
-.travelTrove {
-    background: #F1EEEE;
-    color: black;
-}
-
-.rhythmEcho {
-    background: #b8904a;
-    color: #0a0a0a;
-}
-
-.puppetMystery {
-    background: black;
-    color: white;
-}
 
 /* ============================================================
-   RESPONSIVE VIDEO (16:9)
+   UTILITIES
 ============================================================ */
 
 .video-responsive {
@@ -204,6 +291,8 @@ p {
     width: 100%;
     aspect-ratio: 16 / 9;
     overflow: hidden;
+    border-radius: 8px;
+    margin: 2rem 0;
 }
 
 .video-responsive iframe {
@@ -214,10 +303,6 @@ p {
     top: 0;
     left: 0;
 }
-
-/* ============================================================
-   FULL-WIDTH IMAGE GALLERY
-============================================================ */
 
 .gallery {
     width: 100%;

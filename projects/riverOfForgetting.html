@@ -7,13 +7,11 @@
     <link rel="stylesheet" href="../assets/css/style.css">
 </head>
 
-<body class="riverOfForgetting">
+<body class="project-page riverOfForgetting">
 
 <nav class="nav">
-
     <!-- ABOUT -->
     <a href="../index.html">About</a>
-
     <!-- INDEPENDENT PROJECTS -->
     <div class="dropdown">
         <button class="dropbutton dropdown-toggle">Independent Projects</button>
@@ -24,7 +22,6 @@
             <a href="travelTrove.html">Travel Trove</a>
         </div>
     </div>
-
     <!-- GROUP PROJECTS -->
     <div class="dropdown">
         <button class="dropbutton dropdown-toggle">Group Projects</button>
@@ -33,33 +30,38 @@
             <a href="puppetMystery.html">Puppet Mystery</a>
         </div>
     </div>
-
 </nav>
 
 <header class="header">
-    <h1>River of Forgetting</h1>
-    <p>3D short cooking game developed with Unity</p>
-    <p><b>Download the Game:</b> <a href="https://yollienarae.itch.io/river-of-forgetting">River of Forgetting at itch.io</a></p>
+    <div class="container">
+        <h1>River of Forgetting</h1>
+        <p>3D short cooking game developed with Unity</p>
+        <p><b>Download the Game:</b> <a href="https://yollienarae.itch.io/river-of-forgetting">River of Forgetting at itch.io</a></p>
+    </div>
 </header>
 
-<div class="gallery">
-    <img src="../assets/img/3-1.jpg" alt="River of Forgetting image one">
-</div>
+<main>
+    <div class="container">
+        <div class="gallery">
+            <img src="../assets/img/3-1.jpg" alt="River of Forgetting image one">
+        </div>
 
-<div class="video-responsive">
-    <iframe width="560" height="315"
-        src="https://www.youtube.com/embed/PhgodEf7-8c?si=8qwDHehtTLFIViyD"
-        title="YouTube video player" frameborder="0"
-        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-        referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-</div>
+        <div class="video-responsive">
+            <iframe width="560" height="315"
+                src="https://www.youtube.com/embed/PhgodEf7-8c?si=8qwDHehtTLFIViyD"
+                title="YouTube video player" frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+        </div>
 
-<div class="gallery">
-    <img src="../assets/img/3-2.jpg" alt="River of Forgetting image two">
-    <img src="../assets/img/3-3.jpg" alt="River of Forgetting image three">
-    <img src="../assets/img/3-4.jpg" alt="River of Forgetting image four">
-    <img src="../assets/img/3-5.jpg" alt="River of Forgetting image five">
-</div>
+        <div class="gallery">
+            <img src="../assets/img/3-2.jpg" alt="River of Forgetting image two">
+            <img src="../assets/img/3-3.jpg" alt="River of Forgetting image three">
+            <img src="../assets/img/3-4.jpg" alt="River of Forgetting image four">
+            <img src="../assets/img/3-5.jpg" alt="River of Forgetting image five">
+        </div>
+    </div>
+</main>
 
 <script>
 document.addEventListener("DOMContentLoaded", function () {
@@ -69,7 +71,6 @@ document.addEventListener("DOMContentLoaded", function () {
     dropdowns.forEach(drop => {
         const button = drop.querySelector(".dropbutton");
 
-        // Toggle dropdown on click
         button.addEventListener("click", function (event) {
             event.stopPropagation();
             closeAllDropdowns();
@@ -77,7 +78,6 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     });
 
-    // Click anywhere outside closes ALL dropdowns
     document.addEventListener("click", function () {
         closeAllDropdowns();
     });

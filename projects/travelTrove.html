@@ -7,13 +7,11 @@
     <link rel="stylesheet" href="../assets/css/style.css">
 </head>
 
-<body class="travelTrove">
+<body class="project-page travelTrove">
 
 <nav class="nav">
-
     <!-- ABOUT -->
     <a href="../index.html">About</a>
-
     <!-- INDEPENDENT PROJECTS -->
     <div class="dropdown">
         <button class="dropbutton dropdown-toggle">Independent Projects</button>
@@ -24,7 +22,6 @@
             <a href="travelTrove.html">Travel Trove</a>
         </div>
     </div>
-
     <!-- GROUP PROJECTS -->
     <div class="dropdown">
         <button class="dropbutton dropdown-toggle">Group Projects</button>
@@ -33,24 +30,29 @@
             <a href="puppetMystery.html">Puppet Mystery</a>
         </div>
     </div>
-
 </nav>
 
 <header class="header">
-    <h1>Travel Trove</h1>
-    <p>High-fi travel mobile application prototype developed with Figma</p>
+    <div class="container">
+        <h1>Travel Trove</h1>
+        <p>High-fi travel mobile application prototype developed with Figma</p>
+    </div>
 </header>
 
-<div class="gallery">
-    <!-- Replace with your images -->
-    <img src="../assets/img/4-1.jpg" alt="Travel Trove image one">
-    <img src="../assets/img/4-2.jpg" alt="Travel Trove image two">
-    <img src="../assets/img/4-3.jpg" alt="Travel Trove image three">
-    <img src="../assets/img/4-4.jpg" alt="Travel Trove image four">
-    <img src="../assets/img/4-5.jpg" alt="Travel Trove image five">
-    <img src="../assets/img/4-6.jpg" alt="Travel Trove image six">
-    <img src="../assets/img/4-7.jpg" alt="Travel Trove image seven">
-</div>
+<main>
+    <div class="container">
+        <div class="gallery">
+            <!-- Replace with your images -->
+            <img src="../assets/img/4-1.jpg" alt="Travel Trove image one">
+            <img src="../assets/img/4-2.jpg" alt="Travel Trove image two">
+            <img src="../assets/img/4-3.jpg" alt="Travel Trove image three">
+            <img src="../assets/img/4-4.jpg" alt="Travel Trove image four">
+            <img src="../assets/img/4-5.jpg" alt="Travel Trove image five">
+            <img src="../assets/img/4-6.jpg" alt="Travel Trove image six">
+            <img src="../assets/img/4-7.jpg" alt="Travel Trove image seven">
+        </div>
+    </div>
+</main>
 
 <script>
 document.addEventListener("DOMContentLoaded", function () {
@@ -60,7 +62,6 @@ document.addEventListener("DOMContentLoaded", function () {
     dropdowns.forEach(drop => {
         const button = drop.querySelector(".dropbutton");
 
-        // Toggle dropdown on click
         button.addEventListener("click", function (event) {
             event.stopPropagation();
             closeAllDropdowns();
@@ -68,7 +69,6 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     });
 
-    // Click anywhere outside closes ALL dropdowns
     document.addEventListener("click", function () {
         closeAllDropdowns();
     });
