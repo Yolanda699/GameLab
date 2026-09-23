@@ -873,15 +873,24 @@ ORB = r"""precision highp float;
 uniform vec2  u_resolution;
 uniform float u_time;
 uniform vec2  u_mouse;
-uniform vec3  u_base;     // linear albedo (metals: measured F0)
-uniform float u_rough;    // perceptual roughness
+
+uniform vec3  u_base;     // linear albedo, or measured F0 for metals
+uniform float u_rough;
 uniform float u_metal;
-uniform float u_detail;   // micro-surface normal strength
+uniform float u_detail;   // micro-normal strength
+uniform float u_dscale;   // micro-surface frequency
+uniform float u_aniso;    // 0 = isotropic, 1 = fully brushed
 uniform float u_coat;     // clear coat over the base layer
+uniform float u_trans;    // how translucent the body is
+uniform vec3  u_sss;      // colour of light that survives the interior
+uniform float u_thick;    // extinction density
+uniform float u_vein;     // variation in that density
+uniform float u_oxide;    // how much of the metal has tarnished to oxide
+uniform vec3  u_oxcol;    // colour of that oxide
 
 const float PI = 3.14159265;
 
-// --- micro-surface ---------------------------------------------------------
+// --- noise -----------------------------------------------------------------
 float hash(vec2 p) { return fract(sin(dot(p, vec2(127.1, 311.7))) * 43758.5453123); }
 
 float noise(vec2 p) {
@@ -893,7 +902,7 @@ float noise(vec2 p) {
 
 float fbm(vec2 p) {
     float v = 0.0, a = 0.5;
-    for (int i = 0; i < 4; i++) { v += a * noise(p); p = p * 2.13 + 4.7; a *= 0.5; }
+    for (int i = 0; i < 5; i++) { v += a * noise(p); p = p * 2.13 + 4.7; a *= 0.5; }
     return v;
 }
 
@@ -904,8 +913,16 @@ float D_GGX(float NoH, float a) {
     return a2 / (PI * d * d);
 }
 
-// Height-correlated Smith visibility: V = G / (4 NoL NoV), so the 4 NoL NoV
-// denominator is already folded in and cannot blow up at grazing angles.
+// Anisotropic GGX. Brushed metal has a different slope distribution along the
+// grain than across it, which is what stretches the highlight into a streak.
+float D_GGX_aniso(float NoH, float ToH, float BoH, float at, float ab) {
+    float a2 = at * ab;
+    vec3  v  = vec3(ab * ToH, at * BoH, a2 * NoH);
+    float v2 = dot(v, v);
+    return a2 * (a2 / v2) * (a2 / v2) / PI;
+}
+
+// Height-correlated Smith visibility, with the 4 NoL NoV denominator folded in.
 float V_SmithGGX(float NoV, float NoL, float a) {
     float a2 = a * a;
     float lv = NoL * sqrt(NoV * NoV * (1.0 - a2) + a2);
@@ -917,8 +934,7 @@ vec3 F_Schlick(float VoH, vec3 f0) {
     return f0 + (1.0 - f0) * pow(1.0 - VoH, 5.0);
 }
 
-// Karis' analytic fit to the split-sum environment BRDF, so the ambient
-// specular obeys the same energy rules as the direct lobe.
+// Karis' analytic fit to the split-sum environment BRDF.
 vec2 envBRDF(float NoV, float rough) {
     vec4 c0 = vec4(-1.0, -0.0275, -0.572,  0.022);
     vec4 c1 = vec4( 1.0,  0.0425,  1.040, -0.040);
@@ -927,25 +943,26 @@ vec2 envBRDF(float NoV, float rough) {
     return vec2(-1.04, 1.04) * a004 + r.zw;
 }
 
-// A small studio. Kept low in contrast on purpose: a mirror sphere maps the
-// whole environment across its surface, so a hard sky/floor split shows up as
-// a hard line straight across the equator. The energy lives in the lights.
+// The surround, and only the surround: a soft vertical falloff, as if a large
+// diffuser sat above and the floor fell away below. Deliberately free of any
+// point-like lobe, so the only highlight on the sphere is the one the visitor
+// is dragging. Metals then read as metal because that highlight is tight and
+// moves, not because a hotspot was painted into the environment.
 vec3 environment(vec3 d, float rough) {
     float t = clamp(d.y * 0.5 + 0.5, 0.0, 1.0);
-    vec3 grnd = vec3(0.085, 0.082, 0.080);
-    vec3 mid  = vec3(0.300, 0.295, 0.290);
-    vec3 sky  = vec3(0.520, 0.545, 0.620);
 
-    vec3 c = mix(grnd, mid, smoothstep(0.02, 0.62, t));
-    c = mix(c, sky, smoothstep(0.42, 1.00, t));
+    // A bright diffuser above meeting a dark floor. The horizon between them
+    // is the structure metals need: a mirror with nothing to mirror reads as
+    // plastic, however correct its BRDF is. It is a surround, not a highlight.
+    vec3 grnd = vec3(0.038, 0.034, 0.030);
+    vec3 mid  = vec3(0.230, 0.216, 0.198);
+    vec3 sky  = vec3(1.180, 1.150, 1.100);
 
-    // key and fill, widening as roughness rises
-    vec3 key  = normalize(vec3(-0.45, 0.72, 0.55));
-    vec3 fill = normalize(vec3( 0.82, 0.10, 0.45));
-    c += vec3(1.00, 0.96, 0.88) * pow(max(dot(d, key),  0.0), mix(340.0, 3.0, rough)) * mix(11.0, 0.9, rough);
-    c += vec3(0.58, 0.68, 0.88) * pow(max(dot(d, fill), 0.0), mix(40.0,  2.0, rough)) * mix(1.1, 0.35, rough);
+    vec3 c = mix(grnd, mid, smoothstep(0.00, 0.44, t));
+    c = mix(c, sky, smoothstep(0.42, 0.88, t));
 
-    return mix(c, vec3(0.255, 0.258, 0.272), rough * 0.45);   // average out when rough
+    // Roughness blurs the horizon, the way a prefiltered mip chain would.
+    return mix(c, vec3(0.330, 0.318, 0.300), rough * 0.55);
 }
 
 vec3 tonemap(vec3 x) {          // ACES approximation
@@ -955,37 +972,43 @@ vec3 tonemap(vec3 x) {          // ACES approximation
 void main() {
     vec2  res = u_resolution.xy;
     vec2  p   = (gl_FragCoord.xy * 2.0 - res) / min(res.x, res.y);
-    p.y -= 0.06;                                   // room for the contact shadow
+    p.y -= 0.06;
 
     float R = 0.80;
     float d = length(p);
 
-    // Contact shadow on the paper, drawn first so the orb sits on it.
     float sh = 1.0 - smoothstep(0.0, 0.60, length((p - vec2(0.06, -0.86)) * vec2(0.82, 3.1)));
     vec3  col   = vec3(0.10, 0.09, 0.08);
     float alpha = sh * 0.22;
 
     if (d < R) {
-        float z = sqrt(max(R * R - d * d, 0.0)) / R;
-        vec3  n = normalize(vec3(p / R, z));        // analytic sphere normal
-        vec3  v = vec3(0.0, 0.0, 1.0);              // orthographic view
+        float z  = sqrt(max(R * R - d * d, 0.0)) / R;
+        vec3  gn = normalize(vec3(p / R, z));       // geometric normal
+        vec3  v  = vec3(0.0, 0.0, 1.0);             // orthographic view
 
-        // --- micro-surface: perturb the normal and vary roughness per pixel.
-        // A perfectly smooth ball is the thing that reads as CG; real surfaces
-        // break the highlight up at a scale far below the silhouette.
-        vec2  uvs  = p * 7.0;
-        float e    = 0.010;
-        float hC   = fbm(uvs);
-        float hX   = fbm(uvs + vec2(e, 0.0));
-        float hY   = fbm(uvs + vec2(0.0, e));
-        vec3  t    = normalize(cross(vec3(0.0, 1.0, 0.0), n));
-        vec3  b    = cross(n, t);
-        n = normalize(n + (t * (hC - hX) + b * (hC - hY)) * (u_detail * 150.0));
+        // --- micro-surface -------------------------------------------------
+        // Stretched along the grain when anisotropic, so brushed metal gets
+        // scratches running one way instead of an even orange-peel.
+        vec2  str = vec2(1.0 / mix(1.0, 9.0, u_aniso), mix(1.0, 2.2, u_aniso));
+        vec2  uvs = p * u_dscale * str;
+        float e   = 0.010;
+        float hC  = fbm(uvs);
+        float hX  = fbm(uvs + vec2(e, 0.0));
+        float hY  = fbm(uvs + vec2(0.0, e));
+
+        vec3 T = normalize(cross(vec3(0.0, 1.0, 0.0), gn));   // grain direction
+        vec3 B = cross(gn, T);
+        vec3 n = normalize(gn + (T * (hC - hX) + B * (hC - hY)) * (u_detail * 150.0));
 
         float rough = clamp(u_rough + (hC - 0.5) * u_detail * 2.4, 0.035, 1.0);
         float a     = rough * rough;
 
-        // Key light follows the cursor; it idles in a slow drift when untouched.
+        // Split the roughness across the tangent frame for anisotropy.
+        float aspect = sqrt(1.0 - 0.92 * u_aniso);
+        float at = max(a / aspect, 1e-4);
+        float ab = max(a * aspect, 1e-4);
+
+
         vec2  m = u_mouse - 0.5;
         vec3  l = normalize(vec3(m.x * 2.2 + sin(u_time * 0.25) * 0.22 - 0.35,
                                  m.y * 1.8 + 0.50 + cos(u_time * 0.21) * 0.12,
@@ -997,54 +1020,98 @@ void main() {
         float NoH = max(dot(n, h), 0.0);
         float VoH = max(dot(v, h), 0.0);
 
-        // Dielectrics reflect ~4% head-on; metals reflect their own colour and
-        // have no diffuse lobe at all.
-        vec3  f0   = mix(vec3(0.04), u_base, u_metal);
-        vec3  diff = u_base * (1.0 - u_metal);
-        vec3  F    = F_Schlick(VoH, f0);
-        float spec = D_GGX(NoH, a) * V_SmithGGX(NoV, NoL, a);
-        vec3  kd   = (1.0 - F) * (1.0 - u_metal);
+        // Tarnish mask: where the metal has oxidised it stops being a metal
+        // at all, turning into a rough dielectric with its own colour. This is
+        // the same metallic/roughness mask pair an authored material would use.
+        float ox = 0.0;
+        if (u_oxide > 0.001) {
+            // Tarnish collects in the low points of the micro-surface first,
+            // so the height field drives it rather than an unrelated blob mask.
+            float patch = fbm(p * 2.2 + 11.0) * 0.55 + (1.0 - hC) * 0.45;
+            ox = smoothstep(0.54, 0.80, patch) * u_oxide;
+        }
+        float metal = u_metal * (1.0 - ox);
+        vec3  albedo = mix(u_base, u_oxcol, ox);
+        rough = clamp(mix(rough, 0.68, ox), 0.035, 1.0);
+        a = rough * rough;
+        at = max(a / aspect, 1e-4);
+        ab = max(a * aspect, 1e-4);
 
-        vec3 direct = (kd * diff / PI + F * spec) * NoL * vec3(1.0, 0.97, 0.92) * 3.4;
+        vec3  f0   = mix(vec3(0.04), albedo, metal);
+        vec3  diff = albedo * (1.0 - metal);
+        vec3  F    = F_Schlick(VoH, f0);
+
+        float D = mix(D_GGX(NoH, a),
+                      D_GGX_aniso(NoH, dot(T, h), dot(B, h), at, ab),
+                      step(0.001, u_aniso));
+        float spec = D * V_SmithGGX(NoV, NoL, a);
+        vec3  kd   = (1.0 - F) * (1.0 - metal);
+
+        vec3 lightCol = vec3(1.00, 0.92, 0.79) * 5.6;   // warm key, ~3900K
+        vec3 diffDirect = kd * diff / PI * NoL * lightCol;
+        vec3 specDirect = F * spec      * NoL * lightCol;
 
         // --- ambient, split-sum -------------------------------------------
         vec3  r  = reflect(-v, n);
-        // Horizon occlusion: a reflection that points into the surface would
-        // otherwise pick up light the geometry cannot actually see.
         float ho = clamp(1.0 + 1.6 * dot(r, n), 0.0, 1.0); ho *= ho;
 
         vec2 dfg = envBRDF(NoV, rough);
         vec3 specColor = f0 * dfg.x + dfg.y;
-        // Multi-scatter compensation: a single-scatter BRDF loses energy as
-        // roughness rises, which is why rough metals look dull without it.
         vec3 energy = 1.0 + f0 * (1.0 / max(dfg.x, 1e-3) - 1.0);
 
         vec3 irradiance = environment(n, 1.0);
         vec3 radiance   = environment(r, rough) * ho;
 
-        vec3 ambient = kd * diff * irradiance * 0.36
-                     + radiance * specColor * energy;
+        vec3 diffAmb = kd * diff * irradiance * 0.36;
+        vec3 specAmb = radiance * specColor * energy;
+        vec3 orb = diffDirect + specDirect + diffAmb + specAmb;
 
-        vec3 orb = direct + ambient;
+        // --- translucency ---------------------------------------------------
+        // The sphere is analytic, so the depth of material behind each pixel is
+        // exactly 2R*z: nearly zero at the rim, deepest through the middle.
+        // Beer-Lambert over that distance is what makes jade read as stone with
+        // light inside it rather than as green plastic.
+        if (u_trans > 0.001) {
+            float veins = mix(1.0, 0.45 + 1.45 * fbm(p * 3.4 + vec2(z * 1.4, 0.0)), u_vein);
+            vec3  sigma = (1.0 - u_sss) * u_thick * veins;
+            vec3  atten = exp(-sigma * (2.0 * z + 0.05));
 
-        // --- clear coat: a second, always-smooth dielectric lobe on top ----
+            // Wrap diffuse: scattering carries light past the terminator.
+            float w    = 0.65;
+            float wrap = max((dot(gn, l) + w) / (1.0 + w), 0.0);
+
+            // Forward lobe: looking toward the light through a thin part.
+            vec3  lt  = normalize(l + gn * 0.30);
+            float fwd = pow(max(dot(v, -lt), 0.0), 3.5);
+
+            // Thin edges transmit far more than the deep core, which is the
+            // single strongest cue that a stone is translucent at all.
+            float thin = pow(1.0 - z, 2.0);
+            vec3 interior = u_sss * atten * (wrap * 0.48 + fwd * 1.00 + thin * 1.55) * 1.7;
+
+            // Only the body is replaced. The surface keeps its own reflections,
+            // which is the difference between polished stone and backlit jelly.
+            orb = specDirect + specAmb + mix(diffDirect + diffAmb, interior, u_trans);
+        }
+
+        // --- clear coat: a second, always-smooth dielectric lobe ------------
         if (u_coat > 0.001) {
-            vec3  cn  = normalize(vec3(p / R, z));      // coat ignores the micro-normal
-            vec3  ch  = normalize(l + v);
-            float cNoH = max(dot(cn, ch), 0.0);
-            float cNoV = max(dot(cn, v), 1e-4);
-            float cNoL = max(dot(cn, l), 0.0);
-            float ca  = 0.055 * 0.055;
-            float cF  = 0.04 + 0.96 * pow(1.0 - VoH, 5.0);
-            float cs  = D_GGX(cNoH, ca) * V_SmithGGX(cNoV, cNoL, ca);
-            vec3  cr  = environment(reflect(-v, cn), 0.06);
-            orb *= 1.0 - cF * u_coat;                   // coat absorbs what it reflects
+            float cNoH = max(dot(gn, h), 0.0);
+            float cNoV = max(dot(gn, v), 1e-4);
+            float cNoL = max(dot(gn, l), 0.0);
+            float ca   = 0.055 * 0.055;
+            float cF   = 0.04 + 0.96 * pow(1.0 - VoH, 5.0);
+            float cs   = D_GGX(cNoH, ca) * V_SmithGGX(cNoV, cNoL, ca);
+            vec3  cr   = environment(reflect(-v, gn), 0.06);
+            orb *= 1.0 - cF * u_coat;
             orb += (cs * cNoL * 3.4 + cr * 0.35) * cF * u_coat;
         }
 
-        float edge = smoothstep(R, R - 0.007, d);   // antialias the silhouette
+        float body = 1.0 - u_trans * pow(1.0 - z, 3.2) * 0.62;
+
+        float edge = smoothstep(R, R - 0.007, d);
         col   = mix(col, tonemap(orb), edge);
-        alpha = mix(alpha, 1.0, edge);
+        alpha = mix(alpha, body, edge);
     }
 
     gl_FragColor = vec4(pow(col, vec3(0.4545)), alpha);

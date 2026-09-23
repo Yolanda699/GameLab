@@ -122,18 +122,16 @@ def hero():
           <span class="orb-hint">drag to relight</span>
         </div>
         <div class="orb-presets" role="group" aria-label="Material presets">
-          <button class="on" data-base="0.955,0.638,0.538" data-rough="0.26" data-metal="1" data-detail="0.012" data-coat="0">Copper</button>
-          <button data-base="1.000,0.766,0.336" data-rough="0.2" data-metal="1" data-detail="0.008" data-coat="0">Gold</button>
-          <button data-base="0.560,0.570,0.580" data-rough="0.38" data-metal="1" data-detail="0.03" data-coat="0">Brushed steel</button>
-          <button data-base="0.180,0.020,0.015" data-rough="0.32" data-metal="0" data-detail="0.006" data-coat="1">Red lacquer</button>
-          <button data-base="0.055,0.180,0.120" data-rough="0.28" data-metal="0" data-detail="0.01" data-coat="1">Glazed jade</button>
-          <button data-base="0.800,0.775,0.720" data-rough="0.14" data-metal="0" data-detail="0.004" data-coat="0">Porcelain</button>
-          <button data-base="0.230,0.085,0.048" data-rough="0.72" data-metal="0" data-detail="0.055" data-coat="0">Terracotta</button>
-          <button data-base="0.140,0.135,0.125" data-rough="0.88" data-metal="0" data-detail="0.075" data-coat="0">Weathered stone</button>
+          <button class="on" data-base="0.560,0.570,0.580" data-rough="0.34" data-metal="1" data-detail="0.022" data-dscale="16.0" data-aniso="0.85" data-coat="0" data-trans="0" data-sss="0,0,0" data-thick="0" data-vein="0">Brushed steel</button>
+          <button data-base="0.042,0.110,0.080" data-rough="0.14" data-metal="0" data-detail="0.004" data-dscale="7.0" data-aniso="0.0" data-coat="0.85" data-trans="1.0" data-sss="0.210,0.560,0.375" data-thick="2.60" data-vein="1.0">Jade</button>
+          <button data-base="0.160,0.018,0.012" data-rough="0.3" data-metal="0" data-detail="0.005" data-dscale="8.0" data-aniso="0.0" data-coat="1.0" data-trans="0" data-sss="0,0,0" data-thick="0" data-vein="0">Red lacquer</button>
+          <button data-base="0.820,0.800,0.755" data-rough="0.12" data-metal="0" data-detail="0.004" data-dscale="8.0" data-aniso="0.0" data-coat="0.5" data-trans="0.35" data-sss="0.940,0.915,0.870" data-thick="3.2" data-vein="0.3">Porcelain</button>
+          <button data-base="0.230,0.085,0.048" data-rough="0.78" data-metal="0" data-detail="0.055" data-dscale="6.5" data-aniso="0.0" data-coat="0" data-trans="0" data-sss="0,0,0" data-thick="0" data-vein="0">Terracotta</button>
+          <button data-base="0.140,0.135,0.125" data-rough="0.9" data-metal="0" data-detail="0.08" data-dscale="5.5" data-aniso="0.0" data-coat="0" data-trans="0" data-sss="0,0,0" data-thick="0" data-vein="0">Weathered stone</button>
         </div>
         <p class="orb-note">Not a render. Every pixel is solved on your GPU each frame: GGX distribution,
-          height-correlated Smith visibility, Schlick Fresnel, and a split-sum ambient term with
-          multi-scatter compensation. <a href="shaders.html">Read the code &rarr;</a></p>
+          height-correlated Smith visibility, anisotropic microfacets on the brushed metal, and
+          Beer-Lambert transmission through the jade. <a href="shaders.html">Read the code &rarr;</a></p>
       </div>
     </div>
     <nav class="jump" aria-label="Jump to section">

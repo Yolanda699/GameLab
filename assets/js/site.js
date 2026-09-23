@@ -207,12 +207,11 @@ document.addEventListener('DOMContentLoaded', () => {
   const ready = fn => canvas.__gl ? fn(canvas.__gl) : setTimeout(() => ready(fn), 60);
 
   ready(gl => {
+    const VEC = ['base', 'sss', 'oxcol'];
+    const NUM = ['rough', 'metal', 'detail', 'dscale', 'aniso', 'coat', 'trans', 'thick', 'vein', 'oxide'];
     const apply = b => {
-      gl.set('u_base', b.dataset.base.split(',').map(Number));
-      gl.set('u_rough', +b.dataset.rough);
-      gl.set('u_metal', +b.dataset.metal);
-      gl.set('u_detail', +b.dataset.detail);
-      gl.set('u_coat', +b.dataset.coat);
+      VEC.forEach(k => gl.set('u_' + k, (b.dataset[k] || '0,0,0').split(',').map(Number)));
+      NUM.forEach(k => gl.set('u_' + k, +(b.dataset[k] || 0)));
     };
     btns.forEach(b => b.addEventListener('click', () => {
       btns.forEach(x => x.classList.remove('on'));
