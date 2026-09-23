@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bubble Factory · Yolanda Liu, Technical Artist</title>
+<meta name="description" content="How did I make materials carry a whole art direction in 48 hours, with translucent bubble shields, a glossy gum lake and glowing pickups, while leading gameplay programming?">
+<meta property="og:title" content="Bubble Factory · Yolanda Liu, Technical Artist">
+<meta property="og:description" content="How did I make materials carry a whole art direction in 48 hours, with translucent bubble shields, a glossy gum lake and glowing pickups, while leading gameplay programming?">
+<meta name="theme-color" content="#F2EEE6">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><rect width='64' height='64' fill='%23F2EEE6'/><text x='32' y='44' font-family='Georgia,serif' font-size='34' text-anchor='middle' fill='%23A8412A'>YL</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..700;1,9..144,300..700&family=Inter:wght@300..600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/css/site.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body>
+<nav class="nav">
+  <div class="wrap">
+    <a class="brand" href="../index.html">
+      <span class="brand-text">Yolanda Liu<small>TECHNICAL ARTIST &amp; PRODUCER</small></span>
+    </a>
+    <button class="nav-toggle" aria-label="Menu"><i class="fa-solid fa-bars"></i></button>
+    <ul class="nav-links">
+      <li><a href="../index.html#professional">Professional Work</a></li>
+      <li class="has-menu"><a href="../index.html#work">Projects</a><div class="menu"><div class="grp"><small>Rendering & Shading</small><a href="../projects/theFeeding.html">The Feeding<span>UE 5.6 · PCG, materials, lighting</span></a><a href="../projects/rhythmEcho.html">Rhythm: Echo of the Disciple<span>Lighting, skybox, optimization</span></a><a href="../projects/bubbleFactory.html">Bubble Factory<span>Shader Graph bubbles · URP materials</span></a></div><div class="grp"><small>Tools & AI Pipeline</small><a href="../projects/sdMaterialTool.html">Tiling Material Generator<span>Substance 3D Designer plugin · PBR maps</span></a><a href="../projects/psAiToolkit.html">AI Creative Toolkit<span>Photoshop UXP plugin · 11 features</span></a><a href="../projects/travelTrove.html">TravelTrove<span>Stylized concept-art workflow</span></a></div><div class="grp"><small>Gameplay Systems</small><a href="../projects/riverOfForgetting.html">River of Forgetting<span>Unity · brewing & endings</span></a><a href="../projects/brokenStage.html">Broken Stage<span>Unity · puzzle systems</span></a><a href="../projects/puppetMystery.html">Puppet Mystery<span>Unity · lead dev & producer</span></a></div><div class="grp"><small>Beyond the Engine</small><a href="../projects/gravitas.html">Gravitas<span>Audio & narrative design</span></a><a href="../projects/theVillage.html">The Village<span>Costume & makeup head · 33 characters</span></a><a href="../projects/theInsanity.html">The Insanity<span>Costume design & production</span></a></div><div class="grp"><small>Written by hand</small><a href="../shaders.html">Shader Lab<span>Live GLSL: fog, PBR, water, bubble, POM, dissolve</span></a></div></div></li>
+      <li><a href="../shaders.html">Shader Lab</a></li>
+      <li><a href="../index.html#skills">Skills</a></li>
+      <li><a href="../index.html#about">About</a></li>
+      <li><a href="../resume.html">Resume</a></li>
+      <li><a class="btn-nav" href="../resume.html#contact-top">Contact</a></li>
+    </ul>
+  </div>
+</nav>
+
+<header class="p-hero h-inset">
+  <div class="wrap">
+    <div class="crumbs"><a href="../index.html#work">Work</a> / <a href="../index.html#work-render">Rendering & Shading</a> / Bubble Factory</div>
+    <span class="tag render">Rendering & Shading</span>
+    <h1>Bubble Factory</h1>
+    <p class="q">How did I make materials carry a whole art direction in 48 hours, with translucent bubble shields, a glossy gum lake and glowing pickups, while leading gameplay programming?</p>
+    <div class="tags"><span class="tag">Unity URP</span><span class="tag">Shader Graph</span><span class="tag">Fresnel</span><span class="tag">Transparency</span><span class="tag">HDR emission</span><span class="tag">C#</span><span class="tag">Game jam</span></div>
+  </div>
+  <div class="bg"><img src="../assets/img/bubbleFactory/gum_lake.jpg" alt="Bubble Factory key visual"></div>
+</header>
+<div class="wrap">
+  <div class="facts"><div><small>Role</small><span>Lead Developer · Level Designer · Technical Artist</span></div><div><small>Year</small><span>2025</span></div><div><small>Event</small><span>Global Game Jam · 48 hours</span></div><div><small>Engine</small><span>Unity (URP), C# · Windows</span></div><div><small>Team</small><span>Art, audio & 3 programmers</span></div></div>
+  <div class="p-links"><a class="btn primary" href="https://yollienarae.itch.io/bubble-factory" target="_blank" rel="noopener"><i class="fa-brands fa-itch-io"></i> Play on itch.io</a><a class="btn" href="https://github.com/Yolanda699/ggj" target="_blank" rel="noopener"><i class="fa-brands fa-github"></i> Source on GitHub</a></div>
+  <div class="p-layout">
+    <aside class="toc">
+      <h4>On this page</h4>
+      <ol><li><a href="#overview">Overview</a></li><li><a href="#contributions">My contributions</a></li><li><a href="#materials">Materials & shading</a></li><li><a href="#gameplay">Gameplay</a></li><li><a href="#code">Code</a></li><li><a href="#challenges">Challenges & solutions</a></li></ol>
+      <div class="next-proj"><a href="sdMaterialTool.html"><small>NEXT PROJECT</small>Tiling Material Generator for Substance 3D Designer →</a></div>
+    </aside>
+    <main class="p-content">
+      <div class="ta-box reveal"><h3><i class="fa-solid fa-bolt"></i> Technical art highlights</h3><ul><li>Translucent bubble/shield material: Fresnel, normal distortion, premultiplied alpha</li><li>Glossy gum-lake surface tuned to the art direction</li><li>HDR emissive interaction highlights for bloom</li><li>Abstract C# power-up system</li><li>Spatial audio tied to moving VFX objects</li><li>Shipped in 48 hours as lead developer</li></ul></div>
+      
+<section class="p-sec" id="overview"><h2><span class="n">01</span>Overview</h2>
+
+<p class="lead"><em>Bubble Factory</em> is a 3D platformer made in 48 hours for <strong>Global Game Jam 2025</strong> (theme: <em>Bubble</em>). You play a bubble-gum-loving character crossing a candy-pink factory: chew different gums to unlock jumps and bubble shields, dodge cannon fire, and cross a glossy gum lake.</p>
+<p>I was lead developer, level designer and technical artist. I built the gameplay systems in Unity (URP, C#) and <strong>authored the game’s signature materials</strong>: the translucent bubbles and bubble shield, the gum-lake surface, the candy sky and the emissive interaction highlights. I also wrote the narrative and worldbuilding, using Figma flow diagrams to line the story up with the level layout.</p>
+<figure class="fig reveal"><img src="../assets/img/bubbleFactory/cover.jpg" alt="Title screen" width="2160" height="1080" loading="lazy"><figcaption>Title screen</figcaption></figure>
+
+</section>
+<section class="p-sec" id="contributions"><h2><span class="n">02</span>My contributions</h2>
+<div class="contrib"><div class="c reveal"><h4><i class="fa-solid fa-circle-half-stroke"></i>Bubble material</h4><p>Stylized translucent bubble in Shader Graph: Fresnel rim, transparency blending and normal distortion to fake reflection and refraction. Used on floating bubbles and the player’s bubble shield.</p></div><div class="c reveal"><h4><i class="fa-solid fa-water"></i>Gum-lake surface</h4><p>Re-tuned a normal-mapped, specular water material into a glossy pink bubble-gum lake that reads as sticky and soft.</p></div><div class="c reveal"><h4><i class="fa-solid fa-lightbulb"></i>Emissive feedback</h4><p>HDR emissive Highlight and Collect materials that bloom when players look at or pick up gum.</p></div><div class="c reveal"><h4><i class="fa-solid fa-code"></i>Gameplay systems (C#)</h4><p>An abstract GumBase power-up system, shields with hit counts and timers, drifting bubbles with distance-attenuated audio, and cannons.</p></div><div class="c reveal"><h4><i class="fa-solid fa-route"></i>Level design & narrative</h4><p>Level layout and story flow planned in Figma so progression and narrative beats line up.</p></div><div class="c reveal"><h4><i class="fa-solid fa-people-group"></i>Lead developer</h4><p>Led programming across a 3-person code team to ship a playable build in 48 hours.</p></div></div>
+</section>
+<section class="p-sec" id="materials"><h2><span class="n">03</span>Materials & shading</h2>
+
+<p>The whole game had to read as one candy-colored world at a glance. I built a small set of URP materials that do most of the visual work:</p>
+<div class="cs"><div class="cs-item reveal"><div class="ch"><small>Material</small><h4>Bubble & bubble shield</h4><p>Transparent URP surface with <strong>premultiplied alpha</strong> and <strong>ZWrite off</strong> in the transparent queue (3000), so overlapping bubbles layer cleanly and highlights stay bright. <strong>Environment/cubemap reflections</strong> give the soap-film sheen. A Shader Graph layer adds a <strong>Fresnel rim</strong> and <strong>normal distortion</strong> for the fake refraction.</p></div><div class="so"><small>In the game</small><h4>Where it’s used</h4><p>Assigned to the drifting bubbles (<code>Bubble1–3</code>) and the player’s <code>Shield</code>, so the pickup and the power-up it grants share one visual language.</p></div></div><div class="cs-item reveal"><div class="ch"><small>Material</small><h4>Gum-lake surface</h4><p>A normal-mapped, specular water material retinted and re-tuned into glossy pink bubble gum rather than water.</p></div><div class="so"><small>In the game</small><h4>Why</h4><p>Getting a reflective, wavy surface from an existing shader and tuning it to the art direction saved hours in a 48-hour jam.</p></div></div><div class="cs-item reveal"><div class="ch"><small>Material</small><h4>Candy sky</h4><p>An emissive pink SKY material (base ≈ #F57882, red emission) plus a stylized skybox set the warm, sugary palette for the level.</p></div><div class="so"><small>In the game</small><h4>Palette</h4><p>Every material shares the same pink/coral family, so the scene holds together even with placeholder geometry.</p></div></div><div class="cs-item reveal"><div class="ch"><small>Material</small><h4>Interaction highlights</h4><p><code>Highlight</code> (white, HDR emission ≈ 2.1) and <code>Collect</code> (pink, HDR emission ≈ 1.6) push past 1.0 so they <strong>bloom</strong>.</p></div><div class="so"><small>In the game</small><h4>System hook</h4><p><code>GumInteraction.cs</code> swaps in the highlight material when the camera looks at a gum, so players know what they can chew.</p></div></div></div>
+<div class="gallery g2  reveal" style="--ar:16/9"><figure><img src="../assets/img/bubbleFactory/gum_lake.jpg" alt="Gum-lake surface: normal-mapped and re-tinted to bubble-gum pink" width="748" height="359" loading="lazy"><figcaption>Gum-lake surface: normal-mapped and re-tinted to bubble-gum pink</figcaption></figure><figure><img src="https://img.itch.zone/aW1hZ2UvMzI1NDkwMy8yMDM3ODY1NS5wbmc=/original/scntXw.png" alt="Crossing the gum lake" loading="lazy" referrerpolicy="no-referrer"><figcaption>Crossing the gum lake</figcaption></figure></div>
+
+</section>
+<section class="p-sec" id="gameplay"><h2><span class="n">04</span>Gameplay</h2>
+
+<div class="gallery g3  reveal" style="--ar:16/9"><figure><img src="https://img.itch.zone/aW1hZ2UvMzI1NDkwMy8xOTQzMzk3OC5wbmc=/original/zojdEs.png" alt="Gum-lake corridor" loading="lazy" referrerpolicy="no-referrer"><figcaption>Gum-lake corridor</figcaption></figure><figure><img src="https://img.itch.zone/aW1hZ2UvMzI1NDkwMy8yMDM3ODY1NC5wbmc=/original/YZf2T0.png" alt="Gum pickup with interaction prompt" loading="lazy" referrerpolicy="no-referrer"><figcaption>Gum pickup with interaction prompt</figcaption></figure><figure><img src="https://img.itch.zone/aW1hZ2UvMzI1NDkwMy8yMDM3ODY1Mi5wbmc=/original/rD2oA1.png" alt="Platforming section" loading="lazy" referrerpolicy="no-referrer"><figcaption>Platforming section</figcaption></figure></div>
+
+</section>
+<section class="p-sec" id="code"><h2><span class="n">05</span>Code</h2>
+
+<p>Excerpts are condensed from the jam source, with comments translated to English.</p>
+<h3>Power-ups through one abstract class</h3>
+<p>Every gum inherits from <code>GumBase</code> and only implements <code>ActivateEffect()</code>, so adding a new power-up mid-jam was one small class.</p>
+<div class="code-head"><b>GumBase.cs · JumpGum.cs · TimeShieldGum.cs</b><span>Unity · C# · excerpt</span></div><pre class="code">public abstract class GumBase : MonoBehaviour
+{
+    public AudioClip chewingSound;
+    public void PlayChewingSound() { audioSource.PlayOneShot(chewingSound); }
+    public void HideGum() { gameObject.SetActive(false); }
+    public abstract void ActivateEffect();      // each gum defines its own power-up
+}
+
+public class JumpGum : GumBase
+{
+    public override void ActivateEffect()
+    {
+        playerController.ActivateJump();
+        PlayChewingSound(); HideGum();
+    }
+}
+
+public class TimeShieldGum : GumBase
+{
+    public override void ActivateEffect()
+    {
+        playerTimeShieldManager.ActivateTimeShield();   // bubble shield with a 5 s timer
+        PlayChewingSound(); HideGum();
+    }
+}</pre>
+<h3>Drifting bubbles with spatial audio</h3>
+<div class="code-head"><b>MovingBubble.cs</b><span>Unity · C# · excerpt</span></div><pre class="code">public class MovingBubble : MonoBehaviour
+{
+    public Vector3 startPosition, endPosition;
+    public float moveDuration = 4f;
+    public float minInterval = 1f, maxInterval = 3f;
+    public AudioSource bubbleAudioSource;
+    public Transform player;
+    public float maxDistance = 10f;           // sound fully fades out beyond this
+
+    IEnumerator MoveAndResetRoutine()
+    {
+        while (true)
+        {
+            bubbleAudioSource?.Play();
+            for (float t = 0; t &lt; moveDuration; t += Time.deltaTime)
+            {
+                float k = Mathf.SmoothStep(0, 1, t / moveDuration);   // ease in/out drift
+                transform.position = Vector3.Lerp(startPosition, endPosition, k);
+                yield return null;
+            }
+            bubbleAudioSource?.Stop();
+            transform.position = startPosition;                        // respawn
+            yield return new WaitForSeconds(Random.Range(minInterval, maxInterval));
+        }
+    }
+
+    void Update()   // distance-attenuated bubble sound
+    {
+        float d = Vector3.Distance(player.position, transform.position);
+        bubbleAudioSource.volume = d &lt; maxDistance ? Mathf.Lerp(1f, 0f, d / maxDistance) : 0f;
+    }
+}</pre>
+
+</section>
+<section class="p-sec" id="challenges"><h2><span class="n">06</span>Challenges & solutions</h2>
+<div class="cs"><div class="cs-item reveal"><div class="ch"><small>Challenge</small><h4>Transparent bubbles sorting badly</h4><p>Overlapping translucent bubbles and the shield can flicker or darken if they write depth or blend like opaque surfaces.</p></div><div class="so"><small>Solution</small><h4>Premultiplied, depth-write-off transparency</h4><p>Rendered bubbles in the transparent queue with ZWrite off and premultiplied alpha, so they layer correctly and keep bright specular highlights.</p></div></div><div class="cs-item reveal"><div class="ch"><small>Challenge</small><h4>Players not knowing what’s interactive</h4><p>In a busy, uniformly pink level, gum pickups blended into the scene.</p></div><div class="so"><small>Solution</small><h4>HDR emissive highlight on focus</h4><p>Swapped in an HDR emissive material on look-at, so interactables glow and bloom without extra UI.</p></div></div><div class="cs-item reveal"><div class="ch"><small>Challenge</small><h4>A whole look in 48 hours</h4><p>No time to model and texture a detailed environment.</p></div><div class="so"><small>Solution</small><h4>Let materials carry the art direction</h4><p>A few strong materials (bubbles, gum lake, candy sky, glowing pickups) establish the world over simple prototype geometry.</p></div></div></div>
+</section>
+      
+    <div class="p-next">
+      <a href="rhythmEcho.html"><small>← PREVIOUS</small><b>Rhythm: Echo of the Disciple</b></a>
+      <a class="r" href="sdMaterialTool.html"><small>NEXT PROJECT →</small><b>Tiling Material Generator for Substance 3D Designer</b></a>
+    </div>
+    </main>
+  </div>
+</div>
+<footer class="footer" id="contact">
+  <div class="wrap">
+    <div class="footer-grid">
+      <div>
+        <h3>Let’s build better art pipelines.</h3>
+        <p>Open to Technical Art roles &amp; collaborations – <a href="mailto:xingyan@usc.edu" style="color:var(--accent)">xingyan@usc.edu</a></p>
+      </div>
+      <div class="socials">
+        <a href="mailto:xingyan@usc.edu" aria-label="Email"><i class="fa-solid fa-envelope"></i></a>
+        <a href="https://www.linkedin.com/in/liu-xingyan-yolanda6" target="_blank" rel="noopener" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+        <a href="https://yollienarae.itch.io" target="_blank" rel="noopener" aria-label="itch.io"><i class="fa-brands fa-itch-io"></i></a>
+        <a href="../resume.html" aria-label="Resume"><i class="fa-solid fa-file-lines"></i></a>
+      </div>
+    </div>
+    <div class="copyright">© 2026 Yolanda Liu · All rights reserved</div>
+  </div>
+</footer>
+<script src="../assets/js/gl.js"></script>
+<script src="../assets/js/site.js"></script>
+</body>
+</html>

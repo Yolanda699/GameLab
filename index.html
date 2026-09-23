@@ -1,188 +1,731 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Yolanda's Game Lab</title>
-    <link rel="stylesheet" href="assets/css/style.css">
-    <link rel="stylesheet" href="assets/css/cursor.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <style>
-        .profile-section, .links-section {
-            opacity: 0;
-            transform: translateY(50px);
-            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
-        }
-        .profile-section.is-visible, .links-section.is-visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        #page-container {
-            position: relative;
-            overflow: hidden;
-        }
-
-        .page {
-            width: 100%;
-            transition: opacity 0.8s ease-in-out, transform 0.8s ease-in-out;
-        }
-
-        #page2 {
-            opacity: 0;
-            transform: translateY(100vh);
-            position: absolute;
-            top: -100vh; /* Start off-screen */
-            left: 0;
-            pointer-events: none;
-        }
-
-        body.show-page2 #page1 {
-            opacity: 0;
-            transform: translateY(-100%);
-            pointer-events: none;
-            position: absolute;
-        }
-
-        body.show-page2 #page2 {
-            opacity: 1;
-            transform: translateY(0);
-            position: relative;
-            pointer-events: auto;
-            top: 0;
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Yolanda Liu · Technical Artist</title>
+<meta name="description" content="Technical Artist portfolio of Yolanda Liu: AI art pipeline tools, real-time rendering and shading in Unreal Engine 5, and gameplay systems.">
+<meta property="og:title" content="Yolanda Liu · Technical Artist">
+<meta property="og:description" content="Technical Artist portfolio of Yolanda Liu: AI art pipeline tools, real-time rendering and shading in Unreal Engine 5, and gameplay systems.">
+<meta name="theme-color" content="#F2EEE6">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><rect width='64' height='64' fill='%23F2EEE6'/><text x='32' y='44' font-family='Georgia,serif' font-size='34' text-anchor='middle' fill='%23A8412A'>YL</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..700;1,9..144,300..700&family=Inter:wght@300..600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/site.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 </head>
+<body>
+<nav class="nav">
+  <div class="wrap">
+    <a class="brand" href="index.html">
+      <span class="brand-text">Yolanda Liu<small>TECHNICAL ARTIST &amp; PRODUCER</small></span>
+    </a>
+    <button class="nav-toggle" aria-label="Menu"><i class="fa-solid fa-bars"></i></button>
+    <ul class="nav-links">
+      <li><a href="#professional">Professional Work</a></li>
+      <li class="has-menu"><a href="#work">Projects</a><div class="menu"><div class="grp"><small>Rendering & Shading</small><a href="projects/theFeeding.html">The Feeding<span>UE 5.6 · PCG, materials, lighting</span></a><a href="projects/rhythmEcho.html">Rhythm: Echo of the Disciple<span>Lighting, skybox, optimization</span></a><a href="projects/bubbleFactory.html">Bubble Factory<span>Shader Graph bubbles · URP materials</span></a></div><div class="grp"><small>Tools & AI Pipeline</small><a href="projects/sdMaterialTool.html">Tiling Material Generator<span>Substance 3D Designer plugin · PBR maps</span></a><a href="projects/psAiToolkit.html">AI Creative Toolkit<span>Photoshop UXP plugin · 11 features</span></a><a href="projects/travelTrove.html">TravelTrove<span>Stylized concept-art workflow</span></a></div><div class="grp"><small>Gameplay Systems</small><a href="projects/riverOfForgetting.html">River of Forgetting<span>Unity · brewing & endings</span></a><a href="projects/brokenStage.html">Broken Stage<span>Unity · puzzle systems</span></a><a href="projects/puppetMystery.html">Puppet Mystery<span>Unity · lead dev & producer</span></a></div><div class="grp"><small>Beyond the Engine</small><a href="projects/gravitas.html">Gravitas<span>Audio & narrative design</span></a><a href="projects/theVillage.html">The Village<span>Costume & makeup head · 33 characters</span></a><a href="projects/theInsanity.html">The Insanity<span>Costume design & production</span></a></div><div class="grp"><small>Written by hand</small><a href="shaders.html">Shader Lab<span>Live GLSL: fog, PBR, water, bubble, POM, dissolve</span></a></div></div></li>
+      <li><a href="shaders.html">Shader Lab</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="resume.html">Resume</a></li>
+      <li><a class="btn-nav" href="resume.html#contact-top">Contact</a></li>
+    </ul>
+  </div>
+</nav>
 
-<body class="aboutPage">
-
-    <!-- NAVIGATION BAR -->
-    <nav class="nav">
-
-        <!-- ABOUT -->
-        <a href="index.html">About</a>
-
-        <!-- INDEPENDENT PROJECTS -->
-        <div class="dropdown">
-            <button class="dropbutton dropdown-toggle">Independent Projects</button>
-            <div class="dropdowncontent">
-                <a href="projects/theFeeding.html">The Feeding</a>
-                <a href="projects/brokenStage.html">Broken Stage</a>
-                <a href="projects/riverOfForgetting.html">River of Forgetting</a>
-                <a href="projects/travelTrove.html">Travel Trove</a>
-            </div>
+<header class="hero" id="top">
+  <div class="gl-stage hero-bg" aria-hidden="true"><canvas data-shader="frag-hero" data-dpr="1"></canvas></div>
+  <div class="wrap">
+    <div class="hero-grid">
+      <div>
+        <div class="eyebrow">Portfolio · 2026</div>
+        <h1>Yolanda Liu<span class="role">Technical Artist<br>&amp; Producer</span></h1>
+        <p class="lede">I build the tools, shaders and pipelines that let artists move faster, from AI-assisted material and concept workflows shipped to a AAA art team at Tencent to real-time scenes lit and rendered in Unreal Engine 5.</p>
+        <ul class="hero-meta">
+          <li><span>Now</span><span>MFA, Interactive Media &amp; Games, USC (2026–2029)</span></li>
+          <li><span>Recently</span><span>Technical Art Intern, Tools &amp; Pipeline · <em>Delta Force</em>, Tencent TiMi J3</span></li>
+          <li><span>Focus</span><span>DCC tools · AI art pipelines · Lighting &amp; shading · Production</span></li>
+        </ul>
+        <div class="hero-actions">
+          <a class="btn primary" href="#professional"><i class="fa-solid fa-briefcase"></i> Professional work</a>
+          <a class="btn" href="shaders.html"><i class="fa-solid fa-code"></i> Shader Lab</a>
+          <a class="btn" href="resume.html"><i class="fa-solid fa-file-lines"></i> Resume</a>
+          <a class="btn" href="mailto:xingyan@usc.edu"><i class="fa-solid fa-envelope"></i> Email</a>
         </div>
-
-        <!-- GROUP PROJECTS -->
-        <div class="dropdown">
-            <button class="dropbutton dropdown-toggle">Group Projects</button>
-            <div class="dropdowncontent">
-                <a href="projects/rhythmEcho.html">Rhythm: Echo of the Disciple</a>
-                <a href="projects/puppetMystery.html">Puppet Mystery</a>
-            </div>
+      </div>
+      <!-- Not a picture: a Cook-Torrance sphere compiled on the visitor's GPU.
+           Drag it to move the key light, pull the sliders, pick a material. -->
+      <div class="hero-visual">
+        <div class="orb-stage">
+          <canvas id="orb" data-shader="frag-orb" data-dpr="1.5"
+                  aria-label="Interactive material sphere, drag to move the light"></canvas>
+          <span class="orb-hint">drag to relight</span>
         </div>
-
+        <div class="orb-presets" role="group" aria-label="Material presets">
+          <button class="on" data-base="0.955,0.638,0.538" data-rough="0.26" data-metal="1" data-detail="0.012" data-coat="0">Copper</button>
+          <button data-base="1.000,0.766,0.336" data-rough="0.2" data-metal="1" data-detail="0.008" data-coat="0">Gold</button>
+          <button data-base="0.560,0.570,0.580" data-rough="0.38" data-metal="1" data-detail="0.03" data-coat="0">Brushed steel</button>
+          <button data-base="0.180,0.020,0.015" data-rough="0.32" data-metal="0" data-detail="0.006" data-coat="1">Red lacquer</button>
+          <button data-base="0.055,0.180,0.120" data-rough="0.28" data-metal="0" data-detail="0.01" data-coat="1">Glazed jade</button>
+          <button data-base="0.800,0.775,0.720" data-rough="0.14" data-metal="0" data-detail="0.004" data-coat="0">Porcelain</button>
+          <button data-base="0.230,0.085,0.048" data-rough="0.72" data-metal="0" data-detail="0.055" data-coat="0">Terracotta</button>
+          <button data-base="0.140,0.135,0.125" data-rough="0.88" data-metal="0" data-detail="0.075" data-coat="0">Weathered stone</button>
+        </div>
+        <p class="orb-note">Not a render. Every pixel is solved on your GPU each frame: GGX distribution,
+          height-correlated Smith visibility, Schlick Fresnel, and a split-sum ambient term with
+          multi-scatter compensation. <a href="shaders.html">Read the code &rarr;</a></p>
+      </div>
+    </div>
+    <nav class="jump" aria-label="Jump to section">
+      <a href="#professional"><small>01</small><b>Professional Work</b></a>
+      <a href="#work-render"><small>02 · PROJECTS</small><b>Rendering &amp; Shading</b></a>
+      <a href="#work-pipeline"><small>03 · PROJECTS</small><b>Tools &amp; AI Pipeline</b></a>
+      <a href="#work-gameplay"><small>04 · PROJECTS</small><b>Gameplay Systems</b></a>
+      <a href="#skills"><small>05</small><b>Core Skills</b></a>
+      <a href="shaders.html"><small>06</small><b>Shader Lab <i class="fa-solid fa-arrow-up-right-from-square" style="font-size:.7em;opacity:.6"></i></b></a>
     </nav>
-
-    <div id="page-container">
-        <!-- PAGE 1: HERO -->
-        <div id="page1" class="page">
-            <header class="hero-section">
-                <div class="hero-text">
-                    <h1>Hi there...</h1>
-                    <p>Welcome to Yolanda's game lab!</p>
-                    <a href="#profile" class="explore-button">Explore Now</a>
-                </div>
-            </header>
-        </div>
-
-        <!-- PAGE 2: CONTENT -->
-        <div id="page2" class="page">
-            <!-- PROFILE SECTION -->
-            <section id="profile" class="profile-section">
-                <div class="container">
-                    <img src="assets/img/profile.PNG" alt="Portrait of Yolanda" class="profile-pic">
-                    <div class="profile-text">
-                        <h2>Introduction</h2>
-                        <p>
-                            I am Yolanda, an undergraduate student in Communications and New Media at the National University of Singapore.
-                            My academic journey is shaped by a deep interest in game studies and game development, especially in understanding
-                            how interactive media can influence the way people think, feel, and connect with the world around them.
-                        </p>
-                        <p>
-                            I believe that games hold powerful potential as a creative medium. They offer unique ways to tell stories,
-                            spark meaningful conversations, and encourage players to reflect on social issues. With this in mind, I hope
-                            to create experiences that weave cultural heritage into thoughtful and engaging gameplay.
-                        </p>
-                        <p>
-                            My work is driven by curiosity and a desire to explore how digital media can preserve traditions, share diverse
-                            perspectives, and inspire communities. I am continually learning, experimenting, and collaborating to understand
-                            how design, technology, and storytelling can come together to create impact.
-                        </p>
-                    </div>
-                </div>
-            </section>
-
-        </div>
+  </div>
+</header>
+<div class="marquee" aria-hidden="true">
+  <div class="marquee-track"><span>Unreal Engine 5</span><span>GLSL / HLSL</span><span>Substance 3D Designer</span><span>Python</span><span>PySide / Qt</span><span>Material instances</span><span>PCG</span><span>Photoshop UXP</span><span>ComfyUI</span><span>Unity URP</span><span>C#</span><span>Shader Graph</span><span>MetaHuman</span><span>Gaea</span><span>Marvelous Designer</span><span>Blender</span><span>Movie Render Queue</span><span>Perforce</span><span>Unreal Engine 5</span><span>GLSL / HLSL</span><span>Substance 3D Designer</span><span>Python</span><span>PySide / Qt</span><span>Material instances</span><span>PCG</span><span>Photoshop UXP</span><span>ComfyUI</span><span>Unity URP</span><span>C#</span><span>Shader Graph</span><span>MetaHuman</span><span>Gaea</span><span>Marvelous Designer</span><span>Blender</span><span>Movie Render Queue</span><span>Perforce</span></div>
+</div>
+<section id="professional">
+  <div class="wrap">
+    <div class="section-head">
+      <div>
+        <div class="eyebrow">Industry experience</div>
+        <h2>Professional work</h2>
+      </div>
+      <p>Two roles at Tencent Games' TiMi Studio Group, one in technical art and one in production. Pick a tab to see each area of ownership.</p>
     </div>
 
-    <!-- DROPDOWN AND SCROLL ANIMATION LOGIC -->
-    <script>
-    document.addEventListener("DOMContentLoaded", function () {
+    <div class="pro-head reveal">
+      <div class="co">
+        <!-- Falls back to the lettermark until the logo file is in place. -->
+        <div class="logo"><img src="assets/img/logos/tencent-games.png" alt="Tencent Games"
+             onerror="this.parentNode.classList.add('fallback');this.remove()"></div>
+        <div>
+          <h3>Tencent Games · TiMi Studio Group</h3>
+          <p>Technical Art Intern (Tools &amp; Pipeline), J3 Studio · <em>Delta Force</em> · Mar – Jul 2026<br>Project Management Intern, G1 Studio · Unannounced AAA title · Jan – Mar 2026</p>
+        </div>
+      </div>
+      <a class="btn" href="projects/sdMaterialTool.html">Full tools case study <i class="fa-solid fa-arrow-right"></i></a>
+    </div>
+    <div class="pro-body reveal">
+      <div class="tabs" role="tablist" data-tabs="pro">
+        <button class="tab active" role="tab" aria-selected="true"><small>01</small>AI tools for artists</button>
+        <button class="tab" role="tab" aria-selected="false"><small>02</small>Shader library &amp; standards</button>
+        <button class="tab" role="tab" aria-selected="false"><small>03</small>Look-dev &amp; AI R&amp;D</button>
+        <button class="tab" role="tab" aria-selected="false"><small>04</small>Production management</button>
+      </div>
 
-        // --- Page Transition Logic ---
-        document.querySelector('.explore-button').addEventListener('click', function(e) {
-            e.preventDefault();
-            document.body.classList.add('show-page2');
-            document.getElementById('page2').style.top = '0';
-        });
+      <div class="panel active" data-panel-of="pro">
+        <div class="panel-grid">
+          <div>
+            <h4>AI-powered DCC tools</h4>
+            <div class="meta">J3 Studio · Delta Force · Python, PySide, SD API, Photoshop UXP, ComfyUI, ONNX</div>
+            <ul>
+              <li>Designed and built a <strong>PBR tiling-material generator for Substance Designer</strong>: AI seeding, seamless tiling, automatic Base Color / Normal / Roughness / Height / Metallic maps, de-lighting and a searchable material library.</li>
+              <li>Built a <strong>Photoshop AI toolkit</strong> with 11 features, including text-to-image, inpainting, canvas expansion, multi-view, object extraction, upscaling, VLM analysis and semantic/depth layer decomposition. Results arrive as non-destructive layers.</li>
+              <li>Architected a <strong>gateway-based, model-agnostic</strong> client so new providers plug in without UI changes.</li>
+              <li>Co-designed <strong>silent JS hotfixes + mandatory installer updates</strong> to keep a large art team on compatible builds.</li>
+            </ul>
+            <a class="btn" href="projects/sdMaterialTool.html">Substance Designer case study <i class="fa-solid fa-arrow-right"></i></a>
+            <a class="btn" href="projects/psAiToolkit.html">Photoshop case study <i class="fa-solid fa-arrow-right"></i></a>
+          </div>
+          <div class="carousel">
+          <div class="track"><figure class="slide"><img src="assets/img/psAiToolkit/ps_hero.jpg" alt="Photoshop AI toolkit: generation, editing, segmentation and analysis in one panel" loading="lazy"><figcaption>Photoshop AI toolkit: generation, editing, segmentation and analysis in one panel</figcaption></figure><figure class="slide"><img src="assets/img/sdMaterialTool/sd_hero.jpg" alt="Substance Designer plugin output: tileable PBR material sets" loading="lazy"><figcaption>Substance Designer plugin output: tileable PBR material sets</figcaption></figure><figure class="slide"><img src="assets/img/sdMaterialTool/sd_in_sd_2.jpg" alt="Plugin docked beside the material graph in Substance Designer" loading="lazy"><figcaption>Plugin docked beside the material graph in Substance Designer</figcaption></figure><figure class="slide contain"><img src="assets/img/sdMaterialTool/sd_architecture.jpg" alt="Module map: plugin → gateway → image models, plus local ONNX normal-map inference" loading="lazy"><figcaption>Module map: plugin → gateway → image models, plus local ONNX normal-map inference</figcaption></figure><figure class="slide contain"><img src="assets/img/psAiToolkit/ps_semantic.jpg" alt="AI semantic layer decomposition in Photoshop" loading="lazy"><figcaption>AI semantic layer decomposition in Photoshop</figcaption></figure><figure class="slide contain"><img src="assets/img/psAiToolkit/ps_update.jpg" alt="Two-level update strategy: silent JS hotfix vs. mandatory installer" loading="lazy"><figcaption>Two-level update strategy: silent JS hotfix vs. mandatory installer</figcaption></figure></div>
+          <div class="car-ctrl"><button class="prev" aria-label="Previous">‹</button><button class="next" aria-label="Next">›</button><span class="count"></span></div>
+        </div>
+        </div>
+      </div>
 
-        // --- Dropdown Logic ---
-        const dropdowns = document.querySelectorAll(".dropdown");
-        dropdowns.forEach(drop => {
-            const button = drop.querySelector(".dropbutton");
-            button.addEventListener("click", function (event) {
-                event.stopPropagation();
-                closeAllDropdowns();
-                drop.classList.toggle("open");
-            });
-        });
+      <div class="panel" data-panel-of="pro">
+        <h4>Centralized shader library</h4>
+        <div class="meta">J3 Studio · Delta Force · visuals withheld (confidential)</div>
+        <div class="wib">
+          <div><small>What</small><p>Co-developed a centralized shader library that consolidated the project’s existing shading solutions into one maintained source.</p></div>
+          <div><small>How</small><p>Established cross-platform validation benchmarks so shaders and assets could be checked against the same standard on every target platform.</p></div>
+          <div><small>Impact</small><p>Streamlined compliant asset production for both internal art teams and external vendors, with fewer one-off shaders to support.</p></div>
+        </div>
+      </div>
 
-        document.addEventListener("click", function () {
-            closeAllDropdowns();
-        });
+      <div class="panel" data-panel-of="pro">
+        <h4>Look development &amp; AI research</h4>
+        <div class="meta">J3 Studio · Delta Force · LoRA, multimodal 3D AI</div>
+        <div class="wib">
+          <div><small>LoRA stylization</small><p>Prototyped LoRA-based stylization workflows to support project-specific look development and asset generation.</p></div>
+          <div><small>3D AI evaluation</small><p>Evaluated multimodal 3D AI technologies against production needs.</p></div>
+          <div><small>Recommendations</small><p>Delivered technical recommendations that informed the development of an internal AI-driven art platform.</p></div>
+        </div>
+      </div>
 
-        function closeAllDropdowns() {
-            dropdowns.forEach(d => d.classList.remove("open"));
+      <div class="panel" data-panel-of="pro">
+        <div class="panel-grid">
+          <div>
+            <h4>Production pipelines for TA / VFX</h4>
+            <div class="meta">G1 Studio · Unannounced AAA title · Agile</div>
+            <ul>
+              <li>Managed end-to-end production pipelines for gameplay features and <strong>Technical Art / VFX assets</strong>, from feature planning and risk management through implementation, asset integration, validation and milestone delivery.</li>
+              <li>Coordinated iteration planning and production schedules to keep scope, timelines and quality objectives aligned.</li>
+            </ul>
+          </div>
+          <div class="wib" style="grid-template-columns:1fr">
+            <div><small>Why it matters for TA</small><p>Seeing the TA/VFX pipeline from the producer’s side taught me where assets actually stall (hand-offs, validation, integration). I now design tools to remove those bottlenecks.</p></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="also">
+      <a href="resume.html#experience"><b>Marriott International</b><span>Strategy Planning &amp; Communications · 2025</span></a>
+      <a href="resume.html#experience"><b>Edelman China</b><span>Corporate &amp; Financial Services PR · 2024</span></a>
+      <a href="resume.html#experience"><b>Mango TV</b><span>Director Intern, <em>Chengfeng 2023</em> · 2023</span></a>
+    </div>
+  </div>
+</section>
+<section id="work">
+  <div class="wrap">
+    <div class="section-head">
+      <div>
+        <div class="eyebrow">Selected projects</div>
+        <h2>Projects</h2>
+      </div>
+      <div class="filters" role="tablist">
+        <button class="filter active" data-filter="all">All</button>
+        <button class="filter" data-filter="render">Rendering &amp; Shading</button>
+        <button class="filter" data-filter="pipeline">Tools &amp; Pipeline</button>
+        <button class="filter" data-filter="gameplay">Gameplay Systems</button>
+        <button class="filter" data-filter="beyond">Beyond the Engine</button>
+      </div>
+    </div>
+    <div class="paths" style="margin-top:0">
+      <a class="path" href="#work-render"><small>Hiring for</small><b>Lighting / rendering TA</b><p>UE5 PCG, material instances, night &amp; firelight lighting, Shader Graph transparency and render optimization.</p><span class="go">The Feeding · Rhythm · Bubble Factory ↓</span></a>
+      <a class="path" href="#work-pipeline"><small>Hiring for</small><b>Tools &amp; pipeline TA</b><p>Python/PySide DCC plugins, AI gateways, deployment, and a concept-stage AI workflow.</p><span class="go">AI Art Tools · TravelTrove ↓</span></a>
+      <a class="path" href="#work-gameplay"><small>Hiring for</small><b>Technical designer / generalist</b><p>C# systems in Unity: interaction, puzzles, scene management, branching endings.</p><span class="go">River · Broken Stage · Puppet ↓</span></a>
+    </div>
+    <div class="work-group" data-cat="render" id="work-render">
+      <h3>Real-time Rendering, Lighting & Shading</h3>
+      <div class="cards">
+      <a class="card reveal feature" href="projects/theFeeding.html">
+        <div class="card-media"><img src="assets/img/theFeeding/cover.jpg" alt="The Feeding key visual" loading="lazy"></div>
+        <div class="card-body">
+          <div class="card-top"><span class="tag render">Rendering & Shading</span><span class="when">2025 · Solo</span></div>
+          <h4>The Feeding</h4>
+          <p class="hook">How did I build a fog-drenched Miao mountain world in UE 5.6, from terrain and PCG foliage to materials, MetaHumans and a cinematic render?</p>
+          <p class="role">Solo: environment, materials, lighting, characters, cinematics</p>
+          <div class="tags"><span class="tag">Unreal 5.6</span><span class="tag">PCG</span><span class="tag">Materials</span><span class="tag">MetaHuman</span><span class="tag">Gaea</span><span class="tag">Sequencer / MRQ</span></div>
+          <span class="more">Read the breakdown <i class="fa-solid fa-arrow-right"></i></span>
+        </div>
+      </a>
+      <a class="card reveal" href="projects/rhythmEcho.html">
+        <div class="card-media"><img src="assets/img/rhythmEcho/cover.jpg" alt="Rhythm: Echo of the Disciple key visual" loading="lazy"></div>
+        <div class="card-body">
+          <div class="card-top"><span class="tag render">Rendering & Shading</span><span class="when">2025 · Team of 9</span></div>
+          <h4>Rhythm: Echo of the Disciple</h4>
+          <p class="hook">How did I light and optimize a mythic 3D rhythm world while producing a 9-person jam team?</p>
+          <p class="role">Producer · Developer · Technical Artist</p>
+          <div class="tags"><span class="tag">Unreal 5.6</span><span class="tag">Lighting</span><span class="tag">Skybox</span><span class="tag">Optimization</span><span class="tag">Blueprints</span></div>
+          <span class="more">Read the breakdown <i class="fa-solid fa-arrow-right"></i></span>
+        </div>
+      </a>
+      <a class="card reveal" href="projects/bubbleFactory.html">
+        <div class="card-media"><img src="assets/img/bubbleFactory/cover.jpg" alt="Bubble Factory key visual" loading="lazy"></div>
+        <div class="card-body">
+          <div class="card-top"><span class="tag render">Rendering & Shading</span><span class="when">2025 · Global Game Jam</span></div>
+          <h4>Bubble Factory</h4>
+          <p class="hook">How did I make materials carry a whole art direction in 48 hours, with translucent bubble shields, a gum lake and glowing pickups?</p>
+          <p class="role">Lead Developer · Level Designer · Technical Artist</p>
+          <div class="tags"><span class="tag">Unity URP</span><span class="tag">Shader Graph</span><span class="tag">Fresnel</span><span class="tag">Transparency</span><span class="tag">HDR emission</span></div>
+          <span class="more">Read the breakdown <i class="fa-solid fa-arrow-right"></i></span>
+        </div>
+      </a>
+      </div>
+    </div>
+    <div class="work-group" data-cat="pipeline" id="work-pipeline">
+      <h3>Tools & AI Pipeline</h3>
+      <div class="cards">
+      <a class="card reveal feature" href="projects/sdMaterialTool.html">
+        <div class="card-media"><img src="assets/img/sdMaterialTool/cover.jpg" alt="Tiling Material Generator for Substance 3D Designer key visual" loading="lazy"></div>
+        <div class="card-body">
+          <div class="card-top"><span class="tag pipeline">Tools & Pipeline</span><span class="when">2026 · Tencent Games</span></div>
+          <h4>Tiling Material Generator for Substance 3D Designer</h4>
+          <p class="hook">How do you get a seamless, production-ready PBR material set from a prompt without ever leaving Substance Designer?</p>
+          <p class="role">Technical Artist (Tools & Pipeline) · Delta Force, TiMi J3 Studio</p>
+          <div class="tags"><span class="tag">Python</span><span class="tag">PySide</span><span class="tag">Substance Designer API</span><span class="tag">PBR maps</span><span class="tag">ONNX</span><span class="tag">Seamless tiling</span></div>
+          <span class="more">Read the breakdown <i class="fa-solid fa-arrow-right"></i></span>
+        </div>
+      </a>
+      <a class="card reveal feature rev" href="projects/psAiToolkit.html">
+        <div class="card-media"><img src="assets/img/psAiToolkit/cover.jpg" alt="AI Creative Toolkit for Photoshop key visual" loading="lazy"></div>
+        <div class="card-body">
+          <div class="card-top"><span class="tag pipeline">Tools & Pipeline</span><span class="when">2026 · Tencent Games</span></div>
+          <h4>AI Creative Toolkit for Photoshop</h4>
+          <p class="hook">How do you put eleven AI capabilities inside Photoshop without ever costing an artist a layer?</p>
+          <p class="role">Technical Artist (Tools & Pipeline) · Delta Force, TiMi J3 Studio</p>
+          <div class="tags"><span class="tag">Photoshop UXP API</span><span class="tag">JavaScript</span><span class="tag">ComfyUI</span><span class="tag">Multimodal VLM</span><span class="tag">Depth masks</span></div>
+          <span class="more">Read the breakdown <i class="fa-solid fa-arrow-right"></i></span>
+        </div>
+      </a>
+      <a class="card reveal feature" href="projects/travelTrove.html">
+        <div class="card-media"><img src="assets/img/travelTrove/cover.jpg" alt="TravelTrove key visual" loading="lazy"></div>
+        <div class="card-body">
+          <div class="card-top"><span class="tag pipeline">Tools & Pipeline</span><span class="when">2025 · Solo</span></div>
+          <h4>TravelTrove</h4>
+          <p class="hook">How did I set up a controlled AI generation workflow so independently generated concept assets read as one art style?</p>
+          <p class="role">Solo: research, UX, concept art pipeline, hi-fi prototype</p>
+          <div class="tags"><span class="tag">Figma</span><span class="tag">Sora</span><span class="tag">Prompt design</span><span class="tag">User research</span></div>
+          <span class="more">Read the breakdown <i class="fa-solid fa-arrow-right"></i></span>
+        </div>
+      </a>
+      </div>
+    </div>
+    <div class="work-group" data-cat="gameplay" id="work-gameplay">
+      <h3>Gameplay Systems & Engine Scripting</h3>
+      <div class="cards c3">
+      <a class="card reveal" href="projects/riverOfForgetting.html">
+        <div class="card-media"><img src="assets/img/riverOfForgetting/cover.jpg" alt="River of Forgetting key visual" loading="lazy"></div>
+        <div class="card-body">
+          <div class="card-top"><span class="tag gameplay">Gameplay Systems</span><span class="when">2025 · Solo</span></div>
+          <h4>River of Forgetting</h4>
+          <p class="hook">How did I build a brewing system and accuracy-based endings for a first-person mythic narrative game?</p>
+          <p class="role">Solo: design, C# systems, environment assets</p>
+          <div class="tags"><span class="tag">Unity</span><span class="tag">C#</span><span class="tag">3D</span><span class="tag">Narrative systems</span></div>
+          <span class="more">Read the breakdown <i class="fa-solid fa-arrow-right"></i></span>
+        </div>
+      </a>
+      <a class="card reveal" href="projects/brokenStage.html">
+        <div class="card-media"><img src="assets/img/brokenStage/cover.jpg" alt="Broken Stage key visual" loading="lazy"></div>
+        <div class="card-body">
+          <div class="card-top"><span class="tag gameplay">Gameplay Systems</span><span class="when">2024 · Solo</span></div>
+          <h4>Broken Stage</h4>
+          <p class="hook">How did I build interaction, puzzle and branching-ending systems for a bilingual 2D mystery game?</p>
+          <p class="role">Solo: design, C# systems, UI, narrative</p>
+          <div class="tags"><span class="tag">Unity</span><span class="tag">C#</span><span class="tag">2D</span><span class="tag">Puzzle systems</span></div>
+          <span class="more">Read the breakdown <i class="fa-solid fa-arrow-right"></i></span>
+        </div>
+      </a>
+      <a class="card reveal" href="projects/puppetMystery.html">
+        <div class="card-media"><img src="assets/img/puppetMystery/cover.jpg" alt="Puppet Mystery key visual" loading="lazy"></div>
+        <div class="card-body">
+          <div class="card-top"><span class="tag gameplay">Gameplay Systems</span><span class="when">2025 · Team of 7</span></div>
+          <h4>Puppet Mystery</h4>
+          <p class="hook">How did I architect additive room loading and drag-and-drop puzzles while leading a 7-person team?</p>
+          <p class="role">Lead Developer · Producer · Level Designer</p>
+          <div class="tags"><span class="tag">Unity</span><span class="tag">C#</span><span class="tag">WebGL</span><span class="tag">Scene management</span><span class="tag">Team lead</span></div>
+          <span class="more">Read the breakdown <i class="fa-solid fa-arrow-right"></i></span>
+        </div>
+      </a>
+      </div>
+    </div>
+    <div class="work-group" data-cat="beyond" id="work-beyond">
+      <h3>Beyond the Engine · Audio, Narrative & Art Direction</h3>
+      <div class="cards c3">
+      <a class="card reveal" href="projects/gravitas.html">
+        <div class="card-media"><img src="assets/img/gravitas/cover.jpg" alt="Gravitas key visual" loading="lazy"></div>
+        <div class="card-body">
+          <div class="card-top"><span class="tag ">Beyond the Engine</span><span class="when">2024 · Team game</span></div>
+          <h4>Gravitas</h4>
+          <p class="hook">How did I score and sound-design a pixel tower-defense game so every game state has its own identity?</p>
+          <p class="role">Audio Designer · Narrative Designer</p>
+          <div class="tags"><span class="tag">Original soundtrack</span><span class="tag">SFX</span><span class="tag">Narrative pacing</span><span class="tag">Unity</span></div>
+          <span class="more">Read the breakdown <i class="fa-solid fa-arrow-right"></i></span>
+        </div>
+      </a>
+      <a class="card reveal" href="projects/theVillage.html">
+        <div class="card-media"><img src="assets/img/theVillage/cover.jpg" alt="The Village key visual" loading="lazy"></div>
+        <div class="card-body">
+          <div class="card-top"><span class="tag ">Beyond the Engine</span><span class="when">2024 · NUS</span></div>
+          <h4>The Village</h4>
+          <p class="hook">How did I lead a 29-person costume & makeup team to give 33 characters one cohesive visual language?</p>
+          <p class="role">Costume & Makeup Head</p>
+          <div class="tags"><span class="tag">Art direction</span><span class="tag">Costume design</span><span class="tag">Character styling</span><span class="tag">Team lead</span></div>
+          <span class="more">Read the breakdown <i class="fa-solid fa-arrow-right"></i></span>
+        </div>
+      </a>
+      <a class="card reveal" href="projects/theInsanity.html">
+        <div class="card-media"><img src="assets/img/theInsanity/cover.jpg" alt="The Insanity key visual" loading="lazy"></div>
+        <div class="card-body">
+          <div class="card-top"><span class="tag ">Beyond the Engine</span><span class="when">2023 · NUS</span></div>
+          <h4>The Insanity</h4>
+          <p class="hook">How did I design a contemporary cast that stays readable as an ensemble, while securing the sponsorship and running the production?</p>
+          <p class="role">Costume Designer · Assistant Producer</p>
+          <div class="tags"><span class="tag">Costume design</span><span class="tag">Production</span><span class="tag">Sponsorship</span><span class="tag">Budget management</span></div>
+          <span class="more">Read the breakdown <i class="fa-solid fa-arrow-right"></i></span>
+        </div>
+      </a>
+      </div>
+    </div>
+  </div>
+</section>
+<section id="skills">
+  <div class="wrap">
+    <div class="section-head">
+      <div>
+        <div class="eyebrow">What I bring</div>
+        <h2>Core skills</h2>
+      </div>
+      <p>A technical artist sits between art, engineering and production. Hard skills, soft skills, and a quick map from what studios ask for to where you can see it in my work.</p>
+    </div>
+    <div class="tabs skills-tabs" role="tablist" data-tabs="skills">
+      <button class="tab active" role="tab" aria-selected="true"><small>A</small>Hard skills · technical &amp; art</button>
+      <button class="tab" role="tab" aria-selected="false"><small>B</small>Soft skills · communication &amp; production</button>
+      <button class="tab" role="tab" aria-selected="false"><small>C</small>Requirement → evidence</button>
+    </div>
+    <div class="skill-panel active" data-panel-of="skills"><div class="skills-grid">
+      <div class="skill-card render">
+        <div class="ico"><i class="fa-solid fa-palette"></i></div>
+        <h4>Shaders & Materials · PBR</h4>
+        <div class="tags"><span class="tag">GLSL (hand-written)</span><span class="tag">PBR maps (Albedo, Normal, Roughness, Metallic, Height)</span><span class="tag">UE material networks</span><span class="tag">Material instancing</span><span class="tag">Unity Shader Graph</span><span class="tag">Fresnel / transparency / refraction</span><span class="tag">Shared shader library</span></div>
+        <p class="proof"><i class="fa-solid fa-check" style="color:var(--accent);margin-right:6px"></i>Co-developed a centralized shader library at Tencent, and wrote six live GLSL shaders for the <a href='shaders.html' style='color:var(--accent)'>Shader Lab</a>.</p>
+      </div>
+      <div class="skill-card render">
+        <div class="ico"><i class="fa-solid fa-lightbulb"></i></div>
+        <h4>Lighting, Look-dev & Optimization</h4>
+        <div class="tags"><span class="tag">Real-time lighting</span><span class="tag">Fog & firelight</span><span class="tag">Skybox & atmosphere</span><span class="tag">Asset / lighting validation</span><span class="tag">Cross-platform benchmarks</span><span class="tag">Render & build-size optimization</span></div>
+        <p class="proof"><i class="fa-solid fa-check" style="color:var(--accent);margin-right:6px"></i>Lit 8 cinematic scenes in UE 5.6, and optimized lighting and rendering in Rhythm while reducing build size.</p>
+      </div>
+      <div class="skill-card render">
+        <div class="ico"><i class="fa-solid fa-cube"></i></div>
+        <h4>Unreal Engine & Procedural</h4>
+        <div class="tags"><span class="tag">Unreal Engine 5</span><span class="tag">Blueprints</span><span class="tag">PCG</span><span class="tag">Sequencer / Movie Render Queue</span><span class="tag">MetaHuman · Live Link</span><span class="tag">IK Retargeting</span><span class="tag">Unity (C#)</span></div>
+        <p class="proof"><i class="fa-solid fa-check" style="color:var(--accent);margin-right:6px"></i>Blueprint-driven PCG cliff and moss generators, plus a Mixamo → MetaHuman retargeting pipeline.</p>
+      </div>
+      <div class="skill-card pipeline">
+        <div class="ico"><i class="fa-solid fa-screwdriver-wrench"></i></div>
+        <h4>Tools & Pipeline · Python / DCC APIs</h4>
+        <div class="tags"><span class="tag">Python</span><span class="tag">PySide / Qt</span><span class="tag">Substance Designer API</span><span class="tag">Photoshop UXP (JS)</span><span class="tag">DCC plugin development</span><span class="tag">Service / API integration</span><span class="tag">Versioned deployment</span><span class="tag">Git · Perforce</span></div>
+        <p class="proof"><i class="fa-solid fa-check" style="color:var(--accent);margin-right:6px"></i>Shipped two AI plugins to the Delta Force art team with a gateway, a unified model interface and silent hotfix updates.</p>
+      </div>
+      <div class="skill-card pipeline">
+        <div class="ico"><i class="fa-solid fa-wand-magic-sparkles"></i></div>
+        <h4>ML / AI for Art Pipelines</h4>
+        <div class="tags"><span class="tag">ComfyUI workflows</span><span class="tag">Model evaluation & selection</span><span class="tag">LoRA stylization</span><span class="tag">Multimodal VLMs</span><span class="tag">3D generative AI</span><span class="tag">ONNX inference</span><span class="tag">Prompt templating</span></div>
+        <p class="proof"><i class="fa-solid fa-check" style="color:var(--accent);margin-right:6px"></i>Evaluated multimodal 3D AI and wrote the recommendations behind an internal AI art platform.</p>
+      </div>
+      <div class="skill-card gameplay">
+        <div class="ico"><i class="fa-solid fa-mountain-sun"></i></div>
+        <h4>DCC & Content Creation</h4>
+        <div class="tags"><span class="tag">Substance Designer</span><span class="tag">Photoshop</span><span class="tag">Blender</span><span class="tag">Gaea</span><span class="tag">Marvelous Designer</span><span class="tag">Mixamo</span><span class="tag">Figma</span><span class="tag">Illustrator</span></div>
+        <p class="proof"><i class="fa-solid fa-check" style="color:var(--accent);margin-right:6px"></i>Gaea terrain, Marvelous Designer cloth and Photoshop/Substance texture work in one UE pipeline.</p>
+      </div>
+    </div></div>
+    <div class="skill-panel" data-panel-of="skills"><div class="skills-grid">
+      <div class="skill-card"><div class="ico"><i class="fa-solid fa-comments"></i></div><h4>Bridging art & engineering</h4><p style="font-size:14px;margin:0">I turn artists' pain points into tool specs, and engine/model limits back into plain-language workflows. That’s how our plugins got adopted across a large art team.</p></div>
+      <div class="skill-card"><div class="ico"><i class="fa-solid fa-life-ring"></i></div><h4>Artist & vendor support</h4><p style="font-size:14px;margin:0">Built shading standards that internal teams and external vendors could follow, and designed tool updates so artists never had to chase the right build.</p></div>
+      <div class="skill-card"><div class="ico"><i class="fa-solid fa-file-pen"></i></div><h4>Technical documentation</h4><p style="font-size:14px;margin:0">I write design goals, architecture diagrams and request-flow docs for the tools I build. Published research at DiGRA 2026.</p></div>
+      <div class="skill-card"><div class="ico"><i class="fa-solid fa-list-check"></i></div><h4>Production & project management</h4><p style="font-size:14px;margin:0">Agile PM intern at TiMi G1, coordinating TA/VFX asset pipelines from planning and risk through validation and milestones.</p></div>
+      <div class="skill-card"><div class="ico"><i class="fa-solid fa-people-group"></i></div><h4>Team leadership</h4><p style="font-size:14px;margin:0">Producer for teams of 9 (two-week jam) and 7 (three-month cycle), and Costume &amp; Makeup Head leading 29 people on an award-winning production.</p></div>
+      <div class="skill-card"><div class="ico"><i class="fa-solid fa-eye"></i></div><h4>Visual judgement</h4><p style="font-size:14px;margin:0">Years of costume, makeup and character styling trained my eye for silhouette, palette and readability, which I now apply to lighting and look-dev.</p></div>
+    </div></div>
+    <div class="skill-panel" data-panel-of="skills">
+      <div class="matrix-wrap"><table class="matrix">
+        <thead><tr><th>Typical technical-art requirement</th><th>Where I’ve done it</th><th>See it</th></tr></thead>
+        <tbody><tr><th scope="row">Pipeline tools & scripts in Python / DCC APIs</th><td>Substance Designer and Photoshop plugins (Python, PySide, SD API, UXP) used in production at Tencent</td><td><a href="projects/sdMaterialTool.html">Substance Designer plugin →</a></td></tr><tr><th scope="row">Real-time materials & shaders in a PBR workflow</th><td>Automated Albedo/Normal/Roughness/Metallic/Height generation, a shared shader library, a UE material-instance library, and a translucent Shader Graph bubble</td><td><a href="projects/bubbleFactory.html#materials">Bubble Factory · Materials →</a></td></tr><tr><th scope="row">Writing &amp; debugging shader code</th><td>Four hand-written GLSL fragment shaders running live in the browser: fBm volumetric fog, a Cook-Torrance GGX sphere, a water surface and thin-film refraction</td><td><a href="shaders.html">Shader Lab →</a></td></tr><tr><th scope="row">Performance, validation & optimization</th><td>Cross-platform shader validation benchmarks at Tencent. Lighting and render optimization with a smaller build in Rhythm</td><td><a href="projects/rhythmEcho.html#challenges">Rhythm · Optimization →</a></td></tr><tr><th scope="row">Procedural systems</th><td>Blueprint-driven PCG generators for cliffs, rock groups and light-aware moss</td><td><a href="projects/theFeeding.html#environment">The Feeding · PCG →</a></td></tr><tr><th scope="row">Lighting & look-dev</th><td>Night, fog and firelight lighting across 8 scenes. Skybox and atmosphere across realms</td><td><a href="projects/theFeeding.html#renders">The Feeding · Renders →</a></td></tr><tr><th scope="row">Unreal Engine workflows</th><td>Blueprints, material networks, PCG, Sequencer, Movie Render Queue, MetaHuman</td><td><a href="projects/theFeeding.html">The Feeding →</a></td></tr><tr><th scope="row">ML / AI in art pipelines</th><td>ComfyUI workflows, model evaluation, LoRA look-dev, multimodal 3D AI evaluation, local ONNX inference</td><td><a href="#professional">Professional work →</a></td></tr><tr><th scope="row">Supporting artists & external vendors</th><td>Shader standards for vendor asset production. Silent hotfix and forced-update deployment for a large art team</td><td><a href="projects/psAiToolkit.html#deployment">Photoshop toolkit · Deployment →</a></td></tr><tr><th scope="row">Technical documentation</th><td>Architecture, interface and request-sequence diagrams for production tools</td><td><a href="projects/sdMaterialTool.html#architecture">Substance Designer plugin · Architecture →</a></td></tr><tr><th scope="row">Collaboration across art, design & engineering</th><td>PM for TA/VFX pipelines on a AAA title. Producer and developer on two multidisciplinary teams</td><td><a href="projects/puppetMystery.html">Puppet Mystery →</a></td></tr><tr><th scope="row">Scripting in C# and engine code</th><td>Additive scene loading, EventSystem drag-and-drop puzzles, recipe validation and branching endings</td><td><a href="projects/puppetMystery.html#code">Puppet Mystery · Code →</a></td></tr><tr><th scope="row">Version control</th><td>Git (this site) and Perforce (current USC team project in Unreal)</td><td><span class="muted">·</span></td></tr></tbody>
+      </table></div>
+    </div>
+  </div>
+</section>
+<section id="about">
+  <div class="wrap">
+    <div class="about-grid">
+      <div class="about-photo reveal"><img src="assets/img/profile.jpg" alt="Portrait of Yolanda Liu"></div>
+      <div class="about-text reveal">
+        <div class="eyebrow">About</div>
+        <h2>An artist’s eye, an engineer’s toolbox, a producer’s instincts.</h2>
+        <p>I’m Yolanda (Liu Xingyan), an MFA student in Interactive Media &amp; Games at USC. I came to games through communications and new media at NUS, and found my place where art and technology meet: building the pipelines, shaders and tools that turn a team’s creative intent into something that runs in real time.</p>
+        <p>A lot of my work draws on Chinese mythology and cultural heritage, like Miao Gu sorcery, Meng Po’s tea of forgetting and ethnic-minority music. Outside the engine, three other crafts feed straight back into how I work as a TA:</p>
+
+        <details class="acc">
+          <summary><span class="ico"><i class="fa-solid fa-shirt"></i></span><div><b>Costume &amp; makeup design</b><span class="s">→ character readability, palette and visual systems</span></div></summary>
+          <div class="acc-body">
+            <p>As Costume &amp; Makeup Head for <em>The Village</em>, I led 29 people to style 33 characters in one period look. As costume designer for <em>The Insanity</em>, I used silhouette and color to separate personalities that still read as one ensemble. It’s the same problem as look-dev: keep one style while every asset stays readable.</p>
+            <div class="thumbs"><img src="assets/img/theVillage/village_01.jpg" alt="Costume portrait" loading="lazy"><img src="assets/img/theVillage/village_03.jpg" alt="Costume portrait" loading="lazy"><img src="assets/img/theVillage/village_05.jpg" alt="Costume portrait" loading="lazy"><img src="assets/img/theInsanity/insanity_04.jpg" alt="Costume portrait" loading="lazy"><img src="assets/img/theInsanity/insanity_10.jpg" alt="Costume portrait" loading="lazy"><img src="assets/img/theInsanity/insanity_11.jpg" alt="Costume portrait" loading="lazy"></div>
+            <a class="btn" href="projects/theVillage.html">See the costume work <i class="fa-solid fa-arrow-right"></i></a>
+          </div>
+        </details>
+
+        <details class="acc">
+          <summary><span class="ico"><i class="fa-solid fa-music"></i></span><div><b>Music &amp; sound</b><span class="s">→ rhythm systems, pacing and feedback</span></div></summary>
+          <div class="acc-body">
+            <p>I composed the original soundtrack and sound effects for <em>Gravitas</em>, a Featured Game at UCSD Triton Ware 2024. Thinking in cues and tempo helped me design rhythm mechanics in <em>Rhythm: Echo of the Disciple</em> and pace a cinematic in <em>The Feeding</em>.</p>
+            <div class="tracks">
+            <div class="track-row"><button class="play" data-audio="assets/audio/gravitas_003_main_menu.mp3" aria-label="Play Main Menu">▶</button><div><b>Main Menu</b><span>Gravitas · original score</span><div class="bar"><i></i></div></div><span class="t"></span></div>
+            <div class="track-row"><button class="play" data-audio="assets/audio/gravitas_005_combat_1.mp3" aria-label="Play Combat I">▶</button><div><b>Combat I</b><span>Gravitas · battle cue</span><div class="bar"><i></i></div></div><span class="t"></span></div>
+            <div class="track-row"><button class="play" data-audio="assets/audio/gravitas_001_interlude.mp3" aria-label="Play Interlude">▶</button><div><b>Interlude</b><span>Gravitas · story beat</span><div class="bar"><i></i></div></div><span class="t"></span></div>
+            </div>
+            <a class="btn" href="projects/gravitas.html">All tracks &amp; SFX <i class="fa-solid fa-arrow-right"></i></a>
+          </div>
+        </details>
+
+        <details class="acc">
+          <summary><span class="ico"><i class="fa-solid fa-masks-theater"></i></span><div><b>Theatre production</b><span class="s">→ budgets, risk and shipping on a fixed date</span></div></summary>
+          <div class="acc-body">
+            <p>As assistant producer for <em>The Insanity</em>, I secured SGD 7,000 in sponsorship, managed the budget and coordinated timelines, resources and risk for a show seen by 600 people. Opening night doesn’t move, which is good practice for milestones.</p>
+            <a class="btn" href="projects/theInsanity.html">Production details <i class="fa-solid fa-arrow-right"></i></a>
+          </div>
+        </details>
+      </div>
+    </div>
+  </div>
+</section><script type="x-shader/x-fragment" id="frag-hero">precision highp float;
+
+uniform vec2  u_resolution;
+uniform float u_time;
+uniform vec2  u_mouse;
+
+float hash(vec2 p) { return fract(sin(dot(p, vec2(127.1, 311.7))) * 43758.5453123); }
+
+float noise(vec2 p) {
+    vec2 i = floor(p), f = fract(p);
+    f = f * f * (3.0 - 2.0 * f);
+    return mix(mix(hash(i),                hash(i + vec2(1.0, 0.0)), f.x),
+               mix(hash(i + vec2(0.0, 1.0)), hash(i + vec2(1.0, 1.0)), f.x), f.y);
+}
+
+float fbm(vec2 p) {
+    float v = 0.0, a = 0.5;
+    for (int i = 0; i < 4; i++) { v += a * noise(p); p = p * 2.05 + 13.7; a *= 0.5; }
+    return v;
+}
+
+void main() {
+    vec2  uv = gl_FragCoord.xy / u_resolution.xy;
+    float aspect = u_resolution.x / u_resolution.y;
+    vec2  p  = vec2(uv.x * aspect, uv.y);
+    vec2  par = (u_mouse - 0.5) * 0.08;
+
+    float t = u_time * 0.035;
+    float f = fbm(p * vec2(1.7, 2.3) + vec2(t, -t * 0.4) + par);
+    f = fbm(p * vec2(2.4, 3.0) + f * 0.9 + vec2(-t * 0.6, t * 0.25));
+
+    // Contour plate: the noise field printed as topographic lines on paper.
+    // Everything below is ink COVERAGE (0 = bare paper, 1 = solid ink); the
+    // colour is chosen once at the end, so the plate reads as one printing.
+    float lines = fract(f * 11.0);                       // repeating height bands
+    float contour = 1.0 - smoothstep(0.02, 0.085, min(lines, 1.0 - lines));
+    float wash = smoothstep(0.34, 0.86, f) * 0.22;       // faint tonal fill
+
+    float ink = contour * 0.5 + wash;
+
+    // A few drifting registration marks, as if the plate were still being set.
+    for (int i = 0; i < 9; i++) {
+        float fi = float(i);
+        float sp = 0.035 + hash(vec2(fi, 4.0)) * 0.075;
+        float x  = hash(vec2(fi, 5.0)) * aspect + sin(u_time * 0.35 + fi * 2.0) * 0.015;
+        float y  = fract(hash(vec2(fi, 6.0)) + u_time * sp);
+        float d  = length((p - vec2(x, y)) * vec2(1.0, 0.85));
+        ink += smoothstep(0.0075, 0.0, d) * 0.85;
+    }
+
+    // Fade the plate off the top and bottom edges so it sits inside the page.
+    ink *= smoothstep(1.02, 0.30, uv.y) * smoothstep(-0.05, 0.42, uv.y);
+    ink = clamp(ink, 0.0, 1.0);
+
+    // Terracotta where the ink is thick, indigo in the thin passes.
+    vec3 hue = mix(vec3(0.27, 0.25, 0.48), vec3(0.66, 0.26, 0.17), smoothstep(0.1, 0.7, ink));
+    gl_FragColor = vec4(hue, ink * 0.55);
+}</script>
+<script type="x-shader/x-fragment" id="frag-orb">precision highp float;
+
+uniform vec2  u_resolution;
+uniform float u_time;
+uniform vec2  u_mouse;
+uniform vec3  u_base;     // linear albedo (metals: measured F0)
+uniform float u_rough;    // perceptual roughness
+uniform float u_metal;
+uniform float u_detail;   // micro-surface normal strength
+uniform float u_coat;     // clear coat over the base layer
+
+const float PI = 3.14159265;
+
+// --- micro-surface ---------------------------------------------------------
+float hash(vec2 p) { return fract(sin(dot(p, vec2(127.1, 311.7))) * 43758.5453123); }
+
+float noise(vec2 p) {
+    vec2 i = floor(p), f = fract(p);
+    f = f * f * (3.0 - 2.0 * f);
+    return mix(mix(hash(i),                hash(i + vec2(1.0, 0.0)), f.x),
+               mix(hash(i + vec2(0.0, 1.0)), hash(i + vec2(1.0, 1.0)), f.x), f.y);
+}
+
+float fbm(vec2 p) {
+    float v = 0.0, a = 0.5;
+    for (int i = 0; i < 4; i++) { v += a * noise(p); p = p * 2.13 + 4.7; a *= 0.5; }
+    return v;
+}
+
+// --- Cook-Torrance ---------------------------------------------------------
+float D_GGX(float NoH, float a) {
+    float a2 = a * a;
+    float d  = NoH * NoH * (a2 - 1.0) + 1.0;
+    return a2 / (PI * d * d);
+}
+
+// Height-correlated Smith visibility: V = G / (4 NoL NoV), so the 4 NoL NoV
+// denominator is already folded in and cannot blow up at grazing angles.
+float V_SmithGGX(float NoV, float NoL, float a) {
+    float a2 = a * a;
+    float lv = NoL * sqrt(NoV * NoV * (1.0 - a2) + a2);
+    float ll = NoV * sqrt(NoL * NoL * (1.0 - a2) + a2);
+    return 0.5 / max(lv + ll, 1e-5);
+}
+
+vec3 F_Schlick(float VoH, vec3 f0) {
+    return f0 + (1.0 - f0) * pow(1.0 - VoH, 5.0);
+}
+
+// Karis' analytic fit to the split-sum environment BRDF, so the ambient
+// specular obeys the same energy rules as the direct lobe.
+vec2 envBRDF(float NoV, float rough) {
+    vec4 c0 = vec4(-1.0, -0.0275, -0.572,  0.022);
+    vec4 c1 = vec4( 1.0,  0.0425,  1.040, -0.040);
+    vec4 r  = rough * c0 + c1;
+    float a004 = min(r.x * r.x, exp2(-9.28 * NoV)) * r.x + r.y;
+    return vec2(-1.04, 1.04) * a004 + r.zw;
+}
+
+// A small studio. Kept low in contrast on purpose: a mirror sphere maps the
+// whole environment across its surface, so a hard sky/floor split shows up as
+// a hard line straight across the equator. The energy lives in the lights.
+vec3 environment(vec3 d, float rough) {
+    float t = clamp(d.y * 0.5 + 0.5, 0.0, 1.0);
+    vec3 grnd = vec3(0.085, 0.082, 0.080);
+    vec3 mid  = vec3(0.300, 0.295, 0.290);
+    vec3 sky  = vec3(0.520, 0.545, 0.620);
+
+    vec3 c = mix(grnd, mid, smoothstep(0.02, 0.62, t));
+    c = mix(c, sky, smoothstep(0.42, 1.00, t));
+
+    // key and fill, widening as roughness rises
+    vec3 key  = normalize(vec3(-0.45, 0.72, 0.55));
+    vec3 fill = normalize(vec3( 0.82, 0.10, 0.45));
+    c += vec3(1.00, 0.96, 0.88) * pow(max(dot(d, key),  0.0), mix(340.0, 3.0, rough)) * mix(11.0, 0.9, rough);
+    c += vec3(0.58, 0.68, 0.88) * pow(max(dot(d, fill), 0.0), mix(40.0,  2.0, rough)) * mix(1.1, 0.35, rough);
+
+    return mix(c, vec3(0.255, 0.258, 0.272), rough * 0.45);   // average out when rough
+}
+
+vec3 tonemap(vec3 x) {          // ACES approximation
+    return clamp((x * (2.51 * x + 0.03)) / (x * (2.43 * x + 0.59) + 0.14), 0.0, 1.0);
+}
+
+void main() {
+    vec2  res = u_resolution.xy;
+    vec2  p   = (gl_FragCoord.xy * 2.0 - res) / min(res.x, res.y);
+    p.y -= 0.06;                                   // room for the contact shadow
+
+    float R = 0.80;
+    float d = length(p);
+
+    // Contact shadow on the paper, drawn first so the orb sits on it.
+    float sh = 1.0 - smoothstep(0.0, 0.60, length((p - vec2(0.06, -0.86)) * vec2(0.82, 3.1)));
+    vec3  col   = vec3(0.10, 0.09, 0.08);
+    float alpha = sh * 0.22;
+
+    if (d < R) {
+        float z = sqrt(max(R * R - d * d, 0.0)) / R;
+        vec3  n = normalize(vec3(p / R, z));        // analytic sphere normal
+        vec3  v = vec3(0.0, 0.0, 1.0);              // orthographic view
+
+        // --- micro-surface: perturb the normal and vary roughness per pixel.
+        // A perfectly smooth ball is the thing that reads as CG; real surfaces
+        // break the highlight up at a scale far below the silhouette.
+        vec2  uvs  = p * 7.0;
+        float e    = 0.010;
+        float hC   = fbm(uvs);
+        float hX   = fbm(uvs + vec2(e, 0.0));
+        float hY   = fbm(uvs + vec2(0.0, e));
+        vec3  t    = normalize(cross(vec3(0.0, 1.0, 0.0), n));
+        vec3  b    = cross(n, t);
+        n = normalize(n + (t * (hC - hX) + b * (hC - hY)) * (u_detail * 150.0));
+
+        float rough = clamp(u_rough + (hC - 0.5) * u_detail * 2.4, 0.035, 1.0);
+        float a     = rough * rough;
+
+        // Key light follows the cursor; it idles in a slow drift when untouched.
+        vec2  m = u_mouse - 0.5;
+        vec3  l = normalize(vec3(m.x * 2.2 + sin(u_time * 0.25) * 0.22 - 0.35,
+                                 m.y * 1.8 + 0.50 + cos(u_time * 0.21) * 0.12,
+                                 0.90));
+        vec3  h = normalize(l + v);
+
+        float NoL = max(dot(n, l), 0.0);
+        float NoV = max(dot(n, v), 1e-4);
+        float NoH = max(dot(n, h), 0.0);
+        float VoH = max(dot(v, h), 0.0);
+
+        // Dielectrics reflect ~4% head-on; metals reflect their own colour and
+        // have no diffuse lobe at all.
+        vec3  f0   = mix(vec3(0.04), u_base, u_metal);
+        vec3  diff = u_base * (1.0 - u_metal);
+        vec3  F    = F_Schlick(VoH, f0);
+        float spec = D_GGX(NoH, a) * V_SmithGGX(NoV, NoL, a);
+        vec3  kd   = (1.0 - F) * (1.0 - u_metal);
+
+        vec3 direct = (kd * diff / PI + F * spec) * NoL * vec3(1.0, 0.97, 0.92) * 3.4;
+
+        // --- ambient, split-sum -------------------------------------------
+        vec3  r  = reflect(-v, n);
+        // Horizon occlusion: a reflection that points into the surface would
+        // otherwise pick up light the geometry cannot actually see.
+        float ho = clamp(1.0 + 1.6 * dot(r, n), 0.0, 1.0); ho *= ho;
+
+        vec2 dfg = envBRDF(NoV, rough);
+        vec3 specColor = f0 * dfg.x + dfg.y;
+        // Multi-scatter compensation: a single-scatter BRDF loses energy as
+        // roughness rises, which is why rough metals look dull without it.
+        vec3 energy = 1.0 + f0 * (1.0 / max(dfg.x, 1e-3) - 1.0);
+
+        vec3 irradiance = environment(n, 1.0);
+        vec3 radiance   = environment(r, rough) * ho;
+
+        vec3 ambient = kd * diff * irradiance * 0.36
+                     + radiance * specColor * energy;
+
+        vec3 orb = direct + ambient;
+
+        // --- clear coat: a second, always-smooth dielectric lobe on top ----
+        if (u_coat > 0.001) {
+            vec3  cn  = normalize(vec3(p / R, z));      // coat ignores the micro-normal
+            vec3  ch  = normalize(l + v);
+            float cNoH = max(dot(cn, ch), 0.0);
+            float cNoV = max(dot(cn, v), 1e-4);
+            float cNoL = max(dot(cn, l), 0.0);
+            float ca  = 0.055 * 0.055;
+            float cF  = 0.04 + 0.96 * pow(1.0 - VoH, 5.0);
+            float cs  = D_GGX(cNoH, ca) * V_SmithGGX(cNoV, cNoL, ca);
+            vec3  cr  = environment(reflect(-v, cn), 0.06);
+            orb *= 1.0 - cF * u_coat;                   // coat absorbs what it reflects
+            orb += (cs * cNoL * 3.4 + cr * 0.35) * cF * u_coat;
         }
 
-        // --- Scroll Animation Logic ---
-        const sections = document.querySelectorAll('.profile-section, .links-section');
+        float edge = smoothstep(R, R - 0.007, d);   // antialias the silhouette
+        col   = mix(col, tonemap(orb), edge);
+        alpha = mix(alpha, 1.0, edge);
+    }
 
-        const scrollObserver = new IntersectionObserver((entries, observer) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('is-visible');
-                    observer.unobserve(entry.target);
-                }
-            });
-        }, { threshold: 0.1 });
-
-        sections.forEach(section => {
-            scrollObserver.observe(section);
-        });
-    });
-    </script>
-
-    <footer class="footer">
-        <p>&copy; 2025 Yolanda Liu | All Rights Reserved</p>
-        <p class="contact-text"><a href="https://drive.google.com/file/d/1VtxyaNnFvg7M4eTvH7OLGXI6QuSb3IWa/view?usp=sharing" target="_blank" rel="noopener noreferrer">View my Curriculum Vitae</a></p>
-        <p class="contact-text">Contact</p>
-        <div class="footer-social">
-            <a href="https://www.linkedin.com/in/liu-xingyan-yolanda6" target="_blank" class="social-icon"><i class="fab fa-linkedin"></i></a>
-            <a href="mailto:yolandaliuxy@outlook.com" class="social-icon"><i class="fas fa-envelope"></i></a>
-        </div>
-    </footer>
-    <script src="assets/js/main.js"></script>
+    gl_FragColor = vec4(pow(col, vec3(0.4545)), alpha);
+}</script>
+<footer class="footer" id="contact">
+  <div class="wrap">
+    <div class="footer-grid">
+      <div>
+        <h3>Let’s build better art pipelines.</h3>
+        <p>Open to Technical Art roles &amp; collaborations – <a href="mailto:xingyan@usc.edu" style="color:var(--accent)">xingyan@usc.edu</a></p>
+      </div>
+      <div class="socials">
+        <a href="mailto:xingyan@usc.edu" aria-label="Email"><i class="fa-solid fa-envelope"></i></a>
+        <a href="https://www.linkedin.com/in/liu-xingyan-yolanda6" target="_blank" rel="noopener" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+        <a href="https://yollienarae.itch.io" target="_blank" rel="noopener" aria-label="itch.io"><i class="fa-brands fa-itch-io"></i></a>
+        <a href="resume.html" aria-label="Resume"><i class="fa-solid fa-file-lines"></i></a>
+      </div>
+    </div>
+    <div class="copyright">© 2026 Yolanda Liu · All rights reserved</div>
+  </div>
+</footer>
+<script src="assets/js/gl.js"></script>
+<script src="assets/js/site.js"></script>
 </body>
 </html>

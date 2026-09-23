@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gravitas · Yolanda Liu, Technical Artist</title>
+<meta name="description" content="How did I score and sound-design a pixel tower-defense game so that every game state has its own identity, and pace its story between battles?">
+<meta property="og:title" content="Gravitas · Yolanda Liu, Technical Artist">
+<meta property="og:description" content="How did I score and sound-design a pixel tower-defense game so that every game state has its own identity, and pace its story between battles?">
+<meta name="theme-color" content="#F2EEE6">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><rect width='64' height='64' fill='%23F2EEE6'/><text x='32' y='44' font-family='Georgia,serif' font-size='34' text-anchor='middle' fill='%23A8412A'>YL</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..700;1,9..144,300..700&family=Inter:wght@300..600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/css/site.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body>
+<nav class="nav">
+  <div class="wrap">
+    <a class="brand" href="../index.html">
+      <span class="brand-text">Yolanda Liu<small>TECHNICAL ARTIST &amp; PRODUCER</small></span>
+    </a>
+    <button class="nav-toggle" aria-label="Menu"><i class="fa-solid fa-bars"></i></button>
+    <ul class="nav-links">
+      <li><a href="../index.html#professional">Professional Work</a></li>
+      <li class="has-menu"><a href="../index.html#work">Projects</a><div class="menu"><div class="grp"><small>Rendering & Shading</small><a href="../projects/theFeeding.html">The Feeding<span>UE 5.6 · PCG, materials, lighting</span></a><a href="../projects/rhythmEcho.html">Rhythm: Echo of the Disciple<span>Lighting, skybox, optimization</span></a><a href="../projects/bubbleFactory.html">Bubble Factory<span>Shader Graph bubbles · URP materials</span></a></div><div class="grp"><small>Tools & AI Pipeline</small><a href="../projects/sdMaterialTool.html">Tiling Material Generator<span>Substance 3D Designer plugin · PBR maps</span></a><a href="../projects/psAiToolkit.html">AI Creative Toolkit<span>Photoshop UXP plugin · 11 features</span></a><a href="../projects/travelTrove.html">TravelTrove<span>Stylized concept-art workflow</span></a></div><div class="grp"><small>Gameplay Systems</small><a href="../projects/riverOfForgetting.html">River of Forgetting<span>Unity · brewing & endings</span></a><a href="../projects/brokenStage.html">Broken Stage<span>Unity · puzzle systems</span></a><a href="../projects/puppetMystery.html">Puppet Mystery<span>Unity · lead dev & producer</span></a></div><div class="grp"><small>Beyond the Engine</small><a href="../projects/gravitas.html">Gravitas<span>Audio & narrative design</span></a><a href="../projects/theVillage.html">The Village<span>Costume & makeup head · 33 characters</span></a><a href="../projects/theInsanity.html">The Insanity<span>Costume design & production</span></a></div><div class="grp"><small>Written by hand</small><a href="../shaders.html">Shader Lab<span>Live GLSL: fog, PBR, water, bubble, POM, dissolve</span></a></div></div></li>
+      <li><a href="../shaders.html">Shader Lab</a></li>
+      <li><a href="../index.html#skills">Skills</a></li>
+      <li><a href="../index.html#about">About</a></li>
+      <li><a href="../resume.html">Resume</a></li>
+      <li><a class="btn-nav" href="../resume.html#contact-top">Contact</a></li>
+    </ul>
+  </div>
+</nav>
+
+<header class="p-hero h-wide">
+  <div class="wrap">
+    <div class="crumbs"><a href="../index.html#work">Work</a> / <a href="../index.html#work-beyond">Beyond the Engine</a> / Gravitas</div>
+    <span class="tag beyond">Beyond the Engine</span>
+    <h1>Gravitas</h1>
+    <p class="q">How did I score and sound-design a pixel tower-defense game so that every game state has its own identity, and pace its story between battles?</p>
+    <div class="tags"><span class="tag">Original soundtrack</span><span class="tag">Sound design</span><span class="tag">Narrative design</span><span class="tag">Unity</span><span class="tag">Game jam</span></div>
+  </div>
+  <div class="bg"><img src="../assets/img/gravitas/gameplay_01.jpg" alt="Gravitas key visual"></div>
+</header>
+<div class="wrap">
+  <div class="facts"><div><small>Role</small><span>Audio Designer · Narrative Designer</span></div><div><small>Year</small><span>2024</span></div><div><small>Event</small><span>UCSD Triton Ware · Featured Game</span></div><div><small>Genre</small><span>Pixel tower defense</span></div><div><small>Deliverables</small><span>11 music cues + SFX set</span></div></div>
+  <div class="p-links"><a class="btn primary" href="https://misakizzzzz.itch.io/gravitas" target="_blank" rel="noopener"><i class="fa-brands fa-itch-io"></i> Play on itch.io</a></div>
+  <div class="p-layout">
+    <aside class="toc">
+      <h4>On this page</h4>
+      <ol><li><a href="#overview">Overview</a></li><li><a href="#contributions">My contributions</a></li><li><a href="#music">Soundtrack</a></li><li><a href="#sfx">Sound effects</a></li><li><a href="#challenges">Challenges & solutions</a></li><li><a href="#ta-link">Why it matters for technical art</a></li></ol>
+      <div class="next-proj"><a href="theVillage.html"><small>NEXT PROJECT</small>The Village →</a></div>
+    </aside>
+    <main class="p-content">
+      <div class="ta-box reveal"><h3><i class="fa-solid fa-bolt"></i> Technical art highlights</h3><ul><li>Original score mapped to game states</li><li>Readable SFX for dense combat</li><li>Narrative pacing between battles</li><li>Unity-ready audio delivery</li></ul></div>
+      
+<section class="p-sec" id="overview"><h2><span class="n">01</span>Overview</h2>
+
+<p class="lead"><em>Gravitas</em> is a pixel-art tower-defense game. You play a hero who summons allies onto a gravity-controlled battlefield to save a magic world and restore the balance between light and darkness. It was selected as a <strong>Featured Game at UCSD Triton Ware (Fall 2024)</strong>.</p>
+<p>I was the team’s <strong>Audio Designer and Narrative Designer</strong>. I composed the original soundtrack and sound effects, and co-designed the narrative and gameplay pacing that frame each battle.</p>
+<figure class="fig reveal"><img src="../assets/img/gravitas/background.jpg" alt="Gravitas key art" width="1800" height="1013" loading="lazy"><figcaption>Gravitas key art</figcaption></figure>
+
+</section>
+<section class="p-sec" id="contributions"><h2><span class="n">02</span>My contributions</h2>
+<div class="contrib"><div class="c reveal"><h4><i class="fa-solid fa-music"></i>Original soundtrack</h4><p>Composed the score: main menu, interlude, several combat cues of rising intensity, tarot and magic-book themes, a death cue and the ending.</p></div><div class="c reveal"><h4><i class="fa-solid fa-wave-square"></i>Sound effects</h4><p>Created UI and combat feedback such as pawn placement, melee, archer, magic, dragon fire, hits and clicks.</p></div><div class="c reveal"><h4><i class="fa-solid fa-feather"></i>Narrative design</h4><p>Co-designed the story frame (the light/dark balance, the wizard’s tarot readings) and how story beats pace the battles.</p></div><div class="c reveal"><h4><i class="fa-solid fa-sliders"></i>Implementation-ready audio</h4><p>Delivered cues as discrete Unity-ready clips so each game state could trigger its own music and SFX.</p></div></div>
+</section>
+<section class="p-sec" id="music"><h2><span class="n">03</span>Soundtrack</h2>
+
+<p>Each game state gets its own musical identity, so players always know where they are: calm at the menu, tension rising through the combat cues, mystery for the tarot and magic-book moments. Excerpts are 60 seconds.</p>
+<div class="tracks reveal"><div class="track-row"><button class="play" data-audio="../assets/audio/gravitas_003_main_menu.mp3" aria-label="Play Main Menu">▶</button><div><b>Main Menu</b><span>Title theme</span><div class="bar"><i></i></div></div><span class="t"></span></div><div class="track-row"><button class="play" data-audio="../assets/audio/gravitas_001_interlude.mp3" aria-label="Play Interlude">▶</button><div><b>Interlude</b><span>Story beat between battles</span><div class="bar"><i></i></div></div><span class="t"></span></div><div class="track-row"><button class="play" data-audio="../assets/audio/gravitas_005_combat_1.mp3" aria-label="Play Combat I">▶</button><div><b>Combat I</b><span>Opening battle</span><div class="bar"><i></i></div></div><span class="t"></span></div><div class="track-row"><button class="play" data-audio="../assets/audio/gravitas_007_combat_2.mp3" aria-label="Play Combat II">▶</button><div><b>Combat II</b><span>Escalation</span><div class="bar"><i></i></div></div><span class="t"></span></div><div class="track-row"><button class="play" data-audio="../assets/audio/gravitas_009_combat_4.mp3" aria-label="Play Combat IV">▶</button><div><b>Combat IV</b><span>Late-game battle</span><div class="bar"><i></i></div></div><span class="t"></span></div><div class="track-row"><button class="play" data-audio="../assets/audio/gravitas_012_tarot.mp3" aria-label="Play Tarot">▶</button><div><b>Tarot</b><span>Fate-reading scene</span><div class="bar"><i></i></div></div><span class="t"></span></div><div class="track-row"><button class="play" data-audio="../assets/audio/gravitas_010_magic_book.mp3" aria-label="Play Magic Book">▶</button><div><b>Magic Book</b><span>Wizard encounter</span><div class="bar"><i></i></div></div><span class="t"></span></div><div class="track-row"><button class="play" data-audio="../assets/audio/gravitas_017_dead.mp3" aria-label="Play Defeat">▶</button><div><b>Defeat</b><span>Death cue</span><div class="bar"><i></i></div></div><span class="t"></span></div><div class="track-row"><button class="play" data-audio="../assets/audio/gravitas_002_game_end.mp3" aria-label="Play Game End">▶</button><div><b>Game End</b><span>Ending theme</span><div class="bar"><i></i></div></div><span class="t"></span></div></div>
+
+</section>
+<section class="p-sec" id="sfx"><h2><span class="n">04</span>Sound effects</h2>
+
+<p>Short, readable feedback matters on a busy pixel battlefield. Click to play:</p>
+<div class="sfx"><button data-audio="../assets/audio/gravitas_019_place_pawn.mp3" data-label="♪ Place pawn">♪ Place pawn</button><button data-audio="../assets/audio/gravitas_011_melee.mp3" data-label="♪ Melee">♪ Melee</button><button data-audio="../assets/audio/gravitas_008_archer.mp3" data-label="♪ Archer">♪ Archer</button><button data-audio="../assets/audio/gravitas_014_magica.mp3" data-label="♪ Magic">♪ Magic</button><button data-audio="../assets/audio/gravitas_016_dragon_fire.mp3" data-label="♪ Dragon fire">♪ Dragon fire</button><button data-audio="../assets/audio/gravitas_015_get_hit.mp3" data-label="♪ Get hit">♪ Get hit</button><button data-audio="../assets/audio/gravitas_004_stone.mp3" data-label="♪ Stone">♪ Stone</button><button data-audio="../assets/audio/gravitas_020_klee.mp3" data-label="♪ Character voice">♪ Character voice</button><button data-audio="../assets/audio/gravitas_013_click.mp3" data-label="♪ UI click">♪ UI click</button></div>
+<div class="gallery g3  reveal" style="--ar:16/9"><figure><img src="../assets/img/gravitas/gameplay_01.jpg" alt="Battlefield: summon and place units" width="1800" height="1013" loading="lazy"><figcaption>Battlefield: summon and place units</figcaption></figure><figure><img src="../assets/img/gravitas/gameplay_02.jpg" alt="The wizard's narrative encounter" width="1800" height="1013" loading="lazy"><figcaption>The wizard’s narrative encounter</figcaption></figure><figure><img src="../assets/img/gravitas/gameplay_03.jpg" alt="Tarot draw: upright blessings, reversed challenges" width="1800" height="1013" loading="lazy"><figcaption>Tarot draw: upright blessings, reversed challenges</figcaption></figure></div>
+
+</section>
+<section class="p-sec" id="challenges"><h2><span class="n">05</span>Challenges & solutions</h2>
+<div class="cs"><div class="cs-item reveal"><div class="ch"><small>Challenge</small><h4>Keeping long battles from feeling repetitive</h4><p>Tower-defense rounds run long, and one battle loop quickly wears thin.</p></div><div class="so"><small>Solution</small><h4>A family of combat cues</h4><p>Wrote several combat tracks of increasing intensity, so the music escalates with the game instead of looping one theme.</p></div></div><div class="cs-item reveal"><div class="ch"><small>Challenge</small><h4>Feedback on a crowded screen</h4><p>Dozens of pixel units act at once, and players need to know what their input did.</p></div><div class="so"><small>Solution</small><h4>Distinct, short SFX per action</h4><p>Gave placing, attacking, casting and taking damage their own short sounds so the soundscape stays readable.</p></div></div><div class="cs-item reveal"><div class="ch"><small>Challenge</small><h4>Story that doesn’t interrupt play</h4><p>Narrative had to frame the light/dark conflict without stalling the strategy loop.</p></div><div class="so"><small>Solution</small><h4>Story at natural breaks</h4><p>Placed story beats (interludes, the wizard, tarot readings) between battles, each with its own musical cue.</p></div></div></div>
+</section>
+<section class="p-sec" id="ta-link"><h2><span class="n">06</span>Why it matters for technical art</h2>
+<ul><li>Audio taught me to design for <strong>game states</strong> and triggers, the same way I think about lighting states and VFX cues.</li><li>Composing for pacing is why I can build rhythm systems (<a href='rhythmEcho.html' style='color:var(--accent)'>Rhythm</a>) and time cameras and sound in cinematics (<a href='theFeeding.html' style='color:var(--accent)'>The Feeding</a>).</li></ul>
+</section>
+      
+    <div class="p-next">
+      <a href="puppetMystery.html"><small>← PREVIOUS</small><b>Puppet Mystery</b></a>
+      <a class="r" href="theVillage.html"><small>NEXT PROJECT →</small><b>The Village</b></a>
+    </div>
+    </main>
+  </div>
+</div>
+<footer class="footer" id="contact">
+  <div class="wrap">
+    <div class="footer-grid">
+      <div>
+        <h3>Let’s build better art pipelines.</h3>
+        <p>Open to Technical Art roles &amp; collaborations – <a href="mailto:xingyan@usc.edu" style="color:var(--accent)">xingyan@usc.edu</a></p>
+      </div>
+      <div class="socials">
+        <a href="mailto:xingyan@usc.edu" aria-label="Email"><i class="fa-solid fa-envelope"></i></a>
+        <a href="https://www.linkedin.com/in/liu-xingyan-yolanda6" target="_blank" rel="noopener" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+        <a href="https://yollienarae.itch.io" target="_blank" rel="noopener" aria-label="itch.io"><i class="fa-brands fa-itch-io"></i></a>
+        <a href="../resume.html" aria-label="Resume"><i class="fa-solid fa-file-lines"></i></a>
+      </div>
+    </div>
+    <div class="copyright">© 2026 Yolanda Liu · All rights reserved</div>
+  </div>
+</footer>
+<script src="../assets/js/gl.js"></script>
+<script src="../assets/js/site.js"></script>
+</body>
+</html>

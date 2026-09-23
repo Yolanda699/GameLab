@@ -1,0 +1,5 @@
+_canva_exports/
+.DS_Store
+build/__pycache__/
+_notes/
+_preview/

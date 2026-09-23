@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Creative Toolkit for Photoshop · Yolanda Liu, Technical Artist</title>
+<meta name="description" content="How do you put eleven AI capabilities inside Photoshop without ever costing an artist a layer, and keep a large team on the same build?">
+<meta property="og:title" content="AI Creative Toolkit for Photoshop · Yolanda Liu, Technical Artist">
+<meta property="og:description" content="How do you put eleven AI capabilities inside Photoshop without ever costing an artist a layer, and keep a large team on the same build?">
+<meta name="theme-color" content="#F2EEE6">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><rect width='64' height='64' fill='%23F2EEE6'/><text x='32' y='44' font-family='Georgia,serif' font-size='34' text-anchor='middle' fill='%23A8412A'>YL</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..700;1,9..144,300..700&family=Inter:wght@300..600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/css/site.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body>
+<nav class="nav">
+  <div class="wrap">
+    <a class="brand" href="../index.html">
+      <span class="brand-text">Yolanda Liu<small>TECHNICAL ARTIST &amp; PRODUCER</small></span>
+    </a>
+    <button class="nav-toggle" aria-label="Menu"><i class="fa-solid fa-bars"></i></button>
+    <ul class="nav-links">
+      <li><a href="../index.html#professional">Professional Work</a></li>
+      <li class="has-menu"><a href="../index.html#work">Projects</a><div class="menu"><div class="grp"><small>Rendering & Shading</small><a href="../projects/theFeeding.html">The Feeding<span>UE 5.6 · PCG, materials, lighting</span></a><a href="../projects/rhythmEcho.html">Rhythm: Echo of the Disciple<span>Lighting, skybox, optimization</span></a><a href="../projects/bubbleFactory.html">Bubble Factory<span>Shader Graph bubbles · URP materials</span></a></div><div class="grp"><small>Tools & AI Pipeline</small><a href="../projects/sdMaterialTool.html">Tiling Material Generator<span>Substance 3D Designer plugin · PBR maps</span></a><a href="../projects/psAiToolkit.html">AI Creative Toolkit<span>Photoshop UXP plugin · 11 features</span></a><a href="../projects/travelTrove.html">TravelTrove<span>Stylized concept-art workflow</span></a></div><div class="grp"><small>Gameplay Systems</small><a href="../projects/riverOfForgetting.html">River of Forgetting<span>Unity · brewing & endings</span></a><a href="../projects/brokenStage.html">Broken Stage<span>Unity · puzzle systems</span></a><a href="../projects/puppetMystery.html">Puppet Mystery<span>Unity · lead dev & producer</span></a></div><div class="grp"><small>Beyond the Engine</small><a href="../projects/gravitas.html">Gravitas<span>Audio & narrative design</span></a><a href="../projects/theVillage.html">The Village<span>Costume & makeup head · 33 characters</span></a><a href="../projects/theInsanity.html">The Insanity<span>Costume design & production</span></a></div><div class="grp"><small>Written by hand</small><a href="../shaders.html">Shader Lab<span>Live GLSL: fog, PBR, water, bubble, POM, dissolve</span></a></div></div></li>
+      <li><a href="../shaders.html">Shader Lab</a></li>
+      <li><a href="../index.html#skills">Skills</a></li>
+      <li><a href="../index.html#about">About</a></li>
+      <li><a href="../resume.html">Resume</a></li>
+      <li><a class="btn-nav" href="../resume.html#contact-top">Contact</a></li>
+    </ul>
+  </div>
+</nav>
+
+<header class="p-hero h-inset">
+  <div class="wrap">
+    <div class="crumbs"><a href="../index.html#work">Work</a> / <a href="../index.html#work-pipeline">Tools & AI Pipeline</a> / AI Creative Toolkit for Photoshop</div>
+    <span class="tag pipeline">Tools & AI Pipeline</span>
+    <h1 class="long">AI Creative Toolkit for Photoshop</h1>
+    <p class="q">How do you put eleven AI capabilities inside Photoshop without ever costing an artist a layer, and keep a large team on the same build?</p>
+    <div class="tags"><span class="tag">Photoshop UXP API</span><span class="tag">JavaScript</span><span class="tag">ComfyUI</span><span class="tag">Multimodal VLM</span><span class="tag">Inpainting</span><span class="tag">Depth masks</span></div>
+  </div>
+  <div class="bg"><img src="../assets/img/psAiToolkit/ps_hero.jpg" alt="AI Creative Toolkit for Photoshop key visual"></div>
+</header>
+<div class="wrap">
+  <div class="facts"><div><small>Role</small><span>Technical Artist, Tools &amp; Pipeline</span></div><div><small>Studio</small><span>Tencent Games · TiMi J3 · <em>Delta Force</em></span></div><div><small>Year</small><span>2026</span></div><div><small>Stack</small><span>UXP (JS), Python services, ComfyUI</span></div><div><small>Users</small><span>Production art team</span></div></div>
+  <div class="p-links"></div>
+  <div class="p-layout">
+    <aside class="toc">
+      <h4>On this page</h4>
+      <ol><li><a href="#overview">Overview</a></li><li><a href="#contributions">My contributions</a></li><li><a href="#pipeline">Technical pipeline</a></li><li><a href="#features">Core features</a></li><li><a href="#deployment">Deployment & update management</a></li><li><a href="#challenges">Challenges & solutions</a></li><li><a href="#takeaways">What I learned</a></li></ol>
+      <div class="next-proj"><a href="travelTrove.html"><small>NEXT PROJECT</small>TravelTrove →</a></div>
+    </aside>
+    <main class="p-content">
+      <div class="ta-box reveal"><h3><i class="fa-solid fa-bolt"></i> Technical art highlights</h3><ul><li>Shipped a production Photoshop extension on the UXP API</li><li>Routed 6+ AI providers and ComfyUI workflows behind one interface</li><li>Built non-destructive layer output and local depth-mask tooling</li><li>Co-designed versioning with silent hotfixes for a large team</li></ul></div>
+      
+<section class="p-sec" id="overview"><h2><span class="n">01</span>Overview</h2>
+
+<p class="lead">A <strong>Photoshop</strong> extension that turns the application into a unified AI-assisted concept environment: generation, instruction-based editing, inpainting, canvas expansion, segmentation, upscaling and image analysis, all returning as ordinary editable layers.</p>
+<p>Before it existed, artists bounced between Photoshop, web AI services and internal utilities, so nobody used the same model for the same job and every result had to be re-imported by hand. The extension standardizes AI use across the team and keeps the output non-destructive.</p>
+<div class="stat-row"><div><b>11</b><span>AI features in one panel</span></div><div><b>6+</b><span>Providers & workflows routed</span></div><div><b>2-level</b><span>Update & hotfix system</span></div><div><b>0</b><span>Overwritten layers</span></div></div>
+<p class="note">Built March – July 2026 at Tencent Games · TiMi J3 Studio · <em>Delta Force</em>. Confidential information has been excluded.</p>
+
+</section>
+<section class="p-sec" id="contributions"><h2><span class="n">02</span>My contributions</h2>
+<div class="contrib"><div class="c reveal"><h4><i class="fa-brands fa-js"></i>Plugin development</h4><p>Built the panel against the Photoshop UXP API so every result arrives positioned, scaled and named as a new layer.</p></div><div class="c reveal"><h4><i class="fa-solid fa-route"></i>Task routing</h4><p>Split traffic between an internal corporate AI platform for general tasks and a studio-managed ComfyUI service for specialized ones such as background removal.</p></div><div class="c reveal"><h4><i class="fa-solid fa-scissors"></i>Local Photoshop processing</h4><p>Kept masks, canvas prep, layer placement, compression and depth-based selection inside Photoshop wherever a round trip wasn’t needed.</p></div><div class="c reveal"><h4><i class="fa-solid fa-flask"></i>Model research & selection</h4><p>Evaluated models and ComfyUI workflows per feature, then wrapped them behind one consistent set of controls.</p></div><div class="c reveal"><h4><i class="fa-solid fa-rotate"></i>Deployment</h4><p>Co-designed a centralized version system with silent JS hotfixes and mandatory installer updates for a large art team.</p></div></div>
+</section>
+<section class="p-sec" id="pipeline"><h2><span class="n">03</span>Technical pipeline</h2>
+
+<figure class="fig reveal"><img src="../assets/img/psAiToolkit/ps_hero.jpg" alt="The extension brings concept generation, intelligent editing, segmentation, expansion and analysis into one panel." width="2200" height="1516" loading="lazy"><figcaption>The extension brings concept generation, intelligent editing, segmentation, expansion and analysis into one panel.</figcaption></figure>
+<div class="gallery g2 contain reveal" style="--ar:3/1"><figure><img src="../assets/img/psAiToolkit/ps_traditional.jpg" alt="Traditional workflow: many external tools" width="2200" height="633" loading="lazy"><figcaption>Traditional workflow: many external tools</figcaption></figure><figure><img src="../assets/img/psAiToolkit/ps_new.jpg" alt="New workflow: one extension inside Photoshop" width="2181" height="722" loading="lazy"><figcaption>New workflow: one extension inside Photoshop</figcaption></figure></div>
+<p>The plugin doesn’t run models locally. It packages prompts, source images, masks, references and settings into standardized requests, routes them, then decodes the response, writes it to a temp file and imports it via the UXP API – <strong>always as a new layer</strong>, so artists keep working non-destructively.</p>
+<figure class="fig reveal"><img src="../assets/img/psAiToolkit/ps_pipeline.jpg" alt="Artist input → UXP plugin → request preparation (validation, compression, format conversion) → task router → AI platform or ComfyUI service → response parsing → editable Photoshop layers." width="2200" height="197" loading="lazy"><figcaption>Artist input → UXP plugin → request preparation (validation, compression, format conversion) → task router → AI platform or ComfyUI service → response parsing → editable Photoshop layers.</figcaption></figure>
+<ul>
+  <li><strong>Unified model routing:</strong> multiple providers and API formats sit behind one interface, so models can be swapped without changing the artist workflow.</li>
+  <li><strong>Provider-specific processing:</strong> the plugin absorbs each provider’s request structure, output format, size limit and mask convention.</li>
+  <li><strong>Non-destructive output:</strong> results are always new layers, never overwrites.</li>
+  <li><strong>Local processing:</strong> masks, canvas prep, layer placement, compression and depth-based selection run inside Photoshop wherever possible.</li>
+</ul>
+
+</section>
+<section class="p-sec" id="features"><h2><span class="n">04</span>Core features</h2>
+
+<div class="gallery g3  reveal" style="--ar:16/10"><figure><img src="../assets/img/psAiToolkit/ps_t2i.jpg" alt="Text to Image: concepts from natural-language prompts" width="985" height="597" loading="lazy"><figcaption>Text to Image: concepts from natural-language prompts</figcaption></figure><figure><img src="../assets/img/psAiToolkit/ps_i2i.jpg" alt="Image to Image: edit with language instructions" width="982" height="594" loading="lazy"><figcaption>Image to Image: edit with language instructions</figcaption></figure><figure><img src="../assets/img/psAiToolkit/ps_multiview.jpg" alt="Multi-view: new camera angle via a 3D camera controller" width="982" height="594" loading="lazy"><figcaption>Multi-view: new camera angle via a 3D camera controller</figcaption></figure><figure><img src="../assets/img/psAiToolkit/ps_inpaint.jpg" alt="Local inpainting: regenerate only the selection" width="985" height="597" loading="lazy"><figcaption>Local inpainting: regenerate only the selection</figcaption></figure><figure><img src="../assets/img/psAiToolkit/ps_expand.jpg" alt="Intelligent canvas expansion: detects transparent areas" width="981" height="594" loading="lazy"><figcaption>Intelligent canvas expansion: detects transparent areas</figcaption></figure><figure><img src="../assets/img/psAiToolkit/ps_sky.jpg" alt="Sky generation: new sky and atmosphere, objects kept" width="975" height="591" loading="lazy"><figcaption>Sky generation: new sky and atmosphere, objects kept</figcaption></figure><figure><img src="../assets/img/psAiToolkit/ps_extract.jpg" alt="Smart object extraction: isolated subject as a transparent layer" width="985" height="597" loading="lazy"><figcaption>Smart object extraction: isolated subject as a transparent layer</figcaption></figure><figure><img src="../assets/img/psAiToolkit/ps_upscale.jpg" alt="Image upscaling" width="1460" height="581" loading="lazy"><figcaption>Image upscaling</figcaption></figure><figure><img src="../assets/img/psAiToolkit/ps_analysis.jpg" alt="Image analysis with a multimodal VLM" width="975" height="591" loading="lazy"><figcaption>Image analysis with a multimodal VLM</figcaption></figure></div>
+<div class="split"><div><h3>Layer decomposition</h3><p><strong>Semantic decomposition</strong> splits an image into layers. Artists describe each layer, or let the model propose object descriptions before extraction.</p><p><strong>Depth-based decomposition</strong> generates a grayscale depth map, then converts selected depth ranges into Photoshop layer masks <em>locally</em> via color-range selection, so artists can fine-tune thresholds themselves instead of re-running a model.</p></div><div class="gallery g1 natural reveal"><figure><img src="../assets/img/psAiToolkit/ps_semantic.jpg" alt="Semantic layer decomposition" width="775" height="1025" loading="lazy"><figcaption>Semantic layer decomposition</figcaption></figure><figure><img src="../assets/img/psAiToolkit/ps_depth_1.jpg" alt="Depth map → threshold" width="1043" height="372" loading="lazy"><figcaption>Depth map → threshold</figcaption></figure><figure><img src="../assets/img/psAiToolkit/ps_depth_2.jpg" alt="Mask refined with brush" width="1043" height="475" loading="lazy"><figcaption>Mask refined with brush</figcaption></figure></div></div>
+
+</section>
+<section class="p-sec" id="deployment"><h2><span class="n">05</span>Deployment & update management</h2>
+
+<figure class="fig reveal"><img src="../assets/img/psAiToolkit/ps_update.jpg" alt="Version check on Photoshop start: no update, silent JS hotfix (config, endpoints, prompt presets, workflow IDs, UI text), or mandatory installer update (manifest permissions, UXP behavior, packaged resources, backend-breaking changes)." width="2200" height="197" loading="lazy"><figcaption>Version check on Photoshop start: no update, silent JS hotfix (config, endpoints, prompt presets, workflow IDs, UI text), or mandatory installer update (manifest permissions, UXP behavior, packaged resources, backend-breaking changes).</figcaption></figure>
+<p>This turned distribution from a social problem (&ldquo;did you get the new link?&rdquo;) into a system guarantee: small fixes reach everyone without interrupting their work, and incompatible builds can’t keep calling the backend.</p>
+
+</section>
+<section class="p-sec" id="challenges"><h2><span class="n">06</span>Challenges & solutions</h2>
+<div class="cs"><div class="cs-item reveal"><div class="ch"><small>Challenge</small><h4>AI output landed outside the artist’s file</h4><p>Generating in a browser meant downloading, re-importing, scaling and positioning by hand, and losing the original in the process.</p></div><div class="so"><small>Solution</small><h4>Everything returns as a layer</h4><p>Results are decoded and imported through UXP already positioned, scaled and named, on top of the existing document. Nothing is ever overwritten.</p></div></div><div class="cs-item reveal"><div class="ch"><small>Challenge</small><h4>Many providers, many conventions</h4><p>Each provider had a different request structure, output format, size restriction and mask convention.</p></div><div class="so"><small>Solution</small><h4>One router, provider-specific adapters</h4><p>General tasks go to the internal AI platform, specialized ones to a ComfyUI workflow service, and the plugin absorbs the differences so the artist sees one interface.</p></div></div><div class="cs-item reveal"><div class="ch"><small>Challenge</small><h4>Not every step needs a model</h4><p>Round-tripping simple mask work to a server was slow and gave artists no control over the threshold.</p></div><div class="so"><small>Solution</small><h4>Keep local work local</h4><p>Depth thresholds, color-range selection, canvas prep and compression run inside Photoshop, so artists can refine a mask with a brush instead of re-prompting.</p></div></div><div class="cs-item reveal"><div class="ch"><small>Challenge</small><h4>Getting every artist on the right version</h4><p>Updates shared through group chats meant nobody could confirm who had the latest build, so fixed bugs kept getting re-reported and versions drifted.</p></div><div class="so"><small>Solution</small><h4>Two-level update strategy</h4><p>On launch the plugin checks a central version config. <strong>Silent hotfixes</strong> download, syntax-validate and cache a new JS bundle for the next restart. <strong>Mandatory updates</strong> replace the UI with an update page when the installed version is below the minimum supported one.</p></div></div></div>
+</section>
+<section class="p-sec" id="takeaways"><h2><span class="n">07</span>What I learned</h2>
+<ul><li>A TA tool succeeds when artists don’t notice the plumbing. Most of the work was hiding model choice, formats and failure cases behind one familiar panel.</li><li>Non-destructive output is what made artists adopt it. A tool that can lose your work doesn’t get used twice.</li><li>Deployment is part of the tool. Versioning and hotfixes mattered as much to adoption as any feature did.</li></ul>
+</section>
+      
+    <div class="p-next">
+      <a href="sdMaterialTool.html"><small>← PREVIOUS</small><b>Tiling Material Generator for Substance 3D Designer</b></a>
+      <a class="r" href="travelTrove.html"><small>NEXT PROJECT →</small><b>TravelTrove</b></a>
+    </div>
+    </main>
+  </div>
+</div>
+<footer class="footer" id="contact">
+  <div class="wrap">
+    <div class="footer-grid">
+      <div>
+        <h3>Let’s build better art pipelines.</h3>
+        <p>Open to Technical Art roles &amp; collaborations – <a href="mailto:xingyan@usc.edu" style="color:var(--accent)">xingyan@usc.edu</a></p>
+      </div>
+      <div class="socials">
+        <a href="mailto:xingyan@usc.edu" aria-label="Email"><i class="fa-solid fa-envelope"></i></a>
+        <a href="https://www.linkedin.com/in/liu-xingyan-yolanda6" target="_blank" rel="noopener" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+        <a href="https://yollienarae.itch.io" target="_blank" rel="noopener" aria-label="itch.io"><i class="fa-brands fa-itch-io"></i></a>
+        <a href="../resume.html" aria-label="Resume"><i class="fa-solid fa-file-lines"></i></a>
+      </div>
+    </div>
+    <div class="copyright">© 2026 Yolanda Liu · All rights reserved</div>
+  </div>
+</footer>
+<script src="../assets/js/gl.js"></script>
+<script src="../assets/js/site.js"></script>
+</body>
+</html>

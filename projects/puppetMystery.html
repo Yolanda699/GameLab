@@ -1,90 +1,202 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Puppet Mystery</title>
-    <link rel="stylesheet" href="../assets/css/style.css">
-    <link rel="stylesheet" href="../assets/css/cursor.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Puppet Mystery · Yolanda Liu, Technical Artist</title>
+<meta name="description" content="How did I architect additive room loading and drag-and-drop puzzles for a browser-playable deduction game, while producing a 7-person team in three months?">
+<meta property="og:title" content="Puppet Mystery · Yolanda Liu, Technical Artist">
+<meta property="og:description" content="How did I architect additive room loading and drag-and-drop puzzles for a browser-playable deduction game, while producing a 7-person team in three months?">
+<meta name="theme-color" content="#F2EEE6">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><rect width='64' height='64' fill='%23F2EEE6'/><text x='32' y='44' font-family='Georgia,serif' font-size='34' text-anchor='middle' fill='%23A8412A'>YL</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..700;1,9..144,300..700&family=Inter:wght@300..600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/css/site.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 </head>
-
-<body class="project-page puppetMystery">
-
+<body>
 <nav class="nav">
-    <!-- ABOUT -->
-    <a href="../index.html">About</a>
-    <!-- INDEPENDENT PROJECTS -->
-    <div class="dropdown">
-        <button class="dropbutton dropdown-toggle">Independent Projects</button>
-        <div class="dropdowncontent">
-            <a href="theFeeding.html">The Feeding</a>
-            <a href="brokenStage.html">Broken Stage</a>
-            <a href="riverOfForgetting.html">River of Forgetting</a>
-            <a href="travelTrove.html">Travel Trove</a>
-        </div>
-    </div>
-    <!-- GROUP PROJECTS -->
-    <div class="dropdown">
-        <button class="dropbutton dropdown-toggle">Group Projects</button>
-        <div class="dropdowncontent">
-            <a href="rhythmEcho.html">Rhythm: Echo of the Disciple</a>
-            <a href="puppetMystery.html">Puppet Mystery</a>
-        </div>
-    </div>
+  <div class="wrap">
+    <a class="brand" href="../index.html">
+      <span class="brand-text">Yolanda Liu<small>TECHNICAL ARTIST &amp; PRODUCER</small></span>
+    </a>
+    <button class="nav-toggle" aria-label="Menu"><i class="fa-solid fa-bars"></i></button>
+    <ul class="nav-links">
+      <li><a href="../index.html#professional">Professional Work</a></li>
+      <li class="has-menu"><a href="../index.html#work">Projects</a><div class="menu"><div class="grp"><small>Rendering & Shading</small><a href="../projects/theFeeding.html">The Feeding<span>UE 5.6 · PCG, materials, lighting</span></a><a href="../projects/rhythmEcho.html">Rhythm: Echo of the Disciple<span>Lighting, skybox, optimization</span></a><a href="../projects/bubbleFactory.html">Bubble Factory<span>Shader Graph bubbles · URP materials</span></a></div><div class="grp"><small>Tools & AI Pipeline</small><a href="../projects/sdMaterialTool.html">Tiling Material Generator<span>Substance 3D Designer plugin · PBR maps</span></a><a href="../projects/psAiToolkit.html">AI Creative Toolkit<span>Photoshop UXP plugin · 11 features</span></a><a href="../projects/travelTrove.html">TravelTrove<span>Stylized concept-art workflow</span></a></div><div class="grp"><small>Gameplay Systems</small><a href="../projects/riverOfForgetting.html">River of Forgetting<span>Unity · brewing & endings</span></a><a href="../projects/brokenStage.html">Broken Stage<span>Unity · puzzle systems</span></a><a href="../projects/puppetMystery.html">Puppet Mystery<span>Unity · lead dev & producer</span></a></div><div class="grp"><small>Beyond the Engine</small><a href="../projects/gravitas.html">Gravitas<span>Audio & narrative design</span></a><a href="../projects/theVillage.html">The Village<span>Costume & makeup head · 33 characters</span></a><a href="../projects/theInsanity.html">The Insanity<span>Costume design & production</span></a></div><div class="grp"><small>Written by hand</small><a href="../shaders.html">Shader Lab<span>Live GLSL: fog, PBR, water, bubble, POM, dissolve</span></a></div></div></li>
+      <li><a href="../shaders.html">Shader Lab</a></li>
+      <li><a href="../index.html#skills">Skills</a></li>
+      <li><a href="../index.html#about">About</a></li>
+      <li><a href="../resume.html">Resume</a></li>
+      <li><a class="btn-nav" href="../resume.html#contact-top">Contact</a></li>
+    </ul>
+  </div>
 </nav>
 
-<header class="header">
-    <div class="container">
-        <h1>Puppet Mystery</h1>
-        <p>2D short puzzle game developed with Unity</p>
-        <p><em>Role: Producer, Lead Developer, Level Designer</em></p>
-        <p><b>Try the Game:</b> <a href="https://yollienarae.itch.io/puppetmystery">Puppet Mystery at itch.io</a></p>
-    </div>
+<header class="p-hero h-wide">
+  <div class="wrap">
+    <div class="crumbs"><a href="../index.html#work">Work</a> / <a href="../index.html#work-gameplay">Gameplay Systems</a> / Puppet Mystery</div>
+    <span class="tag gameplay">Gameplay Systems</span>
+    <h1>Puppet Mystery</h1>
+    <p class="q">How did I architect additive room loading and drag-and-drop puzzles for a browser-playable deduction game, while producing a 7-person team in three months?</p>
+    <div class="tags"><span class="tag">Unity</span><span class="tag">C#</span><span class="tag">WebGL</span><span class="tag">Scene management</span><span class="tag">UI / EventSystem</span><span class="tag">Team lead</span></div>
+  </div>
+  <div class="bg"><img src="../assets/img/puppetMystery/hero_wide.jpg" alt="Puppet Mystery key visual"></div>
 </header>
+<div class="wrap">
+  <div class="facts"><div><small>Role</small><span>Lead Developer · Producer · Level Designer</span></div><div><small>Team</small><span>7 people</span></div><div><small>Year</small><span>2025</span></div><div><small>Engine</small><span>Unity (C#)</span></div><div><small>Platform</small><span>WebGL (browser)</span></div></div>
+  <div class="p-links"><a class="btn primary" href="https://yollienarae.itch.io/puppetmystery" target="_blank" rel="noopener"><i class="fa-brands fa-itch-io"></i> Play in browser</a><a class="btn" href="https://www.youtube.com/watch?v=4LisNuyYGOQ" target="_blank" rel="noopener"><i class="fa-brands fa-youtube"></i> Trailer</a></div>
+  <div class="p-layout">
+    <aside class="toc">
+      <h4>On this page</h4>
+      <ol><li><a href="#overview">Overview</a></li><li><a href="#contributions">My contributions</a></li><li><a href="#gameplay">Gameplay</a></li><li><a href="#code">Code deep-dive</a></li><li><a href="#audio">Audio</a></li><li><a href="#challenges">Challenges & solutions</a></li></ol>
+      <div class="next-proj"><a href="gravitas.html"><small>NEXT PROJECT</small>Gravitas →</a></div>
+    </aside>
+    <main class="p-content">
+      <div class="ta-box reveal"><h3><i class="fa-solid fa-bolt"></i> Technical art highlights</h3><ul><li>Additive scene loading that preserves puzzle state</li><li>Persistent cross-scene phone UI and manager singletons</li><li>EventSystem drag-and-drop with snap validation</li><li>Audio feedback wired into puzzle states</li><li>WebGL build for instant browser play</li><li>Led a 7-person team as producer</li></ul></div>
+      
+<section class="p-sec" id="overview"><h2><span class="n">01</span>Overview</h2>
 
-<main>
-    <div class="container">
-        <div class="video-responsive">
-            <iframe width="560" height="315" src="https://www.youtube.com/embed/4LisNuyYGOQ?si=sM_ldX014q34hlNn" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-        </div>
-    </div>
-</main>
+<p class="lead"><em>Puppet Mystery</em> (木偶之家：古堡谜案) reimagines a case from Mango TV’s <em>Who’s the Murderer</em> as a first-person 2D deduction game. Players explore a mansion, collect clues, solve puzzles and vote to uncover the truth of an incident buried for ten years.</p>
+<p>Made for the Malanshan Cup Game Innovation & Entrepreneurship competition. As lead developer and producer I built the core Unity architecture and puzzle systems and managed a 7-person team to a 10-minute playable demo in three months. It’s playable in the browser (WebGL).</p>
+<div class="video reveal"><iframe src="https://www.youtube-nocookie.com/embed/4LisNuyYGOQ" title="Puppet Mystery · trailer" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen loading="lazy"></iframe></div>
 
-<script>
-document.addEventListener("DOMContentLoaded", function () {
+</section>
+<section class="p-sec" id="contributions"><h2><span class="n">02</span>My contributions</h2>
+<div class="contrib"><div class="c reveal"><h4><i class="fa-solid fa-sitemap"></i>Scene architecture</h4><p>A persistent GameManager that loads rooms additively and hides rather than unloads them, so every puzzle keeps its state.</p></div><div class="c reveal"><h4><i class="fa-solid fa-puzzle-piece"></i>Puzzle systems</h4><p>Drag-and-drop ordering with snap validation, clue unlocking, blurred-evidence reveals and audio feedback.</p></div><div class="c reveal"><h4><i class="fa-solid fa-mobile-screen"></i>Persistent phone UI</h4><p>A cross-scene detective phone (singleton) that holds clues and the final suspect vote.</p></div><div class="c reveal"><h4><i class="fa-solid fa-people-group"></i>Team lead & producer</h4><p>Managed 7 people across design, narrative, art and programming over a three-month cycle.</p></div></div>
+</section>
+<section class="p-sec" id="gameplay"><h2><span class="n">03</span>Gameplay</h2>
 
-    const dropdowns = document.querySelectorAll(".dropdown");
+<div class="gallery g3 tall reveal"><figure><img src="../assets/img/puppetMystery/itch_1.jpg" alt="Exploring the mansion" width="555" height="1000" loading="lazy"><figcaption>Exploring the mansion</figcaption></figure><figure><img src="../assets/img/puppetMystery/frame_33.jpg" alt="Wine-bottle ordering puzzle" width="650" height="1142" loading="lazy"><figcaption>Wine-bottle ordering puzzle</figcaption></figure><figure><img src="../assets/img/puppetMystery/frame_48.jpg" alt="Toy shelf puzzle" width="650" height="1142" loading="lazy"><figcaption>Toy shelf puzzle</figcaption></figure><figure><img src="../assets/img/puppetMystery/frame_36.jpg" alt="Searching a bedroom" width="650" height="1142" loading="lazy"><figcaption>Searching a bedroom</figcaption></figure><figure><img src="../assets/img/puppetMystery/frame_60.jpg" alt="Voting for the culprit" width="650" height="1142" loading="lazy"><figcaption>Voting for the culprit</figcaption></figure><figure><img src="../assets/img/puppetMystery/itch_2.jpg" alt="Detective phone UI" width="561" height="1000" loading="lazy"><figcaption>Detective phone UI</figcaption></figure></div>
+<div class="gallery g2 contain reveal" style="--ar:1/1"><figure><img src="../assets/img/puppetMystery/frame_18.jpg" alt="Intro sequence" width="650" height="670" loading="lazy"><figcaption>Intro sequence</figcaption></figure><figure><img src="../assets/img/puppetMystery/frame_24.jpg" alt="Character portrait" width="563" height="1070" loading="lazy"><figcaption>Character portrait</figcaption></figure></div>
 
-    dropdowns.forEach(drop => {
-        const button = drop.querySelector(".dropbutton");
+</section>
+<section class="p-sec" id="code"><h2><span class="n">04</span>Code deep-dive</h2>
 
-        button.addEventListener("click", function (event) {
-            event.stopPropagation();
-            closeAllDropdowns();
-            drop.classList.toggle("open");
-        });
-    });
+<p>Two systems carry most of the game. Excerpts are condensed from the original Unity C# source, with comments translated to English.</p>
+<h3>1 · Additive room loading that preserves state</h3>
+<p>Each room is its own scene. Instead of reloading scenes (which would reset every drawer, lock and clue), the <code>GameManager</code> loads a room <strong>additively the first time</strong>, then just <strong>hides and restores its root objects</strong> on later visits. A transition camera covers the async load, and the phone UI and manager survive with <code>DontDestroyOnLoad</code>.</p>
+<div class="code-head"><b>GameManager.cs</b><span>Unity · C# · excerpt</span></div><pre class="code">public class GameManager : MonoBehaviour
+{
+    public static GameManager Instance { get; private set; }
+    public GameObject phoneUI;            // cross-scene UI (detective phone)
+    public GameObject transitionCamera;   // buffer camera shown while a room loads
+    public Dictionary&lt;string, object&gt; savedStates = new();
 
-    document.addEventListener("click", function () {
-        closeAllDropdowns();
-    });
-
-    function closeAllDropdowns() {
-        dropdowns.forEach(d => d.classList.remove("open"));
+    void Awake()
+    {
+        if (Instance != null) { Destroy(gameObject); return; }
+        Instance = this;
+        DontDestroyOnLoad(gameObject);
+        DontDestroyOnLoad(phoneUI);
+        DontDestroyOnLoad(transitionCamera);
     }
-});
-</script>
 
-    <footer class="footer">
-        <p>&copy; 2025 Yolanda Liu | All Rights Reserved</p>
-        <p class="contact-text"><a href="https://drive.google.com/file/d/1VtxyaNnFvg7M4eTvH7OLGXI6QuSb3IWa/view?usp=sharing" target="_blank" rel="noopener noreferrer">View my Curriculum Vitae</a></p>
-        <p class="contact-text">Contact</p>
-        <div class="footer-social">
-            <a href="https://www.linkedin.com/in/liu-xingyan-yolanda6" target="_blank" class="social-icon"><i class="fab fa-linkedin"></i></a>
-            <a href="mailto:yolandaliuxy@outlook.com" class="social-icon"><i class="fas fa-envelope"></i></a>
-        </div>
-    </footer>
-<script src="../assets/js/main.js"></script>
+    public void EnterRoom(string roomScene)
+    {
+        HideRootObjects(mainMapScene);                     // park the map, don&#x27;t unload it
+        Scene existing = SceneManager.GetSceneByName(roomScene);
+        if (existing.IsValid() &amp;&amp; existing.isLoaded)       // room visited before?
+        {
+            ShowRootObjects(existing);                     // restore it exactly as the player left it
+            EnableRoomCamera(roomScene);
+            return;
+        }
+        StartCoroutine(LoadRoomSceneAsync(roomScene));     // first visit: load additively
+    }
+
+    IEnumerator LoadRoomSceneAsync(string scene)
+    {
+        ShowTransitionCamera(); phoneUI.SetActive(false);
+        var load = SceneManager.LoadSceneAsync(scene, LoadSceneMode.Additive);
+        while (!load.isDone) yield return null;
+        EnableRoomCamera(scene); EnableSceneEventSystem(scene);
+        HideTransitionCamera(); phoneUI.SetActive(true);
+    }
+
+    public void ExitRoom()   // hide, don&#x27;t unload: puzzle state survives
+    {
+        foreach (var go in SceneManager.GetSceneByName(currentRoomScene).GetRootGameObjects())
+            go.SetActive(false);
+        ShowRootObjects(mainMapScene);
+    }
+}</pre>
+<h3>2 · Drag-and-drop puzzle with snap validation</h3>
+<p>The wine-bottle puzzle uses Unity’s EventSystem drag interfaces. Bottles follow the pointer in canvas space, snap into their slot within a distance threshold or spring back, and a static registry checks whether <em>all</em> bottles are placed before unlocking the next clue.</p>
+<div class="code-head"><b>WineBottleSorting.cs</b><span>Unity · C# · excerpt</span></div><pre class="code">public class WineDraggableItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
+{
+    public Transform targetSlot;
+    public float snapDistance = 100f;
+    public AudioSource placeSound, unlockSound;
+    static List&lt;WineDraggableItem&gt; allItems = new();
+
+    public void OnDrag(PointerEventData e)
+    {
+        RectTransformUtility.ScreenPointToLocalPointInRectangle(
+            canvas.transform as RectTransform, e.position, canvas.worldCamera, out Vector2 p);
+        transform.localPosition = p;                       // follow the pointer in canvas space
+    }
+
+    public void OnEndDrag(PointerEventData e)
+    {
+        canvasGroup.blocksRaycasts = true;
+        if (Vector3.Distance(transform.position, targetSlot.position) &lt;= snapDistance)
+        {
+            transform.position = targetSlot.position;      // snap into the correct slot
+            transform.SetParent(targetSlot);
+            placeSound?.Play();
+            CheckIfAllCorrect();
+        }
+        else transform.position = originalPosition;        // wrong spot: spring back
+    }
+
+    void CheckIfAllCorrect()
+    {
+        foreach (var item in allItems)
+            if (item.transform.parent != item.targetSlot) return;
+        unlockSound?.Play();
+        UnlockAndCleanUI();   // grant clue keys, un-blur evidence, close the puzzle canvas
+    }
+}</pre>
+
+</section>
+<section class="p-sec" id="audio"><h2><span class="n">05</span>Audio</h2>
+
+<p>Sound tells the player a move worked: a place sound on every correct snap, an unlock sting when a puzzle resolves, over a looping mansion theme.</p>
+<div class="tracks reveal"><div class="track-row"><button class="play" data-audio="../assets/audio/puppet_bgm.mp3" aria-label="Play Puppet House · BGM">▶</button><div><b>Puppet House · BGM</b><span>Looping exploration theme (60-second excerpt)</span><div class="bar"><i></i></div></div><span class="t"></span></div></div>
+<div class="sfx"><button data-audio="../assets/audio/puppet_unlock.mp3" data-label="♪ Unlock">♪ Unlock</button><button data-audio="../assets/audio/puppet_laugh.mp3" data-label="♪ Puppet laugh">♪ Puppet laugh</button></div>
+
+</section>
+<section class="p-sec" id="challenges"><h2><span class="n">06</span>Challenges & solutions</h2>
+<div class="cs"><div class="cs-item reveal"><div class="ch"><small>Challenge</small><h4>Room scenes reset when revisited</h4><p>Loading each room as a normal scene would wipe opened drawers, placed bottles and found clues whenever players returned.</p></div><div class="so"><small>Solution</small><h4>Additive loading + hide/restore</h4><p>Rooms load additively once, then their root objects are hidden and restored, so state persists without a save system.</p></div></div><div class="cs-item reveal"><div class="ch"><small>Challenge</small><h4>Narrative and puzzles drifting apart</h4><p>Adapting a TV mystery risked puzzles that felt disconnected from the deduction story.</p></div><div class="so"><small>Solution</small><h4>Clue-driven progression</h4><p>Each puzzle unlocks clue keys and un-blurs evidence that feeds the final vote, so solving puzzles is how players advance the case.</p></div></div><div class="cs-item reveal"><div class="ch"><small>Challenge</small><h4>Seven people, three months</h4><p>Design, narrative, art and code all had to land in one competition build.</p></div><div class="so"><small>Solution</small><h4>Lead-dev + producer role</h4><p>Owned the core systems myself while running the schedule, keeping scope to a polished 10-minute demo.</p></div></div></div>
+</section>
+      
+    <div class="p-next">
+      <a href="brokenStage.html"><small>← PREVIOUS</small><b>Broken Stage</b></a>
+      <a class="r" href="gravitas.html"><small>NEXT PROJECT →</small><b>Gravitas</b></a>
+    </div>
+    </main>
+  </div>
+</div>
+<footer class="footer" id="contact">
+  <div class="wrap">
+    <div class="footer-grid">
+      <div>
+        <h3>Let’s build better art pipelines.</h3>
+        <p>Open to Technical Art roles &amp; collaborations – <a href="mailto:xingyan@usc.edu" style="color:var(--accent)">xingyan@usc.edu</a></p>
+      </div>
+      <div class="socials">
+        <a href="mailto:xingyan@usc.edu" aria-label="Email"><i class="fa-solid fa-envelope"></i></a>
+        <a href="https://www.linkedin.com/in/liu-xingyan-yolanda6" target="_blank" rel="noopener" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+        <a href="https://yollienarae.itch.io" target="_blank" rel="noopener" aria-label="itch.io"><i class="fa-brands fa-itch-io"></i></a>
+        <a href="../resume.html" aria-label="Resume"><i class="fa-solid fa-file-lines"></i></a>
+      </div>
+    </div>
+    <div class="copyright">© 2026 Yolanda Liu · All rights reserved</div>
+  </div>
+</footer>
+<script src="../assets/js/gl.js"></script>
+<script src="../assets/js/site.js"></script>
 </body>
 </html>

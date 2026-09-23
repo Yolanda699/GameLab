@@ -1,0 +1,991 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Shader Lab · Yolanda Liu, Technical Artist</title>
+<meta name="description" content="Hand-written GLSL studies running live in the browser: volumetric fog, a Cook-Torrance PBR sphere, water, and a soap bubble.">
+<meta property="og:title" content="Shader Lab · Yolanda Liu, Technical Artist">
+<meta property="og:description" content="Hand-written GLSL studies running live in the browser: volumetric fog, a Cook-Torrance PBR sphere, water, and a soap bubble.">
+<meta name="theme-color" content="#F2EEE6">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><rect width='64' height='64' fill='%23F2EEE6'/><text x='32' y='44' font-family='Georgia,serif' font-size='34' text-anchor='middle' fill='%23A8412A'>YL</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..700;1,9..144,300..700&family=Inter:wght@300..600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/site.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body>
+<nav class="nav">
+  <div class="wrap">
+    <a class="brand" href="index.html">
+      <span class="brand-text">Yolanda Liu<small>TECHNICAL ARTIST &amp; PRODUCER</small></span>
+    </a>
+    <button class="nav-toggle" aria-label="Menu"><i class="fa-solid fa-bars"></i></button>
+    <ul class="nav-links">
+      <li><a href="index.html#professional">Professional Work</a></li>
+      <li class="has-menu"><a href="index.html#work">Projects</a><div class="menu"><div class="grp"><small>Rendering & Shading</small><a href="projects/theFeeding.html">The Feeding<span>UE 5.6 · PCG, materials, lighting</span></a><a href="projects/rhythmEcho.html">Rhythm: Echo of the Disciple<span>Lighting, skybox, optimization</span></a><a href="projects/bubbleFactory.html">Bubble Factory<span>Shader Graph bubbles · URP materials</span></a></div><div class="grp"><small>Tools & AI Pipeline</small><a href="projects/sdMaterialTool.html">Tiling Material Generator<span>Substance 3D Designer plugin · PBR maps</span></a><a href="projects/psAiToolkit.html">AI Creative Toolkit<span>Photoshop UXP plugin · 11 features</span></a><a href="projects/travelTrove.html">TravelTrove<span>Stylized concept-art workflow</span></a></div><div class="grp"><small>Gameplay Systems</small><a href="projects/riverOfForgetting.html">River of Forgetting<span>Unity · brewing & endings</span></a><a href="projects/brokenStage.html">Broken Stage<span>Unity · puzzle systems</span></a><a href="projects/puppetMystery.html">Puppet Mystery<span>Unity · lead dev & producer</span></a></div><div class="grp"><small>Beyond the Engine</small><a href="projects/gravitas.html">Gravitas<span>Audio & narrative design</span></a><a href="projects/theVillage.html">The Village<span>Costume & makeup head · 33 characters</span></a><a href="projects/theInsanity.html">The Insanity<span>Costume design & production</span></a></div><div class="grp"><small>Written by hand</small><a href="shaders.html">Shader Lab<span>Live GLSL: fog, PBR, water, bubble, POM, dissolve</span></a></div></div></li>
+      <li><a href="shaders.html">Shader Lab</a></li>
+      <li><a href="index.html#skills">Skills</a></li>
+      <li><a href="index.html#about">About</a></li>
+      <li><a href="resume.html">Resume</a></li>
+      <li><a class="btn-nav" href="resume.html#contact-top">Contact</a></li>
+    </ul>
+  </div>
+</nav>
+
+<header class="lab-hero">
+  <div class="gl-stage lab-hero-bg" aria-hidden="true"><canvas data-shader="frag-water" data-dpr="1"></canvas></div>
+  <div class="wrap">
+    <div class="crumbs"><a href="index.html">Home</a> / Shader Lab</div>
+    <div class="eyebrow">Shader Lab</div>
+    <h1>Shaders I wrote,<br>running on your GPU.</h1>
+    <p class="q">Six fragment shaders, no libraries. Every canvas below compiles the exact source printed underneath it, so you can read the code, drag the parameters and edit it in place. It is the fastest way I know to show that I understand what a material graph is doing underneath.</p>
+    <div class="p-links">
+      <a class="btn primary" href="#mist"><i class="fa-solid fa-play"></i> Start with the fog</a>
+      <a class="btn" href="index.html#work"><i class="fa-solid fa-layer-group"></i> Production work</a>
+    </div>
+  </div>
+</header>
+
+<div class="wrap">
+  <div class="lab-note reveal">
+    <div><b>Why this page exists.</b> Technical art job posts ask for shader authoring, PBR fundamentals, profiling and 3D maths. Node graphs are how I ship, but writing the same effects by hand is how I learned what each node costs and why it behaves the way it does.</div>
+    <div><b>How to read it.</b> Sliders are uniforms. <i class="fa-solid fa-pen"></i> <b>Edit live</b> turns the code block into a real editor – change a number, and the shader recompiles on the next keystroke. Compile errors show up exactly as the GPU reports them.</div>
+  </div>
+  
+<article class="study reveal" id="mist" data-study>
+  <div class="study-head">
+    <span class="study-n">01</span>
+    <div>
+      <h2>Layered mist & ridges</h2>
+      <span class="tag render">Volumetric fog · fBm</span>
+    </div>
+  </div>
+  <div class="study-grid">
+    <div>
+      <div class="gl-stage">
+        <canvas data-shader="frag-mist" aria-label="Live WebGL render: Layered mist & ridges"></canvas>
+        <div class="gl-badge"><span class="dot"></span>live GLSL</div>
+      </div>
+      <div class="ctrls"><label class="ctrl"><span>Fog density</span>
+            <input type="range" data-uniform="u_density" min="0" max="1.6" step="0.01" value="0.9">
+            <output data-readout="u_density">0.9</output></label><label class="ctrl"><span>Wind</span>
+            <input type="range" data-uniform="u_wind" min="0" max="2.0" step="0.01" value="1.0">
+            <output data-readout="u_wind">1.0</output></label><label class="ctrl"><span>Firelight</span>
+            <input type="range" data-uniform="u_glow" min="0" max="1.5" step="0.01" value="0.7">
+            <output data-readout="u_glow">0.7</output></label></div>
+      <p class="study-blurb">Five ridge silhouettes built from fractal noise, each with a band of fog pooling on top and firelight bouncing up from below. The cursor parallaxes the layers.</p>
+    </div>
+    <div class="study-notes">
+      <h3>How it works</h3>
+      <ul><li><b>Value noise + fBm.</b> A hash-based noise sampled over 5 octaves, each double the frequency and half the amplitude. This is the same building block as a Perlin/Simplex node in a material graph.</li><li><b>Ridges from 1D noise.</b> Sampling the noise along x only gives a height per column; a <code>smoothstep</code> across that height turns it into an antialiased silhouette.</li><li><b>Depth cues.</b> Nearer layers are darker, move faster and sit lower, so parallax alone reads as distance.</li></ul>
+      <p class="engine"><i class="fa-solid fa-diagram-project"></i> <span>In <em>The Feeding</em> this is Exponential Height Fog with volumetric scattering plus a directional light. Writing it by hand is how I learned what the fog density and scattering parameters are actually doing.</span>
+        <a href="projects/theFeeding.html">The Feeding →</a></p>
+    </div>
+  </div>
+  <div class="code-wrap">
+    <div class="code-bar">
+      <b>fragment shader · GLSL ES 1.0</b>
+      <span class="code-actions">
+        <button class="mini" data-edit="frag-mist"><i class="fa-solid fa-pen"></i> Edit live</button>
+        <button class="mini" data-copy="frag-mist"><i class="fa-regular fa-copy"></i> Copy</button>
+      </span>
+    </div>
+    <pre class="code glsl" data-src="frag-mist"></pre>
+    <span class="code-hint">scroll for the rest</span>
+    <textarea class="code-edit" data-editor="frag-mist" spellcheck="false" hidden></textarea>
+    <div class="code-err" data-err="frag-mist" hidden></div>
+  </div>
+</article>
+<article class="study reveal" id="pbr" data-study>
+  <div class="study-head">
+    <span class="study-n">02</span>
+    <div>
+      <h2>Cook-Torrance PBR sphere</h2>
+      <span class="tag render">GGX · Smith · Schlick</span>
+    </div>
+  </div>
+  <div class="study-grid">
+    <div>
+      <div class="gl-stage">
+        <canvas data-shader="frag-pbr" aria-label="Live WebGL render: Cook-Torrance PBR sphere"></canvas>
+        <div class="gl-badge"><span class="dot"></span>live GLSL</div>
+      </div>
+      <div class="ctrls"><label class="ctrl"><span>Roughness</span>
+            <input type="range" data-uniform="u_rough" min="0.03" max="1.0" step="0.01" value="0.28">
+            <output data-readout="u_rough">0.28</output></label><label class="ctrl"><span>Metallic</span>
+            <input type="range" data-uniform="u_metal" min="0" max="1.0" step="0.01" value="0.9">
+            <output data-readout="u_metal">0.9</output></label><label class="ctrl"><span>Base colour</span>
+            <input type="range" data-uniform="u_hue" min="0" max="1.0" step="0.01" value="0.08">
+            <output data-readout="u_hue">0.08</output></label></div>
+      <p class="study-blurb">A full metallic-roughness BRDF written from scratch: GGX distribution, Smith visibility, Schlick Fresnel, plus a stand-in environment probe. Drag the sliders the way you would in a material instance.</p>
+    </div>
+    <div class="study-notes">
+      <h3>How it works</h3>
+      <ul><li><b>D · G · F.</b> GGX normal distribution for the highlight shape, Smith geometry for shadowing between microfacets, Schlick Fresnel for grazing angles. The same three terms Unreal and Unity evaluate per pixel.</li><li><b>Metallic workflow.</b> <code>F0</code> lerps from 4% for dielectrics to the base colour for metals, and diffuse is scaled to zero as metalness rises – exactly why a metal has no albedo.</li><li><b>Fake IBL.</b> The environment function widens the sun and flattens the gradient with roughness, which is what a prefiltered mip chain does on a real reflection probe.</li><li><b>ACES tone map</b> and a gamma curve at the end, because lighting must be done in linear space.</li></ul>
+      <p class="engine"><i class="fa-solid fa-diagram-project"></i> <span>This is the model behind every material I authored for <em>The Feeding</em>, and behind the cross-platform validation benchmarks I helped set up at Tencent: if albedo and roughness are sane here, they are sane in engine.</span>
+        <a href="projects/theFeeding.html#materials">The Feeding · materials →</a></p>
+    </div>
+  </div>
+  <div class="code-wrap">
+    <div class="code-bar">
+      <b>fragment shader · GLSL ES 1.0</b>
+      <span class="code-actions">
+        <button class="mini" data-edit="frag-pbr"><i class="fa-solid fa-pen"></i> Edit live</button>
+        <button class="mini" data-copy="frag-pbr"><i class="fa-regular fa-copy"></i> Copy</button>
+      </span>
+    </div>
+    <pre class="code glsl" data-src="frag-pbr"></pre>
+    <span class="code-hint">scroll for the rest</span>
+    <textarea class="code-edit" data-editor="frag-pbr" spellcheck="false" hidden></textarea>
+    <div class="code-err" data-err="frag-pbr" hidden></div>
+  </div>
+</article>
+<article class="study reveal" id="water" data-study>
+  <div class="study-head">
+    <span class="study-n">03</span>
+    <div>
+      <h2>Water surface</h2>
+      <span class="tag render">Ray-plane · panning normals · Fresnel</span>
+    </div>
+  </div>
+  <div class="study-grid">
+    <div>
+      <div class="gl-stage">
+        <canvas data-shader="frag-water" aria-label="Live WebGL render: Water surface"></canvas>
+        <div class="gl-badge"><span class="dot"></span>live GLSL</div>
+      </div>
+      <div class="ctrls"><label class="ctrl"><span>Flow speed</span>
+            <input type="range" data-uniform="u_speed" min="0" max="2.0" step="0.01" value="1.0">
+            <output data-readout="u_speed">1.0</output></label><label class="ctrl"><span>Roughness</span>
+            <input type="range" data-uniform="u_rough" min="0.01" max="1.0" step="0.01" value="0.18">
+            <output data-readout="u_rough">0.18</output></label><label class="ctrl"><span>Absorption</span>
+            <input type="range" data-uniform="u_absorb" min="0" max="1.5" step="0.01" value="0.55">
+            <output data-readout="u_absorb">0.55</output></label></div>
+      <p class="study-blurb">A ray-plane intersection gives a receding water surface, two panning noise layers become a procedural normal map, and Fresnel decides where you see sky and where you see the water body.</p>
+    </div>
+    <div class="study-notes">
+      <h3>How it works</h3>
+      <ul><li><b>Procedural normal map.</b> The height field is sampled three times and differenced, which is how a normal map is generated from a height map – here it happens per pixel instead of being baked.</li><li><b>Two panning layers</b> at different scales and directions, the standard trick for water that never visibly repeats.</li><li><b>Fresnel + absorption.</b> Glancing angles reflect the sky; steep angles show a Beer-Lambert absorption colour. Those are the scattering and absorption coefficients of Unreal’s Single Layer Water.</li><li><b>Distance fade</b> on the normal strength keeps the far field from aliasing – the hand-written version of a mip bias.</li></ul>
+      <p class="engine"><i class="fa-solid fa-diagram-project"></i> <span>M7 and M8 in <em>The Feeding</em> are two instances of one water master: same normals, different absorption and roughness for the day town and the night river.</span>
+        <a href="projects/theFeeding.html#materials">The Feeding · materials →</a></p>
+    </div>
+  </div>
+  <div class="code-wrap">
+    <div class="code-bar">
+      <b>fragment shader · GLSL ES 1.0</b>
+      <span class="code-actions">
+        <button class="mini" data-edit="frag-water"><i class="fa-solid fa-pen"></i> Edit live</button>
+        <button class="mini" data-copy="frag-water"><i class="fa-regular fa-copy"></i> Copy</button>
+      </span>
+    </div>
+    <pre class="code glsl" data-src="frag-water"></pre>
+    <span class="code-hint">scroll for the rest</span>
+    <textarea class="code-edit" data-editor="frag-water" spellcheck="false" hidden></textarea>
+    <div class="code-err" data-err="frag-water" hidden></div>
+  </div>
+</article>
+<article class="study reveal" id="bubble" data-study>
+  <div class="study-head">
+    <span class="study-n">04</span>
+    <div>
+      <h2>Soap bubble</h2>
+      <span class="tag render">Fresnel rim · thin film · refraction</span>
+    </div>
+  </div>
+  <div class="study-grid">
+    <div>
+      <div class="gl-stage">
+        <canvas data-shader="frag-bubble" aria-label="Live WebGL render: Soap bubble"></canvas>
+        <div class="gl-badge"><span class="dot"></span>live GLSL</div>
+      </div>
+      <div class="ctrls"><label class="ctrl"><span>Rim falloff</span>
+            <input type="range" data-uniform="u_fresnel" min="1.0" max="8.0" step="0.1" value="3.0">
+            <output data-readout="u_fresnel">3.0</output></label><label class="ctrl"><span>Iridescence</span>
+            <input type="range" data-uniform="u_film" min="0" max="1.0" step="0.01" value="0.65">
+            <output data-readout="u_film">0.65</output></label><label class="ctrl"><span>Refraction</span>
+            <input type="range" data-uniform="u_refract" min="0" max="1.5" step="0.01" value="0.8">
+            <output data-readout="u_refract">0.8</output></label></div>
+      <p class="study-blurb">The bubble from Bubble Factory, rebuilt in GLSL. An analytic sphere normal, a Fresnel rim, cosine-palette thin-film interference, and a refracted lookup into the background.</p>
+    </div>
+    <div class="study-notes">
+      <h3>How it works</h3>
+      <ul><li><b>Analytic normal.</b> Inside the disc, <code>z = sqrt(R² − d²)</code> reconstructs a sphere normal with no geometry at all.</li><li><b>Fresnel rim.</b> <code>pow(1 − N·V, k)</code> – the soap film is nearly invisible head-on and bright at the edge.</li><li><b>Thin-film interference</b> approximated with a shifted cosine palette driven by film thickness, which is where the oil-slick colours come from.</li><li><b>Refraction</b> by offsetting the background lookup along the normal, the same screen-space trick a transparent game material uses.</li></ul>
+      <p class="engine"><i class="fa-solid fa-diagram-project"></i> <span>In <em>Bubble Factory</em> this was a Unity Shader Graph material with premultiplied alpha and depth writes off, so overlapping bubbles layer cleanly.</span>
+        <a href="projects/bubbleFactory.html">Bubble Factory →</a></p>
+    </div>
+  </div>
+  <div class="code-wrap">
+    <div class="code-bar">
+      <b>fragment shader · GLSL ES 1.0</b>
+      <span class="code-actions">
+        <button class="mini" data-edit="frag-bubble"><i class="fa-solid fa-pen"></i> Edit live</button>
+        <button class="mini" data-copy="frag-bubble"><i class="fa-regular fa-copy"></i> Copy</button>
+      </span>
+    </div>
+    <pre class="code glsl" data-src="frag-bubble"></pre>
+    <span class="code-hint">scroll for the rest</span>
+    <textarea class="code-edit" data-editor="frag-bubble" spellcheck="false" hidden></textarea>
+    <div class="code-err" data-err="frag-bubble" hidden></div>
+  </div>
+</article>
+<article class="study reveal" id="pom" data-study>
+  <div class="study-head">
+    <span class="study-n">05</span>
+    <div>
+      <h2>Parallax occlusion mapping</h2>
+      <span class="tag render">Steep parallax · relief refine · self-shadow</span>
+    </div>
+  </div>
+  <div class="study-grid">
+    <div>
+      <div class="gl-stage">
+        <canvas data-shader="frag-pom" aria-label="Live WebGL render: Parallax occlusion mapping"></canvas>
+        <div class="gl-badge"><span class="dot"></span>live GLSL</div>
+      </div>
+      <div class="ctrls"><label class="ctrl"><span>Height scale</span>
+            <input type="range" data-uniform="u_depth" min="0.0" max="2.0" step="0.01" value="1.0">
+            <output data-readout="u_depth">1.0</output></label><label class="ctrl"><span>Light angle</span>
+            <input type="range" data-uniform="u_light" min="0.0" max="6.28" step="0.01" value="2.1">
+            <output data-readout="u_light">2.1</output></label><label class="ctrl"><span>Self-shadow</span>
+            <input type="range" data-uniform="u_shadow" min="0.0" max="1.0" step="0.01" value="0.85">
+            <output data-readout="u_shadow">0.85</output></label></div>
+      <p class="study-blurb">A completely flat quad with real depth in it. The view ray marches down through a procedural height field until it hits, so the mortar recedes, the brick faces occlude each other, and the whole surface shifts correctly as you move the cursor.</p>
+    </div>
+    <div class="study-notes">
+      <h3>How it works</h3>
+      <ul><li><b>March, don’t offset.</b> Classic parallax mapping shifts the UV once and breaks at grazing angles. Here the ray steps down through 28 even height layers until the surface is above it – steep parallax – so silhouettes stay correct.</li><li><b>Relief refinement.</b> One binary interpolation between the last two samples removes the stair-stepping that a fixed step count leaves behind. Two lines of maths, and the edges go clean.</li><li><b>Self-shadowing.</b> From the hit point, a second short march runs back toward the light. If anything blocks it, that pixel sits in the shadow of the brick above it – the thing that actually sells the depth.</li><li><b>Normals by central difference.</b> The height field is sampled either side of the pixel and differenced, which is exactly what a height-to-normal converter does, just evaluated live instead of baked.</li></ul>
+      <p class="engine"><i class="fa-solid fa-diagram-project"></i> <span>Parallax occlusion is a material node in both Unreal and Unity. Writing the march by hand is how I understood its real cost: every sample is another texture fetch, which is why it belongs on hero surfaces and not on a whole level.</span>
+        <a href="projects/theFeeding.html#materials">The Feeding · materials →</a></p>
+    </div>
+  </div>
+  <div class="code-wrap">
+    <div class="code-bar">
+      <b>fragment shader · GLSL ES 1.0</b>
+      <span class="code-actions">
+        <button class="mini" data-edit="frag-pom"><i class="fa-solid fa-pen"></i> Edit live</button>
+        <button class="mini" data-copy="frag-pom"><i class="fa-regular fa-copy"></i> Copy</button>
+      </span>
+    </div>
+    <pre class="code glsl" data-src="frag-pom"></pre>
+    <span class="code-hint">scroll for the rest</span>
+    <textarea class="code-edit" data-editor="frag-pom" spellcheck="false" hidden></textarea>
+    <div class="code-err" data-err="frag-pom" hidden></div>
+  </div>
+</article>
+<article class="study reveal" id="dissolve" data-study>
+  <div class="study-head">
+    <span class="study-n">06</span>
+    <div>
+      <h2>Burning dissolve</h2>
+      <span class="tag render">Noise threshold · edge band · emissive rim</span>
+    </div>
+  </div>
+  <div class="study-grid">
+    <div>
+      <div class="gl-stage">
+        <canvas data-shader="frag-dissolve" aria-label="Live WebGL render: Burning dissolve"></canvas>
+        <div class="gl-badge"><span class="dot"></span>live GLSL</div>
+      </div>
+      <div class="ctrls"><label class="ctrl"><span>Edge width</span>
+            <input type="range" data-uniform="u_edge" min="0.004" max="0.14" step="0.002" value="0.045">
+            <output data-readout="u_edge">0.045</output></label><label class="ctrl"><span>Heat</span>
+            <input type="range" data-uniform="u_heat" min="0.0" max="1.6" step="0.01" value="1.0">
+            <output data-readout="u_heat">1.0</output></label><label class="ctrl"><span>Noise scale</span>
+            <input type="range" data-uniform="u_scale" min="1.0" max="14.0" step="0.1" value="4.5">
+            <output data-readout="u_scale">4.5</output></label></div>
+      <p class="study-blurb">A carved panel burning away and reforming. One noise field, one moving threshold, and three smoothsteps off it produce the char, the white-hot rim and the hole – the effect every engine builds the same way.</p>
+    </div>
+    <div class="study-notes">
+      <h3>How it works</h3>
+      <ul><li><b>One mask, three reads.</b> A single fBm field is compared against a moving threshold three times at different offsets: past it the panel is gone, at it the rim burns, just inside it the wood chars. The whole effect is offsets on one number.</li><li><b>The gradient decides the look.</b> Biasing the noise with a diagonal sweep makes the burn travel across the panel instead of appearing everywhere at once – the same trick as a gradient mask driving a dissolve in a material graph.</li><li><b>Emissive above 1.0.</b> The rim colour is pushed past white so a bloom pass would catch it, which is how a dissolve reads as heat rather than as orange paint.</li><li><b>Embers gated by the mask.</b> The particles only brighten near the burn line, so the sparks and the erosion stay locked together without any particle system.</li></ul>
+      <p class="engine"><i class="fa-solid fa-diagram-project"></i> <span>This is the dissolve I would build in Unreal as an Opacity Mask driven by a noise texture and a scalar parameter, with the edge band wired to Emissive. <em>The Feeding</em> uses the same threshold-on-noise idea for its fire and ember shading.</span>
+        <a href="projects/theFeeding.html">The Feeding →</a></p>
+    </div>
+  </div>
+  <div class="code-wrap">
+    <div class="code-bar">
+      <b>fragment shader · GLSL ES 1.0</b>
+      <span class="code-actions">
+        <button class="mini" data-edit="frag-dissolve"><i class="fa-solid fa-pen"></i> Edit live</button>
+        <button class="mini" data-copy="frag-dissolve"><i class="fa-regular fa-copy"></i> Copy</button>
+      </span>
+    </div>
+    <pre class="code glsl" data-src="frag-dissolve"></pre>
+    <span class="code-hint">scroll for the rest</span>
+    <textarea class="code-edit" data-editor="frag-dissolve" spellcheck="false" hidden></textarea>
+    <div class="code-err" data-err="frag-dissolve" hidden></div>
+  </div>
+</article>
+</div>
+
+<section class="lab-foot">
+  <div class="wrap">
+    <div class="eyebrow">Next</div>
+    <h2>These techniques, in production</h2>
+    <div class="also">
+      <a href="projects/theFeeding.html"><b>The Feeding</b><span>16-material library, fog &amp; firelight in UE 5.6</span></a>
+      <a href="projects/bubbleFactory.html"><b>Bubble Factory</b><span>Shader Graph bubbles &amp; a gum lake in Unity URP</span></a>
+      <a href="projects/sdMaterialTool.html"><b>Material tooling</b><span>Shader library &amp; validation benchmarks at Tencent</span></a>
+    </div>
+  </div>
+</section>
+<script type="x-shader/x-fragment" id="frag-mist">precision highp float;
+
+uniform vec2  u_resolution;
+uniform float u_time;
+uniform vec2  u_mouse;
+uniform float u_density;   // fog thickness
+uniform float u_wind;      // horizontal drift
+uniform float u_glow;      // firelight bouncing into the fog
+
+// --- value noise ----------------------------------------------------------
+float hash(vec2 p) {
+    return fract(sin(dot(p, vec2(127.1, 311.7))) * 43758.5453123);
+}
+
+float noise(vec2 p) {
+    vec2 i = floor(p);
+    vec2 f = fract(p);
+    f = f * f * (3.0 - 2.0 * f);                 // smoothstep interpolation
+    return mix(mix(hash(i),               hash(i + vec2(1.0, 0.0)), f.x),
+               mix(hash(i + vec2(0.0,1.0)), hash(i + vec2(1.0,1.0)), f.x), f.y);
+}
+
+// 5 octaves: each one doubles frequency and halves amplitude
+float fbm(vec2 p) {
+    float v = 0.0, a = 0.5;
+    for (int i = 0; i < 5; i++) {
+        v += a * noise(p);
+        p = p * 2.03 + 19.19;
+        a *= 0.5;
+    }
+    return v;
+}
+
+// Silhouette of one mountain layer: 1.0 below the ridge line, 0.0 above it
+float ridge(vec2 p, float seed, float scale, float height, float base) {
+    float h = base + fbm(vec2(p.x * scale + seed, seed)) * height;
+    return smoothstep(h + 0.006, h - 0.006, p.y);
+}
+
+void main() {
+    vec2  uv     = gl_FragCoord.xy / u_resolution.xy;
+    float aspect = u_resolution.x / u_resolution.y;
+    vec2  p      = vec2(uv.x * aspect, uv.y);
+
+    float t   = u_time * 0.03 * u_wind;
+    vec2  par = (u_mouse - 0.5) * 0.05;          // parallax from the cursor
+
+    vec3 col = mix(vec3(0.045, 0.050, 0.065),
+                   vec3(0.130, 0.115, 0.125), pow(uv.y, 1.4));
+
+    // Far to near. Nearer layers are darker, move faster and sit lower.
+    for (int i = 0; i < 5; i++) {
+        float fi    = float(i);
+        float depth = fi / 4.0;
+        float m = ridge(p + vec2(t * mix(0.5, 2.0, depth), 0.0) - par * (1.0 - depth),
+                        fi * 7.3 + 2.0,
+                        mix(1.5, 3.2, depth),
+                        mix(0.10, 0.19, depth),
+                        mix(0.60, 0.16, depth));
+
+        vec3 rock = mix(vec3(0.085, 0.092, 0.105),
+                        vec3(0.020, 0.023, 0.030), depth);
+        col = mix(col, rock, m);
+
+        // A band of fog pooling on top of each ridge
+        float line = mix(0.60, 0.16, depth) + 0.05;
+        float fog  = fbm(p * vec2(1.8, 3.0) + vec2(t * 4.0 + fi * 5.0, u_time * 0.04));
+        float band = smoothstep(0.30, 0.0, abs(uv.y - line)) * fog;
+        col = mix(col, vec3(0.60, 0.62, 0.68), band * 0.40 * u_density * (1.0 - depth * 0.55));
+    }
+
+    // Warm bounce light from the fire below
+    float glow = pow(1.0 - uv.y, 3.0) * u_glow;
+    col += vec3(1.00, 0.42, 0.14) * glow * 0.55;
+
+    // Embers
+    for (int i = 0; i < 12; i++) {
+        float fi = float(i);
+        float sp = 0.05 + hash(vec2(fi, 1.0)) * 0.10;
+        float x  = hash(vec2(fi, 2.0)) * aspect + sin(u_time * 0.4 + fi) * 0.02;
+        float y  = fract(hash(vec2(fi, 3.0)) + u_time * sp);
+        float d  = length(p - vec2(x, y));
+        col += vec3(1.0, 0.45, 0.15) * smoothstep(0.010, 0.0, d) * (1.0 - y) * u_glow;
+    }
+
+    col *= 1.0 - 0.45 * pow(length(uv - 0.5) * 1.3, 2.5);   // vignette
+    gl_FragColor = vec4(col, 1.0);
+}</script>
+<script type="x-shader/x-fragment" id="frag-pbr">precision highp float;
+
+uniform vec2  u_resolution;
+uniform float u_time;
+uniform vec2  u_mouse;
+uniform float u_rough;      // 0 = mirror, 1 = fully diffuse
+uniform float u_metal;      // 0 = dielectric, 1 = metal
+uniform float u_hue;        // base colour
+
+const float PI = 3.14159265359;
+
+// GGX / Trowbridge-Reitz normal distribution
+float D_GGX(float NoH, float a) {
+    float a2 = a * a;
+    float d  = NoH * NoH * (a2 - 1.0) + 1.0;
+    return a2 / (PI * d * d);
+}
+
+// Smith height-correlated visibility, Schlick approximation
+float G_Smith(float NoV, float NoL, float a) {
+    float k = (a + 1.0) * (a + 1.0) / 8.0;
+    float gv = NoV / (NoV * (1.0 - k) + k);
+    float gl = NoL / (NoL * (1.0 - k) + k);
+    return gv * gl;
+}
+
+vec3 F_Schlick(vec3 f0, float VoH) {
+    return f0 + (1.0 - f0) * pow(1.0 - VoH, 5.0);
+}
+
+// Stand-in for an environment probe: a sky gradient plus a sun.
+// Roughness widens the sun and washes the gradient, faking a prefiltered mip.
+vec3 environment(vec3 d, float rough) {
+    vec3 up   = vec3(0.34, 0.40, 0.55);
+    vec3 down = vec3(0.05, 0.045, 0.05);
+    vec3 c    = mix(down, up, clamp(d.y * 0.5 + 0.5, 0.0, 1.0));
+    c = mix(c, vec3(0.16, 0.17, 0.21), rough * 0.5);
+    vec3 sun = normalize(vec3(0.45, 0.55, 0.70));
+    c += vec3(1.0, 0.92, 0.80) * pow(max(dot(d, sun), 0.0), mix(900.0, 6.0, rough)) * mix(9.0, 0.7, rough);
+    c += vec3(1.0, 0.42, 0.20) * pow(max(dot(d, normalize(vec3(-0.7, -0.1, 0.4))), 0.0), 4.0) * 0.30;
+    return c;
+}
+
+vec3 tonemap(vec3 x) {                     // ACES filmic approximation
+    return clamp((x * (2.51 * x + 0.03)) / (x * (2.43 * x + 0.59) + 0.14), 0.0, 1.0);
+}
+
+// Spin the environment, not the surface: the visible hemisphere of a sphere
+// always faces the camera, so rotating the normal would shade back faces.
+vec3 rotY(vec3 v, float a) {
+    float s = sin(a), c = cos(a);
+    return vec3(v.x * c + v.z * s, v.y, -v.x * s + v.z * c);
+}
+
+void main() {
+    vec2 res = u_resolution.xy;
+    vec2 p   = (gl_FragCoord.xy * 2.0 - res) / min(res.x, res.y);
+
+    vec3 base = 0.5 + 0.5 * cos(6.28318 * (vec3(0.0, 0.33, 0.67) + u_hue));
+    base = mix(vec3(0.82), base, 0.85);
+
+    float a  = max(u_rough * u_rough, 0.002);      // perceptual -> linear roughness
+    vec3  f0 = mix(vec3(0.04), base, u_metal);     // dielectrics reflect ~4%
+    vec3  kd = base * (1.0 - u_metal);
+
+    float R = 0.82;
+    float d = length(p);
+    vec3  col;
+
+    if (d < R) {
+        float z = sqrt(max(R * R - d * d, 0.0));
+        vec3  n = normalize(vec3(p, z));      // always faces the camera
+
+        float spin = u_time * 0.25;           // turntable, applied to the lighting
+        vec3 v = vec3(0.0, 0.0, 1.0);
+        vec3 l = normalize(vec3(0.55 * cos(spin) + (u_mouse.x - 0.5) * 1.2,
+                                0.50 + (u_mouse.y - 0.5) * 0.9,
+                                0.65 + 0.30 * sin(spin)));
+        vec3 h = normalize(l + v);
+
+        float NoV = max(dot(n, v), 1e-4);
+        float NoL = max(dot(n, l), 0.0);
+        float NoH = max(dot(n, h), 0.0);
+        float VoH = max(dot(v, h), 0.0);
+
+        // Direct light: Cook-Torrance specular + Lambert diffuse
+        vec3  F    = F_Schlick(f0, VoH);
+        float spec = D_GGX(NoH, a) * G_Smith(NoV, NoL, a) / max(4.0 * NoV * NoL, 1e-4);
+        vec3  direct = (kd / PI + F * spec) * NoL * vec3(1.0, 0.96, 0.90) * 3.4;
+
+        // Image-based approximation: reflection probe + a cheap horizon term
+        vec3  r     = rotY(reflect(-v, n), spin);
+        vec3  Fenv  = F_Schlick(f0, NoV);
+        vec3  ibl   = environment(r, u_rough) * Fenv;
+        vec3  amb   = environment(rotY(n, spin), 1.0) * kd * 0.55;
+
+        col = direct + ibl + amb;
+
+        float edge = smoothstep(R, R - 0.008, d);
+        col = mix(environment(normalize(vec3(p * 0.8, 1.0)), 0.9) * 0.3, col, edge);
+    } else {
+        col = environment(normalize(vec3(p * 0.8, 1.0)), 0.9) * 0.3;
+        col *= 1.0 - 0.55 * smoothstep(R, 1.7, d);
+    }
+
+    gl_FragColor = vec4(pow(tonemap(col), vec3(0.4545)), 1.0);
+}</script>
+<script type="x-shader/x-fragment" id="frag-water">precision highp float;
+
+uniform vec2  u_resolution;
+uniform float u_time;
+uniform vec2  u_mouse;
+uniform float u_speed;      // ripple panning speed
+uniform float u_rough;      // microfacet roughness -> highlight size
+uniform float u_absorb;     // how quickly depth eats the light
+
+float hash(vec2 p) { return fract(sin(dot(p, vec2(127.1, 311.7))) * 43758.5453123); }
+
+float noise(vec2 p) {
+    vec2 i = floor(p), f = fract(p);
+    f = f * f * (3.0 - 2.0 * f);
+    return mix(mix(hash(i),                hash(i + vec2(1.0, 0.0)), f.x),
+               mix(hash(i + vec2(0.0, 1.0)), hash(i + vec2(1.0, 1.0)), f.x), f.y);
+}
+
+float fbm(vec2 p) {
+    float v = 0.0, a = 0.5;
+    for (int i = 0; i < 4; i++) { v += a * noise(p); p = p * 2.07 + 11.3; a *= 0.5; }
+    return v;
+}
+
+// Height field sampled twice and differenced == a procedural normal map.
+// Two layers panning at different scales and speeds, exactly like the
+// two panning normal maps in a game water material.
+vec3 waterNormal(vec2 w, float t, float strength) {
+    float e = 0.06;
+    vec2 d1 = vec2( 0.9,  0.4) * t;
+    vec2 d2 = vec2(-0.6,  0.8) * t * 0.7;
+    float h  = fbm(w * 0.55 + d1) + fbm(w * 1.70 + d2) * 0.5;
+    float hx = fbm((w + vec2(e, 0.0)) * 0.55 + d1) + fbm((w + vec2(e, 0.0)) * 1.70 + d2) * 0.5;
+    float hy = fbm((w + vec2(0.0, e)) * 0.55 + d1) + fbm((w + vec2(0.0, e)) * 1.70 + d2) * 0.5;
+    return normalize(vec3((h - hx) * strength / e, 1.0, (h - hy) * strength / e));
+}
+
+vec3 sky(vec3 rd, vec3 sun) {
+    vec3 c = mix(vec3(0.16, 0.13, 0.18), vec3(0.04, 0.05, 0.09), clamp(rd.y * 2.2, 0.0, 1.0));
+    c += vec3(1.00, 0.55, 0.30) * pow(max(dot(rd, sun), 0.0), 8.0) * 0.5;      // glow
+    c += vec3(1.00, 0.85, 0.65) * pow(max(dot(rd, sun), 0.0), 900.0) * 6.0;    // disc
+    return c;
+}
+
+void main() {
+    vec2 res = u_resolution.xy;
+    vec2 p   = (gl_FragCoord.xy * 2.0 - res) / res.y;
+
+    vec3 ro  = vec3(0.0, 1.15, 0.0);
+    vec3 rd  = normalize(vec3(p.x, p.y - 0.12, 1.35));
+    vec3 sun = normalize(vec3(0.55 + (u_mouse.x - 0.5) * 0.6, 0.16, 1.0));
+
+    vec3 col;
+    if (rd.y < -0.001) {
+        // Ray-plane intersection with the water surface at y = 0
+        float dist = -ro.y / rd.y;
+        vec3  pos  = ro + rd * dist;
+
+        // Fade the normal with distance so the far field does not alias
+        float fade = 1.0 / (1.0 + dist * dist * 0.006);
+        vec3  n    = waterNormal(pos.xz, u_time * u_speed * 0.25, 0.55 * fade);
+
+        // Fresnel: glancing angles reflect, steep angles show the water body
+        float f = pow(1.0 - clamp(dot(n, -rd), 0.0, 1.0), 5.0);
+        f = mix(0.02, 1.0, f);
+
+        vec3 refl = sky(reflect(rd, n), sun);
+
+        // Beer-Lambert style absorption gives the body colour
+        vec3 deep = vec3(0.015, 0.075, 0.065);
+        vec3 body = deep * exp(-u_absorb * vec3(2.2, 0.8, 1.1) * (0.4 + fade));
+
+        // Blinn-Phong specular; roughness drives the exponent
+        vec3  h    = normalize(sun - rd);
+        float spec = pow(max(dot(n, h), 0.0), mix(2000.0, 24.0, u_rough));
+        col = mix(body, refl, f) + vec3(1.0, 0.88, 0.7) * spec * mix(2.5, 0.6, u_rough);
+
+        col = mix(col, sky(vec3(rd.x, 0.02, rd.z), sun), smoothstep(14.0, 60.0, dist));
+    } else {
+        col = sky(rd, sun);
+    }
+
+    col = col / (col + 0.85);                        // filmic-ish tone map
+    col = pow(clamp(col, 0.0, 1.0), vec3(0.4545));
+    gl_FragColor = vec4(col, 1.0);
+}</script>
+<script type="x-shader/x-fragment" id="frag-bubble">precision highp float;
+
+uniform vec2  u_resolution;
+uniform float u_time;
+uniform vec2  u_mouse;
+uniform float u_fresnel;   // rim falloff exponent
+uniform float u_film;      // thin-film iridescence
+uniform float u_refract;   // how hard the bubble bends the background
+
+// The scene behind the bubble, so the refraction has something to bend
+vec3 background(vec2 q) {
+    vec3 c = mix(vec3(0.62, 0.13, 0.26), vec3(0.10, 0.05, 0.12), q.y * 0.9 + 0.2);
+    vec2 g = abs(fract(q * 6.0) - 0.5);
+    float grid = smoothstep(0.46, 0.5, max(g.x, g.y));
+    c += vec3(1.0, 0.55, 0.70) * grid * 0.10;
+    c += vec3(1.0, 0.75, 0.45) * pow(max(0.0, 1.0 - length(q - vec2(0.75, 0.8))), 6.0) * 0.5;
+    return c;
+}
+
+void main() {
+    vec2  res = u_resolution.xy;
+    vec2  p   = (gl_FragCoord.xy * 2.0 - res) / min(res.x, res.y);
+    vec2  uv  = gl_FragCoord.xy / res;
+
+    // Bubble drifts, and leans toward the cursor
+    vec2 centre = vec2(sin(u_time * 0.35) * 0.06, sin(u_time * 0.5) * 0.05)
+                + (u_mouse - 0.5) * 0.35;
+    vec2 q = p - centre;
+
+    float R = 0.78;
+    float d = length(q);
+    vec3  col = background(uv);
+
+    if (d < R) {
+        // Reconstruct a sphere normal analytically: x,y from the disc, z from the radius
+        float z = sqrt(max(R * R - d * d, 0.0)) / R;
+        vec3  n = normalize(vec3(q / R, z));
+        vec3  v = vec3(0.0, 0.0, 1.0);                 // orthographic view
+
+        // Schlick-style rim term: thin film is brightest at grazing angles
+        float fres = pow(1.0 - clamp(dot(n, v), 0.0, 1.0), u_fresnel);
+
+        // Refraction: offset the background lookup along the normal
+        vec2 refr = uv + n.xy * u_refract * 0.16 * (1.0 - z);
+        vec3 behind = background(refr);
+
+        // Thin-film interference approximated with a shifted cosine palette
+        float thick = (1.0 - z) * 3.4 + u_time * 0.06;
+        vec3  film  = 0.5 + 0.5 * cos(6.28318 * (vec3(0.00, 0.33, 0.67) + thick * u_film));
+
+        vec3 soap = mix(behind, film, fres * 0.85 * u_film + 0.06);
+
+        // Two specular hits so it reads as a wet, curved surface
+        vec3 l1 = normalize(vec3(-0.45, 0.65, 0.65));
+        vec3 l2 = normalize(vec3( 0.55, 0.35, 0.75));
+        soap += pow(max(dot(reflect(-l1, n), v), 0.0), 260.0) * 1.9;
+        soap += pow(max(dot(reflect(-l2, n), v), 0.0), 120.0) * 0.5 * vec3(1.0, 0.85, 0.95);
+
+        float edge = smoothstep(R, R - 0.012, d);       // antialias the silhouette
+        col = mix(col, soap, edge);
+    }
+
+    col = pow(clamp(col, 0.0, 1.0), vec3(0.4545));      // linear -> sRGB
+    gl_FragColor = vec4(col, 1.0);
+}</script>
+<script type="x-shader/x-fragment" id="frag-pom">precision highp float;
+
+uniform vec2  u_resolution;
+uniform float u_time;
+uniform vec2  u_mouse;
+uniform float u_depth;    // height scale, i.e. how deep the mortar sits
+uniform float u_light;    // light azimuth
+uniform float u_shadow;   // self-shadowing strength
+
+float hash(vec2 p) { return fract(sin(dot(p, vec2(127.1, 311.7))) * 43758.5453123); }
+
+float noise(vec2 p) {
+    vec2 i = floor(p), f = fract(p);
+    f = f * f * (3.0 - 2.0 * f);
+    return mix(mix(hash(i),                hash(i + vec2(1.0, 0.0)), f.x),
+               mix(hash(i + vec2(0.0, 1.0)), hash(i + vec2(1.0, 1.0)), f.x), f.y);
+}
+
+// Procedural brick height field. 1.0 = face of the brick, 0.0 = bottom of the
+// mortar. This is the height map a POM material would sample from a texture.
+float height(vec2 uv) {
+    vec2 g = uv * vec2(3.2, 6.4);
+    g.x += floor(g.y) * 0.5;                       // running bond offset
+    vec2 f = fract(g);
+    vec2 d = min(f, 1.0 - f);                      // distance to the nearest joint
+    float joint = smoothstep(0.0, 0.10, min(d.x, d.y));
+    float wear  = noise(uv * 7.0) * 0.035;         // gentle surface variation
+    return joint * (0.95 - wear) + 0.05;
+}
+
+vec3 albedo(vec2 uv, float h) {
+    vec2 g = uv * vec2(3.2, 6.4);
+    g.x += floor(g.y) * 0.5;
+    float id = hash(floor(g));                     // one tint per brick
+    vec3 brick = mix(vec3(0.42, 0.20, 0.14), vec3(0.60, 0.36, 0.25), id);
+    brick = mix(brick, vec3(0.34, 0.30, 0.27), noise(uv * 11.0) * 0.35);
+    vec3 mortar = vec3(0.30, 0.29, 0.27);
+    return mix(mortar, brick, smoothstep(0.30, 0.70, h));
+}
+
+// Normal from the height field by central differences, the hand-written
+// version of a normal map generator.
+vec3 normalAt(vec2 uv, float scale) {
+    float e = 0.006;
+    float hx = height(uv + vec2(e, 0.0)) - height(uv - vec2(e, 0.0));
+    float hy = height(uv + vec2(0.0, e)) - height(uv - vec2(0.0, e));
+    // The z term carries the sample spacing, which is what keeps the slope
+    // in proportion no matter how large the height scale gets.
+    return normalize(vec3(-hx * scale, -hy * scale, 2.0 * e));
+}
+
+void main() {
+    vec2  uv     = gl_FragCoord.xy / u_resolution.xy;
+    float aspect = u_resolution.x / u_resolution.y;
+    vec2  p      = vec2(uv.x * aspect, uv.y);
+
+    // View direction in tangent space. It tilts across the screen (perspective)
+    // and follows the cursor, so the parallax shift is visible as you move.
+    vec3 V = normalize(vec3((p - vec2(aspect * 0.5, 0.5)) * 0.55
+                            + (u_mouse - 0.5) * 1.0
+                            + vec2(0.34, 0.26), 1.0));
+
+    // --- steep parallax: march down through the height field in even layers --
+    float layers   = 28.0;
+    float layerH   = 1.0 / layers;
+    vec2  maxShift = V.xy / max(V.z, 0.30) * u_depth * 0.10;
+    vec2  stepUV   = maxShift * layerH;
+
+    vec2  curUV    = p;
+    float curDepth = 0.0;          // 0 at the surface, 1 at the deepest layer
+    float curH     = 1.0 - height(curUV);
+    for (int i = 0; i < 28; i++) {
+        if (curDepth >= curH) break;
+        curUV    -= stepUV;
+        curDepth += layerH;
+        curH      = 1.0 - height(curUV);
+    }
+
+    // --- relief refinement: one binary step back for a clean silhouette ------
+    vec2  prevUV = curUV + stepUV;
+    float after  = curH - curDepth;
+    float before = (1.0 - height(prevUV)) - (curDepth - layerH);
+    float w      = clamp(after / max(after - before, 0.0001), 0.0, 1.0);
+    vec2  hitUV  = mix(curUV, prevUV, w);
+
+    float h = height(hitUV);
+    vec3  N = normalAt(hitUV, u_depth * 0.11);
+    vec3  L = normalize(vec3(cos(u_light), sin(u_light), 0.55));
+
+    // --- self-shadowing: march back toward the light from the hit point ------
+    float shade = 1.0;
+    vec2  sStep = L.xy / max(L.z, 0.30) * u_depth * 0.10 / 16.0;
+    // start a little above the hit point so a surface never shadows itself
+    float sDepth = (1.0 - h) - 0.010;
+    for (int i = 0; i < 16; i++) {
+        sDepth -= (1.0 - h) / 16.0;
+        vec2 sUV = hitUV + sStep * float(i + 1);
+        if (1.0 - height(sUV) < sDepth - 0.012) { shade = 0.0; break; }
+    }
+    shade = mix(1.0, shade, u_shadow);
+    shade = max(shade, 0.22);
+
+    vec3  base = albedo(hitUV, h);
+    float NoL  = max(dot(N, L), 0.0);
+    vec3  col  = base * (0.26 + 1.20 * NoL * shade);
+
+    // a tight spec so the brick faces catch the light and the mortar does not
+    vec3 H = normalize(L + vec3(0.0, 0.0, 1.0));
+    col += vec3(1.0, 0.93, 0.82) * pow(max(dot(N, H), 0.0), 34.0) * 0.16 * shade * h;
+
+    col *= 1.0 - 0.38 * pow(length(uv - 0.5) * 1.20, 2.4);   // vignette
+    col  = pow(clamp(col, 0.0, 1.0), vec3(0.4545));
+    gl_FragColor = vec4(col, 1.0);
+}</script>
+<script type="x-shader/x-fragment" id="frag-dissolve">precision highp float;
+
+uniform vec2  u_resolution;
+uniform float u_time;
+uniform vec2  u_mouse;
+uniform float u_edge;    // width of the burning band
+uniform float u_heat;    // how hot the edge burns
+uniform float u_scale;   // noise frequency: fine ash vs. large tears
+
+float hash(vec2 p) { return fract(sin(dot(p, vec2(127.1, 311.7))) * 43758.5453123); }
+
+float noise(vec2 p) {
+    vec2 i = floor(p), f = fract(p);
+    f = f * f * (3.0 - 2.0 * f);
+    return mix(mix(hash(i),                hash(i + vec2(1.0, 0.0)), f.x),
+               mix(hash(i + vec2(0.0, 1.0)), hash(i + vec2(1.0, 1.0)), f.x), f.y);
+}
+
+float fbm(vec2 p) {
+    float v = 0.0, a = 0.5;
+    for (int i = 0; i < 5; i++) { v += a * noise(p); p = p * 2.11 + 7.3; a *= 0.5; }
+    return v;
+}
+
+// The panel that burns away: carved wood with a grain and a border.
+vec3 panel(vec2 p, vec2 uv) {
+    // Grain: noise stretched hard along one axis, then pushed to high contrast
+    // so the rings read at a distance instead of turning into flat brown.
+    float rings = fbm(vec2(p.x * 2.0, p.y * 13.0));
+    rings = fract(rings * 3.2);
+    rings = smoothstep(0.15, 0.55, rings) * smoothstep(1.0, 0.7, rings);
+    float blotch = fbm(p * 5.0);
+
+    vec3 dark  = vec3(0.075, 0.040, 0.022);
+    vec3 light = vec3(0.30, 0.155, 0.075);
+    vec3 wood  = mix(dark, light, blotch * 0.55 + rings * 0.55);
+
+    // Carved ring motif, cut INTO the surface, so it reads darker not lighter
+    float r    = length((p - 0.5) * vec2(1.5, 1.0));
+    float ring = smoothstep(0.016, 0.0, abs(r - 0.21)) + smoothstep(0.013, 0.0, abs(r - 0.27));
+    wood = mix(wood, dark * 0.7, ring * 0.85);
+    wood += light * 0.35 * smoothstep(0.010, 0.0, abs(r - 0.205));   // lit upper lip
+
+    // Recessed border, measured on the canvas so the panel fills the frame
+    float b = min(min(uv.x, 1.0 - uv.x), min(uv.y, 1.0 - uv.y));
+    wood = mix(dark * 0.8, wood, smoothstep(0.004, 0.030, b));
+    return wood;
+}
+
+// Bed of coals behind the panel: what the burn reveals.
+vec3 coals(vec2 p, float t) {
+    // Mostly cold ash, with hot cracks running through it, so the reveal has
+    // contrast instead of turning into an orange fog.
+    float c    = fbm(p * 9.0 + vec2(0.0, t * 0.04));
+    float veins = pow(clamp(1.0 - abs(c - 0.52) * 11.0, 0.0, 1.0), 2.2);
+    float pulse = 0.60 + 0.40 * sin(t * 1.3 + c * 14.0);
+    vec3 col = vec3(0.030, 0.024, 0.022) + vec3(0.05, 0.04, 0.037) * c;
+    col += vec3(1.00, 0.30, 0.05) * veins * 0.40 * pulse;
+    col += vec3(1.00, 0.76, 0.40) * pow(veins, 3.5) * 0.16 * pulse;
+    return col;
+}
+
+void main() {
+    vec2  uv     = gl_FragCoord.xy / u_resolution.xy;
+    float aspect = u_resolution.x / u_resolution.y;
+    vec2  p      = vec2((uv.x - 0.5) * aspect + 0.5, uv.y);
+
+    // The dissolve mask: fBm biased by a diagonal sweep, so the burn travels.
+    // fBm over 5 octaves lands around 0.5; stretch it so the mask actually
+    // uses the full 0..1 range, otherwise the threshold spends most of its
+    // travel with nothing to do.
+    float n     = clamp((fbm(p * u_scale + vec2(0.0, u_time * 0.02)) - 0.30) / 0.42, 0.0, 1.0);
+    float sweep = clamp(p.x * 0.55 + (1.0 - p.y) * 0.45, 0.0, 1.0);
+    float mask  = n * 0.58 + sweep * 0.42;
+
+    // Threshold travels back and forth, so the panel burns away and reforms.
+    float cut = 0.46 - 0.26 * cos(u_time * 0.22 + (u_mouse.x - 0.5) * 1.8);
+
+    // Three reads of the SAME mask, at three offsets from the same threshold:
+    //   mask far below cut  -> untouched panel
+    //   mask just below cut -> charred
+    //   mask at cut         -> burning rim
+    //   mask above cut      -> gone
+    float e     = max(u_edge, 0.004);
+    float solid = smoothstep(cut, cut - 0.010, mask);
+    float char  = smoothstep(cut - e * 3.0, cut - e * 0.6, mask) * solid;
+    float band  = smoothstep(cut - e, cut, mask) * solid;
+
+    vec3 col = panel(p, uv);
+    col = mix(col, vec3(0.055, 0.042, 0.035), char);
+
+    // The rim: deep orange turning white-hot right at the leading edge
+    vec3 fire = mix(vec3(1.00, 0.28, 0.05), vec3(1.00, 0.92, 0.62), pow(band, 2.4));
+    col = mix(col, fire, band * clamp(u_heat, 0.0, 1.0));
+    // Emissive: pushed past 1.0 so a bloom pass would catch it, which is what
+    // makes the rim read as heat rather than as orange paint.
+    col += fire * pow(band, 1.6) * u_heat * 0.85;
+
+    // Composite the panel over the coals using the same mask as an alpha.
+    col = mix(coals(p, u_time), col, solid);
+
+    // Embers lifting off the edge, brightest where the band is
+    for (int i = 0; i < 14; i++) {
+        float fi = float(i);
+        float sp = 0.05 + hash(vec2(fi, 1.0)) * 0.12;
+        float x  = hash(vec2(fi, 2.0)) + sin(u_time * 0.5 + fi) * 0.03;
+        float y  = fract(hash(vec2(fi, 3.0)) + u_time * sp);
+        float d  = length((p - vec2(x, y)) * vec2(1.0, 0.8));
+        float at = smoothstep(0.22, 0.0, abs(mask - cut));       // near the burn line
+        col += vec3(1.0, 0.52, 0.18) * smoothstep(0.0085, 0.0, d) * at * u_heat * 1.3;
+    }
+
+    // Glow spilling onto whatever is behind the panel
+
+    col = pow(clamp(col, 0.0, 1.0), vec3(0.4545));
+    gl_FragColor = vec4(col, 1.0);
+}</script>
+<script type="x-shader/x-fragment" id="frag-hero">precision highp float;
+
+uniform vec2  u_resolution;
+uniform float u_time;
+uniform vec2  u_mouse;
+
+float hash(vec2 p) { return fract(sin(dot(p, vec2(127.1, 311.7))) * 43758.5453123); }
+
+float noise(vec2 p) {
+    vec2 i = floor(p), f = fract(p);
+    f = f * f * (3.0 - 2.0 * f);
+    return mix(mix(hash(i),                hash(i + vec2(1.0, 0.0)), f.x),
+               mix(hash(i + vec2(0.0, 1.0)), hash(i + vec2(1.0, 1.0)), f.x), f.y);
+}
+
+float fbm(vec2 p) {
+    float v = 0.0, a = 0.5;
+    for (int i = 0; i < 4; i++) { v += a * noise(p); p = p * 2.05 + 13.7; a *= 0.5; }
+    return v;
+}
+
+void main() {
+    vec2  uv = gl_FragCoord.xy / u_resolution.xy;
+    float aspect = u_resolution.x / u_resolution.y;
+    vec2  p  = vec2(uv.x * aspect, uv.y);
+    vec2  par = (u_mouse - 0.5) * 0.08;
+
+    float t = u_time * 0.035;
+    float f = fbm(p * vec2(1.7, 2.3) + vec2(t, -t * 0.4) + par);
+    f = fbm(p * vec2(2.4, 3.0) + f * 0.9 + vec2(-t * 0.6, t * 0.25));
+
+    // Contour plate: the noise field printed as topographic lines on paper.
+    // Everything below is ink COVERAGE (0 = bare paper, 1 = solid ink); the
+    // colour is chosen once at the end, so the plate reads as one printing.
+    float lines = fract(f * 11.0);                       // repeating height bands
+    float contour = 1.0 - smoothstep(0.02, 0.085, min(lines, 1.0 - lines));
+    float wash = smoothstep(0.34, 0.86, f) * 0.22;       // faint tonal fill
+
+    float ink = contour * 0.5 + wash;
+
+    // A few drifting registration marks, as if the plate were still being set.
+    for (int i = 0; i < 9; i++) {
+        float fi = float(i);
+        float sp = 0.035 + hash(vec2(fi, 4.0)) * 0.075;
+        float x  = hash(vec2(fi, 5.0)) * aspect + sin(u_time * 0.35 + fi * 2.0) * 0.015;
+        float y  = fract(hash(vec2(fi, 6.0)) + u_time * sp);
+        float d  = length((p - vec2(x, y)) * vec2(1.0, 0.85));
+        ink += smoothstep(0.0075, 0.0, d) * 0.85;
+    }
+
+    // Fade the plate off the top and bottom edges so it sits inside the page.
+    ink *= smoothstep(1.02, 0.30, uv.y) * smoothstep(-0.05, 0.42, uv.y);
+    ink = clamp(ink, 0.0, 1.0);
+
+    // Terracotta where the ink is thick, indigo in the thin passes.
+    vec3 hue = mix(vec3(0.27, 0.25, 0.48), vec3(0.66, 0.26, 0.17), smoothstep(0.1, 0.7, ink));
+    gl_FragColor = vec4(hue, ink * 0.55);
+}</script>
+
+<footer class="footer" id="contact">
+  <div class="wrap">
+    <div class="footer-grid">
+      <div>
+        <h3>Let’s build better art pipelines.</h3>
+        <p>Open to Technical Art roles &amp; collaborations – <a href="mailto:xingyan@usc.edu" style="color:var(--accent)">xingyan@usc.edu</a></p>
+      </div>
+      <div class="socials">
+        <a href="mailto:xingyan@usc.edu" aria-label="Email"><i class="fa-solid fa-envelope"></i></a>
+        <a href="https://www.linkedin.com/in/liu-xingyan-yolanda6" target="_blank" rel="noopener" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+        <a href="https://yollienarae.itch.io" target="_blank" rel="noopener" aria-label="itch.io"><i class="fa-brands fa-itch-io"></i></a>
+        <a href="resume.html" aria-label="Resume"><i class="fa-solid fa-file-lines"></i></a>
+      </div>
+    </div>
+    <div class="copyright">© 2026 Yolanda Liu · All rights reserved</div>
+  </div>
+</footer>
+<script src="assets/js/gl.js"></script>
+<script src="assets/js/lab.js"></script>
+<script src="assets/js/site.js"></script>
+</body>
+</html>

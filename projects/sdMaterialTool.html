@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tiling Material Generator for Substance 3D Designer · Yolanda Liu, Technical Artist</title>
+<meta name="description" content="How do you get a seamless, production-ready PBR material set from a prompt without ever leaving Substance Designer?">
+<meta property="og:title" content="Tiling Material Generator for Substance 3D Designer · Yolanda Liu, Technical Artist">
+<meta property="og:description" content="How do you get a seamless, production-ready PBR material set from a prompt without ever leaving Substance Designer?">
+<meta name="theme-color" content="#F2EEE6">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><rect width='64' height='64' fill='%23F2EEE6'/><text x='32' y='44' font-family='Georgia,serif' font-size='34' text-anchor='middle' fill='%23A8412A'>YL</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..700;1,9..144,300..700&family=Inter:wght@300..600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/css/site.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body>
+<nav class="nav">
+  <div class="wrap">
+    <a class="brand" href="../index.html">
+      <span class="brand-text">Yolanda Liu<small>TECHNICAL ARTIST &amp; PRODUCER</small></span>
+    </a>
+    <button class="nav-toggle" aria-label="Menu"><i class="fa-solid fa-bars"></i></button>
+    <ul class="nav-links">
+      <li><a href="../index.html#professional">Professional Work</a></li>
+      <li class="has-menu"><a href="../index.html#work">Projects</a><div class="menu"><div class="grp"><small>Rendering & Shading</small><a href="../projects/theFeeding.html">The Feeding<span>UE 5.6 · PCG, materials, lighting</span></a><a href="../projects/rhythmEcho.html">Rhythm: Echo of the Disciple<span>Lighting, skybox, optimization</span></a><a href="../projects/bubbleFactory.html">Bubble Factory<span>Shader Graph bubbles · URP materials</span></a></div><div class="grp"><small>Tools & AI Pipeline</small><a href="../projects/sdMaterialTool.html">Tiling Material Generator<span>Substance 3D Designer plugin · PBR maps</span></a><a href="../projects/psAiToolkit.html">AI Creative Toolkit<span>Photoshop UXP plugin · 11 features</span></a><a href="../projects/travelTrove.html">TravelTrove<span>Stylized concept-art workflow</span></a></div><div class="grp"><small>Gameplay Systems</small><a href="../projects/riverOfForgetting.html">River of Forgetting<span>Unity · brewing & endings</span></a><a href="../projects/brokenStage.html">Broken Stage<span>Unity · puzzle systems</span></a><a href="../projects/puppetMystery.html">Puppet Mystery<span>Unity · lead dev & producer</span></a></div><div class="grp"><small>Beyond the Engine</small><a href="../projects/gravitas.html">Gravitas<span>Audio & narrative design</span></a><a href="../projects/theVillage.html">The Village<span>Costume & makeup head · 33 characters</span></a><a href="../projects/theInsanity.html">The Insanity<span>Costume design & production</span></a></div><div class="grp"><small>Written by hand</small><a href="../shaders.html">Shader Lab<span>Live GLSL: fog, PBR, water, bubble, POM, dissolve</span></a></div></div></li>
+      <li><a href="../shaders.html">Shader Lab</a></li>
+      <li><a href="../index.html#skills">Skills</a></li>
+      <li><a href="../index.html#about">About</a></li>
+      <li><a href="../resume.html">Resume</a></li>
+      <li><a class="btn-nav" href="../resume.html#contact-top">Contact</a></li>
+    </ul>
+  </div>
+</nav>
+
+<header class="p-hero h-inset">
+  <div class="wrap">
+    <div class="crumbs"><a href="../index.html#work">Work</a> / <a href="../index.html#work-pipeline">Tools & AI Pipeline</a> / Tiling Material Generator for Substance 3D Designer</div>
+    <span class="tag pipeline">Tools & AI Pipeline</span>
+    <h1 class="long">Tiling Material Generator for Substance 3D Designer</h1>
+    <p class="q">How do you get a seamless, production-ready PBR material set from a prompt without ever leaving Substance Designer?</p>
+    <div class="tags"><span class="tag">Python</span><span class="tag">PySide</span><span class="tag">Substance Designer API</span><span class="tag">PBR maps</span><span class="tag">ONNX</span><span class="tag">Seamless tiling</span></div>
+  </div>
+  <div class="bg"><img src="../assets/img/sdMaterialTool/sd_hero.jpg" alt="Tiling Material Generator for Substance 3D Designer key visual"></div>
+</header>
+<div class="wrap">
+  <div class="facts"><div><small>Role</small><span>Technical Artist, Tools &amp; Pipeline</span></div><div><small>Studio</small><span>Tencent Games · TiMi J3 · <em>Delta Force</em></span></div><div><small>Year</small><span>2026</span></div><div><small>Stack</small><span>Python, PySide, Substance Designer API, ONNX</span></div><div><small>Users</small><span>Production art team</span></div></div>
+  <div class="p-links"></div>
+  <div class="p-layout">
+    <aside class="toc">
+      <h4>On this page</h4>
+      <ol><li><a href="#overview">Overview</a></li><li><a href="#contributions">My contributions</a></li><li><a href="#pipeline">End-to-end pipeline</a></li><li><a href="#architecture">System architecture</a></li><li><a href="#challenges">Challenges & solutions</a></li><li><a href="#takeaways">What I learned</a></li></ol>
+      <div class="next-proj"><a href="psAiToolkit.html"><small>NEXT PROJECT</small>AI Creative Toolkit for Photoshop →</a></div>
+    </aside>
+    <main class="p-content">
+      <div class="ta-box reveal"><h3><i class="fa-solid fa-bolt"></i> Technical art highlights</h3><ul><li>Shipped a production DCC plugin in Python/PySide for Substance Designer</li><li>Automated tileable PBR map generation (Base Color, Normal, Roughness, Height, Metallic)</li><li>Designed a gateway-based, model-agnostic architecture</li><li>Ran local ONNX inference for normal-map extraction</li><li>Built a searchable, versioned material library</li></ul></div>
+      
+<section class="p-sec" id="overview"><h2><span class="n">01</span>Overview</h2>
+
+<p class="lead">A production plugin for <strong>Adobe Substance 3D Designer</strong> that turns a text prompt into a seamless, tileable PBR material set without leaving the application. Artists stay in Designer; generation, tiling, map extraction, de-lighting, upscaling and library management all happen in one docked panel.</p>
+<p>Before it existed, making a material from reference meant scanning or sourcing an image, cleaning it in Photoshop, hand-authoring PBR maps, repairing seams in a third tool, then re-importing. Each hand-off cost time and made material quality inconsistent between artists.</p>
+<div class="stat-row"><div><b>5</b><span>PBR maps generated per material</span></div><div><b>3+</b><span>Foundation models routed</span></div><div><b>1</b><span>Panel, no tool switching</span></div><div><b>Local</b><span>ONNX normal-map inference</span></div></div>
+<p class="note">Built March – July 2026 at Tencent Games · TiMi J3 Studio · <em>Delta Force</em>. Confidential information has been excluded.</p>
+
+</section>
+<section class="p-sec" id="contributions"><h2><span class="n">02</span>My contributions</h2>
+<div class="contrib"><div class="c reveal"><h4><i class="fa-brands fa-python"></i>Plugin development</h4><p>Built the panel in Python + PySide against the Substance Designer API, so results land directly as graphs and texture maps in the artist’s project.</p></div><div class="c reveal"><h4><i class="fa-solid fa-diagram-project"></i>Model-agnostic architecture</h4><p>Designed a client–server split where the plugin never talks to a model directly; a gateway owns keys, accounts and routing.</p></div><div class="c reveal"><h4><i class="fa-solid fa-layer-group"></i>PBR & image processing</h4><p>Chained seamless tiling, PBR map extraction (including a local ONNX DeepBump model), de-lighting and upscaling into one pass.</p></div><div class="c reveal"><h4><i class="fa-solid fa-flask"></i>Model research</h4><p>Evaluated which foundation models hold up at each stage of tiling-material production, then hid that choice behind one control set.</p></div><div class="c reveal"><h4><i class="fa-solid fa-box-archive"></i>Material library</h4><p>Built create / version / natural-language search / reuse so generated materials become references for the next generation.</p></div></div>
+</section>
+<section class="p-sec" id="pipeline"><h2><span class="n">03</span>End-to-end pipeline</h2>
+
+<figure class="fig reveal"><img src="../assets/img/sdMaterialTool/sd_hero.jpg" alt="<b>Output:</b> tileable PBR materials generated and processed inside Substance Designer (Base Color, Normal, Roughness, Height, Metallic)." width="2200" height="1455" loading="lazy"><figcaption><b>Output:</b> tileable PBR materials generated and processed inside Substance Designer (Base Color, Normal, Roughness, Height, Metallic).</figcaption></figure>
+<div class="split"><div><figure class="fig reveal"><img src="../assets/img/sdMaterialTool/sd_before.jpg" alt="<b>Before:</b> scan → manual cleanup → hand-made PBR maps → seam fixing → re-import, across multiple tools." width="2200" height="349" loading="lazy"><figcaption><b>Before:</b> scan → manual cleanup → hand-made PBR maps → seam fixing → re-import, across multiple tools.</figcaption></figure></div><figure class="fig reveal"><img src="../assets/img/sdMaterialTool/sd_after.jpg" alt="<b>After:</b> the same brick material generated, tiled, mapped and previewed without leaving Designer." width="2200" height="349" loading="lazy"><figcaption><b>After:</b> the same brick material generated, tiled, mapped and previewed without leaving Designer.</figcaption></figure></div>
+<ol class="steps"><li><b>Authenticate:</b> users sign in through a centralized API gateway that validates keys and manages access to AI services.</li><li><b>Material seeding:</b> generate several material concepts from a text prompt across different foundation models, with configurable resolution, aspect ratio and batch size.</li><li><b>Seamless tiling:</b> convert a generated texture into a tileable material with AI-assisted edge completion.</li><li><b>PBR map extraction:</b> produce Base Color, Roughness, Metallic, Normal and Height, with post-processing per map.</li><li><b>Optimization:</b> de-light and upscale, then save into the material library for reuse.</li></ol>
+<div class="gallery g5 contain reveal" style="--ar:1/2"><figure><img src="../assets/img/sdMaterialTool/sd_step1_auth.jpg" alt="01 · Authentication" width="825" height="1659" loading="lazy"><figcaption>01 · Authentication</figcaption></figure><figure><img src="../assets/img/sdMaterialTool/sd_step2_seed.jpg" alt="02 · Material seeding" width="841" height="1660" loading="lazy"><figcaption>02 · Material seeding</figcaption></figure><figure><img src="../assets/img/sdMaterialTool/sd_step3_tile.jpg" alt="03 · Seamless tiling" width="841" height="1660" loading="lazy"><figcaption>03 · Seamless tiling</figcaption></figure><figure><img src="../assets/img/sdMaterialTool/sd_step4_pbr.jpg" alt="04 · PBR map extraction" width="841" height="1660" loading="lazy"><figcaption>04 · PBR map extraction</figcaption></figure><figure><img src="../assets/img/sdMaterialTool/sd_step5_opt.jpg" alt="05 · Optimization" width="841" height="1660" loading="lazy"><figcaption>05 · Optimization</figcaption></figure></div>
+<div class="gallery g2 contain reveal" style="--ar:16/10"><figure><img src="../assets/img/sdMaterialTool/sd_tile_ba.jpg" alt="Seamless tiling: before / after" width="551" height="328" loading="lazy"><figcaption>Seamless tiling: before / after</figcaption></figure><figure><img src="../assets/img/sdMaterialTool/sd_delight_ba.jpg" alt="De-lighting & optimization: before / after" width="691" height="509" loading="lazy"><figcaption>De-lighting & optimization: before / after</figcaption></figure></div>
+<div class="gallery g2  reveal" style="--ar:16/9"><figure><img src="../assets/img/sdMaterialTool/sd_in_sd_1.jpg" alt="Plugin docked inside Substance Designer" width="2200" height="1194" loading="lazy"><figcaption>Plugin docked inside Substance Designer</figcaption></figure><figure><img src="../assets/img/sdMaterialTool/sd_in_sd_2.jpg" alt="Generation settings next to the material graph" width="2200" height="1192" loading="lazy"><figcaption>Generation settings next to the material graph</figcaption></figure></div>
+
+</section>
+<section class="p-sec" id="architecture"><h2><span class="n">04</span>System architecture</h2>
+
+<p>The plugin uses a modular client–server design. It never calls a model endpoint itself: every request goes through a gateway that handles keys, accounts and routing. That keeps credentials out of the client, keeps orchestration in one place, and lets a new foundation model be added <strong>without touching the artist-facing UI</strong>.</p>
+<figure class="fig reveal"><img src="../assets/img/sdMaterialTool/sd_architecture.jpg" alt="<b>Module map:</b> the plugin entry point reads config and prompts, calls <code>models/</code>, which routes through the AI gateway to the available image models, or runs DeepBump locally via ONNX." width="2056" height="1066" loading="lazy"><figcaption><b>Module map:</b> the plugin entry point reads config and prompts, calls <code>models/</code>, which routes through the AI gateway to the available image models, or runs DeepBump locally via ONNX.</figcaption></figure>
+<div class="split"><div><h3>Unified client interface</h3><p>Every model client implements the same <code>generate_image()</code> signature – task type, prompt, negative prompt, reference images, aspect ratio, resolution, PBR target, output path – and returns the same result shape, with success and failure handled identically. Swapping or adding a provider is a new client class, not a UI change.</p></div><figure class="fig reveal"><img src="../assets/img/sdMaterialTool/sd_interface.jpg" alt="Standardized request / response contract for all supported models." width="1631" height="1022" loading="lazy"><figcaption>Standardized request / response contract for all supported models.</figcaption></figure></div>
+<figure class="fig reveal"><img src="../assets/img/sdMaterialTool/sd_sequence.jpg" alt="<b>Request flow:</b> UI → QThread worker → model client (builds the final prompt) → gateway → model, returned as Base64. Async work keeps Designer’s UI responsive." width="2200" height="998" loading="lazy"><figcaption><b>Request flow:</b> UI → QThread worker → model client (builds the final prompt) → gateway → model, returned as Base64. Async work keeps Designer’s UI responsive.</figcaption></figure>
+
+</section>
+<section class="p-sec" id="challenges"><h2><span class="n">05</span>Challenges & solutions</h2>
+<div class="cs"><div class="cs-item reveal"><div class="ch"><small>Challenge</small><h4>Fragmented material workflow</h4><p>Texture cleanup, PBR authoring, seam repair and generation each lived in a different tool, so iteration was slow and material quality drifted between artists.</p></div><div class="so"><small>Solution</small><h4>One workflow inside Designer</h4><p>Consolidated generation, tiling, PBR extraction, optimization and library management into a single docked panel, so the material never leaves the application it will be used in.</p></div></div><div class="cs-item reveal"><div class="ch"><small>Challenge</small><h4>Seams at the tile boundary</h4><p>A generated texture is a picture, not a material: tiled across a surface it shows an obvious repeating seam.</p></div><div class="so"><small>Solution</small><h4>AI-assisted edge completion, then verify by tiling</h4><p>The tiling pass regenerates the wrap-around border, and the panel previews the result already tiled so the artist judges the material the way the engine will use it.</p></div></div><div class="cs-item reveal"><div class="ch"><small>Challenge</small><h4>Many providers, many formats</h4><p>Each provider had a different request structure, output format and size limit.</p></div><div class="so"><small>Solution</small><h4>Unified interface behind a gateway</h4><p>A standard request/response contract plus provider-specific adapters. New models are added as a class, invisible to the artist.</p></div></div><div class="cs-item reveal"><div class="ch"><small>Challenge</small><h4>Keeping the DCC responsive</h4><p>Remote generation takes seconds to minutes; a blocking call would freeze Designer.</p></div><div class="so"><small>Solution</small><h4>Asynchronous execution</h4><p>Requests run on QThread workers and return through signals, keeping interaction, request handling and inference separate.</p></div></div></div>
+</section>
+<section class="p-sec" id="takeaways"><h2><span class="n">06</span>What I learned</h2>
+<ul><li>A material generator is only useful if its output survives contact with a real material graph. Judging every result tiled, lit and at map level mattered more than the prompt UI.</li><li>Designing for replaceable models from day one paid off, because providers and model versions changed while the tool was in production.</li><li>Running one model locally through ONNX (normal-map inference) was worth it: no round trip, no quota, and predictable results.</li></ul>
+</section>
+      
+    <div class="p-next">
+      <a href="bubbleFactory.html"><small>← PREVIOUS</small><b>Bubble Factory</b></a>
+      <a class="r" href="psAiToolkit.html"><small>NEXT PROJECT →</small><b>AI Creative Toolkit for Photoshop</b></a>
+    </div>
+    </main>
+  </div>
+</div>
+<footer class="footer" id="contact">
+  <div class="wrap">
+    <div class="footer-grid">
+      <div>
+        <h3>Let’s build better art pipelines.</h3>
+        <p>Open to Technical Art roles &amp; collaborations – <a href="mailto:xingyan@usc.edu" style="color:var(--accent)">xingyan@usc.edu</a></p>
+      </div>
+      <div class="socials">
+        <a href="mailto:xingyan@usc.edu" aria-label="Email"><i class="fa-solid fa-envelope"></i></a>
+        <a href="https://www.linkedin.com/in/liu-xingyan-yolanda6" target="_blank" rel="noopener" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+        <a href="https://yollienarae.itch.io" target="_blank" rel="noopener" aria-label="itch.io"><i class="fa-brands fa-itch-io"></i></a>
+        <a href="../resume.html" aria-label="Resume"><i class="fa-solid fa-file-lines"></i></a>
+      </div>
+    </div>
+    <div class="copyright">© 2026 Yolanda Liu · All rights reserved</div>
+  </div>
+</footer>
+<script src="../assets/js/gl.js"></script>
+<script src="../assets/js/site.js"></script>
+</body>
+</html>

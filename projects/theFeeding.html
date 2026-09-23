@@ -1,107 +1,163 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>The Feeding</title>
-    <link rel="stylesheet" href="../assets/css/style.css">
-    <link rel="stylesheet" href="../assets/css/cursor.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Feeding · Yolanda Liu, Technical Artist</title>
+<meta name="description" content="How did I build a fog-drenched Miao mountain world in UE 5.6, with a 16-material library, Gaea terrain, PCG cliffs and moss, MetaHumans, lighting and a Movie Render Queue cinematic?">
+<meta property="og:title" content="The Feeding · Yolanda Liu, Technical Artist">
+<meta property="og:description" content="How did I build a fog-drenched Miao mountain world in UE 5.6, with a 16-material library, Gaea terrain, PCG cliffs and moss, MetaHumans, lighting and a Movie Render Queue cinematic?">
+<meta name="theme-color" content="#F2EEE6">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><rect width='64' height='64' fill='%23F2EEE6'/><text x='32' y='44' font-family='Georgia,serif' font-size='34' text-anchor='middle' fill='%23A8412A'>YL</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..700;1,9..144,300..700&family=Inter:wght@300..600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/css/site.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 </head>
-
-<body class="project-page theFeeding">
-
+<body>
 <nav class="nav">
-    <!-- ABOUT -->
-    <a href="../index.html">About</a>
-    <!-- INDEPENDENT PROJECTS -->
-    <div class="dropdown">
-        <button class="dropbutton dropdown-toggle">Independent Projects</button>
-        <div class="dropdowncontent">
-            <a href="theFeeding.html">The Feeding</a>
-            <a href="brokenStage.html">Broken Stage</a>
-            <a href="riverOfForgetting.html">River of Forgetting</a>
-            <a href="travelTrove.html">Travel Trove</a>
-        </div>
-    </div>
-    <!-- GROUP PROJECTS -->
-    <div class="dropdown">
-        <button class="dropbutton dropdown-toggle">Group Projects</button>
-        <div class="dropdowncontent">
-            <a href="rhythmEcho.html">Rhythm: Echo of the Disciple</a>
-            <a href="puppetMystery.html">Puppet Mystery</a>
-        </div>
-    </div>
+  <div class="wrap">
+    <a class="brand" href="../index.html">
+      <span class="brand-text">Yolanda Liu<small>TECHNICAL ARTIST &amp; PRODUCER</small></span>
+    </a>
+    <button class="nav-toggle" aria-label="Menu"><i class="fa-solid fa-bars"></i></button>
+    <ul class="nav-links">
+      <li><a href="../index.html#professional">Professional Work</a></li>
+      <li class="has-menu"><a href="../index.html#work">Projects</a><div class="menu"><div class="grp"><small>Rendering & Shading</small><a href="../projects/theFeeding.html">The Feeding<span>UE 5.6 · PCG, materials, lighting</span></a><a href="../projects/rhythmEcho.html">Rhythm: Echo of the Disciple<span>Lighting, skybox, optimization</span></a><a href="../projects/bubbleFactory.html">Bubble Factory<span>Shader Graph bubbles · URP materials</span></a></div><div class="grp"><small>Tools & AI Pipeline</small><a href="../projects/sdMaterialTool.html">Tiling Material Generator<span>Substance 3D Designer plugin · PBR maps</span></a><a href="../projects/psAiToolkit.html">AI Creative Toolkit<span>Photoshop UXP plugin · 11 features</span></a><a href="../projects/travelTrove.html">TravelTrove<span>Stylized concept-art workflow</span></a></div><div class="grp"><small>Gameplay Systems</small><a href="../projects/riverOfForgetting.html">River of Forgetting<span>Unity · brewing & endings</span></a><a href="../projects/brokenStage.html">Broken Stage<span>Unity · puzzle systems</span></a><a href="../projects/puppetMystery.html">Puppet Mystery<span>Unity · lead dev & producer</span></a></div><div class="grp"><small>Beyond the Engine</small><a href="../projects/gravitas.html">Gravitas<span>Audio & narrative design</span></a><a href="../projects/theVillage.html">The Village<span>Costume & makeup head · 33 characters</span></a><a href="../projects/theInsanity.html">The Insanity<span>Costume design & production</span></a></div><div class="grp"><small>Written by hand</small><a href="../shaders.html">Shader Lab<span>Live GLSL: fog, PBR, water, bubble, POM, dissolve</span></a></div></div></li>
+      <li><a href="../shaders.html">Shader Lab</a></li>
+      <li><a href="../index.html#skills">Skills</a></li>
+      <li><a href="../index.html#about">About</a></li>
+      <li><a href="../resume.html">Resume</a></li>
+      <li><a class="btn-nav" href="../resume.html#contact-top">Contact</a></li>
+    </ul>
+  </div>
 </nav>
 
-<header class="header">
-    <div class="container">
-        <h1>The Feeding</h1>
-        <p>3D short film developed with Unreal Engine 5.6</p>
-    </div>
+<header class="p-hero h-wide">
+  <div class="wrap">
+    <div class="crumbs"><a href="../index.html#work">Work</a> / <a href="../index.html#work-render">Rendering & Shading</a> / The Feeding</div>
+    <span class="tag render">Rendering & Shading</span>
+    <h1>The Feeding</h1>
+    <p class="q">How did I build a fog-drenched Miao mountain world in UE 5.6, with a 16-material library, Gaea terrain, PCG cliffs and moss, MetaHumans, lighting and a Movie Render Queue cinematic?</p>
+    <div class="tags"><span class="tag">Unreal Engine 5.6</span><span class="tag">Material instances</span><span class="tag">Landscape materials</span><span class="tag">PCG</span><span class="tag">Blueprints</span><span class="tag">Lighting</span><span class="tag">MetaHuman</span><span class="tag">Gaea</span><span class="tag">Marvelous Designer</span><span class="tag">Sequencer / MRQ</span></div>
+  </div>
+  <div class="bg"><img src="../assets/img/theFeeding/r1_mountain.jpg" alt="The Feeding key visual"></div>
 </header>
+<div class="wrap">
+  <div class="facts"><div><small>Role</small><span>Solo: environment, TA, cinematics</span></div><div><small>Type</small><span>Short film / horror game pre-production</span></div><div><small>Year</small><span>2025</span></div><div><small>Engine</small><span>Unreal Engine 5.6</span></div><div><small>Tools</small><span>Gaea, Marvelous Designer, Mixamo, Blender, Audition, Premiere</span></div></div>
+  <div class="p-links"><a class="btn primary" href="https://youtu.be/_LaT0FU4JkQ" target="_blank" rel="noopener"><i class="fa-brands fa-youtube"></i> Watch the film</a></div>
+  <div class="p-layout">
+    <aside class="toc">
+      <h4>On this page</h4>
+      <ol><li><a href="#overview">Overview</a></li><li><a href="#contributions">My contributions</a></li><li><a href="#renders">Final renders</a></li><li><a href="#materials">Material library</a></li><li><a href="#environment">Terrain & PCG</a></li><li><a href="#modelling">Modelling</a></li><li><a href="#characters">Characters & cinematics</a></li><li><a href="#challenges">Challenges & solutions</a></li><li><a href="#research">Research & pre-production</a></li></ol>
+      <div class="next-proj"><a href="rhythmEcho.html"><small>NEXT PROJECT</small>Rhythm: Echo of the Disciple →</a></div>
+    </aside>
+    <main class="p-content">
+      <div class="ta-box reveal"><h3><i class="fa-solid fa-bolt"></i> Technical art highlights</h3><ul><li>16-material library (M1–M16) built on shared master materials</li><li>Landscape layer blend with slope masks and world-aligned cliffs</li><li>Two-sided foliage, single-layer water and emissive lantern shading</li><li>Two PCG graphs: Blueprint-driven cliffs and light-aware moss</li><li>Fog, moonlight, candle and firelight across 8 scene captures</li><li>MetaHuman + Mixamo retargeting + Marvelous Designer cloth</li></ul></div>
+      
+<section class="p-sec" id="overview"><h2><span class="n">01</span>Overview</h2>
 
-<main>
-    <div class="container">
-        <div class="cover-image">
-            <img src="../assets/img/1-1.jpg" alt="The Feeding image one">
-        </div>
+<p class="lead"><em>The Feeding</em> is a short film built in Unreal Engine 5.6 and inspired by the mythology of China’s Miao people. A priestess deep in the mountains spreads rumors of a forbidden ritual that can bring the dead back to life, luring curious young people up the mountain only to sacrifice them to feed her parasitic spirit insects (Gu).</p>
+<p>I built it solo: Gaea terrain, Blueprint-driven PCG cliffs and moss, a 16-material library, modular environment pieces, MetaHuman characters with retargeted animation, Marvelous Designer cloth, lighting, and a Sequencer cinematic rendered through Movie Render Queue. The film is pre-production for a future narrative horror game, where players explore the mountain and gather evidence of the priestess’s scheme.</p>
+<div class="video reveal"><iframe src="https://www.youtube-nocookie.com/embed/_LaT0FU4JkQ" title="The Feeding · short film" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen loading="lazy"></iframe></div>
 
-        <div class="video-responsive">
-            <iframe width="560" height="315"
-                src="https://www.youtube.com/embed/_LaT0FU4JkQ?si=18w5ZZOPvDGmLTWW"
-                title="YouTube video player" frameborder="0"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-        </div>
+</section>
+<section class="p-sec" id="contributions"><h2><span class="n">02</span>My contributions</h2>
+<div class="contrib"><div class="c reveal"><h4><i class="fa-solid fa-palette"></i>Material library (M1–M16)</h4><p>16 materials across terrain, foliage, water, architecture and props, built as instances of a few master materials so every scene could be relit fast.</p></div><div class="c reveal"><h4><i class="fa-solid fa-lightbulb"></i>Lighting & rendering</h4><p>Fog, moonlight, candle and firelight across 8 scene captures, delivered as a Movie Render Queue cinematic.</p></div><div class="c reveal"><h4><i class="fa-solid fa-cubes"></i>Procedural content (PCG)</h4><p>Two PCG graphs: PCG_Cliff to build cliff shapes from rock meshes via Blueprints, and a Moss generator that grows along a light direction.</p></div><div class="c reveal"><h4><i class="fa-solid fa-mountain"></i>Terrain</h4><p>Mountains modelled and textured in Gaea, then exported to Unreal as the base for PCG dressing.</p></div><div class="c reveal"><h4><i class="fa-solid fa-user"></i>Characters</h4><p>A MetaHuman priestess (built from Grace’s DNA), villagers, Mixamo → MetaHuman retargeting and Live Link facial capture.</p></div><div class="c reveal"><h4><i class="fa-solid fa-shirt"></i>Cloth simulation</h4><p>Cloaks patterned and simulated in Marvelous Designer, re-simulated to fix hand clipping, and imported as Alembic caches.</p></div></div>
+</section>
+<section class="p-sec" id="renders"><h2><span class="n">03</span>Final renders</h2>
 
-        <p>Click to view in details</p>
-        <div class="gallery">
-            <img src="../assets/img/1-2.jpg" alt="The Feeding image two">
-            <img src="../assets/img/1-3.jpg" alt="The Feeding image three">
-            <img src="../assets/img/1-4.jpg" alt="The Feeding image four">
-            <img src="../assets/img/1-5.jpg" alt="The Feeding image five">
-            <img src="../assets/img/1-6.jpg" alt="The Feeding image six">
-            <img src="../assets/img/1-7.jpg" alt="The Feeding image seven">
-            <img src="../assets/img/1-8.jpg" alt="The Feeding image eight">
-        </div>
+<figure class="fig reveal"><img src="../assets/img/theFeeding/r1_mountain.jpg" alt="<b>Scene capture 1:</b> Mountain & god statue. A crane-up reveals the scale of the range, with red firelight igniting below." width="1599" height="654" loading="lazy"><figcaption><b>Scene capture 1:</b> Mountain & god statue. A crane-up reveals the scale of the range, with red firelight igniting below.</figcaption></figure>
+<div class="gallery g2  reveal" style="--ar:16/8"><figure><img src="../assets/img/theFeeding/r2_cliffs.jpg" alt="Scene capture 2: cliffs at dusk" width="1540" height="628" loading="lazy"><figcaption>Scene capture 2: cliffs at dusk</figcaption></figure><figure><img src="../assets/img/theFeeding/r3_statue.jpg" alt="Scene capture 3: the god statue lit by candlelight" width="1762" height="671" loading="lazy"><figcaption>Scene capture 3: the god statue lit by candlelight</figcaption></figure><figure><img src="../assets/img/theFeeding/r4_priestess.jpg" alt="Scene capture 4: the priestess (MetaHuman)" width="798" height="392" loading="lazy"><figcaption>Scene capture 4: the priestess (MetaHuman)</figcaption></figure><figure><img src="../assets/img/theFeeding/r4_temple.jpg" alt="Scene capture 4: abandoned temple interior" width="1600" height="536" loading="lazy"><figcaption>Scene capture 4: abandoned temple interior</figcaption></figure></div>
+<div class="gallery g2  reveal" style="--ar:16/8"><figure><img src="../assets/img/theFeeding/r5_town.jpg" alt="Scene capture 5: the town before it burned" width="1301" height="538" loading="lazy"><figcaption>Scene capture 5: the town before it burned</figcaption></figure><figure><img src="../assets/img/theFeeding/r6_fire.jpg" alt="Scene capture 6: the town after it burned" width="1599" height="663" loading="lazy"><figcaption>Scene capture 6: the town after it burned</figcaption></figure></div>
+<div class="gallery g3  reveal" style="--ar:16/9"><figure><img src="../assets/img/theFeeding/r7_hooded.jpg" alt="Scene capture 7: the young man in the forest" width="1599" height="855" loading="lazy"><figcaption>Scene capture 7: the young man in the forest</figcaption></figure><figure><img src="../assets/img/theFeeding/r8_forest.jpg" alt="Scene capture 8: firelight in the forest" width="1599" height="855" loading="lazy"><figcaption>Scene capture 8: firelight in the forest</figcaption></figure><figure><img src="../assets/img/theFeeding/r8_fire.jpg" alt="Scene capture 8: the ritual fire" width="1598" height="678" loading="lazy"><figcaption>Scene capture 8: the ritual fire</figcaption></figure></div>
+
+</section>
+<section class="p-sec" id="materials"><h2><span class="n">04</span>Material library</h2>
+
+<p>The film’s mood depends on surfaces reading correctly in fog, moonlight and firelight. I built <strong>16 materials in five families</strong> as instances of a few master materials. Each family exposes the same parameters (tint, roughness range, normal strength, tiling, macro variation), so relighting a scene meant adjusting parameters, not rebuilding shaders.</p>
+<div class="matlib reveal"><div class="matgroup"><h4>Mountains</h4><div class="matrow"><figure><img src="../assets/img/theFeeding/m01_grass.png" alt="Grass" loading="lazy"><figcaption><b>M1</b>Grass</figcaption></figure><figure><img src="../assets/img/theFeeding/m02_grass_rocks.png" alt="Grass with Rocks" loading="lazy"><figcaption><b>M2</b>Grass with Rocks</figcaption></figure><figure><img src="../assets/img/theFeeding/m03_surface_rocks.png" alt="Surface Rocks" loading="lazy"><figcaption><b>M3</b>Surface Rocks</figcaption></figure><figure><img src="../assets/img/theFeeding/m04_rocks.png" alt="Rocks" loading="lazy"><figcaption><b>M4</b>Rocks</figcaption></figure></div></div><div class="matgroup"><h4>Plants & Trees</h4><div class="matrow"><figure><img src="../assets/img/theFeeding/m05_tree_leaves.png" alt="Tree Leaves" loading="lazy"><figcaption><b>M5</b>Tree Leaves</figcaption></figure><figure><img src="../assets/img/theFeeding/m06_tree_wood.png" alt="Tree Wood" loading="lazy"><figcaption><b>M6</b>Tree Wood</figcaption></figure></div></div><div class="matgroup"><h4>Water</h4><div class="matrow"><figure><img src="../assets/img/theFeeding/m07_water1.png" alt="Water Instance 1" loading="lazy"><figcaption><b>M7</b>Water Instance 1</figcaption></figure><figure><img src="../assets/img/theFeeding/m08_water2.png" alt="Water Instance 2" loading="lazy"><figcaption><b>M8</b>Water Instance 2</figcaption></figure></div></div><div class="matgroup"><h4>Architecture</h4><div class="matrow"><figure><img src="../assets/img/theFeeding/m09_pillar.png" alt="Pillar" loading="lazy"><figcaption><b>M9</b>Pillar</figcaption></figure><figure><img src="../assets/img/theFeeding/m10_roof.png" alt="Roof" loading="lazy"><figcaption><b>M10</b>Roof</figcaption></figure><figure><img src="../assets/img/theFeeding/m11_attic.png" alt="House Attic" loading="lazy"><figcaption><b>M11</b>House Attic</figcaption></figure><figure><img src="../assets/img/theFeeding/m12_pedestal.png" alt="Pedestal" loading="lazy"><figcaption><b>M12</b>Pedestal</figcaption></figure></div></div><div class="matgroup"><h4>Decoration</h4><div class="matrow"><figure><img src="../assets/img/theFeeding/m13_wood1.png" alt="Wood Instance 1" loading="lazy"><figcaption><b>M13</b>Wood Instance 1</figcaption></figure><figure><img src="../assets/img/theFeeding/m14_wood2.png" alt="Wood Instance 2" loading="lazy"><figcaption><b>M14</b>Wood Instance 2</figcaption></figure><figure><img src="../assets/img/theFeeding/m15_book.png" alt="Book" loading="lazy"><figcaption><b>M15</b>Book</figcaption></figure><figure><img src="../assets/img/theFeeding/m16_lantern.png" alt="Lantern" loading="lazy"><figcaption><b>M16</b>Lantern</figcaption></figure></div></div></div>
+<h3>How each family is built in UE 5.6</h3>
+<div class="cs"><div class="cs-item reveal"><div class="ch"><small>Family</small><h4>Mountains · M1–M4</h4><p>Landscape material using <strong>Landscape Layer Blend</strong> (Grass, Grass with Rocks, Surface Rocks, Rocks). A <strong>slope mask</strong> from the world-space normal pushes rock onto steep faces, and <strong>height-lerp</strong> blends grass into rock cracks instead of fading it.</p></div><div class="so"><small>Result</small><h4>Why it works</h4><p>Rock meshes and cliffs use a <strong>world-aligned (triplanar)</strong> version, so stretched UVs on vertical faces don’t smear. Distance-based tiling hides repetition in wide shots.</p></div></div><div class="cs-item reveal"><div class="ch"><small>Family</small><h4>Plants & Trees · M5–M6</h4><p>Leaves use the <strong>Two-Sided Foliage</strong> shading model with a masked opacity cut-out and a <strong>subsurface colour</strong>, so leaves glow when backlit by fire. Wind comes from world-position offset. Bark is an opaque tiling material with normal and AO.</p></div><div class="so"><small>Result</small><h4>Why it works</h4><p>Subsurface foliage is what makes the forest firelight in scene 8 feel warm rather than flat.</p></div></div><div class="cs-item reveal"><div class="ch"><small>Family</small><h4>Water · M7–M8</h4><p>UE5 <strong>Single Layer Water</strong> shading with two <strong>panning normal maps</strong> at different scales and speeds. Absorption and scattering colours set the look: murky jade green (M7) and dark, mirror-like ink (M8) for night.</p></div><div class="so"><small>Result</small><h4>Why it works</h4><p>One master, two instances. Only colour, roughness and ripple speed change between the day town and the night river.</p></div></div><div class="cs-item reveal"><div class="ch"><small>Family</small><h4>Architecture · M9–M12</h4><p>Stone pillar, roof tile, lacquered attic wood and a weathered pedestal. A <strong>top-down world-normal mask</strong> adds dirt and moss on upward faces, and a height-lerp mask chips red lacquer to reveal wood underneath (M11).</p></div><div class="so"><small>Result</small><h4>Why it works</h4><p>Ageing is procedural, so every modular piece gets unique wear without new textures, which suits an abandoned temple and a burned town.</p></div></div><div class="cs-item reveal"><div class="ch"><small>Family</small><h4>Decoration · M13–M16</h4><p>Two wood instances (red-brown and dark) from one wood master, aged paper for the book, and a <strong>paper lantern</strong> with a calligraphy texture, two-sided subsurface and an <strong>emissive parameter</strong> with a gentle flicker, paired with a point light.</p></div><div class="so"><small>Result</small><h4>Why it works</h4><p>The lantern’s emissive plus its real light source makes candlelit scenes read correctly both in camera and in reflections.</p></div></div></div>
+<h3>Look-dev process</h3>
+<ol class="steps"><li><b>Neutral check:</b> validate every instance on a sphere under neutral lighting first, so albedo and roughness values stay physically plausible.</li><li><b>In-context check:</b> re-check the same materials under fog, moonlight and firelight in the actual shot, and only tweak exposed parameters.</li><li><b>Lock exposure:</b> fix camera exposure per sequence so material changes, not auto-exposure, drive how scenes look.</li></ol>
+
+</section>
+<section class="p-sec" id="environment"><h2><span class="n">05</span>Terrain & PCG</h2>
+
+<h3>Terrain in Gaea</h3>
+<p>The mountains were modelled node-by-node in Gaea (erosion, flow and height passes), then textured and exported to Unreal as the macro form of the karst ranges of western Hunan.</p>
+<div class="gallery g4  reveal" style="--ar:16/10"><figure><img src="../assets/img/theFeeding/gaea_1.jpg" alt="Gaea node graph · pass 1" width="199" height="169" loading="lazy"><figcaption>Gaea node graph · pass 1</figcaption></figure><figure><img src="../assets/img/theFeeding/gaea_2.jpg" alt="Gaea node graph · pass 2" width="199" height="171" loading="lazy"><figcaption>Gaea node graph · pass 2</figcaption></figure><figure><img src="../assets/img/theFeeding/gaea_3.jpg" alt="Gaea node graph · pass 3" width="200" height="168" loading="lazy"><figcaption>Gaea node graph · pass 3</figcaption></figure><figure><img src="../assets/img/theFeeding/gaea_4.jpg" alt="Gaea node graph · pass 4" width="199" height="170" loading="lazy"><figcaption>Gaea node graph · pass 4</figcaption></figure></div>
+<div class="gallery g3 contain reveal" style="--ar:16/10"><figure><img src="../assets/img/theFeeding/ter_mesh.jpg" alt="Mountain mesh" width="633" height="301" loading="lazy"><figcaption>Mountain mesh</figcaption></figure><figure><img src="../assets/img/theFeeding/tex_mtn_4.jpg" alt="Mountain mesh, alternate" width="198" height="121" loading="lazy"><figcaption>Mountain mesh, alternate</figcaption></figure><figure><img src="../assets/img/theFeeding/ter_gaea.jpg" alt="Textured mountain" width="798" height="410" loading="lazy"><figcaption>Textured mountain</figcaption></figure><figure><img src="../assets/img/theFeeding/tex_mtn_1.jpg" alt="Textured terrain" width="150" height="147" loading="lazy"><figcaption>Textured terrain</figcaption></figure><figure><img src="../assets/img/theFeeding/tex_mtn_2.jpg" alt="Textured rock mass" width="200" height="156" loading="lazy"><figcaption>Textured rock mass</figcaption></figure><figure><img src="../assets/img/theFeeding/tex_mtn_3.jpg" alt="Textured cliff" width="200" height="190" loading="lazy"><figcaption>Textured cliff</figcaption></figure></div>
+<h3>PCG_Cliff: building cliffs from rock meshes</h3>
+<ol class="steps"><li><b>Step 1:</b> find suitable rock static meshes.</li><li><b>Step 2:</b> assemble the static meshes into PCG assets.</li><li><b>Step 3:</b> call the PCG assets from Blueprints to form different cliff shapes.</li><li><b>Step 4:</b> manually adjust parameters to reshape each cliff.</li></ol>
+<div class="gallery g2  reveal" style="--ar:16/9"><figure><img src="../assets/img/theFeeding/pcg_rocks.jpg" alt="Step 1 · source rock meshes" width="798" height="263" loading="lazy"><figcaption>Step 1 · source rock meshes</figcaption></figure><figure><img src="../assets/img/theFeeding/pcg_cliff.jpg" alt="Step 2 · static meshes assembled into PCG assets" width="799" height="399" loading="lazy"><figcaption>Step 2 · static meshes assembled into PCG assets</figcaption></figure><figure><img src="../assets/img/theFeeding/pcg_1.jpg" alt="Step 3 · Blueprint-called PCG cliff shape" width="798" height="408" loading="lazy"><figcaption>Step 3 · Blueprint-called PCG cliff shape</figcaption></figure><figure><img src="../assets/img/theFeeding/pcg_3.jpg" alt="Step 4 · adjusting parameters" width="799" height="329" loading="lazy"><figcaption>Step 4 · adjusting parameters</figcaption></figure></div>
+<h3>Moss: growing vegetation along a light direction</h3>
+<ol class="steps"><li><b>Step 1:</b> find suitable small rock and plant meshes.</li><li><b>Step 2:</b> assemble them as a level instance.</li><li><b>Step 3:</b> test the effect on a simple shape.</li><li><b>Step 4:</b> test on the mountain model.</li><li><b>Step 5:</b> add various sampling models for variety.</li><li><b>Step 6:</b> set a light direction so moss grows where plants realistically would.</li></ol>
+<div class="gallery g3 contain reveal" style="--ar:16/10"><figure><img src="../assets/img/theFeeding/pcg_rocks2.jpg" alt="Step 1 · small meshes" width="800" height="248" loading="lazy"><figcaption>Step 1 · small meshes</figcaption></figure><figure><img src="../assets/img/theFeeding/mat_leaves.jpg" alt="Step 2 · assembled as a level instance" width="687" height="465" loading="lazy"><figcaption>Step 2 · assembled as a level instance</figcaption></figure><figure><img src="../assets/img/theFeeding/pcg_moss_test.jpg" alt="Step 3 · effect test" width="199" height="159" loading="lazy"><figcaption>Step 3 · effect test</figcaption></figure><figure><img src="../assets/img/theFeeding/pcg_moss.jpg" alt="Step 4 · on the mountain model" width="798" height="409" loading="lazy"><figcaption>Step 4 · on the mountain model</figcaption></figure><figure><img src="../assets/img/theFeeding/pcg_sampling.jpg" alt="Step 5 · sampling models" width="200" height="193" loading="lazy"><figcaption>Step 5 · sampling models</figcaption></figure><figure><img src="../assets/img/theFeeding/pcg_2.jpg" alt="Step 6 · light direction" width="798" height="368" loading="lazy"><figcaption>Step 6 · light direction</figcaption></figure></div>
+<div class="gallery g2  reveal" style="--ar:16/7"><figure><img src="../assets/img/theFeeding/pcg_graph.jpg" alt="PCG_Cliff graph" width="800" height="355" loading="lazy"><figcaption>PCG_Cliff graph</figcaption></figure><figure><img src="../assets/img/theFeeding/pcg_graph2.jpg" alt="Moss graph" width="799" height="363" loading="lazy"><figcaption>Moss graph</figcaption></figure></div>
+<div class="gallery g2  reveal" style="--ar:16/8"><figure><img src="../assets/img/theFeeding/pcg_mtn2.jpg" alt="Rock groups generated in the defined area" width="799" height="468" loading="lazy"><figcaption>Rock groups generated in the defined area</figcaption></figure><figure><img src="../assets/img/theFeeding/pcg_mtn.jpg" alt="Moss generator added above the rock groups" width="799" height="287" loading="lazy"><figcaption>Moss generator added above the rock groups</figcaption></figure></div>
+
+</section>
+<section class="p-sec" id="modelling"><h2><span class="n">06</span>Modelling</h2>
+
+<h3>Character · villagers</h3>
+<div class="gallery g7 contain reveal" style="--ar:1/2"><figure><img src="../assets/img/theFeeding/villager_0.jpg" alt="Project image" width="392" height="691" loading="lazy"></figure><figure><img src="../assets/img/theFeeding/villager_1.jpg" alt="Project image" width="229" height="545" loading="lazy"></figure><figure><img src="../assets/img/theFeeding/villager_2.jpg" alt="Project image" width="230" height="499" loading="lazy"></figure><figure><img src="../assets/img/theFeeding/villager_3.jpg" alt="Project image" width="321" height="499" loading="lazy"></figure><figure><img src="../assets/img/theFeeding/villager_4.jpg" alt="Project image" width="233" height="538" loading="lazy"></figure><figure><img src="../assets/img/theFeeding/villager_5.jpg" alt="Project image" width="246" height="550" loading="lazy"></figure><figure><img src="../assets/img/theFeeding/villager_6.jpg" alt="Project image" width="332" height="622" loading="lazy"></figure></div>
+<h3>Modular components</h3>
+<p>A kit of props and architectural pieces (stone tablets, railings, lattice windows, gates, a pavilion roof, braziers, fish carvings, dead trees and branches) used to dress the temple, the town and the mountain path.</p>
+<div class="gallery g6 contain reveal" style="--ar:1/1"><figure><img src="../assets/img/theFeeding/mod_00.jpg" alt="Project image" width="198" height="102" loading="lazy"></figure><figure><img src="../assets/img/theFeeding/mod_02.jpg" alt="Project image" width="146" height="149" loading="lazy"></figure><figure><img src="../assets/img/theFeeding/mod_03.jpg" alt="Project image" width="110" height="149" loading="lazy"></figure><figure><img src="../assets/img/theFeeding/mod_04.jpg" alt="Project image" width="198" height="115" loading="lazy"></figure><figure><img src="../assets/img/theFeeding/mod_05.jpg" alt="Project image" width="149" height="146" loading="lazy"></figure><figure><img src="../assets/img/theFeeding/mod_06.jpg" alt="Project image" width="150" height="146" loading="lazy"></figure><figure><img src="../assets/img/theFeeding/mod_07.jpg" alt="Project image" width="150" height="108" loading="lazy"></figure><figure><img src="../assets/img/theFeeding/mod_08.jpg" alt="Project image" width="111" height="150" loading="lazy"></figure><figure><img src="../assets/img/theFeeding/mod_09.jpg" alt="Project image" width="149" height="111" loading="lazy"></figure><figure><img src="../assets/img/theFeeding/mod_10.jpg" alt="Project image" width="199" height="114" loading="lazy"></figure><figure><img src="../assets/img/theFeeding/mod_11.jpg" alt="Project image" width="199" height="125" loading="lazy"></figure><figure><img src="../assets/img/theFeeding/mod_12.jpg" alt="Project image" width="91" height="149" loading="lazy"></figure><figure><img src="../assets/img/theFeeding/mod_13.jpg" alt="Project image" width="138" height="149" loading="lazy"></figure><figure><img src="../assets/img/theFeeding/mod_15.jpg" alt="Project image" width="106" height="149" loading="lazy"></figure><figure><img src="../assets/img/theFeeding/mod_16.jpg" alt="Project image" width="200" height="150" loading="lazy"></figure><figure><img src="../assets/img/theFeeding/mod_17.jpg" alt="Project image" width="149" height="98" loading="lazy"></figure><figure><img src="../assets/img/theFeeding/mod_18.jpg" alt="Project image" width="150" height="149" loading="lazy"></figure><figure><img src="../assets/img/theFeeding/mod_19.jpg" alt="Project image" width="150" height="136" loading="lazy"></figure><figure><img src="../assets/img/theFeeding/mod_20.jpg" alt="Project image" width="150" height="142" loading="lazy"></figure><figure><img src="../assets/img/theFeeding/mod_21.jpg" alt="Project image" width="199" height="157" loading="lazy"></figure><figure><img src="../assets/img/theFeeding/mod_22.jpg" alt="Project image" width="199" height="119" loading="lazy"></figure><figure><img src="../assets/img/theFeeding/mod_24.jpg" alt="Project image" width="124" height="149" loading="lazy"></figure><figure><img src="../assets/img/theFeeding/mdl_wall.jpg" alt="Project image" width="647" height="331" loading="lazy"></figure></div>
+
+</section>
+<section class="p-sec" id="characters"><h2><span class="n">07</span>Characters & cinematics</h2>
+
+<div class="split"><div><h3>MetaHuman priestess</h3><p>I enabled the MetaHuman plugins in UE 5.6 and created the character in the integrated MetaHuman editor. I started from <strong>Grace’s MetaHuman DNA</strong>, blended body presets for an elderly frame with a slight stoop, and focused facial detail on the eyes, mouth corners and nasolabial folds, with skin matched to an older Asian woman. I then exported her as a combined skeletal mesh.</p></div><figure class="fig reveal"><img src="../assets/img/theFeeding/mh_face.jpg" alt="MetaHuman priestess, face detail pass" width="800" height="660" loading="lazy"><figcaption>MetaHuman priestess, face detail pass</figcaption></figure></div>
+<div class="gallery g3  reveal" style="--ar:4/3"><figure><img src="../assets/img/theFeeding/mh_base.jpg" alt="Create character: adjust MetaHuman parameters" width="799" height="607" loading="lazy"><figcaption>Create character: adjust MetaHuman parameters</figcaption></figure><figure><img src="../assets/img/theFeeding/mh_body.jpg" alt="Body blend & proportions" width="799" height="488" loading="lazy"><figcaption>Body blend & proportions</figcaption></figure><figure><img src="../assets/img/theFeeding/livelink.jpg" alt="Live Link facial capture" width="799" height="634" loading="lazy"><figcaption>Live Link facial capture</figcaption></figure></div>
+<h3>Mixamo → MetaHuman retargeting</h3>
+<div class="gallery g2  reveal" style="--ar:16/8"><figure><img src="../assets/img/theFeeding/mh_mixamo.jpg" alt="Mixamo re-animation" width="800" height="365" loading="lazy"><figcaption>Mixamo re-animation</figcaption></figure><figure><img src="../assets/img/theFeeding/mh_retarget.jpg" alt="Retarget Manager: rebinding animation to MetaHuman" width="799" height="407" loading="lazy"><figcaption>Retarget Manager: rebinding animation to MetaHuman</figcaption></figure></div>
+<h3>Cloth simulation (Marvelous Designer)</h3>
+<div class="gallery g3 contain reveal" style="--ar:4/3"><figure><img src="../assets/img/theFeeding/cl_split.jpg" alt="Create 2D pattern & split lines" width="735" height="499" loading="lazy"><figcaption>Create 2D pattern & split lines</figcaption></figure><figure><img src="../assets/img/theFeeding/cl_md.jpg" alt="Fabric simulation" width="480" height="614" loading="lazy"><figcaption>Fabric simulation</figcaption></figure><figure><img src="../assets/img/theFeeding/cl_ui.jpg" alt="Simulation in Marvelous Designer" width="798" height="399" loading="lazy"><figcaption>Simulation in Marvelous Designer</figcaption></figure></div>
+<h3>Sequencer & Movie Render Queue</h3>
+<div class="split"><div><ol class="steps"><li><b>Foundation:</b> create a Level Sequence, enable the Cinematic toolbar, drag actors into tracks.</li><li><b>Animation & cameras:</b> time each character’s animation. Build shots with Cine Camera Actors, tuning focal length and depth of field.</li><li><b>Polish:</b> spline-interpolate camera moves, sync audio with lip-sync, and export through Movie Render Queue.</li></ol></div><figure class="fig reveal"><img src="../assets/img/theFeeding/seq.jpg" alt="Importing Alembic caches and keyframing CineCamera actors in Sequencer" width="799" height="389" loading="lazy"><figcaption>Importing Alembic caches and keyframing CineCamera actors in Sequencer</figcaption></figure></div>
+
+</section>
+<section class="p-sec" id="challenges"><h2><span class="n">08</span>Challenges & solutions</h2>
+<div class="cs"><div class="cs-item reveal"><div class="ch"><small>Challenge</small><h4>One environment, very different moods</h4><p>The same town had to read as peaceful by day and as a burning ruin at night, and the temple had to hold up under a single candle.</p></div><div class="so"><small>Solution</small><h4>Master materials + parameter-only relighting</h4><p>All 16 materials are instances with shared parameters, so each lighting pass only meant retuning tint, roughness and emissive values.</p></div></div><div class="cs-item reveal"><div class="ch"><small>Challenge</small><h4>Stretched textures on vertical cliffs</h4><p>Gaea mountains and PCG cliffs have steep faces where standard UVs smear.</p></div><div class="so"><small>Solution</small><h4>Slope masks + world-aligned texturing</h4><p>Rock goes onto steep faces by slope, and cliff meshes use world-aligned projection, so surfaces stay crisp from any angle.</p></div></div><div class="cs-item reveal"><div class="ch"><small>Challenge</small><h4>Hand-placing a mountain range doesn’t scale</h4><p>Dressing huge karst cliffs with rocks and moss by hand would take too long and look repetitive.</p></div><div class="so"><small>Solution</small><h4>Two PCG graphs</h4><p>PCG_Cliff builds cliff shapes from rock meshes via Blueprints, and the Moss graph grows vegetation along a light direction.</p></div></div><div class="cs-item reveal"><div class="ch"><small>Challenge</small><h4>Retargeted animation distorted the MetaHuman</h4><p>Mixamo and MetaHuman skeletons have different root hierarchies and rest poses, so retargeted clips twisted the whole body.</p></div><div class="so"><small>Solution</small><h4>Manual root mapping + custom pose profile</h4><p>Mapped Mixamo’s <code>Hips</code> to MetaHuman’s <code>pelvis</code> in the Retarget Manager, and built a pose profile that matches the arms to the MetaHuman T-pose.</p></div></div><div class="cs-item reveal"><div class="ch"><small>Challenge</small><h4>Cloak clipping through hands</h4><p>The first cloth simulation clipped through the hands during gestures.</p></div><div class="so"><small>Solution</small><h4>Resimulate</h4><p>Adjusted patterns and collision, re-simulated in Marvelous Designer, and imported the result as an Alembic cache matched to the animation.</p></div></div></div>
+</section>
+<section class="p-sec" id="research"><h2><span class="n">09</span>Research & pre-production</h2>
+
+<p>I researched Miao culture (Gu sorcery, stilt-house architecture, silver ornaments and ritual), Chinese folk-horror games such as <em>Paper Dolls</em>, and audience data. A YouGov (2024) survey showed psychological and supernatural as top horror subgenres, and Steam’s horror tags lean first-person and atmospheric. Both pointed to a first-person, atmosphere-first direction. Two player interviews confirmed it: limited light and environmental storytelling, not jump scares.</p>
+<div class="gallery g4  reveal" style="--ar:1/1"><figure><img src="../assets/img/theFeeding/ref_town.jpg" alt="Inspiration: river town in western Hunan" width="500" height="333" loading="lazy"><figcaption>Inspiration: river town in western Hunan</figcaption></figure><figure><img src="../assets/img/theFeeding/ref_gu.jpg" alt="Gu creatures" width="800" height="791" loading="lazy"><figcaption>Gu creatures</figcaption></figure><figure><img src="../assets/img/theFeeding/ref_miao_dress.jpg" alt="Miao traditional clothing" width="649" height="787" loading="lazy"><figcaption>Miao traditional clothing</figcaption></figure><figure><img src="../assets/img/theFeeding/ref_miao_silver.jpg" alt="Silver ornaments" width="1049" height="2000" loading="lazy"><figcaption>Silver ornaments</figcaption></figure><figure><img src="../assets/img/theFeeding/ref_ritual.jpg" alt="Traditional ritual" width="799" height="525" loading="lazy"><figcaption>Traditional ritual</figcaption></figure><figure><img src="../assets/img/theFeeding/ref_village.jpg" alt="Miao village" width="799" height="533" loading="lazy"><figcaption>Miao village</figcaption></figure><figure><img src="../assets/img/theFeeding/ref_stilt.jpg" alt="Chinese architecture study" width="642" height="800" loading="lazy"><figcaption>Chinese architecture study</figcaption></figure><figure><img src="../assets/img/theFeeding/ref_paperdolls.jpg" alt="<em>Paper Dolls</em> (game research)" width="650" height="366" loading="lazy"><figcaption><em>Paper Dolls</em> (game research)</figcaption></figure></div>
+<h3>Storyboards</h3>
+<div class="gallery g3 contain reveal" style="--ar:4/3"><figure><img src="../assets/img/theFeeding/sb_1.jpg" alt="Scene 1 · Mountain & god statue" width="800" height="583" loading="lazy"><figcaption>Scene 1 · Mountain & god statue</figcaption></figure><figure><img src="../assets/img/theFeeding/sb_2.jpg" alt="Scene 2 · Town & memory transition" width="799" height="578" loading="lazy"><figcaption>Scene 2 · Town & memory transition</figcaption></figure><figure><img src="../assets/img/theFeeding/sb_3.jpg" alt="Scene 3 · Temple & priest (night)" width="799" height="580" loading="lazy"><figcaption>Scene 3 · Temple & priest (night)</figcaption></figure></div>
+
+</section>
+      
+    <div class="p-next">
+      <a href="theInsanity.html"><small>← PREVIOUS</small><b>The Insanity</b></a>
+      <a class="r" href="rhythmEcho.html"><small>NEXT PROJECT →</small><b>Rhythm: Echo of the Disciple</b></a>
     </div>
-</main>
-
-<script>
-document.addEventListener("DOMContentLoaded", function () {
-
-    const dropdowns = document.querySelectorAll(".dropdown");
-
-    dropdowns.forEach(drop => {
-        const button = drop.querySelector(".dropbutton");
-
-        button.addEventListener("click", function (event) {
-            event.stopPropagation();
-            closeAllDropdowns();
-            drop.classList.toggle("open");
-        });
-    });
-
-    document.addEventListener("click", function () {
-        closeAllDropdowns();
-    });
-
-    function closeAllDropdowns() {
-        dropdowns.forEach(d => d.classList.remove("open"));
-    }
-});
-</script>
-
-    <footer class="footer">
-        <p>&copy; 2025 Yolanda Liu | All Rights Reserved</p>
-        <p class="contact-text"><a href="https://drive.google.com/file/d/1VtxyaNnFvg7M4eTvH7OLGXI6QuSb3IWa/view?usp=sharing" target="_blank" rel="noopener noreferrer">View my Curriculum Vitae</a></p>
-        <p class="contact-text">Contact</p>
-        <div class="footer-social">
-            <a href="https://www.linkedin.com/in/liu-xingyan-yolanda6" target="_blank" class="social-icon"><i class="fab fa-linkedin"></i></a>
-            <a href="mailto:yolandaliuxy@outlook.com" class="social-icon"><i class="fas fa-envelope"></i></a>
-        </div>
-    </footer>
-<script src="../assets/js/main.js"></script>
+    </main>
+  </div>
+</div>
+<footer class="footer" id="contact">
+  <div class="wrap">
+    <div class="footer-grid">
+      <div>
+        <h3>Let’s build better art pipelines.</h3>
+        <p>Open to Technical Art roles &amp; collaborations – <a href="mailto:xingyan@usc.edu" style="color:var(--accent)">xingyan@usc.edu</a></p>
+      </div>
+      <div class="socials">
+        <a href="mailto:xingyan@usc.edu" aria-label="Email"><i class="fa-solid fa-envelope"></i></a>
+        <a href="https://www.linkedin.com/in/liu-xingyan-yolanda6" target="_blank" rel="noopener" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+        <a href="https://yollienarae.itch.io" target="_blank" rel="noopener" aria-label="itch.io"><i class="fa-brands fa-itch-io"></i></a>
+        <a href="../resume.html" aria-label="Resume"><i class="fa-solid fa-file-lines"></i></a>
+      </div>
+    </div>
+    <div class="copyright">© 2026 Yolanda Liu · All rights reserved</div>
+  </div>
+</footer>
+<script src="../assets/js/gl.js"></script>
+<script src="../assets/js/site.js"></script>
 </body>
 </html>
