@@ -3,7 +3,7 @@ from shaderlab import hero_script, orb_script
 
 PROJECTS = [
     dict(slug="sdMaterialTool", cat="pipeline", when="2026 · Tencent Games",
-         title="Tiling Material Generator for Substance 3D Designer",
+         title="AI Tiling Material Generator for Substance 3D Designer",
          hook="How do you get a seamless, production-ready PBR material set from a prompt without ever leaving Substance Designer?",
          role="Technical Artist (Tools & Pipeline) · Delta Force, TiMi J3 Studio",
          tags=["Python", "PySide", "Substance Designer API", "PBR maps", "ONNX", "Seamless tiling"]),
@@ -24,9 +24,9 @@ PROJECTS = [
          tags=["Unreal 5.6", "PCG", "Materials", "MetaHuman", "Gaea", "Sequencer / MRQ"]),
     dict(slug="rhythmEcho", cat="render", when="2025 · Team of 9",
          title="Rhythm: Echo of the Disciple",
-         hook="How did I light and optimize a mythic 3D rhythm world while producing a 9-person jam team?",
+         hook="How did I light, program and produce a mythic 3D rhythm world with a 9-person jam team?",
          role="Producer · Developer · Technical Artist",
-         tags=["Unreal 5.6", "Lighting", "Skybox", "Optimization", "Blueprints"]),
+         tags=["Unreal 5.6", "Lumen", "Skies & lighting", "Quartz", "Blueprints"]),
     dict(slug="bubbleFactory", cat="render", when="2025 · Global Game Jam",
          title="Bubble Factory",
          hook="How did I make materials carry a whole art direction in 48 hours, with translucent bubble shields, a gum lake and glowing pickups?",

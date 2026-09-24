@@ -896,3 +896,78 @@ pre.glsl .g { color: #8C3A7A; }
 @keyframes plswap { from { background: var(--accent); color: var(--bg); } to { background: var(--accent-soft); color: var(--accent); } }
 .pl-foot { margin: 0; padding: 0 18px 18px; font-size: 13.5px; color: var(--muted); }
 @media (max-width: 640px) { .pl-row { grid-template-columns: 1fr; gap: 3px; } }
+
+/* ===================================== production pipeline + system flow (Rhythm) */
+.pipe { margin: 30px 0; border-top: 1px solid var(--ink); }
+.pipe-band {
+  display: flex; justify-content: space-between; align-items: baseline; gap: 16px; flex-wrap: wrap;
+  padding: 14px 0; border-bottom: 1px solid var(--rule);
+}
+.pipe-band small, .pipe-stage small, .pipe-loop small {
+  font: 400 9.5px/1.4 var(--font-mono); letter-spacing: .16em; text-transform: uppercase; color: var(--muted);
+}
+.pipe-band b { font: 400 17px/1.3 var(--font-display); color: var(--accent); }
+.pipe-band span { font-size: 13px; color: var(--muted); }
+.pipe-row { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); border-bottom: 1px solid var(--rule); counter-reset: ps; }
+.pipe-stage { counter-increment: ps; position: relative; padding: 16px 16px 18px 0; border-right: 1px solid var(--rule); }
+.pipe-stage + .pipe-stage { padding-left: 16px; }
+.pipe-stage:last-child { border-right: 0; }
+.pipe-stage::before { content: counter(ps, decimal-leading-zero); display: block; font: 400 11px/1 var(--font-mono); color: var(--accent); margin-bottom: 10px; }
+.pipe-stage:not(:last-child)::after { content: "→"; position: absolute; right: -7px; top: 13px; background: var(--bg); color: var(--rule-2); font-size: 13px; line-height: 1; padding: 1px 0; }
+.pipe-stage h4 { font-size: 16px; margin: 0 0 6px; }
+.pipe-stage .who { display: block; font-size: 12.5px; color: var(--ink-2); line-height: 1.45; margin-bottom: 10px; }
+.pipe-stage p { font-size: 12.5px; color: var(--muted); margin: 0; line-height: 1.5; }
+.pipe-stage.me { background: var(--accent-soft); }
+.pipe-stage.me .who { color: var(--accent); }
+.pipe-loop { padding: 12px 0; font-size: 13px; color: var(--muted); border-bottom: 1px solid var(--rule); }
+.pipe-loop small { margin-right: 10px; color: var(--cool); }
+@media (max-width: 900px) {
+  .pipe-row { grid-template-columns: 1fr 1fr; }
+  .pipe-stage, .pipe-stage + .pipe-stage { padding: 16px 14px 18px 0; border-right: 0; border-bottom: 1px solid var(--rule); }
+  .pipe-stage:nth-child(2n) { padding-left: 14px; border-left: 1px solid var(--rule); }
+  .pipe-stage::after { display: none; }
+}
+@media (max-width: 520px) { .pipe-row { grid-template-columns: 1fr; } .pipe-stage:nth-child(2n) { padding-left: 0; border-left: 0; } }
+
+.flow { display: flex; flex-wrap: wrap; align-items: stretch; gap: 0; margin: 26px 0; border: 1px solid var(--rule); }
+.flow > div { flex: 1 1 150px; padding: 14px 16px; border-right: 1px solid var(--rule); position: relative; }
+.flow > div:last-child { border-right: 0; }
+.flow small { display: block; font: 400 9.5px/1.4 var(--font-mono); letter-spacing: .14em; text-transform: uppercase; color: var(--accent); margin-bottom: 7px; }
+.flow b { display: block; font: 400 15px/1.3 var(--font-display); margin-bottom: 5px; }
+.flow span { display: block; font-size: 12.5px; color: var(--muted); line-height: 1.5; }
+.flow code { font-size: 11.5px; }
+@media (max-width: 700px) { .flow > div { flex-basis: 100%; border-right: 0; border-bottom: 1px solid var(--rule); } .flow > div:last-child { border-bottom: 0; } }
+
+.realms { display: grid; gap: 0; margin: 26px 0; border-top: 1px solid var(--ink); }
+.realm { display: grid; grid-template-columns: 150px minmax(0, 1fr) minmax(0, 1fr); gap: 22px; padding: 16px 0; border-bottom: 1px solid var(--rule); align-items: baseline; }
+.realm b { font: 400 17px/1.3 var(--font-display); }
+.realm b small { display: block; font: 400 9.5px/1.6 var(--font-mono); letter-spacing: .14em; text-transform: uppercase; color: var(--muted); margin-top: 3px; }
+.realm p { margin: 0; font-size: 13.5px; line-height: 1.55; }
+.realm p i { font-style: normal; font: 400 9.5px/1 var(--font-mono); letter-spacing: .14em; text-transform: uppercase; color: var(--cool); display: block; margin-bottom: 5px; }
+@media (max-width: 760px) { .realm { grid-template-columns: 1fr; gap: 8px; } }
+.code-list code { overflow-wrap: anywhere; }
+.code-wrap.full { margin: 26px 0; }
+.code-wrap.full pre.code { max-height: none; }
+
+/* ===================================== agile month (Rhythm) */
+.team { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0; margin: 26px 0 0; border-top: 1px solid var(--ink); }
+.team div { padding: 12px 14px 12px 0; border-bottom: 1px solid var(--rule); }
+.team small { display: block; font: 400 9.5px/1.4 var(--font-mono); letter-spacing: .14em; text-transform: uppercase; color: var(--muted); margin-bottom: 4px; }
+.team span { font-size: 13.5px; color: var(--ink-2); }
+.team .me span b { color: var(--accent); font-weight: 600; }
+@media (max-width: 640px) { .team { grid-template-columns: 1fr 1fr; } }
+.sprints { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); margin: 22px 0 0; border: 1px solid var(--rule); }
+.sprint { padding: 16px 16px 18px; border-right: 1px solid var(--rule); }
+.sprint:last-child { border-right: 0; }
+.sprint small { display: block; font: 400 10px/1 var(--font-mono); letter-spacing: .14em; text-transform: uppercase; color: var(--accent); margin-bottom: 9px; }
+.sprint h4 { font-size: 16.5px; margin: 0 0 10px; }
+.sprint ul { margin: 0; padding: 0; list-style: none; }
+.sprint li { font-size: 12.8px; line-height: 1.5; color: var(--ink-2); padding: 5px 0; border-top: 1px dotted var(--rule); }
+.sprint li i { font-style: normal; color: var(--muted); }
+.sprint .out { margin-top: 10px; font: 400 10.5px/1.5 var(--font-mono); color: var(--cool); }
+.rituals { display: flex; flex-wrap: wrap; gap: 0; border: 1px solid var(--rule); border-top: 0; margin-bottom: 26px; }
+.rituals div { flex: 1 1 180px; padding: 12px 16px; border-right: 1px solid var(--rule); font-size: 12.8px; color: var(--muted); }
+.rituals div:last-child { border-right: 0; }
+.rituals b { display: block; font: 400 14.5px/1.3 var(--font-display); color: var(--ink); margin-bottom: 3px; }
+@media (max-width: 900px) { .sprints { grid-template-columns: 1fr 1fr; } .sprint:nth-child(2) { border-right: 0; } .sprint:nth-child(-n+2) { border-bottom: 1px solid var(--rule); } }
+@media (max-width: 520px) { .sprints { grid-template-columns: 1fr; } .sprint { border-right: 0; border-bottom: 1px solid var(--rule); } .sprint:last-child { border-bottom: 0; } .rituals div { flex-basis: 100%; border-right: 0; border-bottom: 1px solid var(--rule); } .rituals div:last-child { border-bottom: 0; } }

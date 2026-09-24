@@ -64,7 +64,7 @@ def sd_tool():
         "Running one model locally through ONNX (normal-map inference) was worth it: no round trip, no quota, and predictable results.",
     ])))
     return dict(
-        slug="sdMaterialTool", title="Tiling Material Generator for Substance 3D Designer", cat="pipeline", catname=CATNAME["pipeline"],
+        slug="sdMaterialTool", title="AI Tiling Material Generator for Substance 3D Designer", cat="pipeline", catname=CATNAME["pipeline"],
         question="How do you get a seamless, production-ready PBR material set from a prompt without ever leaving Substance Designer?",
         tags=["Python", "PySide", "Substance Designer API", "PBR maps", "ONNX", "Seamless tiling"],
         hero_mode="inset",
@@ -302,48 +302,219 @@ def feeding():
 
 
 # ------------------------------------------------------------------ RHYTHM
+TEAM = [
+    ("Producers", "<b>Yolanda Liu</b> · Kyrene Zhang", True),
+    ("Developers", "Oley Zhou · Kyrene Zhang · <b>Yolanda Liu</b>", True),
+    ("Technical art", "<b>Yolanda Liu</b>", True),
+    ("Artists", "Aldo Kai · Cecilia Han · Bi Hongying", False),
+    ("Audio", "Katria Qin", False),
+    ("Writing · Publishing", "Bill Dong · Haley Wang", False),
+]
+
+SPRINTS = [
+    ("Week 1", "Concept & IP", ["IP research: which instruments, which realms", "Lore, title and art direction locked", "Grey-box Realm I, first Quartz clock test"], "Paper prototype + grey-box"),
+    ("Week 2", "Core loop", ["Rhythm engine and first drum chart", "Puzzle prototypes for Realms II–IV", "Art and audio hand-off rules agreed"], "Playable drum trial"),
+    ("Week 3", "Content", ["All four realms dressed and lit", "Gupiaoqin, lusheng and final charts", "Progress state, save and teleporters wire the run"], "Full run, rough"),
+    ("Week 4", "Polish & ship", ["Timing, hit window and lives tuned from playtests", "Lighting readability and build-size pass", "Trailer, itch.io page, WIPO submission"], "Shipped demo"),
+]
+
+
+def pipeline():
+    team = "".join(f'<div class="{"me" if me else ""}"><small>{r}</small><span>{w}</span></div>' for r, w, me in TEAM)
+    sprints = "".join(
+        f'<div class="sprint"><small>{w}</small><h4>{g}</h4><ul>{"".join(f"<li>{x}</li>" for x in items)}</ul><div class="out">→ {o}</div></div>'
+        for w, g, items, o in SPRINTS)
+    rituals = ('<div><b>Daily stand-up</b>Blockers across art, audio and code, 15 minutes</div>'
+               '<div><b>Weekly playtest build</b>Every discipline plays the same build</div>'
+               '<div><b>Review & re-plan</b>Cut or re-scope from what the playtest showed</div>'
+               '<div><b>One task board</b>Every hand-off is a card with an owner</div>')
+    return (f'<div class="team reveal">{team}</div>'
+            f'<div class="sprints reveal">{sprints}</div>'
+            f'<div class="rituals reveal">{rituals}</div>')
+
+
+def flow(items):
+    return '<div class="flow reveal">' + "".join(f"<div><small>{a}</small><b>{b}</b><span>{c}</span></div>" for a, b, c in items) + "</div>"
+
+
+def realms(items):
+    return '<div class="realms reveal">' + "".join(
+        f'<div class="realm"><b>{n}<small>{s}</small></b><p><i>Sky &amp; atmosphere</i>{sky}</p><p><i>Light as feedback</i>{light}</p></div>'
+        for n, s, sky, light in items) + "</div>"
+
+
+def listing(title, sub, src):
+    import html as _h
+    return (f'<div class="code-wrap full reveal"><div class="code-bar"><b>{title}</b><span>{sub}</span></div>'
+            f'<pre class="code">{_h.escape(src)}</pre></div>')
+
+
+RHYTHM_SRC = """// Reconstructed from the Blueprint graphs and simplified for reading.
+
+// BP_MusicGameManager · StartMinigame(chart)
+Chart  = DA_Chart_Song_N          // BPM_Base, BeatsPerBar, StartBar, PreRollBeats,
+                                  // ApproachBeats, GlobalOffsetBeats, HitWindowSeconds,
+                                  // LaneX_Offsets, LivesStart, MusicSound, Notes[]
+Clock  = Quartz.CreateNewClock("Rhythm")
+Clock.SetBeatsPerMinute(Chart.BPM_Base)
+Clock.SubscribeToQuantizationEvent(Beat, OnQuartzTick) // audio-thread beat events
+Clock.StartClock();  PlayQuantized(Chart.MusicSound)    // music starts on the clock
+OnQuartzTick(): PlayBeats += 1                          // game time = beats heard
+SwapInputContext(IMC_Default -> IMC_Rhythm)           // F G Space J K L become lanes
+
+// every note is data: S_NoteEvent { Bar, Beat, BeatFraction, Lane }
+TargetHitBeats(n) = (n.Bar - StartBar) * BeatsPerBar + n.Beat + n.BeatFraction
+                    + GlobalOffsetBeats
+spawn note when   PlayBeats >= TargetHitBeats(n) - ApproachBeats
+
+// BP_MusicNote · Tick
+alpha = clamp((PlayBeats - (TargetHitBeats - ApproachBeats)) / ApproachBeats, 0, 1)
+Z     = lerp(SpawnZ, HitZ, alpha)          // lands on the judgement line on the beat
+if PlayBeats past the window: Manager.ReportMiss()   // lives - 1, UI "remaining errors"
+
+// BP_JudgementLine · TryHit(lane)
+best = overlapping note in lane with the smallest |PlayBeats - TargetHitBeats|
+if best and |delta| <= HitWindowSeconds:
+    flash the instrument's CorrectLight, play HitSound, destroy note
+"""
+
+PROGRESS_SRC = """// BP_GI (GameInstance) owns the run
+CurrentState : EGameProgressState   // C0S0, C1S0..C1S2, C2S0..C2S2, C3S0..C3S2, C4S0, C4S1
+SetState(s):  CurrentState = s;  SaveGameToSlot(BP_Save);  OnStateChanged.Broadcast(s)
+
+// AC_StateSwitch / AC_StateSwitchForLights, dropped onto any actor
+VisibleInStates : [EGameProgressState]
+OnStateChanged(s): for a in TargetActors:
+    a.SetHidden(s not in VisibleInStates);  a.SetCollision(s in VisibleInStates)
+    // lights: only the current stage's puzzle lights are enabled
+
+// AC_ProgressTrigger: overlap -> GI.SetState(TargetProgress)
+// BP_Teleporter:      fade + WBP_Loading -> OpenLevel(TargetLevelName, SpawnTag)
+"""
+
+
 def rhythm():
     set_slug("rhythmEcho")
     S = []
     S.append(("overview", "Overview", f"""
-<p class="lead"><em>Rhythm: Echo of the Disciple</em> is a first-person 3D rhythm and puzzle adventure made in two weeks for the <strong>Global Game Jam × WIPO "Next Great IP" Game Jam</strong>. You play the Silent One, the last echo of the World Tree Ruomu, travelling through nine forgotten realms to restore harmony after the Resonance Collapse silenced the world. You play sacred instruments to wake lost rhythms.</p>
-<p>I was one of two producers, a developer and the team's technical artist: I built core rhythm and puzzle systems in Unreal Blueprints and owned lighting, skybox and rendering performance, all while coordinating nine people across design, programming, art, audio and publishing.</p>
+<p class="lead"><em>Rhythm: Echo of the Disciple</em> (<em>律界：众声的回环</em>) is a first-person 3D rhythm and puzzle adventure made for the <strong>Global Game Jam × WIPO "Next Great IP" Jam</strong>. You play the Silent One, the last echo of the World Tree Ruomu, travelling through realms silenced by the Resonance Collapse and waking them by playing sacred instruments of China's ethnic-minority music traditions.</p>
+<p>I was one of two producers, one of three developers and the team's only technical artist. I ran the production pipeline for nine people, owned the sky, lighting and rendering of every realm, set dressed and applied materials in engine, wrote the rhythm engine and connected the puzzle levels into one playable journey.</p>
+{stats([("9", "People across 6 disciplines"), ("4", "Realms, each its own level"), ("4", "Instrument charts as data"), ("~20 min", "Playable demo on itch.io")])}
 {video("724kNPAQR84", "Rhythm: Echo of the Disciple · trailer")}
-{gallery([("itch_1.jpg", "Instrument trial chamber"), ("itch_2.jpg", "The World Tree emblem at dusk"), ("itch_3.jpg", "Instrument altar: trial in progress")], cols=3, ar="16/9")}
+{gallery([("itch_1.jpg", "Instrument trial chamber"), ("itch_2.jpg", "The World Tree gate at dusk"), ("itch_3.jpg", "Instrument altar: a trial in progress")], cols=3, ar="16/9")}
 """))
-    S.append(("contributions", "My contributions", contrib([
-        ("fa-solid fa-lightbulb", "Lighting & skybox", "Lit the realms and built the skybox and atmosphere to carry each realm's mood from dusk-lit desert to glowing tree chamber."),
-        ("fa-solid fa-gauge-high", "Rendering optimization", "Optimized lighting and rendering settings to improve visual quality while reducing build size for distribution."),
-        ("fa-solid fa-music", "Rhythm & puzzle systems", "Developed core rhythm and puzzle gameplay in UE5 Blueprints, delivering a 20-minute playable demo."),
-        ("fa-solid fa-people-group", "Production", "Co-produced a 9-person team across design, programming, art, audio, writing and publishing inside a two-week cycle."),
-        ("fa-solid fa-book-open", "IP research", "Researched successful game IP and worldbuilding strategies and helped plan a long-term IP built on ethnic-minority music."),
-    ])))
+    S.append(("pipeline", "Production: an agile month", f"""
+<p>We had one month, nine people and six disciplines. As producer (with Kyrene Zhang) I ran it as four one-week sprints, each ending in a build everyone could play. Scope was decided by what the last playtest showed, not by the original plan, which is how a nine-realm idea became a four-realm demo that actually shipped.</p>
+{pipeline()}
+<p>Because I was also the integrator, every hand-off landed on my desk first. When one broke, I changed the rule for the whole team instead of fixing a single file: music arrives with its tempo and bar count, dialogue arrives as CN / EN text fields, art arrives as meshes ready to place.</p>
+"""))
+    S.append(("visuals", "Visuals: set dressing & materials", f"""
+<p>The art team made the hero pieces; I turned them into places. For each realm I blocked out and dressed the space, placed and scaled the instruments, statues and architecture, and applied materials in Unreal: a landscape material instance on the ground, polished marble, red granite and oxidized metal for the altars, and small gold and silver masters for the relics. Props that never move were merged into single static meshes so each room draws in a few calls instead of dozens.</p>
+{fig("stage_tree.jpg", "<b>The rhythm stage.</b> The bronze-and-marble tree where each instrument trial is played: set dressed with materials applied in engine. The instruments hang from its branches until the player wakes them.")}
+{gallery([("inst_drum.jpg", "Drum relic"), ("inst_lusheng.jpg", "Lusheng (reed pipes)"), ("inst_gupiaoqin.jpg", "Gupiaoqin (two-string folk instrument)")], cols=3, ar="1/1")}
+<p>Each instrument sits in a cave pool of warm light against a cool marble floor, so the playable object always reads as the brightest, warmest thing in frame.</p>
+"""))
+    S.append(("lighting", "Skies & lighting", f"""
+<p>Light is the part of <em>Rhythm</em> I care about most: it sets each realm's mood, and it is also how the game talks to the player. The whole project is <strong>fully dynamic</strong> (static lighting is switched off), lit with <strong>Lumen</strong> global illumination and reflections, <strong>virtual shadow maps</strong> and hardware ray tracing, so I could keep changing skies until the final hours of the jam and see the result without a bake.</p>
+{fig("gate_dusk.jpg", "<b>The World Tree gate.</b> A low sun behind the ridge gives rim light on the rings, while a fill light under the gate keeps the tree emblem readable against the dark rock.")}
+{gallery([("sky_ridge.jpg", "Dusk ridge: silhouette first, sun as the focal point"), ("sky_stars.jpg", "Above the clouds: volumetric clouds lit from below, star field overhead")], cols=2, ar="3/2")}
+<h3>One sky system, a different mood per realm</h3>
+<p>I built every realm's sky on <strong>Ultra Dynamic Sky</strong> (sky atmosphere, sun and moon, volumetric clouds) and tuned it per level, adding <strong>GoodSky</strong> and the engine's procedural night sky where a realm needed stars. On top of the sky, I used local lights as a gameplay language: warm means "play this", green means "correct", and a light that switches off means a stage is done.</p>
+{realms([
+    ("Realm I", "Dusk desert · Room 1", "Ultra Dynamic Sky at a low sun, exponential height fog plus local fog volumes to layer the valley, volumetric clouds catching the last light.", "The World Tree gate glows as the goal; a butterfly guide carries its own light to lead the player."),
+    ("Realm II", "Tile court · Room 2", "Same sky system pushed brighter and cooler, height fog for depth across the court.", "Every floor tile owns a spotlight driven by a Timeline fade: holding a tile raises it to <code>OnIntensity</code>, a wrong step resets them all."),
+    ("Realm III", "Night hall · Room 3", "Night: GoodSky sphere and procedural night sky for the star field over Ultra Dynamic Sky's atmosphere.", "The RGB puzzle is literally light mixing: red, green and blue spot units must add up to white on both sides."),
+    ("Realm IV", "Tone cave · Room 4", "Enclosed cave, warm bounce from Lumen off the carved walls.", "Rect lights on each tone door; the correct door plays its glow FX as the sequence advances."),
+])}
+<h3>Rendering setup & optimization</h3>
+{code_list([
+    ("r.DynamicGlobalIlluminationMethod=1<br>r.ReflectionMethod=1", "Lumen GI and reflections, so skies and puzzle lights bounce correctly with no lightmaps."),
+    ("r.AllowStaticLighting=False", "No baked lighting at all: nothing to bake on a jam deadline and no lightmap textures to ship."),
+    ("r.Shadow.Virtual.Enable=1", "Virtual shadow maps keep the long dusk shadows sharp across large realms."),
+    ("r.RayTracing=True", "Hardware ray tracing on for Lumen quality on capable GPUs; mesh distance fields as the fallback."),
+    ("AutoExposure=False<br>LocalExposure contrast 0.8", "Fixed exposure so each realm looks exactly as I graded it; local exposure softens highlights and shadows."),
+    ("AC_StateSwitchForLights", "Puzzle lights are grouped by progress stage and only the current stage's set is enabled."),
+    ("SM_MERGED_*", "Static props merged into single meshes per room to cut draw calls."),
+    ("Shipping · IoStore · Oodle Kraken 7", "Shipping build, compressed pak, shared material shader code, no debug files or crash reporter, English only, only referenced content cooked. Each realm is its own level loaded behind a loading screen."),
+])}
+"""))
+    S.append(("rhythm-engine", "Code: the rhythm engine", f"""
+<h3>Why Quartz</h3>
+<p>A rhythm game lives or dies on timing. If notes are timed with the game's frame clock, a heavy realm that drops frames makes every note land late while the music plays on. <strong>Quartz</strong> is Unreal's clock that runs on the <em>audio</em> thread: it counts bars and beats in step with the sound actually coming out of the speakers, and fires events exactly on beat boundaries. I built the rhythm engine on it:</p>
+{steps([
+    "<b>One clock per song.</b> The manager creates a Quartz clock, sets it to the chart's <code>BPM_Base</code> and time signature, and starts the music quantized to that clock, so the song and the clock start on the same sample.",
+    "<b>Gameplay counts in beats, not seconds.</b> On every Quartz tick the manager advances <code>PlayBeats</code>. Notes, spawning and misses are all measured in beats against that value.",
+    "<b>Only the hit window is in seconds.</b> <code>HitWindowSeconds</code> is converted with <code>SecondsPerBeat</code>, so a fast song and a slow song feel equally fair.",
+])}
+<h3>Charting with our audio artist</h3>
+<p>We didn't auto-detect beats: every note was placed by hand. To make that workable across two people and a deadline, Katria and I agreed to speak the same language as her music software, <strong>bars and beats</strong>, instead of timestamps.</p>
+{flow([
+    ("1 · Audio", "Track + tempo", "Katria delivers each chapter track (drum, gupiaoqin, lusheng, finale) with its BPM and bar count"),
+    ("2 · Set up", "Chart asset", "BPM, beats per bar, start bar and pre-roll go into a <code>DA_Chart_Song</code>"),
+    ("3 · Chart", "Manual beats", "We listen and enter each hit as <code>Bar · Beat · BeatFraction · Lane</code>"),
+    ("4 · Test", "Play in engine", "If the whole song feels early or late, nudge <code>GlobalOffsetBeats</code> once, never every note"),
+    ("5 · Review", "Katria plays it", "She marks accents to add or remove; only the chart changes, no Blueprint edits"),
+])}
+<p>Writing notes as musical positions meant that when Katria changed one bar, only that bar's notes needed editing. Everything after it stayed in time. A note written as "bar 12, beat 3, and a half" means the same thing in her music software and in Unreal, which removed most of the back-and-forth.</p>
+{listing("Rhythm engine", "Blueprints → pseudocode", RHYTHM_SRC)}
+<p>The instruments share one interface (<code>BPI_Drum</code>), so the same judgement line drives the drum, lusheng and gupiaoqin trials, and a manager swaps in a dedicated rhythm input context for the duration of each song.</p>
+"""))
+    S.append(("puzzles", "Code: puzzles & level flow", f"""
+<p>Each realm pairs its rhythm trial with a puzzle. Oley Zhou and Kyrene Zhang led the puzzle builds; I assisted them on the logic and owned the glue that made three separate puzzles feel like one journey: a single progress state, save, and level transitions.</p>
+{flow([
+    ("Room 2", "Tile path", "<code>BP_Puzzle1Manager</code> counts correct tiles; stand on a <code>BP_PuzzleTile</code> for its hold time to light it, a wrong tile resets all"),
+    ("Room 3", "RGB light mix", "<code>BP_RGB_Master</code> validates left and right sub-puzzles; each is solved when its R, G and B units add up to white"),
+    ("Room 4", "Tone doors", "<code>BP_Puzzle3Manager</code> checks a correct sequence of pentatonic tones; hover a door to hear it, F + J chords select"),
+])}
+{listing("Progress, save & level flow", "Blueprints → pseudocode", PROGRESS_SRC)}
+<p>Because every puzzle actor just listens for a state change, a designer could place a door, light or NPC and tick which stages it appears in, without editing any puzzle Blueprint.</p>
+"""))
+    S.append(("ip", "IP research", f"""
+<p>The WIPO × Global Game Jam brief asked young teams for a game with <strong>franchise potential</strong>, thinking about how copyright, trademarks and design rights protect characters, music and branding from day one. I researched how successful game IPs build a world that outlives one title, and we built <em>Rhythm</em> around an asset no one else could claim in the same way: the living music of China's ethnic-minority instruments.</p>
+{fig("keyart.jpg", "Title key art by the art team: the seal-style 律 mark and bilingual title were designed to work as a logo on their own.")}
+{contrib([
+    ("fa-solid fa-drum", "Instruments as characters", "The drum, the lusheng reed pipes and the gupiaoqin are the realms' 'bosses' and relics. Each is a designable, ownable object that can carry merchandise, collectibles and a soundtrack."),
+    ("fa-solid fa-music", "Music as the rule of the world", "Every realm is sealed by silence and opened by a rhythm. The Room 4 doors use the names of the Chinese pentatonic scale (gong, shang, jue, zhi, yu), so music theory itself becomes the mechanic."),
+    ("fa-solid fa-copyright", "Original, protectable layers", "Original chapter tracks per instrument, an original story and emblem (the World Tree Ruomu) and a distinct bilingual brand: the layers WIPO's sessions framed as copyright and trademark."),
+    ("fa-solid fa-map", "Built to expand", "The lore describes nine realms; the jam build ships four. Each new realm is a new instrument, song and puzzle on the same systems, which is how the IP grows into sequels, albums or other media."),
+])}
+"""))
     S.append(("challenges", "Challenges & solutions", cs([
-        ("Mood vs. performance on a jam timeline",
-         "We wanted atmospheric, mythic realms, but heavy lighting and assets meant a large build and uneven performance for players downloading from itch.io.",
-         "Targeted lighting & rendering optimization",
-         "I focused on lighting, skybox and rendering settings. The pass improved visual quality while reducing the final build size."),
-        ("Nine people, two weeks",
-         "Design, programming, art, audio, writing and publishing all had to converge on one playable build.",
-         "Producer-led scope and cadence",
-         "Coordinated development across disciplines and kept scope anchored to a 20-minute demo so everything shipped inside the two-week cycle."),
+        ("Four moods, no time to bake",
+         "Each realm needed its own time of day and atmosphere, and lighting was still changing in the last hours of the jam. Baked lighting would have cost hours per change and inflated the build.",
+         "Fully dynamic Lumen and one sky system",
+         "I turned static lighting off, lit with Lumen, VSM and ray tracing, and built every realm on the same Ultra Dynamic Sky setup tuned per level. A sky change became a slider, not a rebake."),
+        ("Notes drifting away from the music",
+         "Timing notes on frame time makes a rhythm game feel wrong the moment the frame rate dips, and our realms are heavy scenes.",
+         "Quartz clock and beat-space math",
+         "The engine runs on a Quartz audio-thread clock, charts are written in bars and beats with the audio artist, and only the hit window is in seconds. One offset value fixes a whole song's feel."),
+        ("Nine people, six disciplines, one build",
+         "Music, writing, art and three developers all had to land in the same Unreal project inside one month.",
+         "Weekly sprints and data hand-offs",
+         "Four one-week sprints, each ending in a shared playtest build. Songs came in with tempo and bar count, dialogue as CN / EN fields, art as ready meshes; when a hand-off broke I fixed the rule, not the file."),
+        ("Three puzzles by different hands",
+         "Separate puzzle Blueprints risked three disconnected mini-games.",
+         "Shared progress state",
+         "I wired a GameInstance progress enum with save, state-switch components and teleporters, so every realm reads and advances the same journey."),
+        ("A heavy download for a jam game",
+         "Players were downloading from itch.io; a bloated build loses them before the menu.",
+         "Build-size pass",
+         "Shipping config with IoStore and Oodle compression, shared shader code, no lightmaps, merged meshes, one level per realm and only referenced content cooked."),
     ])))
-    S.append(("key-art", "Key art", f"""
-{fig("orb.jpg", "The World Tree Ruomu emblem, the game's central motif, lit as a glowing relic.")}
-<p>Full credits: Producers Yolanda Liu &amp; Kyrene Zhang · Developers Oley Zhou, Kyrene Zhang, Yolanda Liu · Audio Katria Qin · Writer Bill Dong · Artists Aldo Kai, Cecilia Han, Bi Hongying · Publishing Haley Wang.</p>
-"""))
     return dict(
         slug="rhythmEcho", title="Rhythm: Echo of the Disciple", cat="render", catname=CATNAME["render"],
-        question="How did I light and optimize a mythic 3D rhythm world in Unreal Engine while producing a 9-person team in two weeks?",
-        tags=["Unreal Engine 5.6", "Lighting", "Skybox", "Rendering optimization", "Blueprints", "Production"],
+        question="How did I light, program and produce a mythic 3D rhythm world in Unreal Engine with a 9-person jam team?",
+        tags=["Unreal Engine 5.6", "Lumen", "Skies & lighting", "Quartz", "Blueprints", "Production", "IP design"],
         hero_mode="wide",
-        hero="itch_2.jpg",
-        facts=[("Role", "Producer · Developer · Technical Artist"), ("Team", "9 people"), ("Year", "2025"), ("Engine", "Unreal Engine 5.6, Blender"), ("Event", "Global Game Jam × WIPO")],
+        hero="gate_dusk.jpg",
+        facts=[("Role", "Producer · Developer · Technical Artist"), ("Team", "9 people"), ("Year", "2025"), ("Engine", "Unreal Engine 5.6"), ("Event", "Global Game Jam × WIPO")],
         links=[("fa-brands fa-itch-io", "Download on itch.io", "https://yollienarae.itch.io/rhythmechoofthedisciple"), ("fa-brands fa-youtube", "Trailer", "https://www.youtube.com/watch?v=724kNPAQR84")],
-        ta=["Owned lighting, skybox and atmosphere across realms",
-            "Rendering optimization: better visuals, smaller build",
-            "Rhythm & puzzle systems in UE5 Blueprints",
-            "Bridged art and engineering as producer on a 9-person team"],
+        ta=["Skies and lighting for four realms: Lumen, VSM, Ultra Dynamic Sky tuned per level",
+            "Light as gameplay feedback, gated by progress state",
+            "Rhythm engine on a Quartz audio clock with data-driven charts",
+            "Level flow, save and state system connecting three puzzles",
+            "Set dressing, in-engine materials and a build-size pass",
+            "Producer: pipeline and hand-offs for 9 people"],
         sections=S)
 
 

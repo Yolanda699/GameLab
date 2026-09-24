@@ -30,8 +30,8 @@ def head(title, desc, root=""):
 
 
 MENU = [
-    ("Rendering & Shading", [("theFeeding", "The Feeding", "UE 5.6 · PCG, materials, lighting"), ("rhythmEcho", "Rhythm: Echo of the Disciple", "Lighting, skybox, optimization"), ("bubbleFactory", "Bubble Factory", "Shader Graph bubbles · URP materials")]),
-    ("Tools & AI Pipeline", [("sdMaterialTool", "Tiling Material Generator", "Substance 3D Designer plugin · PBR maps"), ("psAiToolkit", "AI Creative Toolkit", "Photoshop UXP plugin · 11 features"), ("travelTrove", "TravelTrove", "Stylized concept-art workflow")]),
+    ("Rendering & Shading", [("theFeeding", "The Feeding", "UE 5.6 · PCG, materials, lighting"), ("rhythmEcho", "Rhythm: Echo of the Disciple", "Skies, lighting, rhythm engine"), ("bubbleFactory", "Bubble Factory", "Shader Graph bubbles · URP materials")]),
+    ("Tools & AI Pipeline", [("sdMaterialTool", "AI Tiling Material Generator", "Substance 3D Designer plugin · PBR maps"), ("psAiToolkit", "AI Creative Toolkit", "Photoshop UXP plugin · 11 features"), ("travelTrove", "TravelTrove", "Stylized concept-art workflow")]),
     ("Gameplay Systems", [("riverOfForgetting", "River of Forgetting", "Unity · brewing & endings"), ("brokenStage", "Broken Stage", "Unity · puzzle systems"), ("puppetMystery", "Puppet Mystery", "Unity · lead dev & producer")]),
     ("Beyond the Engine", [("gravitas", "Gravitas", "Audio & narrative design"), ("theVillage", "The Village", "Costume & makeup head · 33 characters"), ("theInsanity", "The Insanity", "Costume design & production")]),
     ("Written by hand", [("__lab", "Shader Lab", "Live GLSL: fog, PBR, water, bubble, POM, dissolve")]),
