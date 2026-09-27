@@ -1,4 +1,4 @@
-from common import head, nav, footer, EMAIL, LINKEDIN, RESUME
+from common import head, nav, footer, WIP, WIP_BADGE, EMAIL, LINKEDIN, RESUME
 from shaderlab import hero_script, orb_script
 
 PROJECTS = [
@@ -17,6 +17,11 @@ PROJECTS = [
          hook="How did I set up a controlled AI generation workflow so independently generated concept assets read as one art style?",
          role="Solo: research, UX, concept art pipeline, hi-fi prototype",
          tags=["Figma", "Sora", "Prompt design", "User research"]),
+    dict(slug="headspace", cat="render", when="2026 · Team of 14",
+         title="Headspace",
+         hook="How am I building the rendering and destruction systems for a 14-person Unreal 5.8 team, from custom materials and editor tools to Houdini-driven destruction?",
+         role="Technical Artist",
+         tags=["Unreal 5.8", "Houdini", "Substrate", "RBD", "VEX", "Niagara"]),
     dict(slug="theFeeding", cat="render", when="2025 · Solo",
          title="The Feeding",
          hook="How did I build a fog-drenched Miao mountain world in UE 5.6, from terrain and PCG foliage to materials, MetaHumans and a cinematic render?",
@@ -82,6 +87,7 @@ def card(p, feature=False, rev=False):
         <div class="card-media"><img src="assets/img/{p['slug']}/cover.jpg" alt="{p['title']} key visual" loading="lazy"></div>
         <div class="card-body">
           <div class="card-top"><span class="tag {tcls}">{CATSHORT[p['cat']]}</span><span class="when">{p['when']}</span></div>
+          {WIP_BADGE if p['slug'] in WIP else ''}
           <h4>{p['title']}</h4>
           <p class="hook">{p['hook']}</p>
           <p class="role">{p['role']}</p>
@@ -253,12 +259,6 @@ def professional():
         </div>
       </div>
     </div>
-
-    <div class="also">
-      <a href="resume.html#experience"><b>Marriott International</b><span>Strategy Planning &amp; Communications · 2025</span></a>
-      <a href="resume.html#experience"><b>Edelman China</b><span>Corporate &amp; Financial Services PR · 2024</span></a>
-      <a href="resume.html#experience"><b>Mango TV</b><span>Director Intern, <em>Chengfeng 2023</em> · 2023</span></a>
-    </div>
   </div>
 </section>"""
 
@@ -311,69 +311,59 @@ def work():
 
 
 SKILLS = [
-    ("render", "fa-solid fa-palette", "Shaders & Materials · PBR",
-     ["GLSL (hand-written)", "PBR maps (Albedo, Normal, Roughness, Metallic, Height)", "UE material networks", "Material instancing", "Unity Shader Graph", "Fresnel / transparency / refraction", "Shared shader library"],
-     "Co-developed a centralized shader library at Tencent, and wrote six live GLSL shaders for the <a href=\'shaders.html\' style=\'color:var(--accent)\'>Shader Lab</a>."),
-    ("render", "fa-solid fa-lightbulb", "Lighting, Look-dev & Optimization",
-     ["Real-time lighting", "Fog & firelight", "Skybox & atmosphere", "Asset / lighting validation", "Cross-platform benchmarks", "Render & build-size optimization"],
-     "Lit 8 cinematic scenes in UE 5.6, and optimized lighting and rendering in Rhythm while reducing build size."),
-    ("render", "fa-solid fa-cube", "Unreal Engine & Procedural",
-     ["Unreal Engine 5", "Blueprints", "PCG", "Sequencer / Movie Render Queue", "MetaHuman · Live Link", "IK Retargeting", "Unity (C#)"],
-     "Blueprint-driven PCG cliff and moss generators, plus a Mixamo → MetaHuman retargeting pipeline."),
-    ("pipeline", "fa-solid fa-screwdriver-wrench", "Tools & Pipeline · Python / DCC APIs",
-     ["Python", "PySide / Qt", "Substance Designer API", "Photoshop UXP (JS)", "DCC plugin development", "Service / API integration", "Versioned deployment", "Git · Perforce"],
-     "Shipped two AI plugins to the Delta Force art team with a gateway, a unified model interface and silent hotfix updates."),
-    ("pipeline", "fa-solid fa-wand-magic-sparkles", "ML / AI for Art Pipelines",
-     ["ComfyUI workflows", "Model evaluation & selection", "LoRA stylization", "Multimodal VLMs", "3D generative AI", "ONNX inference", "Prompt templating"],
-     "Evaluated multimodal 3D AI and wrote the recommendations behind an internal AI art platform."),
-    ("gameplay", "fa-solid fa-mountain-sun", "DCC & Content Creation",
-     ["Substance Designer", "Photoshop", "Blender", "Gaea", "Marvelous Designer", "Mixamo", "Figma", "Illustrator"],
-     "Gaea terrain, Marvelous Designer cloth and Photoshop/Substance texture work in one UE pipeline."),
+    ("render", "fa-solid fa-palette", "Shaders & materials",
+     ["HLSL custom nodes", "GLSL", "Master / instance architecture", "PBR authoring", "Translucency & refraction", "Flow maps", "Shader libraries & standards", "Shader profiling & optimization"],
+     "Tear path material for <a href='projects/headspace.html#materials' style='color:var(--accent)'>Headspace</a> and six live shaders in the <a href='shaders.html' style='color:var(--accent)'>Shader Lab</a>."),
+    ("render", "fa-solid fa-lightbulb", "Lighting, rendering & look-dev",
+     ["Real-time lighting", "Lumen & Nanite", "Fog & atmosphere", "Skybox design", "Post-process", "Cinematic rendering", "Asset &amp; shader validation", "GPU profiling", "Performance & build-size optimization"],
+     "Lit eight cinematic scenes in <a href='projects/theFeeding.html#renders' style='color:var(--accent)'>The Feeding</a>, and cut build size in <a href='projects/rhythmEcho.html#challenges' style='color:var(--accent)'>Rhythm</a>."),
+    ("render", "fa-solid fa-burst", "VFX, destruction & procedural",
+     ["Rigid-body fracture", "VEX choreography", "Sim-to-engine baking", "Niagara VFX", "Houdini Digital Assets", "PCG", "Procedural terrain", "Mesh processing"],
+     "Houdini-driven screen shatter and piano collapse for <a href='projects/headspace.html#destruction' style='color:var(--accent)'>Headspace</a>, and PCG cliffs and moss in The Feeding."),
+    ("pipeline", "fa-solid fa-screwdriver-wrench", "Tools & pipeline",
+     ["DCC plugin development", "Editor scripting", "Tool UI (PySide / Qt)", "Service & API integration", "Cross-DCC data pipelines", "Asset validation & batch automation", "C++ editor extensions", "Deployment & updates"],
+     "Two AI plugins shipped to the Delta Force art team, and the <a href='projects/headspace.html#materials' style='color:var(--accent)'>Headspace Tools</a> editor plugin."),
+    ("pipeline", "fa-solid fa-wand-magic-sparkles", "AI for art pipelines",
+     ["ComfyUI workflows", "Open-source model research & benchmarking", "LoRA fine-tuning", "Multimodal & 3D generative AI", "Local ONNX inference", "AI-assisted development"],
+     "Evaluated multimodal 3D AI and wrote the recommendations behind an internal AI art platform at Tencent."),
+    ("gameplay", "fa-solid fa-gamepad", "Gameplay scripting & animation",
+     ["Blueprints", "C# systems", "Audio-synced timing", "Scene management", "Animation Blueprints", "Rigging & skinning", "Animation retargeting"],
+     "Rhythm engine and level flow in <a href='projects/rhythmEcho.html' style='color:var(--accent)'>Rhythm</a>, puzzle systems in <a href='projects/puppetMystery.html' style='color:var(--accent)'>Puppet Mystery</a>."),
 ]
 
 SOFT = [
-    ("fa-solid fa-comments", "Bridging art & engineering", "I turn artists' pain points into tool specs, and engine/model limits back into plain-language workflows. That's how our plugins got adopted across a large art team."),
-    ("fa-solid fa-life-ring", "Artist & vendor support", "Built shading standards that internal teams and external vendors could follow, and designed tool updates so artists never had to chase the right build."),
-    ("fa-solid fa-file-pen", "Technical documentation", "I write design goals, architecture diagrams and request-flow docs for the tools I build. Published research at DiGRA 2026."),
-    ("fa-solid fa-list-check", "Production & project management", "Agile PM intern at TiMi G1, coordinating TA/VFX asset pipelines from planning and risk through validation and milestones."),
-    ("fa-solid fa-people-group", "Team leadership", "Producer for teams of 9 (two-week jam) and 7 (three-month cycle), and Costume &amp; Makeup Head leading 29 people on an award-winning production."),
-    ("fa-solid fa-eye", "Visual judgement", "Years of costume, makeup and character styling trained my eye for silhouette, palette and readability, which I now apply to lighting and look-dev."),
+    ("fa-solid fa-lightbulb", "Product mindset for tools", "Treat every tool as a product: interview artists, scope an MVP, prioritize by time saved, ship, then iterate on adoption and feedback."),
+    ("fa-solid fa-arrows-left-right", "Cross-discipline communication", "Translate artists' pain points into technical specs, and engine or model limits back into workflows artists can follow."),
+    ("fa-solid fa-sliders", "User-centered tool design", "Parameters grouped by intent, safe defaults and non-destructive operations, so artists can tune without breaking things."),
+    ("fa-solid fa-life-ring", "Artist &amp; vendor enablement", "Shading standards external vendors could follow, onboarding guides, and silent updates so no artist had to chase a build."),
+    ("fa-solid fa-file-pen", "Technical documentation", "Architecture diagrams, team guides and quick recipes for every tool I ship. Published research at DiGRA 2026."),
+    ("fa-solid fa-list-check", "Production &amp; planning", "Agile sprints, estimation, risk and milestone tracking for TA / VFX pipelines on a AAA title; producer for teams of 7 and 9."),
 ]
 
-MATRIX = [
-    ("Pipeline tools & scripts in Python / DCC APIs", "Substance Designer and Photoshop plugins (Python, PySide, SD API, UXP) used in production at Tencent", "projects/sdMaterialTool.html", "Substance Designer plugin"),
-    ("Real-time materials & shaders in a PBR workflow", "Automated Albedo/Normal/Roughness/Metallic/Height generation, a shared shader library, a UE material-instance library, and a translucent Shader Graph bubble", "projects/bubbleFactory.html#materials", "Bubble Factory · Materials"),
-    ("Writing &amp; debugging shader code", "Four hand-written GLSL fragment shaders running live in the browser: fBm volumetric fog, a Cook-Torrance GGX sphere, a water surface and thin-film refraction", "shaders.html", "Shader Lab"),
-    ("Performance, validation & optimization", "Cross-platform shader validation benchmarks at Tencent. Lighting and render optimization with a smaller build in Rhythm", "projects/rhythmEcho.html#challenges", "Rhythm · Optimization"),
-    ("Procedural systems", "Blueprint-driven PCG generators for cliffs, rock groups and light-aware moss", "projects/theFeeding.html#environment", "The Feeding · PCG"),
-    ("Lighting & look-dev", "Night, fog and firelight lighting across 8 scenes. Skybox and atmosphere across realms", "projects/theFeeding.html#renders", "The Feeding · Renders"),
-    ("Unreal Engine workflows", "Blueprints, material networks, PCG, Sequencer, Movie Render Queue, MetaHuman", "projects/theFeeding.html", "The Feeding"),
-    ("ML / AI in art pipelines", "ComfyUI workflows, model evaluation, LoRA look-dev, multimodal 3D AI evaluation, local ONNX inference", "#professional", "Professional work"),
-    ("Supporting artists & external vendors", "Shader standards for vendor asset production. Silent hotfix and forced-update deployment for a large art team", "projects/psAiToolkit.html#deployment", "Photoshop toolkit · Deployment"),
-    ("Technical documentation", "Architecture, interface and request-sequence diagrams for production tools", "projects/sdMaterialTool.html#architecture", "Substance Designer plugin · Architecture"),
-    ("Collaboration across art, design & engineering", "PM for TA/VFX pipelines on a AAA title. Producer and developer on two multidisciplinary teams", "projects/puppetMystery.html", "Puppet Mystery"),
-    ("Scripting in C# and engine code", "Additive scene loading, EventSystem drag-and-drop puzzles, recipe validation and branching endings", "projects/puppetMystery.html#code", "Puppet Mystery · Code"),
-    ("Version control", "Git (this site) and Perforce (current USC team project in Unreal)", None, None),
+SOFTWARE = [
+    ("render", "fa-solid fa-cube", "Engines &amp; profiling", ["Unreal Engine 5", "Unity", "Niagara", "Sequencer · Movie Render Queue", "MetaHuman · Live Link", "Unreal Insights", "RenderDoc"]),
+    ("render", "fa-solid fa-shapes", "3D &amp; procedural", ["Houdini", "Maya", "Blender", "ZBrush", "Gaea", "Marvelous Designer", "Mixamo"]),
+    ("render", "fa-solid fa-brush", "Texturing &amp; 2D", ["Substance Painter", "Substance Designer", "Photoshop", "Illustrator", "Figma"]),
+    ("pipeline", "fa-solid fa-code", "Languages", ["Python", "C++", "HLSL", "GLSL", "VEX", "C#", "JavaScript"]),
+    ("pipeline", "fa-solid fa-code-branch", "Pipeline &amp; version control", ["Perforce", "Git", "PySide / Qt", "Unreal Python API", "Geometry Script", "Jira · Confluence"]),
+    ("pipeline", "fa-solid fa-microchip", "AI tooling &amp; research", ["ComfyUI", "Hugging Face", "Open-source model benchmarking", "LoRA fine-tuning", "Codex", "Claude Code"]),
 ]
 
 
 def skills():
-    hard = ""
-    for cls, ico, title, tags, proof in SKILLS:
-        t = "".join(f'<span class="tag">{x}</span>' for x in tags)
-        hard += f"""
+    def tags(xs):
+        return "".join(f'<span class="tag">{x}</span>' for x in xs)
+    hard = "".join(f"""
       <div class="skill-card {cls}">
         <div class="ico"><i class="{ico}"></i></div>
         <h4>{title}</h4>
-        <div class="tags">{t}</div>
+        <div class="tags">{tags(t)}</div>
         <p class="proof"><i class="fa-solid fa-check" style="color:var(--accent);margin-right:6px"></i>{proof}</p>
-      </div>"""
+      </div>""" for cls, ico, title, t, proof in SKILLS)
     soft = "".join(f"""
       <div class="skill-card"><div class="ico"><i class="{i}"></i></div><h4>{a}</h4><p style="font-size:14px;margin:0">{b}</p></div>""" for i, a, b in SOFT)
-    rows = ""
-    for r, e, h, l in MATRIX:
-        cell = f'<a href="{h}">{l} →</a>' if h else '<span class="muted">·</span>'
-        rows += f'<tr><th scope="row">{r}</th><td>{e}</td><td>{cell}</td></tr>'
+    sw = "".join(f"""
+      <div class="skill-card {cls}"><div class="ico"><i class="{ico}"></i></div><h4>{title}</h4><div class="tags">{tags(t)}</div></div>""" for cls, ico, title, t in SOFTWARE)
     return f"""
 <section id="skills">
   <div class="wrap">
@@ -382,23 +372,19 @@ def skills():
         <div class="eyebrow">What I bring</div>
         <h2>Core skills</h2>
       </div>
-      <p>A technical artist sits between art, engineering and production. Hard skills, soft skills, and a quick map from what studios ask for to where you can see it in my work.</p>
+      <p>A technical artist sits between art, engineering and production. What I can build, how I work with a team, and the software I use to do it.</p>
     </div>
     <div class="tabs skills-tabs" role="tablist" data-tabs="skills">
-      <button class="tab active" role="tab" aria-selected="true"><small>A</small>Hard skills · technical &amp; art</button>
-      <button class="tab" role="tab" aria-selected="false"><small>B</small>Soft skills · communication &amp; production</button>
-      <button class="tab" role="tab" aria-selected="false"><small>C</small>Requirement → evidence</button>
+      <button class="tab active" role="tab" aria-selected="true"><small>A</small>Hard skills</button>
+      <button class="tab" role="tab" aria-selected="false"><small>B</small>Soft skills</button>
+      <button class="tab" role="tab" aria-selected="false"><small>C</small>Software</button>
     </div>
     <div class="skill-panel active" data-panel-of="skills"><div class="skills-grid">{hard}
     </div></div>
     <div class="skill-panel" data-panel-of="skills"><div class="skills-grid">{soft}
     </div></div>
-    <div class="skill-panel" data-panel-of="skills">
-      <div class="matrix-wrap"><table class="matrix">
-        <thead><tr><th>Typical technical-art requirement</th><th>Where I've done it</th><th>See it</th></tr></thead>
-        <tbody>{rows}</tbody>
-      </table></div>
-    </div>
+    <div class="skill-panel" data-panel-of="skills"><div class="skills-grid">{sw}
+    </div></div>
   </div>
 </section>"""
 
@@ -419,8 +405,9 @@ def about():
       <div class="about-text reveal">
         <div class="eyebrow">About</div>
         <h2>An artist's eye, an engineer's toolbox, a producer's instincts.</h2>
-        <p>I'm Yolanda (Liu Xingyan), an MFA student in Interactive Media &amp; Games at USC. I came to games through communications and new media at NUS, and found my place where art and technology meet: building the pipelines, shaders and tools that turn a team's creative intent into something that runs in real time.</p>
-        <p>A lot of my work draws on Chinese mythology and cultural heritage, like Miao Gu sorcery, Meng Po's tea of forgetting and ethnic-minority music. Outside the engine, three other crafts feed straight back into how I work as a TA:</p>
+        <p>I'm Yolanda (Liu Xingyan), a Technical Artist pursuing an MFA in Interactive Media &amp; Games at the University of Southern California. Before USC, I was a Technical Art Intern at Tencent Games' TiMi J3 Studio on <em>Delta Force</em>, working on shader development, art pipelines, production tools and AI-assisted workflows.</p>
+        <p>I work where artistic goals meet technical problems: shaders, real-time VFX, procedural systems, rendering, and the tools and pipelines that connect them. I care most about solutions that hold up in production – reusable, easy for artists to use, and reliable enough for a whole team to build on.</p>
+        <p>Outside the engine, I work in three other crafts, and each one shapes how I approach technical art:</p>
 
         <details class="acc">
           <summary><span class="ico"><i class="fa-solid fa-shirt"></i></span><div><b>Costume &amp; makeup design</b><span class="s">→ character readability, palette and visual systems</span></div></summary>

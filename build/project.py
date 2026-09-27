@@ -1,4 +1,4 @@
-from common import head, nav, footer
+from common import head, nav, footer, WIP, WIP_BADGE
 from blocks import set_slug, _src, _check
 
 
@@ -34,7 +34,7 @@ def page(p, prev_p, next_p):
     mode = p.get("hero_mode", "wide")
     img = f'<img src="{_src(p["hero"])}" alt="{p["title"]} key visual">'
     head_block = f"""<div class="crumbs"><a href="../index.html#work">Work</a> / <a href="../index.html#work-{p['cat']}">{p['catname']}</a> / {p['title']}</div>
-    <span class="tag {p['cat']}">{p['catname']}</span>
+    <span class="tag {p['cat']}">{p['catname']}</span>{(' ' + WIP_BADGE) if p['slug'] in WIP else ''}
     <h1{' class="long"' if len(p['title']) > 24 else ''}>{p['title']}</h1>
     <p class="q">{p['question']}</p>
     <div class="tags">{tags}</div>"""

@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Headspace · Yolanda Liu, Technical Artist</title>
+<meta name="description" content="How am I building the rendering and destruction systems at a 14-person Unreal 5.8 team, from custom materials and editor tools to Houdini-driven destruction?">
+<meta property="og:title" content="Headspace · Yolanda Liu, Technical Artist">
+<meta property="og:description" content="How am I building the rendering and destruction systems at a 14-person Unreal 5.8 team, from custom materials and editor tools to Houdini-driven destruction?">
+<meta name="theme-color" content="#F2EEE6">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><rect width='64' height='64' fill='%23F2EEE6'/><text x='32' y='44' font-family='Georgia,serif' font-size='34' text-anchor='middle' fill='%23A8412A'>YL</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..700;1,9..144,300..700&family=Inter:wght@300..600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/css/site.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body>
+<nav class="nav">
+  <div class="wrap">
+    <a class="brand" href="../index.html">
+      <span class="brand-text">Yolanda Liu<small>TECHNICAL ARTIST &amp; PRODUCER</small></span>
+    </a>
+    <button class="nav-toggle" aria-label="Menu"><i class="fa-solid fa-bars"></i></button>
+    <ul class="nav-links">
+      <li><a href="../index.html#professional">Professional Work</a></li>
+      <li class="has-menu"><a href="../index.html#work">Projects</a><div class="menu"><div class="grp"><small>Rendering & Shading</small><a href="../projects/headspace.html">Headspace <em class="wip">Work in progress</em><span>UE 5.8 · Rendering & Destruction System</span></a><a href="../projects/theFeeding.html">The Feeding<span>UE 5.6 · PCG, materials, lighting</span></a><a href="../projects/rhythmEcho.html">Rhythm: Echo of the Disciple<span>Skies, lighting, rhythm engine</span></a><a href="../projects/bubbleFactory.html">Bubble Factory<span>Shader Graph bubbles · URP materials</span></a></div><div class="grp"><small>Tools & AI Pipeline</small><a href="../projects/sdMaterialTool.html">AI Tiling Material Generator<span>Substance 3D Designer plugin · PBR maps</span></a><a href="../projects/psAiToolkit.html">AI Creative Toolkit<span>Photoshop UXP plugin · 11 features</span></a><a href="../projects/travelTrove.html">TravelTrove<span>Stylized concept-art workflow</span></a></div><div class="grp"><small>Gameplay Systems</small><a href="../projects/riverOfForgetting.html">River of Forgetting<span>Unity · brewing & endings</span></a><a href="../projects/brokenStage.html">Broken Stage<span>Unity · puzzle systems</span></a><a href="../projects/puppetMystery.html">Puppet Mystery<span>Unity · lead dev & producer</span></a></div><div class="grp"><small>Beyond the Engine</small><a href="../projects/gravitas.html">Gravitas<span>Audio & narrative design</span></a><a href="../projects/theVillage.html">The Village<span>Costume & makeup head · 33 characters</span></a><a href="../projects/theInsanity.html">The Insanity<span>Costume design & production</span></a></div><div class="grp"><small>Written by hand</small><a href="../shaders.html">Shader Lab<span>Live GLSL: fog, PBR, water, bubble, POM, dissolve</span></a></div></div></li>
+      <li><a href="../shaders.html">Shader Lab</a></li>
+      <li><a href="../index.html#skills">Skills</a></li>
+      <li><a href="../index.html#about">About</a></li>
+      <li><a href="../resume.html">Resume</a></li>
+      <li><a class="btn-nav" href="../resume.html#contact-top">Contact</a></li>
+    </ul>
+  </div>
+</nav>
+
+<header class="p-hero h-full">
+  <div class="wrap">
+    <div class="crumbs"><a href="../index.html#work">Work</a> / <a href="../index.html#work-render">Rendering & Shading</a> / Headspace</div>
+    <span class="tag render">Rendering & Shading</span> <em class="wip">Work in progress</em>
+    <h1>Headspace</h1>
+    <p class="q">How am I building the rendering and destruction systems at a 14-person Unreal 5.8 team, from custom materials and editor tools to Houdini-driven destruction?</p>
+    <div class="tags"><span class="tag">Unreal Engine 5.8</span><span class="tag">Houdini</span><span class="tag">Substrate</span><span class="tag">Material authoring</span><span class="tag">RBD / Bullet</span><span class="tag">VEX</span><span class="tag">Niagara</span><span class="tag">Python tools</span></div>
+  </div>
+  <div class="bg"><img src="../assets/img/headspace/tearpath_path.jpg" alt="Headspace key visual"></div>
+</header>
+<div class="wrap">
+  <div class="facts"><div><small>Role</small><span>Technical Artist</span></div><div><small>Team</small><span>14 people</span></div><div><small>Year</small><span>2026 · in development</span></div><div><small>Engine</small><span>Unreal 5.8, Houdini, Blender, Python</span></div><div><small>Studio</small><span>USC CTIN 594</span></div></div>
+  <div class="p-links"></div>
+  <div class="p-layout">
+    <aside class="toc">
+      <h4>On this page</h4>
+      <ol><li><a href="#overview">Overview</a></li><li><a href="#materials">Material · Tear path</a></li><li><a href="#destruction">Destruction system · Pipeline</a></li><li><a href="#mia-screen">Destruction · The breaking screen</a></li><li><a href="#piano">Destruction · The impossible piano</a></li><li><a href="#challenges">Challenges & solutions</a></li></ol>
+      <div class="next-proj"><a href="theFeeding.html"><small>NEXT PROJECT</small>The Feeding →</a></div>
+    </aside>
+    <main class="p-content">
+      <div class="ta-box reveal"><h3><i class="fa-solid fa-bolt"></i> Technical art highlights</h3><ul><li>Materials: master / instance contract, grouped designer parameters</li><li>Translucent Substrate tear material driven by baked mesh data</li><li>Two editor tools in a project plugin: build from spline, bake onto mesh</li><li>Destruction pipeline for Houdini Apprentice: OBJ + JSON → Python → Blender → Unreal</li><li>Bullet glass fracture with a timed release wave, verified to 0.001 mm</li><li>VEX-choreographed collapse of an impossible piano-key staircase</li></ul></div>
+      
+<section class="p-sec" id="overview"><h2><span class="n">01</span>Overview</h2>
+
+<p class="lead"><em>Headspace</em> is a narrative game in Unreal Engine 5.8, built by a 14-person team for USC’s CTIN 594 studio. The player follows Mia through the inside of her own mind: the game opens by walking out of an eye along a path of tears, and each act ends with a memory breaking apart.</p>
+<p>I am the team’s <strong>technical artist</strong>, responsible for two areas: <strong>materials</strong>, hand-authored and designer-tunable, with the editor tools that feed them, starting with the tear path; and a <strong>destruction system</strong> that turns Houdini simulations into moments Unreal can play back cheaply, starting with a shattering screen and a collapsing piano staircase.</p>
+<div class="stat-row"><div><b>14</b><span>People on the team</span></div><div><b>2</b><span>Systems I own: materials & destruction</span></div><div><b>2</b><span>Editor tools shipped to the team</span></div><div><b>0.001 mm</b><span>Max error, Houdini → Unreal</span></div></div>
+<figure class="fig reveal"><img src="../assets/img/headspace/tearpath_eye.jpg" alt="<b>The entrance.</b> The player starts at the foot of the eye and follows the tear path out into the headspace." width="1600" height="900" loading="lazy"><figcaption><b>The entrance.</b> The player starts at the foot of the eye and follows the tear path out into the headspace.</figcaption></figure>
+<p class="note">In active development: more materials and the Act 3 destruction are in progress. Characters and the eye are placeholders from the team’s art pipeline.</p>
+
+</section>
+<section class="p-sec" id="materials"><h2><span class="n">02</span>Material · Tear path</h2>
+
+<p>Every material I build for the project follows the same contract: <strong>one master material holds all the logic, instances hold all the look</strong>, meshes carry whatever data the shader needs, and an editor tool produces that data so nobody bakes it by hand. The tear path is the first material built this way.</p>
+<p>The tears had to read as liquid from any distance, run downhill, bead on the steep cheek, fall off the edge as a waterfall and ripple when the player steps in them, all without a fluid simulation.</p>
+<figure class="fig reveal"><video src="../assets/img/headspace/tearpath_walk.mp4" poster="../assets/img/headspace/tearpath_walk_poster.jpg" autoplay muted loop playsinline preload="metadata"></video><figcaption>In engine: walking the tear path. Each footstep leaves a ring; the flow runs downhill and highlights slide along the stream.</figcaption></figure>
+<div class="gallery g3  reveal" style="--ar:16/9"><figure><img src="../assets/img/headspace/tearpath_cheek.jpg" alt="Steep cheek: stretched flow waves and sliding beads" width="1600" height="900" loading="lazy"><figcaption>Steep cheek: stretched flow waves and sliding beads</figcaption></figure><figure><img src="../assets/img/headspace/tearpath_waterfall.jpg" alt="The waterfall where the path drops off the edge" width="1600" height="900" loading="lazy"><figcaption>The waterfall where the path drops off the edge</figcaption></figure><figure><img src="../assets/img/headspace/tearpath_preview.jpg" alt="Silhouette line where water meets the bank" width="1600" height="900" loading="lazy"><figcaption>Silhouette line where water meets the bank</figcaption></figure></div>
+<h3>The master material</h3>
+<p><code>M_TearPath_Tear</code> is a translucent <strong>Substrate</strong> slab using coloured transmittance: light passing through deep water picks up a red tint, thin water stays clear. The graph is built from nine small HLSL custom nodes, one per physical property, so each part can be read, tested and reused on its own. Read left to right:</p>
+<div class="mgraph reveal"><div class="col"><small>Inputs</small><div class="mnode "><b>TexCoord 0 · 1</b><span>flow × speed · depth, steepness</span></div><div class="mnode fn"><b>TearFilm_<wbr>Masks</b><span>UV2/UV3 → drip, shore, waterfall, progress</span></div><div class="mnode "><b>MPC Contact0–3</b><span>footstep XYZ + time, ContactClock</span></div><div class="mnode "><b>WorldPosition · Time</b><span>pattern space and animation</span></div><div class="mnode "><b>SceneDepth · PixelDepth</b><span>water-to-bank contact</span></div></div><div class="col"><small>Surface</small><div class="mnode fn"><b>TearFilm_<wbr>Waves</b><span>flow waves, beads, ripples, drips → gradient, ring energy, bead mask</span></div><div class="mnode fn"><b>TearFilm_<wbr>NormalWS</b><span>gradient → world normal; vertical on the waterfall</span></div><div class="mnode fn"><b>TearFilm_<wbr>Roughness</b><span>deep vs. edge roughness, beads glossier</span></div><div class="mnode fn"><b>TearFilm_<wbr>Transmittance</b><span>tint grows with depth</span></div></div><div class="col"><small>Coverage & edge</small><div class="mnode fn"><b>TearFilm_<wbr>Coverage</b><span>depth fade × Opacity, plus ripples and beads</span></div><div class="mnode fn"><b>TearFilm_<wbr>SilhouetteBand</b><span>shore band + depth-based contact rim</span></div><div class="mnode sw"><b>ShowSilhouette</b><span>static switch, the only compile</span></div><div class="mnode fn"><b>TearFilm_<wbr>CoverageWithSilhouette</b><span>final weight, soft at intersections</span></div><div class="mnode fn"><b>TearFilm_<wbr>RefractionByCoverage</b><span>IOR fades to 1 where thin</span></div></div><div class="col"><small>Substrate output</small><div class="mnode out"><b>TransmittanceToMFP</b><span>tint → mean free path</span></div><div class="mnode out"><b>Slab BSDF</b><span>normal, roughness, MFP, milky scatter</span></div><div class="mnode out"><b>Substrate Weight</b><span>slab × coverage</span></div><div class="mnode out"><b>Front Material · Refraction</b><span>translucent coloured transmittance</span></div></div></div>
+<div class="code-wrap full reveal"><div class="code-bar"><b>TearFilm shader</b><span>HLSL · custom nodes</span></div><pre class="code">// TearFilm_Waves (excerpt). One custom node:
+// returns float4(dh/dx, dh/dy, ring energy, bead mask)
+
+// soft expanding ring: height + radial derivative, fading with age
+float2 ring(float r, float age, float spd, float lam, float life) {
+  if (age &lt;= 0.0 || age &gt;= life) return float2(0, 0);
+  float front = spd * age;   float w = lam * (0.8 + 0.9 * age);
+  float x = r - front;       float env = exp(-(x * x) / (w * w));
+  float a = 1.0 - age / life;  a *= a;
+  a *= 1.0 / (1.0 + front * 0.035) * smoothstep(0.0, 0.025, age);
+  float k = 6.2831853 / lam; float s = sin(k * x); float c = cos(k * x);
+  return float2(env * s * a,
+                (env * k * c + s * env * (-2.0 * x / (w * w))) * a);
+}
+
+// 1) two-phase flow map: two copies of the wave field,
+//    offset by half a cycle and cross-faded, so it never smears
+float ph0 = frac(Tm / FlowCycle);  float ph1 = frac(Tm / FlowCycle + 0.5);
+float w0  = 1.0 - abs(1.0 - 2.0 * ph0);
+float2 vel = dir * spd * FlowSpeed;             // dir, spd from UV0
+
+// 3) footstep ripples from the parameter collection,
+//    only on the path, never on the waterfall
+float4 cs[4] = { C0, C1, C2, C3 };
+for (int i = 0; i &lt; 4; i++) {
+  float  age = CC - cs[i].w;
+  float2 dv  = RealP.xy - cs[i].xy;  float r = length(dv) + 0.001;
+  float  zk  = (1.0 - smoothstep(12.0, 28.0, abs(RealP.z - cs[i].z)))
+             * (1.0 - VC.b);
+  float2 rw  = ring(r, age, RippleSpeed, RippleWavelength, RippleLife);
+  g += (dv / r) * rw.y * RippleHeight * zk;
+}
+
+// TearFilm_Transmittance: shallow stays clear, deep takes the tint
+float d = UV1.x * 10.0;
+return lerp(float3(1, 1, 1), Tint, saturate(d / TintDepth));
+
+// TearFilm_RefractionByCoverage: no distortion where there is no water
+return lerp(1.0, IOR, saturate(Cov * 2.0));
+</pre></div>
+<h3>Designing the parameters</h3>
+<p>I designed the parameters for the people who would tune them, not for the graph. They sit in six numbered groups ordered by what you are trying to change, every value is in real units (centimetres, seconds), and each group has one <em>main knob</em> that does most of the work. The table shows the master defaults next to the red instance used in game, so you can see which values the look actually moves:</p>
+<div class="ptable-wrap reveal"><table class="ptable"><thead><tr><th>Parameter</th><th style="text-align:right">Master</th><th style="text-align:right">MI_Red</th><th>What it does</th></tr></thead><tbody><tr class="g"><td colspan="4">1 · Flow</td></tr><tr><td class="p">FlowSpeed</td><td class="v">16</td><td class="v mi">38</td><td class="d">How fast the surface pattern travels along the path (cm/s)</td></tr><tr><td class="p">FlowCycle</td><td class="v">3</td><td class="v mi">2.2</td><td class="d">Length of one flow-map loop (s); 2–4 avoids pulsing and smearing</td></tr><tr><td class="p">FlowTiling</td><td class="v">38</td><td class="v mi same">38</td><td class="d">Size of the wave pattern (cm)</td></tr><tr><td class="p">Stretch</td><td class="v">0.42</td><td class="v mi">0.30</td><td class="d">Elongation along the flow; lower = longer streaks</td></tr><tr class="key"><td class="p">FlowHeight</td><td class="v">0.9</td><td class="v mi">1.1</td><td class="d">Strength of the flow waves: calm vs. lively</td></tr><tr><td class="p">FallBoost</td><td class="v">1.5</td><td class="v mi same">1.5</td><td class="d">Extra wave strength on steep sections</td></tr><tr><td class="p">NormalStrength</td><td class="v">12</td><td class="v mi">6</td><td class="d">Overall bumpiness; lower = glassier</td></tr><tr class="g"><td colspan="4">2 · Tear Beads</td></tr><tr><td class="p">BeadSpacing</td><td class="v">34</td><td class="v mi same">34</td><td class="d">Spacing of bead lanes (cm)</td></tr><tr><td class="p">BeadSpeed</td><td class="v">28</td><td class="v mi same">28</td><td class="d">Slide speed (cm/s), randomised per lane</td></tr><tr class="key"><td class="p">BeadDensity</td><td class="v">0.45</td><td class="v mi">0.12</td><td class="d">Fraction of slots holding a bead; 0 = none</td></tr><tr><td class="p">BeadSize</td><td class="v">2.4</td><td class="v mi same">2.4</td><td class="d">Bead radius (cm)</td></tr><tr><td class="p">BeadHeight</td><td class="v">0.10</td><td class="v mi">0.035</td><td class="d">Bead bump strength</td></tr><tr class="g"><td colspan="4">3 · Ripples</td></tr><tr><td class="p">RippleSpeed</td><td class="v">16</td><td class="v mi">22</td><td class="d">Ring expansion (cm/s)</td></tr><tr><td class="p">RippleWavelength</td><td class="v">7</td><td class="v mi">6</td><td class="d">Ring spacing (cm)</td></tr><tr><td class="p">RippleLife</td><td class="v">4</td><td class="v mi">0.8</td><td class="d">How long a ring lasts (s)</td></tr><tr class="key"><td class="p">RippleHeight</td><td class="v">0.04</td><td class="v mi">0.14</td><td class="d">Footstep visibility</td></tr><tr class="g"><td colspan="4">4 · Ambient Drops</td></tr><tr><td class="p">DripCell</td><td class="v">110</td><td class="v mi same">110</td><td class="d">Grid size for drop placement (cm)</td></tr><tr><td class="p">DripInterval</td><td class="v">6.5</td><td class="v mi same">6.5</td><td class="d">Average seconds between drops per cell</td></tr><tr class="key"><td class="p">DripDensity</td><td class="v">0.35</td><td class="v mi">0.15</td><td class="d">Fraction of cells that drip; 0 = off</td></tr><tr><td class="p">DripHeight</td><td class="v">0.03</td><td class="v mi">0.012</td><td class="d">Drop-ring strength</td></tr><tr class="g"><td colspan="4">5 · Look</td></tr><tr class="key"><td class="p">Opacity</td><td class="v">0.85</td><td class="v mi">0.5</td><td class="d">Base coverage of the film: transparency</td></tr><tr class="key"><td class="p">Tint</td><td class="v">0.93 0.86 0.84</td><td class="v mi">0.95 0.72 0.72</td><td class="d">Colour light takes on through the water: redness</td></tr><tr><td class="p">TintDepth</td><td class="v">12</td><td class="v mi same">12</td><td class="d">Depth (cm) where Tint reaches full strength</td></tr><tr><td class="p">MilkyScatter</td><td class="v">0.018 0.013 0.012</td><td class="v mi">0.30 0.07 0.07</td><td class="d">Diffuse body colour; brighter = milkier</td></tr><tr><td class="p">Clarity</td><td class="v">12</td><td class="v mi">1</td><td class="d">Scattering distance scale; lower = denser</td></tr><tr><td class="p">EdgeFade</td><td class="v">1.2</td><td class="v mi same">1.2</td><td class="d">Softness toward shallow edges (≈ cm)</td></tr><tr><td class="p">Rough / EdgeRough</td><td class="v">0.035 / 0.12</td><td class="v mi same">0.035 / 0.12</td><td class="d">Deep-water vs. edge roughness</td></tr><tr><td class="p">IOR</td><td class="v">1.33</td><td class="v mi same">1.33</td><td class="d">Refraction; scales down automatically where the film is thin</td></tr><tr class="g"><td colspan="4">6 · Silhouette</td></tr><tr><td class="p">ShowSilhouette</td><td class="v">true</td><td class="v mi same">true</td><td class="d">Static switch: the only parameter that recompiles</td></tr><tr><td class="p">SilhouetteColor</td><td class="v">0.32 0.025 0.035</td><td class="v mi same">same</td><td class="d">Outline colour</td></tr><tr><td class="p">SilhouetteWidth</td><td class="v">0.14</td><td class="v mi">0.18</td><td class="d">Band width as a fraction of the half-width</td></tr><tr><td class="p">SilhouetteOpacity</td><td class="v">0.92</td><td class="v mi same">0.92</td><td class="d">Outline strength</td></tr></tbody></table></div>
+<figure class="fig reveal"><img src="../assets/img/headspace/mat_preview.jpg" alt="<b>MI_TearPath_Tear_Red</b> in the instance editor preview. Every change updates live with no recompile; the master stays untouched." width="888" height="661" loading="lazy"><figcaption><b>MI_TearPath_Tear_Red</b> in the instance editor preview. Every change updates live with no recompile; the master stays untouched.</figcaption></figure>
+<p>Rules that keep it safe for a team: tune only in the instance, never the master; make a new instance (<code>MI_TearPath_Tear_&lt;Variant&gt;</code>) for another room; refraction scales down automatically where the film is thin; velocity output stays off because the silhouette reads scene depth. I wrote a team guide with <em>quick recipes</em> (more see-through, redder, calmer, stronger footsteps) so the art director can get a look without opening the graph.</p>
+<h3>Data lives on the mesh</h3>
+<p>The shader never guesses where it is. Every tear mesh carries its data in spare UV channels, so the same material works on the path, the waterfall and any water surface an artist models:</p>
+<div class="code-list"><div><code>UV0</code><p>Flow direction × speed (world XY). Drives a two-phase flow map, so the pattern always runs downhill.</p></div><div><code>UV1.x · UV1.y</code><p>Water depth and steepness. Depth controls coverage, tint and roughness; steepness switches on beads and extra wave strength.</p></div><div><code>UV2.x · UV2.y</code><p>Shore mask and waterfall mask. Shore drives the soft edge and the silhouette; waterfall turns flow vertical and fades the lower lip.</p></div><div><code>UV3.x · UV3.y</code><p>Drip mask and waterfall progress, for ambient drops and the bottom fade.</p></div><div><code>MPC_TearPath_Interaction</code><p>Contact0–3 = XYZ + time, written by the Blueprint when a foot touches water. The material draws up to four expanding rings.</p></div></div>
+<div class="toolbox reveal">
+<span class="toolbox-tag">Tools in engine</span>
+<h3>Headspace Tools: the plugin that produces the data</h3>
+<p>A shader that depends on baked mesh data is only useful if nobody bakes it by hand. So I wrote <strong>Headspace Tools</strong>, a project plugin that adds a <em>Tear Path</em> section to <em>Tools</em> and to every actor’s right-click menu. It is pure Python on top of Unreal’s Python scripting and <strong>Geometry Script</strong> plugins: no C++, nothing to compile or install, so it works for every teammate straight after a Perforce sync.</p>
+<div class="code-list"><div><code>HeadspaceTools.uplugin</code><p>Declares the dependencies (PythonScriptPlugin, GeometryScripting) so the editor enables them automatically.</p></div><div><code>Content/Python/init_unreal.py</code><p>Runs on editor start-up and registers the menus.</p></div><div><code>Content/Python/tearpath_tools.py</code><p>The two tools. Each menu click reloads the module, so fixes reach the team without restarting the editor.</p></div></div>
+<div class="code-wrap full reveal"><div class="code-bar"><b>Menu registration</b><span>Python · tearpath_tools.py</span></div><pre class="code"># init_unreal.py runs automatically from the plugin&#x27;s Content/Python
+import tearpath_tools
+tearpath_tools.register_menus()
+
+# tearpath_tools.py: each click reloads the module, so fixes land live
+_CMD = (&quot;import importlib, tearpath_tools; &quot;
+        &quot;importlib.reload(tearpath_tools); tearpath_tools.%s()&quot;)
+_ENTRIES = [
+    (&#x27;TearPathBuild&#x27;, &#x27;Build Tear Path From Spline&#x27;,
+     &#x27;Select BP_TearPath_Tears, then click...&#x27;, &#x27;build_selected&#x27;),
+    (&#x27;TearPathBake&#x27;,  &#x27;Bake Tear Data Onto Mesh&#x27;,
+     &#x27;Select a Static Mesh Actor...&#x27;,           &#x27;bake_selected&#x27;),
+]
+
+def register_menus():
+    menus = unreal.ToolMenus.get()
+    for menu_name in (&#x27;LevelEditor.MainMenu.Tools&#x27;,
+                      &#x27;LevelEditor.ActorContextMenu&#x27;):
+        menu = menus.extend_menu(menu_name)
+        menu.add_section(&#x27;TearPath&#x27;, &#x27;Tear Path&#x27;)
+        for name, label, tip, fn in _ENTRIES:
+            e = unreal.ToolMenuEntry(
+                name=name, type=unreal.MultiBlockType.MENU_ENTRY)
+            e.set_label(label); e.set_tool_tip(tip)
+            e.set_string_command(
+                unreal.ToolMenuStringCommandType.PYTHON, &#x27;&#x27;, _CMD % fn)
+            menu.add_menu_entry(&#x27;TearPath&#x27;, e)
+    menus.refresh_all_widgets()
+</pre></div>
+<h3>Tool 1 · Build Tear Path From Spline</h3>
+<p>A level designer edits a spline (point scale Y = local width) and clicks once. In about ten seconds the tool:</p>
+<ol class="steps"><li><b>Samples the spline</b> every 10 cm and ray-casts each sample straight down onto the <em>uncarved</em> base ground through a BVH, so rebuilding never digs deeper.</li><li><b>Solves the water level</b> so it can only run downhill from the first point to the last: a point placed uphill just cuts a deeper channel.</li><li><b>Carves the ground</b> with a smooth-min into the channel and a smooth-max up into soft levees, then writes the bed mesh.</li><li><b>Builds the tear-film mesh</b> and writes flow, depth, steepness, shore, drip and waterfall data into UV0–UV3, then snaps the spline onto the new ground.</li></ol>
+<div class="code-wrap full reveal"><div class="code-bar"><b>Build Tear Path From Spline</b><span>Python · Geometry Script</span></div><pre class="code"># Build Tear Path From Spline (excerpt)
+
+# sample every 10 cm; point scale Y = local width
+pts = _sample_spline(spline, HW, 10.0)
+# always read the UNCARVED base ground, so a rebuild never digs deeper
+base_dm = _dm_from_static_mesh(base)
+bvh = base_dm.build_bvh_for_mesh()        # Geometry Script BVH
+
+def base_height(x, y):                    # ray straight down
+    lp = xf.inverse_transform_location(unreal.Vector(x, y, 0))
+    hit = base_dm.find_nearest_ray_intersection_with_mesh(
+        bvh, unreal.Vector(lp.x, lp.y, 1e5), down, qopt)
+    return xf.transform_location(hit.hit_position).z if hit.hit else None
+
+# water level: ground at the centre minus the groove, never climbing
+z = [g.bilinear(T, p[&#x27;x&#x27;], p[&#x27;y&#x27;]) - groove for p in pts]
+for k in range(1, len(z)):
+    z[k] = min(z[k], z[k - 1])            # uphill point = deeper cut
+
+# carve: smooth-min into the channel, smooth-max up into soft levees
+F = smax(smin(t, V, 40.0), lev, 14.0)
+
+# film mesh: every vertex carries the data the material reads
+uv0.append((tx * sp, ty * sp))                        # flow × speed
+uv1.append((clamp(depth / 10.0, -0.3, 1.0), fall))    # depth, steep
+uv2.append((clamp(1.0 - rw, 0.0, 1.0), 0.0))          # shore, fall
+uv3.append((drip, 0.0))                               # drip, progress
+</pre></div>
+<h3>Tool 2 · Bake Tear Data Onto Mesh</h3>
+<p>For water an artist models by hand (a pool, a puddle, a second waterfall), the second tool bakes the same data onto <em>any</em> static mesh, so the material works there too without anyone painting masks:</p>
+<ol class="steps"><li><b>Shore:</b> geodesic distance from every vertex to the open boundary, with Dijkstra over the mesh edges.</li><li><b>Depth:</b> a line trace down from each vertex to whatever is underneath, ignoring the water itself.</li><li><b>Flow and falls:</b> downhill direction from the vertex normal, blended toward an optional guide spline on flat ground; faces steeper than ~70° become waterfall.</li><li><b>Non-destructive:</b> writes a <code>*_TearBaked</code> copy and assigns the red instance; the original mesh is never touched.</li></ol>
+<div class="code-wrap full reveal"><div class="code-bar"><b>Bake Tear Data Onto Mesh</b><span>Python · editor scripting</span></div><pre class="code"># Bake Tear Data Onto Mesh (excerpt): any water mesh an artist models
+
+# 1. shore: geodesic distance to the open boundary (Dijkstra on edges)
+for (u, v), cnt in edges.items():
+    if cnt == 1:                          # used by one triangle = edge
+        for x in (u, v):
+            dist[x] = 0.0; heapq.heappush(heap, (0.0, x))
+while heap:
+    dcur, u = heapq.heappop(heap)
+    for v in nbr[u]:
+        nd = dcur + length(W[u] - W[v])
+        if nd &lt; dist[v]:
+            dist[v] = nd; heapq.heappush(heap, (nd, v))
+
+# 2. depth: trace down to whatever is underneath, ignoring the water
+hit = unreal.SystemLibrary.line_trace_single(
+    world, p + up * 0.5, p - up * 400.0, ..., ign, ...)
+
+# 3. flow: downhill from the normal; flat parts follow a guide spline
+sl  = hor / max(abs(nz), 0.05)                     # slope
+wgt = clamp((sl - 0.05) / 0.3, 0.0, 1.0)           # gravity vs spline
+fall.append(clamp((sl - 0.38) / 0.35, 0.0, 1.0))   # beads, FallBoost
+wf.append(clamp((0.45 - abs(nz)) / 0.2, 0.0, 1.0)) # &gt; ~70° = waterfall
+
+# 4. write a *_TearBaked copy (original untouched), assign the red MI
+</pre></div>
+</div>
+
+</section>
+<section class="p-sec" id="destruction"><h2><span class="n">03</span>Destruction system · Pipeline</h2>
+
+<p>Each act of <em>Headspace</em> ends with a memory breaking. Real-time Chaos destruction would give us neither the emotional timing nor the performance we need, so the system is: <strong>simulate and direct in Houdini, bake, and play back in Unreal as an ordinary animation.</strong></p>
+<h3>Houdini Apprentice → Blender → Unreal</h3>
+<p>I work on a <strong>Houdini Apprentice</strong> licence, which can’t export the FBX or skinned animation Unreal normally takes from Houdini. Instead of paying for a licence the project doesn’t have, I built the export around what Apprentice <em>can</em> write and let Python and Blender do the rest:</p>
+<div class="flow reveal"><div><small>Houdini</small><b>Fracture & simulate</b><span>Every piece keeps a stable name; export the rest pieces as OBJ and each piece’s 4 × 4 transform per frame as JSON</span></div><div><small>Python</small><b>Build the rig</b><span>One root bone + one bone per piece, 100 % rigid weights, the frames as a skeletal animation, written as a skinned glTF</span></div><div><small>Check</small><b>Verify</b><span>Replay the skin from the file and compare with Houdini’s geometry; front-view contact sheets for the team</span></div><div><small>Blender</small><b>Bridge</b><span>Opens the skinned file, converts to FBX whenever Unreal’s glTF import misbehaves</span></div><div><small>Unreal</small><b>Play</b><span>Skeletal mesh + animation, swapped in for the intact mesh on the trigger</span></div></div>
+<p>The shared output, a <strong>skeletal mesh with one rigidly weighted bone per piece</strong>, costs one draw call per material, needs no physics at runtime and can be triggered from any gameplay event. Before building anything I wrote a feasibility study deciding, per act, how much Houdini each one needed:</p>
+<div class="code-list"><div><code>Act 1 · Mia screen</code><p>Glass fracture with directed timing → baked skeletal animation. <b>Built.</b></p></div><div><code>Act 2 · Piano stair</code><p>Modular keys, selective fracture, choreographed collapse → baked skeletal animation. <b>Built.</b></p></div><div><code>Act 3 · Many screens</code><p>Reuse Act 1 breakups with staggered timing → rigid-body VAT after a performance test. <b>In progress.</b></p></div></div>
+
+</section>
+<section class="p-sec" id="mia-screen"><h2><span class="n">04</span>Destruction · The breaking screen</h2>
+
+<p>An LED wall reads "MIA". Mia recognises herself, a hit lands on the <strong>I</strong>, cracks race outward and the screen collapses to the floor, opening onto the next memory. 64 shards, 120 frames at 24 fps. The challenge here was <strong>believable glass that still hits a story beat</strong>.</p>
+<figure class="fig reveal"><video src="../assets/img/headspace/mia_shatter.mp4" poster="../assets/img/headspace/mia_shatter_poster.jpg" autoplay muted loop playsinline preload="metadata"></video><figcaption>In Unreal 5.8, both showroom variants breaking at once: crack reveal and flicker, the impact on the “I”, Niagara sparks and glass dust, then the baked collapse. Left: pieces stay on the floor. Right: pieces sink away.</figcaption></figure>
+<h3>Houdini: a real simulation, directed by timing</h3>
+<ol class="steps"><li><b>Prep.</b> Import the 160 × 90 cm panel, convert to metres, keep per-face UVs, weld it into a watertight slab so it can be cut.</li><li><b>Fracture.</b> RBD Material Fracture in glass mode: radial cracks from the centre of “MIA”, 64 flat panes.</li><li><b>Release wave.</b> Every shard starts frozen (<code>active = 0</code>). A wrangle gives each one a release time: 1.45 s + 1.6 s per metre from the impact, plus 0.12 s jitter, so the crack front travels outward.</li><li><b>Impact.</b> A hidden sphere punches through the “I” from behind at 1.45 s. A moving collider delivers the hit physically, because frozen shards lose any initial velocity.</li><li><b>Solve.</b> RBD Bullet Solver, 20 substeps, glass density 2500 kg/m³, bounce 0.3, friction 0.6, ground 1 m below the screen centre.</li></ol>
+<div class="code-list"><div><code>Keyframed shards looked fake</code><p>First version moved pieces with VEX. Replaced with the Bullet sim, keeping direction through timing only.</p></div><div><code>Glue didn't hold the panel</code><p>Glue binds pieces to each other, not to the world, so the panel fell as one. Switched to timed activation.</p></div><div><code>Shards exploded on frame 1</code><p>Bullet’s default 2 cm padding and hull shrink are more than half the 1 cm glass. Set both to 0.5 mm.</p></div><div><code>The housing ejected the glass</code><p>As a collider it became one convex hull around the glass. Removed it, so the whole screen falls.</p></div></div>
+<h3>Screen-specific export fixes</h3>
+<figure class="fig reveal"><img src="../assets/img/headspace/mia_verify.jpg" alt="<b>Frame-accurate check.</b> Front views rendered straight from the exported file at eight frames; every shard matches Houdini to within 0.001 mm." width="1800" height="717" loading="lazy"><figcaption><b>Frame-accurate check.</b> Front views rendered straight from the exported file at eight frames; every shard matches Houdini to within 0.001 mm.</figcaption></figure>
+<p>Two problems were particular to an image on glass: Houdini’s clockwise winding made the screen look inside-out after export, and the fracture’s edge noise slid the image up to 7 % along the cracks. The converter reverses the winding and re-projects front UVs from position, so the swap from intact to broken is seamless.</p>
+<h3>Material and VFX: one mask, four jobs</h3>
+<p>The crack mask is generated from the real shard outlines, so the cracks drawn on the intact screen are exactly where it later separates. <code>M_MiaScreen_LED</code> reads it in one custom HLSL node:</p>
+<div class="gallery g4  reveal" style="--ar:16/9"><figure><img src="../assets/img/headspace/mia_mask_r.jpg" alt="R · crack lines" width="700" height="394" loading="lazy"><figcaption>R · crack lines</figcaption></figure><figure><img src="../assets/img/headspace/mia_mask_g.jpg" alt="G · reveal order from the impact" width="700" height="394" loading="lazy"><figcaption>G · reveal order from the impact</figcaption></figure><figure><img src="../assets/img/headspace/mia_mask_b.jpg" alt="B · per-shard id" width="700" height="394" loading="lazy"><figcaption>B · per-shard id</figcaption></figure><figure><img src="../assets/img/headspace/mia_mask_a.jpg" alt="A · damage halo" width="700" height="394" loading="lazy"><figcaption>A · damage halo</figcaption></figure></div>
+<div class="flow reveal"><div><small>0 – 1.45 s</small><b>Cracks spread</b><span>CrackProgress 0 → 1.25, FlickerAmount 0 → 0.8 on the intact screen</span></div><div><small>1.45 s</small><b>Impact</b><span>Niagara: 40 electrical sparks, 220 tumbling glass chips, 2.5 s of glinting dust</span></div><div><small>1.45 – 2.95 s</small><b>Screen dies</b><span>ScreenPower fades 1 → 0.15 on the shards</span></div><div><small>1.45 – 5 s</small><b>Collapse</b><span>Baked sim plays; optional sink-and-hide variant</span></div></div>
+<p>The whole event runs from one Blueprint call, <code>StartShatter</code>, so design can trigger it from any gameplay moment. I built a showroom with both variants side by side so the team could compare and vote.</p>
+
+</section>
+<section class="p-sec" id="piano"><h2><span class="n">05</span>Destruction · The impossible piano</h2>
+
+<p>In Act 2 Mia climbs a Penrose-style staircase made entirely of piano keys, an impossible loop that only closes from one viewpoint. When she reaches the end, the structure plays a phrase, grows anxious and bursts away from her as time slows down. The challenge here was the opposite of the screen: <strong>a collapse that follows music and emotion, not gravity</strong>.</p>
+<figure class="fig reveal"><video src="../assets/img/headspace/piano_collapse.mp4" poster="../assets/img/headspace/piano_intact.jpg" autoplay muted loop playsinline preload="metadata"></video><figcaption>Houdini flipbook from the “impossible” camera: melody, dread, burst, slowing drift.</figcaption></figure>
+<div class="gallery g3  reveal" style="--ar:960/452"><figure><img src="../assets/img/headspace/piano_intact.jpg" alt="From the one camera where the loop closes" width="960" height="452" loading="lazy"><figcaption>From the one camera where the loop closes</figcaption></figure><figure><img src="../assets/img/headspace/piano_burst.jpg" alt="The release wave starts at Mia; black keys lead" width="960" height="452" loading="lazy"><figcaption>The release wave starts at Mia; black keys lead</figcaption></figure><figure><img src="../assets/img/headspace/piano_scatter.jpg" alt="Drag makes the burst decelerate like slowed time" width="960" height="452" loading="lazy"><figcaption>Drag makes the burst decelerate like slowed time</figcaption></figure></div>
+<h3>Impossible architecture, built procedurally</h3>
+<p>The staircase is generated in Python inside Houdini: straight flights of white keys, corners of three fanned wedge keys, and black keys laid on top in the real C D E F G A B pattern, so the stair is literally a keyboard. A dedicated camera sits on the one line of sight where the gap in the loop disappears. Each key is then split along its grain and across it into rigid pieces, tagged with key, step and note, and packed.</p>
+<h3>Choreography instead of simulation</h3>
+<p>Here a physics sim would fight the story, so the collapse is authored in one wrangle with named controls (<code>peak</code>, <code>rattle</code>, <code>contract</code>, <code>drag</code>, <code>spin</code>...) that design can tune without touching code:</p>
+<div class="code-wrap full reveal"><div class="code-bar"><b>Piano collapse</b><span>VEX · excerpt</span></div><pre class="code">// Point wrangle on the packed keys. One point = one key piece.
+// Four beats, all driven by time and each key&#x27;s distance from Mia.
+
+float d  = length(P0 - mia);
+float tb = chf(&quot;peak&quot;) + d * chf(&quot;peak_spread&quot;)          // release wave spreads from Mia
+         - isblack * chf(&quot;black_lead&quot;)                    // black keys break first
+         + (rand(key * 7 + 1) - 0.5) * 0.06;             // small per-key jitter
+float tc = min(T, tb);                                    // pre-release effects freeze at release
+
+// 1. Melody: keys press down in order along the stair, like a phrase being played
+float tn = chf(&quot;melody_start&quot;) + chf(&quot;melody_len&quot;) * u * (1.3 - 0.3 * u);
+press    = sin(a / 0.35 * PI) * (a &lt; 0.08 ? 1 : exp(-(a - 0.08) * 6));
+
+// 2. Dread: the structure rattles, black keys hop, everything contracts toward Mia
+off += (noise(tc * 23, key) - 0.5) * 2 * chf(&quot;rattle&quot;) * dr2;
+off += (mia - P0) * chf(&quot;contract&quot;) * dr2;
+
+// 3 + 4. Burst away from Mia, then motion drains with exponential drag,
+//        so the collapse reads as time slowing down rather than falling
+disp = dir * (spd * (1 - exp(-k * s)) / k + chf(&quot;drift&quot;) * s);
+rotate(Rb, w * (1 - exp(-kw * s)) / kw, wax);
+</pre></div>
+<p>Because it is deterministic, the collapse can be timed to the score, and it leaves Houdini through the same skeletal-animation pipeline as the screen: Unreal receives one more baked clip and no new systems.</p>
+
+</section>
+<section class="p-sec" id="challenges"><h2><span class="n">06</span>Challenges & solutions</h2>
+<div class="cs"><div class="cs-item reveal"><div class="ch"><small>Challenge</small><h4>Liquid without a fluid sim</h4><p>The tears had to flow, bead, fall and react to footsteps in real time on a student-project budget.</p></div><div class="so"><small>Solution</small><h4>Shading driven by baked mesh data</h4><p>Flow, depth, steepness and masks are baked into UV channels; a translucent Substrate material animates them. Footsteps are four contacts in a parameter collection.</p></div></div><div class="cs-item reveal"><div class="ch"><small>Challenge</small><h4>Other people have to use it</h4><p>A material that needs hand-baked data is a trap for a 14-person team working through Perforce.</p></div><div class="so"><small>Solution</small><h4>Master / instance contract, tools and a guide</h4><p>Logic in one master, look in grouped instance parameters with one main knob each, two one-click tools, and a written guide with quick recipes.</p></div></div><div class="cs-item reveal"><div class="ch"><small>Challenge</small><h4>No FBX from Houdini Apprentice</h4><p>The licence can’t export the skinned animation Unreal expects.</p></div><div class="so"><small>Solution</small><h4>OBJ + JSON → Python → Blender → Unreal</h4><p>Export what Apprentice allows, build the rig in Python, bridge through Blender, verify to 0.001 mm before import.</p></div></div><div class="cs-item reveal"><div class="ch"><small>Challenge</small><h4>Directed timing vs. real physics</h4><p>Keyframed glass looked fake; a free simulation ignored the story beat.</p></div><div class="so"><small>Solution</small><h4>Timed activation, or pure choreography</h4><p>The screen uses a release wave plus a hidden impactor inside a Bullet sim; the piano skips physics and is choreographed in VEX.</p></div></div></div>
+</section>
+      
+    <div class="p-next">
+      <a href="theInsanity.html"><small>← PREVIOUS</small><b>The Insanity</b></a>
+      <a class="r" href="theFeeding.html"><small>NEXT PROJECT →</small><b>The Feeding</b></a>
+    </div>
+    </main>
+  </div>
+</div>
+<footer class="footer" id="contact">
+  <div class="wrap">
+    <div class="footer-grid">
+      <div>
+        <h3>Let’s build better art pipelines.</h3>
+        <p>Open to Technical Art roles &amp; collaborations – <a href="mailto:xingyan@usc.edu" style="color:var(--accent)">xingyan@usc.edu</a></p>
+      </div>
+      <div class="socials">
+        <a href="mailto:xingyan@usc.edu" aria-label="Email"><i class="fa-solid fa-envelope"></i></a>
+        <a href="https://www.linkedin.com/in/liu-xingyan-yolanda6" target="_blank" rel="noopener" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+        <a href="https://yollienarae.itch.io" target="_blank" rel="noopener" aria-label="itch.io"><i class="fa-brands fa-itch-io"></i></a>
+        <a href="../resume.html" aria-label="Resume"><i class="fa-solid fa-file-lines"></i></a>
+      </div>
+    </div>
+    <div class="copyright">© 2026 Yolanda Liu · All rights reserved</div>
+  </div>
+</footer>
+<script src="../assets/js/gl.js"></script>
+<script src="../assets/js/site.js"></script>
+</body>
+</html>

@@ -30,12 +30,16 @@ def head(title, desc, root=""):
 
 
 MENU = [
-    ("Rendering & Shading", [("theFeeding", "The Feeding", "UE 5.6 · PCG, materials, lighting"), ("rhythmEcho", "Rhythm: Echo of the Disciple", "Skies, lighting, rhythm engine"), ("bubbleFactory", "Bubble Factory", "Shader Graph bubbles · URP materials")]),
+    ("Rendering & Shading", [("headspace", "Headspace", "UE 5.8 · Rendering & Destruction System"), ("theFeeding", "The Feeding", "UE 5.6 · PCG, materials, lighting"), ("rhythmEcho", "Rhythm: Echo of the Disciple", "Skies, lighting, rhythm engine"), ("bubbleFactory", "Bubble Factory", "Shader Graph bubbles · URP materials")]),
     ("Tools & AI Pipeline", [("sdMaterialTool", "AI Tiling Material Generator", "Substance 3D Designer plugin · PBR maps"), ("psAiToolkit", "AI Creative Toolkit", "Photoshop UXP plugin · 11 features"), ("travelTrove", "TravelTrove", "Stylized concept-art workflow")]),
     ("Gameplay Systems", [("riverOfForgetting", "River of Forgetting", "Unity · brewing & endings"), ("brokenStage", "Broken Stage", "Unity · puzzle systems"), ("puppetMystery", "Puppet Mystery", "Unity · lead dev & producer")]),
     ("Beyond the Engine", [("gravitas", "Gravitas", "Audio & narrative design"), ("theVillage", "The Village", "Costume & makeup head · 33 characters"), ("theInsanity", "The Insanity", "Costume design & production")]),
     ("Written by hand", [("__lab", "Shader Lab", "Live GLSL: fog, PBR, water, bubble, POM, dissolve")]),
 ]
+
+
+WIP = {"headspace"}   # projects still in development: flagged in the menu, cards and page header
+WIP_BADGE = '<em class="wip">Work in progress</em>'
 
 
 def nav(root="", home=True):
@@ -44,7 +48,7 @@ def nav(root="", home=True):
     for g, items in MENU:
         links = "".join(
             f'<a href="{root}shaders.html">{t}<span>{d}</span></a>' if s == "__lab"
-            else f'<a href="{root}projects/{s}.html">{t}<span>{d}</span></a>'
+            else f'<a href="{root}projects/{s}.html">{t}{" " + WIP_BADGE if s in WIP else ""}<span>{d}</span></a>'
             for s, t, d in items)
         groups += f'<div class="grp"><small>{g}</small>{links}</div>'
     return f"""<nav class="nav">

@@ -24,7 +24,7 @@
     <button class="nav-toggle" aria-label="Menu"><i class="fa-solid fa-bars"></i></button>
     <ul class="nav-links">
       <li><a href="#professional">Professional Work</a></li>
-      <li class="has-menu"><a href="#work">Projects</a><div class="menu"><div class="grp"><small>Rendering & Shading</small><a href="projects/theFeeding.html">The Feeding<span>UE 5.6 · PCG, materials, lighting</span></a><a href="projects/rhythmEcho.html">Rhythm: Echo of the Disciple<span>Skies, lighting, rhythm engine</span></a><a href="projects/bubbleFactory.html">Bubble Factory<span>Shader Graph bubbles · URP materials</span></a></div><div class="grp"><small>Tools & AI Pipeline</small><a href="projects/sdMaterialTool.html">AI Tiling Material Generator<span>Substance 3D Designer plugin · PBR maps</span></a><a href="projects/psAiToolkit.html">AI Creative Toolkit<span>Photoshop UXP plugin · 11 features</span></a><a href="projects/travelTrove.html">TravelTrove<span>Stylized concept-art workflow</span></a></div><div class="grp"><small>Gameplay Systems</small><a href="projects/riverOfForgetting.html">River of Forgetting<span>Unity · brewing & endings</span></a><a href="projects/brokenStage.html">Broken Stage<span>Unity · puzzle systems</span></a><a href="projects/puppetMystery.html">Puppet Mystery<span>Unity · lead dev & producer</span></a></div><div class="grp"><small>Beyond the Engine</small><a href="projects/gravitas.html">Gravitas<span>Audio & narrative design</span></a><a href="projects/theVillage.html">The Village<span>Costume & makeup head · 33 characters</span></a><a href="projects/theInsanity.html">The Insanity<span>Costume design & production</span></a></div><div class="grp"><small>Written by hand</small><a href="shaders.html">Shader Lab<span>Live GLSL: fog, PBR, water, bubble, POM, dissolve</span></a></div></div></li>
+      <li class="has-menu"><a href="#work">Projects</a><div class="menu"><div class="grp"><small>Rendering & Shading</small><a href="projects/headspace.html">Headspace <em class="wip">Work in progress</em><span>UE 5.8 · Rendering & Destruction System</span></a><a href="projects/theFeeding.html">The Feeding<span>UE 5.6 · PCG, materials, lighting</span></a><a href="projects/rhythmEcho.html">Rhythm: Echo of the Disciple<span>Skies, lighting, rhythm engine</span></a><a href="projects/bubbleFactory.html">Bubble Factory<span>Shader Graph bubbles · URP materials</span></a></div><div class="grp"><small>Tools & AI Pipeline</small><a href="projects/sdMaterialTool.html">AI Tiling Material Generator<span>Substance 3D Designer plugin · PBR maps</span></a><a href="projects/psAiToolkit.html">AI Creative Toolkit<span>Photoshop UXP plugin · 11 features</span></a><a href="projects/travelTrove.html">TravelTrove<span>Stylized concept-art workflow</span></a></div><div class="grp"><small>Gameplay Systems</small><a href="projects/riverOfForgetting.html">River of Forgetting<span>Unity · brewing & endings</span></a><a href="projects/brokenStage.html">Broken Stage<span>Unity · puzzle systems</span></a><a href="projects/puppetMystery.html">Puppet Mystery<span>Unity · lead dev & producer</span></a></div><div class="grp"><small>Beyond the Engine</small><a href="projects/gravitas.html">Gravitas<span>Audio & narrative design</span></a><a href="projects/theVillage.html">The Village<span>Costume & makeup head · 33 characters</span></a><a href="projects/theInsanity.html">The Insanity<span>Costume design & production</span></a></div><div class="grp"><small>Written by hand</small><a href="shaders.html">Shader Lab<span>Live GLSL: fog, PBR, water, bubble, POM, dissolve</span></a></div></div></li>
       <li><a href="shaders.html">Shader Lab</a></li>
       <li><a href="#skills">Skills</a></li>
       <li><a href="#about">About</a></li>
@@ -175,12 +175,6 @@
         </div>
       </div>
     </div>
-
-    <div class="also">
-      <a href="resume.html#experience"><b>Marriott International</b><span>Strategy Planning &amp; Communications · 2025</span></a>
-      <a href="resume.html#experience"><b>Edelman China</b><span>Corporate &amp; Financial Services PR · 2024</span></a>
-      <a href="resume.html#experience"><b>Mango TV</b><span>Director Intern, <em>Chengfeng 2023</em> · 2023</span></a>
-    </div>
   </div>
 </section>
 <section id="work">
@@ -206,10 +200,23 @@
     <div class="work-group" data-cat="render" id="work-render">
       <h3>Real-time Rendering, Lighting & Shading</h3>
       <div class="cards">
-      <a class="card reveal feature" href="projects/theFeeding.html">
+      <a class="card reveal feature" href="projects/headspace.html">
+        <div class="card-media"><img src="assets/img/headspace/cover.jpg" alt="Headspace key visual" loading="lazy"></div>
+        <div class="card-body">
+          <div class="card-top"><span class="tag render">Rendering & Shading</span><span class="when">2026 · Team of 14</span></div>
+          <em class="wip">Work in progress</em>
+          <h4>Headspace</h4>
+          <p class="hook">How am I building the rendering and destruction systems for a 14-person Unreal 5.8 team, from custom materials and editor tools to Houdini-driven destruction?</p>
+          <p class="role">Technical Artist</p>
+          <div class="tags"><span class="tag">Unreal 5.8</span><span class="tag">Houdini</span><span class="tag">Substrate</span><span class="tag">RBD</span><span class="tag">VEX</span><span class="tag">Niagara</span></div>
+          <span class="more">Read the breakdown <i class="fa-solid fa-arrow-right"></i></span>
+        </div>
+      </a>
+      <a class="card reveal" href="projects/theFeeding.html">
         <div class="card-media"><img src="assets/img/theFeeding/cover.jpg" alt="The Feeding key visual" loading="lazy"></div>
         <div class="card-body">
           <div class="card-top"><span class="tag render">Rendering & Shading</span><span class="when">2025 · Solo</span></div>
+          
           <h4>The Feeding</h4>
           <p class="hook">How did I build a fog-drenched Miao mountain world in UE 5.6, from terrain and PCG foliage to materials, MetaHumans and a cinematic render?</p>
           <p class="role">Solo: environment, materials, lighting, characters, cinematics</p>
@@ -221,6 +228,7 @@
         <div class="card-media"><img src="assets/img/rhythmEcho/cover.jpg" alt="Rhythm: Echo of the Disciple key visual" loading="lazy"></div>
         <div class="card-body">
           <div class="card-top"><span class="tag render">Rendering & Shading</span><span class="when">2025 · Team of 9</span></div>
+          
           <h4>Rhythm: Echo of the Disciple</h4>
           <p class="hook">How did I light, program and produce a mythic 3D rhythm world with a 9-person jam team?</p>
           <p class="role">Producer · Developer · Technical Artist</p>
@@ -232,6 +240,7 @@
         <div class="card-media"><img src="assets/img/bubbleFactory/cover.jpg" alt="Bubble Factory key visual" loading="lazy"></div>
         <div class="card-body">
           <div class="card-top"><span class="tag render">Rendering & Shading</span><span class="when">2025 · Global Game Jam</span></div>
+          
           <h4>Bubble Factory</h4>
           <p class="hook">How did I make materials carry a whole art direction in 48 hours, with translucent bubble shields, a gum lake and glowing pickups?</p>
           <p class="role">Lead Developer · Level Designer · Technical Artist</p>
@@ -248,6 +257,7 @@
         <div class="card-media"><img src="assets/img/sdMaterialTool/cover.jpg" alt="AI Tiling Material Generator for Substance 3D Designer key visual" loading="lazy"></div>
         <div class="card-body">
           <div class="card-top"><span class="tag pipeline">Tools & Pipeline</span><span class="when">2026 · Tencent Games</span></div>
+          
           <h4>AI Tiling Material Generator for Substance 3D Designer</h4>
           <p class="hook">How do you get a seamless, production-ready PBR material set from a prompt without ever leaving Substance Designer?</p>
           <p class="role">Technical Artist (Tools & Pipeline) · Delta Force, TiMi J3 Studio</p>
@@ -259,6 +269,7 @@
         <div class="card-media"><img src="assets/img/psAiToolkit/cover.jpg" alt="AI Creative Toolkit for Photoshop key visual" loading="lazy"></div>
         <div class="card-body">
           <div class="card-top"><span class="tag pipeline">Tools & Pipeline</span><span class="when">2026 · Tencent Games</span></div>
+          
           <h4>AI Creative Toolkit for Photoshop</h4>
           <p class="hook">How do you put eleven AI capabilities inside Photoshop without ever costing an artist a layer?</p>
           <p class="role">Technical Artist (Tools & Pipeline) · Delta Force, TiMi J3 Studio</p>
@@ -270,6 +281,7 @@
         <div class="card-media"><img src="assets/img/travelTrove/cover.jpg" alt="TravelTrove key visual" loading="lazy"></div>
         <div class="card-body">
           <div class="card-top"><span class="tag pipeline">Tools & Pipeline</span><span class="when">2025 · Solo</span></div>
+          
           <h4>TravelTrove</h4>
           <p class="hook">How did I set up a controlled AI generation workflow so independently generated concept assets read as one art style?</p>
           <p class="role">Solo: research, UX, concept art pipeline, hi-fi prototype</p>
@@ -286,6 +298,7 @@
         <div class="card-media"><img src="assets/img/riverOfForgetting/cover.jpg" alt="River of Forgetting key visual" loading="lazy"></div>
         <div class="card-body">
           <div class="card-top"><span class="tag gameplay">Gameplay Systems</span><span class="when">2025 · Solo</span></div>
+          
           <h4>River of Forgetting</h4>
           <p class="hook">How did I build a brewing system and accuracy-based endings for a first-person mythic narrative game?</p>
           <p class="role">Solo: design, C# systems, environment assets</p>
@@ -297,6 +310,7 @@
         <div class="card-media"><img src="assets/img/brokenStage/cover.jpg" alt="Broken Stage key visual" loading="lazy"></div>
         <div class="card-body">
           <div class="card-top"><span class="tag gameplay">Gameplay Systems</span><span class="when">2024 · Solo</span></div>
+          
           <h4>Broken Stage</h4>
           <p class="hook">How did I build interaction, puzzle and branching-ending systems for a bilingual 2D mystery game?</p>
           <p class="role">Solo: design, C# systems, UI, narrative</p>
@@ -308,6 +322,7 @@
         <div class="card-media"><img src="assets/img/puppetMystery/cover.jpg" alt="Puppet Mystery key visual" loading="lazy"></div>
         <div class="card-body">
           <div class="card-top"><span class="tag gameplay">Gameplay Systems</span><span class="when">2025 · Team of 7</span></div>
+          
           <h4>Puppet Mystery</h4>
           <p class="hook">How did I architect additive room loading and drag-and-drop puzzles while leading a 7-person team?</p>
           <p class="role">Lead Developer · Producer · Level Designer</p>
@@ -324,6 +339,7 @@
         <div class="card-media"><img src="assets/img/gravitas/cover.jpg" alt="Gravitas key visual" loading="lazy"></div>
         <div class="card-body">
           <div class="card-top"><span class="tag ">Beyond the Engine</span><span class="when">2024 · Team game</span></div>
+          
           <h4>Gravitas</h4>
           <p class="hook">How did I score and sound-design a pixel tower-defense game so every game state has its own identity?</p>
           <p class="role">Audio Designer · Narrative Designer</p>
@@ -335,6 +351,7 @@
         <div class="card-media"><img src="assets/img/theVillage/cover.jpg" alt="The Village key visual" loading="lazy"></div>
         <div class="card-body">
           <div class="card-top"><span class="tag ">Beyond the Engine</span><span class="when">2024 · NUS</span></div>
+          
           <h4>The Village</h4>
           <p class="hook">How did I lead a 29-person costume & makeup team to give 33 characters one cohesive visual language?</p>
           <p class="role">Costume & Makeup Head</p>
@@ -346,6 +363,7 @@
         <div class="card-media"><img src="assets/img/theInsanity/cover.jpg" alt="The Insanity key visual" loading="lazy"></div>
         <div class="card-body">
           <div class="card-top"><span class="tag ">Beyond the Engine</span><span class="when">2023 · NUS</span></div>
+          
           <h4>The Insanity</h4>
           <p class="hook">How did I design a contemporary cast that stays readable as an ensemble, while securing the sponsorship and running the production?</p>
           <p class="role">Costume Designer · Assistant Producer</p>
@@ -364,65 +382,67 @@
         <div class="eyebrow">What I bring</div>
         <h2>Core skills</h2>
       </div>
-      <p>A technical artist sits between art, engineering and production. Hard skills, soft skills, and a quick map from what studios ask for to where you can see it in my work.</p>
+      <p>A technical artist sits between art, engineering and production. What I can build, how I work with a team, and the software I use to do it.</p>
     </div>
     <div class="tabs skills-tabs" role="tablist" data-tabs="skills">
-      <button class="tab active" role="tab" aria-selected="true"><small>A</small>Hard skills · technical &amp; art</button>
-      <button class="tab" role="tab" aria-selected="false"><small>B</small>Soft skills · communication &amp; production</button>
-      <button class="tab" role="tab" aria-selected="false"><small>C</small>Requirement → evidence</button>
+      <button class="tab active" role="tab" aria-selected="true"><small>A</small>Hard skills</button>
+      <button class="tab" role="tab" aria-selected="false"><small>B</small>Soft skills</button>
+      <button class="tab" role="tab" aria-selected="false"><small>C</small>Software</button>
     </div>
     <div class="skill-panel active" data-panel-of="skills"><div class="skills-grid">
       <div class="skill-card render">
         <div class="ico"><i class="fa-solid fa-palette"></i></div>
-        <h4>Shaders & Materials · PBR</h4>
-        <div class="tags"><span class="tag">GLSL (hand-written)</span><span class="tag">PBR maps (Albedo, Normal, Roughness, Metallic, Height)</span><span class="tag">UE material networks</span><span class="tag">Material instancing</span><span class="tag">Unity Shader Graph</span><span class="tag">Fresnel / transparency / refraction</span><span class="tag">Shared shader library</span></div>
-        <p class="proof"><i class="fa-solid fa-check" style="color:var(--accent);margin-right:6px"></i>Co-developed a centralized shader library at Tencent, and wrote six live GLSL shaders for the <a href='shaders.html' style='color:var(--accent)'>Shader Lab</a>.</p>
+        <h4>Shaders & materials</h4>
+        <div class="tags"><span class="tag">HLSL custom nodes</span><span class="tag">GLSL</span><span class="tag">Master / instance architecture</span><span class="tag">PBR authoring</span><span class="tag">Translucency & refraction</span><span class="tag">Flow maps</span><span class="tag">Shader libraries & standards</span><span class="tag">Shader profiling & optimization</span></div>
+        <p class="proof"><i class="fa-solid fa-check" style="color:var(--accent);margin-right:6px"></i>Tear path material for <a href='projects/headspace.html#materials' style='color:var(--accent)'>Headspace</a> and six live shaders in the <a href='shaders.html' style='color:var(--accent)'>Shader Lab</a>.</p>
       </div>
       <div class="skill-card render">
         <div class="ico"><i class="fa-solid fa-lightbulb"></i></div>
-        <h4>Lighting, Look-dev & Optimization</h4>
-        <div class="tags"><span class="tag">Real-time lighting</span><span class="tag">Fog & firelight</span><span class="tag">Skybox & atmosphere</span><span class="tag">Asset / lighting validation</span><span class="tag">Cross-platform benchmarks</span><span class="tag">Render & build-size optimization</span></div>
-        <p class="proof"><i class="fa-solid fa-check" style="color:var(--accent);margin-right:6px"></i>Lit 8 cinematic scenes in UE 5.6, and optimized lighting and rendering in Rhythm while reducing build size.</p>
+        <h4>Lighting, rendering & look-dev</h4>
+        <div class="tags"><span class="tag">Real-time lighting</span><span class="tag">Lumen & Nanite</span><span class="tag">Fog & atmosphere</span><span class="tag">Skybox design</span><span class="tag">Post-process</span><span class="tag">Cinematic rendering</span><span class="tag">Asset &amp; shader validation</span><span class="tag">GPU profiling</span><span class="tag">Performance & build-size optimization</span></div>
+        <p class="proof"><i class="fa-solid fa-check" style="color:var(--accent);margin-right:6px"></i>Lit eight cinematic scenes in <a href='projects/theFeeding.html#renders' style='color:var(--accent)'>The Feeding</a>, and cut build size in <a href='projects/rhythmEcho.html#challenges' style='color:var(--accent)'>Rhythm</a>.</p>
       </div>
       <div class="skill-card render">
-        <div class="ico"><i class="fa-solid fa-cube"></i></div>
-        <h4>Unreal Engine & Procedural</h4>
-        <div class="tags"><span class="tag">Unreal Engine 5</span><span class="tag">Blueprints</span><span class="tag">PCG</span><span class="tag">Sequencer / Movie Render Queue</span><span class="tag">MetaHuman · Live Link</span><span class="tag">IK Retargeting</span><span class="tag">Unity (C#)</span></div>
-        <p class="proof"><i class="fa-solid fa-check" style="color:var(--accent);margin-right:6px"></i>Blueprint-driven PCG cliff and moss generators, plus a Mixamo → MetaHuman retargeting pipeline.</p>
+        <div class="ico"><i class="fa-solid fa-burst"></i></div>
+        <h4>VFX, destruction & procedural</h4>
+        <div class="tags"><span class="tag">Rigid-body fracture</span><span class="tag">VEX choreography</span><span class="tag">Sim-to-engine baking</span><span class="tag">Niagara VFX</span><span class="tag">Houdini Digital Assets</span><span class="tag">PCG</span><span class="tag">Procedural terrain</span><span class="tag">Mesh processing</span></div>
+        <p class="proof"><i class="fa-solid fa-check" style="color:var(--accent);margin-right:6px"></i>Houdini-driven screen shatter and piano collapse for <a href='projects/headspace.html#destruction' style='color:var(--accent)'>Headspace</a>, and PCG cliffs and moss in The Feeding.</p>
       </div>
       <div class="skill-card pipeline">
         <div class="ico"><i class="fa-solid fa-screwdriver-wrench"></i></div>
-        <h4>Tools & Pipeline · Python / DCC APIs</h4>
-        <div class="tags"><span class="tag">Python</span><span class="tag">PySide / Qt</span><span class="tag">Substance Designer API</span><span class="tag">Photoshop UXP (JS)</span><span class="tag">DCC plugin development</span><span class="tag">Service / API integration</span><span class="tag">Versioned deployment</span><span class="tag">Git · Perforce</span></div>
-        <p class="proof"><i class="fa-solid fa-check" style="color:var(--accent);margin-right:6px"></i>Shipped two AI plugins to the Delta Force art team with a gateway, a unified model interface and silent hotfix updates.</p>
+        <h4>Tools & pipeline</h4>
+        <div class="tags"><span class="tag">DCC plugin development</span><span class="tag">Editor scripting</span><span class="tag">Tool UI (PySide / Qt)</span><span class="tag">Service & API integration</span><span class="tag">Cross-DCC data pipelines</span><span class="tag">Asset validation & batch automation</span><span class="tag">C++ editor extensions</span><span class="tag">Deployment & updates</span></div>
+        <p class="proof"><i class="fa-solid fa-check" style="color:var(--accent);margin-right:6px"></i>Two AI plugins shipped to the Delta Force art team, and the <a href='projects/headspace.html#materials' style='color:var(--accent)'>Headspace Tools</a> editor plugin.</p>
       </div>
       <div class="skill-card pipeline">
         <div class="ico"><i class="fa-solid fa-wand-magic-sparkles"></i></div>
-        <h4>ML / AI for Art Pipelines</h4>
-        <div class="tags"><span class="tag">ComfyUI workflows</span><span class="tag">Model evaluation & selection</span><span class="tag">LoRA stylization</span><span class="tag">Multimodal VLMs</span><span class="tag">3D generative AI</span><span class="tag">ONNX inference</span><span class="tag">Prompt templating</span></div>
-        <p class="proof"><i class="fa-solid fa-check" style="color:var(--accent);margin-right:6px"></i>Evaluated multimodal 3D AI and wrote the recommendations behind an internal AI art platform.</p>
+        <h4>AI for art pipelines</h4>
+        <div class="tags"><span class="tag">ComfyUI workflows</span><span class="tag">Open-source model research & benchmarking</span><span class="tag">LoRA fine-tuning</span><span class="tag">Multimodal & 3D generative AI</span><span class="tag">Local ONNX inference</span><span class="tag">AI-assisted development</span></div>
+        <p class="proof"><i class="fa-solid fa-check" style="color:var(--accent);margin-right:6px"></i>Evaluated multimodal 3D AI and wrote the recommendations behind an internal AI art platform at Tencent.</p>
       </div>
       <div class="skill-card gameplay">
-        <div class="ico"><i class="fa-solid fa-mountain-sun"></i></div>
-        <h4>DCC & Content Creation</h4>
-        <div class="tags"><span class="tag">Substance Designer</span><span class="tag">Photoshop</span><span class="tag">Blender</span><span class="tag">Gaea</span><span class="tag">Marvelous Designer</span><span class="tag">Mixamo</span><span class="tag">Figma</span><span class="tag">Illustrator</span></div>
-        <p class="proof"><i class="fa-solid fa-check" style="color:var(--accent);margin-right:6px"></i>Gaea terrain, Marvelous Designer cloth and Photoshop/Substance texture work in one UE pipeline.</p>
+        <div class="ico"><i class="fa-solid fa-gamepad"></i></div>
+        <h4>Gameplay scripting & animation</h4>
+        <div class="tags"><span class="tag">Blueprints</span><span class="tag">C# systems</span><span class="tag">Audio-synced timing</span><span class="tag">Scene management</span><span class="tag">Animation Blueprints</span><span class="tag">Rigging & skinning</span><span class="tag">Animation retargeting</span></div>
+        <p class="proof"><i class="fa-solid fa-check" style="color:var(--accent);margin-right:6px"></i>Rhythm engine and level flow in <a href='projects/rhythmEcho.html' style='color:var(--accent)'>Rhythm</a>, puzzle systems in <a href='projects/puppetMystery.html' style='color:var(--accent)'>Puppet Mystery</a>.</p>
       </div>
     </div></div>
     <div class="skill-panel" data-panel-of="skills"><div class="skills-grid">
-      <div class="skill-card"><div class="ico"><i class="fa-solid fa-comments"></i></div><h4>Bridging art & engineering</h4><p style="font-size:14px;margin:0">I turn artists' pain points into tool specs, and engine/model limits back into plain-language workflows. That’s how our plugins got adopted across a large art team.</p></div>
-      <div class="skill-card"><div class="ico"><i class="fa-solid fa-life-ring"></i></div><h4>Artist & vendor support</h4><p style="font-size:14px;margin:0">Built shading standards that internal teams and external vendors could follow, and designed tool updates so artists never had to chase the right build.</p></div>
-      <div class="skill-card"><div class="ico"><i class="fa-solid fa-file-pen"></i></div><h4>Technical documentation</h4><p style="font-size:14px;margin:0">I write design goals, architecture diagrams and request-flow docs for the tools I build. Published research at DiGRA 2026.</p></div>
-      <div class="skill-card"><div class="ico"><i class="fa-solid fa-list-check"></i></div><h4>Production & project management</h4><p style="font-size:14px;margin:0">Agile PM intern at TiMi G1, coordinating TA/VFX asset pipelines from planning and risk through validation and milestones.</p></div>
-      <div class="skill-card"><div class="ico"><i class="fa-solid fa-people-group"></i></div><h4>Team leadership</h4><p style="font-size:14px;margin:0">Producer for teams of 9 (two-week jam) and 7 (three-month cycle), and Costume &amp; Makeup Head leading 29 people on an award-winning production.</p></div>
-      <div class="skill-card"><div class="ico"><i class="fa-solid fa-eye"></i></div><h4>Visual judgement</h4><p style="font-size:14px;margin:0">Years of costume, makeup and character styling trained my eye for silhouette, palette and readability, which I now apply to lighting and look-dev.</p></div>
+      <div class="skill-card"><div class="ico"><i class="fa-solid fa-lightbulb"></i></div><h4>Product mindset for tools</h4><p style="font-size:14px;margin:0">Treat every tool as a product: interview artists, scope an MVP, prioritize by time saved, ship, then iterate on adoption and feedback.</p></div>
+      <div class="skill-card"><div class="ico"><i class="fa-solid fa-arrows-left-right"></i></div><h4>Cross-discipline communication</h4><p style="font-size:14px;margin:0">Translate artists' pain points into technical specs, and engine or model limits back into workflows artists can follow.</p></div>
+      <div class="skill-card"><div class="ico"><i class="fa-solid fa-sliders"></i></div><h4>User-centered tool design</h4><p style="font-size:14px;margin:0">Parameters grouped by intent, safe defaults and non-destructive operations, so artists can tune without breaking things.</p></div>
+      <div class="skill-card"><div class="ico"><i class="fa-solid fa-life-ring"></i></div><h4>Artist &amp; vendor enablement</h4><p style="font-size:14px;margin:0">Shading standards external vendors could follow, onboarding guides, and silent updates so no artist had to chase a build.</p></div>
+      <div class="skill-card"><div class="ico"><i class="fa-solid fa-file-pen"></i></div><h4>Technical documentation</h4><p style="font-size:14px;margin:0">Architecture diagrams, team guides and quick recipes for every tool I ship. Published research at DiGRA 2026.</p></div>
+      <div class="skill-card"><div class="ico"><i class="fa-solid fa-list-check"></i></div><h4>Production &amp; planning</h4><p style="font-size:14px;margin:0">Agile sprints, estimation, risk and milestone tracking for TA / VFX pipelines on a AAA title; producer for teams of 7 and 9.</p></div>
     </div></div>
-    <div class="skill-panel" data-panel-of="skills">
-      <div class="matrix-wrap"><table class="matrix">
-        <thead><tr><th>Typical technical-art requirement</th><th>Where I’ve done it</th><th>See it</th></tr></thead>
-        <tbody><tr><th scope="row">Pipeline tools & scripts in Python / DCC APIs</th><td>Substance Designer and Photoshop plugins (Python, PySide, SD API, UXP) used in production at Tencent</td><td><a href="projects/sdMaterialTool.html">Substance Designer plugin →</a></td></tr><tr><th scope="row">Real-time materials & shaders in a PBR workflow</th><td>Automated Albedo/Normal/Roughness/Metallic/Height generation, a shared shader library, a UE material-instance library, and a translucent Shader Graph bubble</td><td><a href="projects/bubbleFactory.html#materials">Bubble Factory · Materials →</a></td></tr><tr><th scope="row">Writing &amp; debugging shader code</th><td>Four hand-written GLSL fragment shaders running live in the browser: fBm volumetric fog, a Cook-Torrance GGX sphere, a water surface and thin-film refraction</td><td><a href="shaders.html">Shader Lab →</a></td></tr><tr><th scope="row">Performance, validation & optimization</th><td>Cross-platform shader validation benchmarks at Tencent. Lighting and render optimization with a smaller build in Rhythm</td><td><a href="projects/rhythmEcho.html#challenges">Rhythm · Optimization →</a></td></tr><tr><th scope="row">Procedural systems</th><td>Blueprint-driven PCG generators for cliffs, rock groups and light-aware moss</td><td><a href="projects/theFeeding.html#environment">The Feeding · PCG →</a></td></tr><tr><th scope="row">Lighting & look-dev</th><td>Night, fog and firelight lighting across 8 scenes. Skybox and atmosphere across realms</td><td><a href="projects/theFeeding.html#renders">The Feeding · Renders →</a></td></tr><tr><th scope="row">Unreal Engine workflows</th><td>Blueprints, material networks, PCG, Sequencer, Movie Render Queue, MetaHuman</td><td><a href="projects/theFeeding.html">The Feeding →</a></td></tr><tr><th scope="row">ML / AI in art pipelines</th><td>ComfyUI workflows, model evaluation, LoRA look-dev, multimodal 3D AI evaluation, local ONNX inference</td><td><a href="#professional">Professional work →</a></td></tr><tr><th scope="row">Supporting artists & external vendors</th><td>Shader standards for vendor asset production. Silent hotfix and forced-update deployment for a large art team</td><td><a href="projects/psAiToolkit.html#deployment">Photoshop toolkit · Deployment →</a></td></tr><tr><th scope="row">Technical documentation</th><td>Architecture, interface and request-sequence diagrams for production tools</td><td><a href="projects/sdMaterialTool.html#architecture">Substance Designer plugin · Architecture →</a></td></tr><tr><th scope="row">Collaboration across art, design & engineering</th><td>PM for TA/VFX pipelines on a AAA title. Producer and developer on two multidisciplinary teams</td><td><a href="projects/puppetMystery.html">Puppet Mystery →</a></td></tr><tr><th scope="row">Scripting in C# and engine code</th><td>Additive scene loading, EventSystem drag-and-drop puzzles, recipe validation and branching endings</td><td><a href="projects/puppetMystery.html#code">Puppet Mystery · Code →</a></td></tr><tr><th scope="row">Version control</th><td>Git (this site) and Perforce (current USC team project in Unreal)</td><td><span class="muted">·</span></td></tr></tbody>
-      </table></div>
-    </div>
+    <div class="skill-panel" data-panel-of="skills"><div class="skills-grid">
+      <div class="skill-card render"><div class="ico"><i class="fa-solid fa-cube"></i></div><h4>Engines &amp; profiling</h4><div class="tags"><span class="tag">Unreal Engine 5</span><span class="tag">Unity</span><span class="tag">Niagara</span><span class="tag">Sequencer · Movie Render Queue</span><span class="tag">MetaHuman · Live Link</span><span class="tag">Unreal Insights</span><span class="tag">RenderDoc</span></div></div>
+      <div class="skill-card render"><div class="ico"><i class="fa-solid fa-shapes"></i></div><h4>3D &amp; procedural</h4><div class="tags"><span class="tag">Houdini</span><span class="tag">Maya</span><span class="tag">Blender</span><span class="tag">ZBrush</span><span class="tag">Gaea</span><span class="tag">Marvelous Designer</span><span class="tag">Mixamo</span></div></div>
+      <div class="skill-card render"><div class="ico"><i class="fa-solid fa-brush"></i></div><h4>Texturing &amp; 2D</h4><div class="tags"><span class="tag">Substance Painter</span><span class="tag">Substance Designer</span><span class="tag">Photoshop</span><span class="tag">Illustrator</span><span class="tag">Figma</span></div></div>
+      <div class="skill-card pipeline"><div class="ico"><i class="fa-solid fa-code"></i></div><h4>Languages</h4><div class="tags"><span class="tag">Python</span><span class="tag">C++</span><span class="tag">HLSL</span><span class="tag">GLSL</span><span class="tag">VEX</span><span class="tag">C#</span><span class="tag">JavaScript</span></div></div>
+      <div class="skill-card pipeline"><div class="ico"><i class="fa-solid fa-code-branch"></i></div><h4>Pipeline &amp; version control</h4><div class="tags"><span class="tag">Perforce</span><span class="tag">Git</span><span class="tag">PySide / Qt</span><span class="tag">Unreal Python API</span><span class="tag">Geometry Script</span><span class="tag">Jira · Confluence</span></div></div>
+      <div class="skill-card pipeline"><div class="ico"><i class="fa-solid fa-microchip"></i></div><h4>AI tooling &amp; research</h4><div class="tags"><span class="tag">ComfyUI</span><span class="tag">Hugging Face</span><span class="tag">Open-source model benchmarking</span><span class="tag">LoRA fine-tuning</span><span class="tag">Codex</span><span class="tag">Claude Code</span></div></div>
+    </div></div>
   </div>
 </section>
 <section id="about">
@@ -432,8 +452,9 @@
       <div class="about-text reveal">
         <div class="eyebrow">About</div>
         <h2>An artist’s eye, an engineer’s toolbox, a producer’s instincts.</h2>
-        <p>I’m Yolanda (Liu Xingyan), an MFA student in Interactive Media &amp; Games at USC. I came to games through communications and new media at NUS, and found my place where art and technology meet: building the pipelines, shaders and tools that turn a team’s creative intent into something that runs in real time.</p>
-        <p>A lot of my work draws on Chinese mythology and cultural heritage, like Miao Gu sorcery, Meng Po’s tea of forgetting and ethnic-minority music. Outside the engine, three other crafts feed straight back into how I work as a TA:</p>
+        <p>I’m Yolanda (Liu Xingyan), a Technical Artist pursuing an MFA in Interactive Media &amp; Games at the University of Southern California. Before USC, I was a Technical Art Intern at Tencent Games' TiMi J3 Studio on <em>Delta Force</em>, working on shader development, art pipelines, production tools and AI-assisted workflows.</p>
+        <p>I work where artistic goals meet technical problems: shaders, real-time VFX, procedural systems, rendering, and the tools and pipelines that connect them. I care most about solutions that hold up in production – reusable, easy for artists to use, and reliable enough for a whole team to build on.</p>
+        <p>Outside the engine, I work in three other crafts, and each one shapes how I approach technical art:</p>
 
         <details class="acc">
           <summary><span class="ico"><i class="fa-solid fa-shirt"></i></span><div><b>Costume &amp; makeup design</b><span class="s">→ character readability, palette and visual systems</span></div></summary>

@@ -3,3 +3,6 @@ _canva_exports/
 build/__pycache__/
 _notes/
 _preview/
+
+# raw screen recordings (web versions live in assets/img/<project>)
+assets/video/
