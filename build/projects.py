@@ -1496,6 +1496,27 @@ wf.append(clamp((0.45 - abs(nz)) / 0.2, 0.0, 1.0)) # > ~70° = waterfall
 # 4. write a *_TearBaked copy (original untouched), assign the red MI
 """
 
+PIANO_DISSOLVE = """// M_PianoKey · KeyDissolve (custom node). Each key breaks into light at its own moment.
+// VC.r = release time / 10 s, VC.g = per-key random, both baked into vertex colour on export.
+float rel   = VC.r * 10.0;
+float start = rel + Delay + VC.g * Spread;              // DissolveDelay, DissolveSpread
+float k     = saturate((T - start) / max(Len, 0.01));   // T = CollapseTime from the Blueprint
+
+// blocky world-space noise, so keys crumble in chunks instead of fading
+float3 p = floor(WP * 0.06);
+float  n = frac(sin(dot(p, float3(12.9898, 78.233, 37.719))) * 43758.5453);
+
+float mask = (n >= k) ? 1.0 : 0.0;                                  // opacity mask
+float edge = saturate(1.0 - abs(n - k) * 6.0) * step(0.0001, k);   // glowing rim x EdgeGlow
+return float4(mask, edge, k, 0);
+"""
+
+
+def opt_gallery(items, **kw):
+    """Gallery of only the images that exist yet."""
+    have = [(f, c) for f, c in items if os.path.exists(os.path.join(SITE_ROOT, "assets/img/headspace", f))]
+    return gallery(have, **kw) if have else ""
+
 
 def headspace():
     set_slug("headspace")
@@ -1576,7 +1597,7 @@ def headspace():
 <p>The shared output, a <strong>skeletal mesh with one rigidly weighted bone per piece</strong>, costs one draw call per material, needs no physics at runtime and can be triggered from any gameplay event. Before building anything I wrote a feasibility study deciding, per act, how much Houdini each one needed:</p>
 {code_list([
     ("Act 1 · Mia screen", "Glass fracture with directed timing → baked skeletal animation. <b>Built.</b>"),
-    ("Act 2 · Piano stair", "Modular keys, selective fracture, choreographed collapse → baked skeletal animation. <b>Built.</b>"),
+    ("Act 2 · Piano stair", "Whole keys, choreographed collapse → baked skeletal animation, plus dissolve, lighting zone and per-step notes. <b>Built.</b>"),
     ("Act 3 · Many screens", "Reuse Act 1 breakups with staggered timing → rigid-body VAT after a performance test. <b>In progress.</b>"),
 ])}
 """))
@@ -1612,15 +1633,59 @@ def headspace():
 <p>The whole event runs from one Blueprint call, <code>StartShatter</code>, so design can trigger it from any gameplay moment. I built a showroom with both variants side by side so the team could compare and vote.</p>
 """))
     S.append(("piano", "Destruction · The impossible piano", f"""
-<p>In Act 2 Mia climbs a Penrose-style staircase made entirely of piano keys, an impossible loop that only closes from one viewpoint. When she reaches the end, the structure plays a phrase, grows anxious and bursts away from her as time slows down. The challenge here was the opposite of the screen: <strong>a collapse that follows music and emotion, not gravity</strong>.</p>
-{clip("piano_collapse.mp4", "Houdini flipbook from the “impossible” camera: melody, dread, burst, slowing drift.", poster="piano_intact.jpg")}
-{gallery([("piano_intact.jpg", "From the one camera where the loop closes"), ("piano_burst.jpg", "The release wave starts at Mia; black keys lead"), ("piano_scatter.jpg", "Drag makes the burst decelerate like slowed time")], cols=3, ar="960/452")}
-<h3>Impossible architecture, built procedurally</h3>
-<p>The staircase is generated in Python inside Houdini: straight flights of white keys, corners of three fanned wedge keys, and black keys laid on top in the real C D E F G A B pattern, so the stair is literally a keyboard. A dedicated camera sits on the one line of sight where the gap in the loop disappears. Each key is then split along its grain and across it into rigid pieces, tagged with key, step and note, and packed.</p>
-<h3>Choreography instead of simulation</h3>
-<p>Here a physics sim would fight the story, so the collapse is authored in one wrangle with named controls (<code>peak</code>, <code>rattle</code>, <code>contract</code>, <code>drag</code>, <code>spin</code>...) that design can tune without touching code:</p>
-{hs_listing("Piano collapse", "VEX · excerpt", PIANO_VEX)}
-<p>Because it is deterministic, the collapse can be timed to the score, and it leaves Houdini through the same skeletal-animation pipeline as the screen: Unreal receives one more baked clip and no new systems.</p>
+<p>At the turn from Act 2 to Act 3, Mia climbs an inescapable staircase made of piano keys. Every step plays a note. When she reaches the top, her fear peaks and the whole structure bursts apart and dissolves into white: from darkness into nothingness. The challenge here was the opposite of the screen: <strong>a collapse that follows music and emotion, not gravity</strong>.</p>
+{stats([("78", "Whole keys: 52 white, 26 black"), ("52", "Steps, no landings"), ("88", "Piano notes, one per key"), ("10 s", "Event, peak at 4.3 s")])}
+{clip("piano_engine.mp4", "In Unreal 5.8: climbing the keys note by note, then the collapse – dissolve, ash and the fade to white.", poster="piano_engine_poster.jpg")}
+{opt_gallery([("piano_ue_dark.jpg", "In engine: the bounded dark zone, moonlight on ivory and ebony"), ("piano_ue_low.jpg", "From the foot of the stair: real key proportions at 2.5× scale")], cols=2, ar="16/10")}
+{clip("piano_collapse.mp4", "Houdini flipbook from the impossible camera: melody, dread, burst, then the slow drift.", poster="piano_intact.jpg")}
+{gallery([("piano_intact.jpg", "From the one camera where the loop closes"), ("piano_burst.jpg", "The burst starts at Mia; black keys go first"), ("piano_scatter.jpg", "Drag slows the keys until they hang in the air")], cols=3, ar="960/452")}
+
+<h3>Designing an impossible space you can walk on</h3>
+{code_list([
+    ("Impossible loop", "Four flights of 15 / 5 / 5 / 15 keys joined by three-key fan corners: 52 steps, no landings, no flat areas. Every step goes up, yet the loop closes on itself – but only from the presentation camera, a long lens (FOV 7.5) lined up with the closure gap."),
+    ("Real keys", "Real piano proportions and materials: ivory tops on wooden bodies, ebony black keys lying on top in the real C-based pattern, so the stair is literally a keyboard. Mood comes from lighting, not from the mesh colour."),
+    ("Whole keys only", "Keys never fragment; white and black keys break away as complete pieces. It reads clearer and keeps the cost low."),
+    ("Built to scale", "Modelled at real key size in Houdini (7 cm rise, 30 cm tread, 1.5 m long) and scaled 2.5× in Unreal, so each key is exactly one stair step for a 165 cm character."),
+])}
+
+<h3>Houdini: procedural build, choreographed motion</h3>
+<p>Everything lives in one geometry network. A Python SOP generates the loop (white keys with ivory tops and wood bodies, black keys on top), each key becomes one packed piece tagged with its piece, step and white/black flag, and a single wrangle animates all of them:</p>
+{flow([
+    ("0.3 – 3.1 s", "Melody", "Keys press down 3.5 cm one after another along the stair, like a scale being played"),
+    ("2.4 – 4.3 s", "Dread", "Keys contract toward Mia, rattle and hop, growing stronger toward the peak"),
+    ("4.3 s", "Peak", "Every key bursts away from Mia at 5 – 13 m/s with chaotic spin; black keys go slightly earlier and 1.35× faster"),
+    ("4.3 s →", "Nothingness", "Exponential drag: keys slow down and hang in the air, drifting and turning, instead of falling"),
+])}
+{hs_listing("Piano collapse", "VEX · closed-form, no simulation", PIANO_VEX)}
+<p>The motion is <strong>closed-form</strong>: each key's position is computed directly from time, so there is no simulation cache, it is fully repeatable, and it can be timed to the music with a handful of named controls (<code>peak</code>, <code>speed</code>, <code>drag</code>, <code>spin</code>, <code>drift</code>, <code>lift</code>).</p>
+{code_list([
+    ("Wood fracture ran out of memory", "Fracturing every key pushed the laptop past 96 % memory. Switched to whole keys and closed-form motion: no cache at all."),
+    ("The stairs didn't look impossible", "Early versions read as an ordinary staircase with landings. Removed every flat area and lined the camera up with the closure gap."),
+    ("The burst was too uniform", "A single outward push read as a plain explosion. Added the dread build-up, per-key speed and spin, the black-key lead and the drag fall-off, so the peak feels like panic and the end feels empty."),
+])}
+
+<h3>Export: data for the material, not just motion</h3>
+<p>The piano leaves Houdini through the shared pipeline: 78 keys become 78 rigidly weighted bones and one baked animation, checked against Houdini to within 0.005 mm. On top of that, <strong>vertex colour carries per-key data</strong> for the shader – R = release time, G = random, B = step, A = black key – the same "data lives on the mesh" idea as the tear path.</p>
+
+<h3>Unreal: dissolve, light and sound from one call</h3>
+<p><code>BP_PianoCollapse</code> works out which step the player is on from their height above the piano, and calls <code>StartCollapse</code> when they reach the top key. That one function swaps the walkable intact mesh for the animated one and drives everything else:</p>
+{flow([
+    ("0 s", "Trigger", "Hide intact, show the skeletal mesh, play the collapse animation and the 10 s sound cue"),
+    ("from 2.4 s", "Dissolve", "CollapseTime drives M_PianoKey: keys crumble into light one by one with a glowing edge"),
+    ("4.3 s", "Peak", "NS_Piano_Ash fires once: 160 embers, 450 ash flakes, slow white motes"),
+    ("5.4 – 8.9 s", "White-out", "PP_White fades in: the dark space turns empty, colourless and glowing"),
+])}
+{hs_listing("Key dissolve", "HLSL · M_PianoKey custom node", PIANO_DISSOLVE)}
+<p><strong>A self-contained lighting zone.</strong> A box around the piano holds two bounded post-process volumes: <code>PP_Dark</code> (low exposure, desaturated, cold, vignette) and <code>PP_White</code>, which waits at weight 0 until the collapse. A moonlight spot and a soft fill light the keys. Because both volumes only work inside the box, the piano can sit in any level without changing the rest of it.</p>
+<p><strong>Every step is a note.</strong> The 52 white steps are the 52 white keys of a real piano, from A0 at the bottom to C8 at the top; standing on a black key plays its sharp. Notes play one at a time in order, so running up the stair becomes a fast run instead of skipped notes, and walking down plays the scale downward. For the prototype I synthesised all 88 notes in Python (three slightly detuned strings, inharmonic overtones, hammer noise, room reverb) and rendered the collapse cue in sync with the animation.</p>
+{code_list([
+    ("TopStep · 51", "The step that triggers the collapse (the 52nd white key)."),
+    ("NoteInterval · 0.17 s", "Minimum time between step notes; faster climbing catches up as a run."),
+    ("PeakTime · 4.3 s", "When the ash fires; matches the animation."),
+    ("WhiteStart · WhiteDuration", "5.4 s and 3.5 s: when and how fast the world fades to white."),
+    ("DissolveDelay · Spread · Len", "2.4 s, 2 s and 0.9 s on the material: when keys start to crumble and how staggered it is."),
+])}
+<p>Design can call <code>StartCollapse</code> from any story event instead of the climb, and <code>ResetPiano</code> puts everything back for testing.</p>
 """))
     S.append(("challenges", "Challenges & solutions", cs([
         ("Liquid without a fluid sim",
@@ -1635,10 +1700,14 @@ def headspace():
          "The licence can't export the skinned animation Unreal expects.",
          "OBJ + JSON → Python → Blender → Unreal",
          "Export what Apprentice allows, build the rig in Python, bridge through Blender, verify to 0.001 mm before import."),
+        ("An impossible space you can walk on",
+         "A Penrose staircase only works from one viewpoint, but players climb it in first person at real scale.",
+         "Design for one camera, build for the body",
+         "No landings or flat areas, a long-lens camera on the closure gap, and keys built at real size and scaled so one key is one step."),
         ("Directed timing vs. real physics",
          "Keyframed glass looked fake; a free simulation ignored the story beat.",
          "Timed activation, or pure choreography",
-         "The screen uses a release wave plus a hidden impactor inside a Bullet sim; the piano skips physics and is choreographed in VEX."),
+         "The screen uses a release wave plus a hidden impactor inside a Bullet sim; the piano skips physics: closed-form VEX motion, a vertex-colour-driven dissolve and timed post-process."),
     ])))
     return dict(
         slug="headspace", title="Headspace", cat="render", catname=CATNAME["render"],
@@ -1653,7 +1722,7 @@ def headspace():
             "Two editor tools in a project plugin: build from spline, bake onto mesh",
             "Destruction pipeline for Houdini Apprentice: OBJ + JSON → Python → Blender → Unreal",
             "Bullet glass fracture with a timed release wave, verified to 0.001 mm",
-            "VEX-choreographed collapse of an impossible piano-key staircase"],
+            "Walkable impossible piano staircase: VEX collapse, HLSL dissolve, per-step notes"],
         sections=S)
 
 
