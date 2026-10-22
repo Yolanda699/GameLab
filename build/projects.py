@@ -11,7 +11,7 @@ def sd_tool():
     S = []
     S.append(("overview", "Overview", f"""
 <p class="lead">A production plugin for <strong>Adobe Substance 3D Designer</strong> that turns a text prompt into a seamless, tileable PBR material set without leaving the application. Artists stay in Designer; generation, tiling, map extraction, de-lighting, upscaling and library management all happen in one docked panel.</p>
-<p>Before it existed, making a material from reference meant scanning or sourcing an image, cleaning it in Photoshop, hand-authoring PBR maps, repairing seams in a third tool, then re-importing. Each hand-off cost time and made material quality inconsistent between artists.</p>
+<p>The previous workflow involved sourcing an image, cleaning it, creating PBR maps, repairing seams and importing the result. I brought these steps into a Designer panel to reduce tool switching and standardise the process.</p>
 {stats([("5", "PBR maps generated per material"), ("3+", "Foundation models routed"), ("1", "Panel, no tool switching"), ("Local", "ONNX normal-map inference")])}
 {note("Built March – July 2026 at Tencent Games · TiMi J3 Studio · <em>Delta Force</em>. Confidential information has been excluded.")}
 """))
@@ -19,7 +19,7 @@ def sd_tool():
         ("fa-brands fa-python", "Plugin development", "Built the panel in Python + PySide against the Substance Designer API, so results land directly as graphs and texture maps in the artist's project."),
         ("fa-solid fa-diagram-project", "Model-agnostic architecture", "Designed a client–server split where the plugin never talks to a model directly; a gateway owns keys, accounts and routing."),
         ("fa-solid fa-layer-group", "PBR & image processing", "Chained seamless tiling, PBR map extraction (including a local ONNX DeepBump model), de-lighting and upscaling into one pass."),
-        ("fa-solid fa-flask", "Model research", "Evaluated which foundation models hold up at each stage of tiling-material production, then hid that choice behind one control set."),
+        ("fa-solid fa-flask", "Model research", "Evaluated which foundation models hold up at each stage of tiling-material production, and exposed them through a shared set of controls."),
         ("fa-solid fa-box-archive", "Material library", "Built create / version / natural-language search / reuse so generated materials become references for the next generation."),
     ])))
     S.append(("pipeline", "End-to-end pipeline", f"""
@@ -48,7 +48,7 @@ def sd_tool():
          "One workflow inside Designer",
          "Consolidated generation, tiling, PBR extraction, optimization and library management into a single docked panel, so the material never leaves the application it will be used in."),
         ("Seams at the tile boundary",
-         "A generated texture is a picture, not a material: tiled across a surface it shows an obvious repeating seam.",
+         "Generated images can have visible seams when repeated across a surface.",
          "AI-assisted edge completion, then verify by tiling",
          "The tiling pass regenerates the wrap-around border, and the panel previews the result already tiled so the artist judges the material the way the engine will use it."),
         ("Many providers, many formats",
@@ -67,7 +67,7 @@ def sd_tool():
     ])))
     return dict(
         slug="sdMaterialTool", title="AI Tiling Material Generator for Substance 3D Designer", cat="pipeline", catname=CATNAME["pipeline"],
-        question="How do you get a seamless, production-ready PBR material set from a prompt without ever leaving Substance Designer?",
+        question="A Substance Designer plugin for generating, tiling and processing PBR materials, developed for the Delta Force art team.",
         tags=["Python", "PySide", "Substance Designer API", "PBR maps", "ONNX", "Seamless tiling"],
         hero_mode="inset",
         hero="sd_hero.jpg",
@@ -87,7 +87,7 @@ def ps_tool():
     S = []
     S.append(("overview", "Overview", f"""
 <p class="lead">A <strong>Photoshop</strong> extension that turns the application into a unified AI-assisted concept environment: generation, instruction-based editing, inpainting, canvas expansion, segmentation, upscaling and image analysis, all returning as ordinary editable layers.</p>
-<p>Before it existed, artists bounced between Photoshop, web AI services and internal utilities, so nobody used the same model for the same job and every result had to be re-imported by hand. The extension standardizes AI use across the team and keeps the output non-destructive.</p>
+<p>The previous workflow involved moving between Photoshop, web services and internal utilities, then importing each result. I brought these tasks into one extension with shared controls and output on new layers.</p>
 {stats([("11", "AI features in one panel"), ("6+", "Providers & workflows routed"), ("2-level", "Update & hotfix system"), ("0", "Overwritten layers")])}
 {note("Built March – July 2026 at Tencent Games · TiMi J3 Studio · <em>Delta Force</em>. Confidential information has been excluded.")}
 """))
@@ -126,13 +126,13 @@ def ps_tool():
 """))
     S.append(("deployment", "Deployment & update management", f"""
 {fig("ps_update.jpg", "Version check on Photoshop start: no update, silent JS hotfix (config, endpoints, prompt presets, workflow IDs, UI text), or mandatory installer update (manifest permissions, UXP behavior, packaged resources, backend-breaking changes).")}
-<p>This turned distribution from a social problem (&ldquo;did you get the new link?&rdquo;) into a system guarantee: small fixes reach everyone without interrupting their work, and incompatible builds can't keep calling the backend.</p>
+<p>The version checks reduce reliance on update links shared in chat. Small fixes are cached for the next restart, while versions below the supported minimum are directed to an installer update.</p>
 """))
     S.append(("challenges", "Challenges & solutions", cs([
         ("AI output landed outside the artist's file",
-         "Generating in a browser meant downloading, re-importing, scaling and positioning by hand, and losing the original in the process.",
+         "Browser-based generation required downloading, importing, scaling and positioning each result before editing could continue.",
          "Everything returns as a layer",
-         "Results are decoded and imported through UXP already positioned, scaled and named, on top of the existing document. Nothing is ever overwritten."),
+         "Results are decoded and imported through UXP already positioned, scaled and named, on top of the existing document. The source layers are preserved."),
         ("Many providers, many conventions",
          "Each provider had a different request structure, output format, size restriction and mask convention.",
          "One router, provider-specific adapters",
@@ -153,7 +153,7 @@ def ps_tool():
     ])))
     return dict(
         slug="psAiToolkit", title="AI Creative Toolkit for Photoshop", cat="pipeline", catname=CATNAME["pipeline"],
-        question="How do you put eleven AI capabilities inside Photoshop without ever costing an artist a layer, and keep a large team on the same build?",
+        question="A Photoshop extension with eleven AI-assisted image tools, editable layer output and centralised updates for the art team.",
         tags=["Photoshop UXP API", "JavaScript", "ComfyUI", "Multimodal VLM", "Inpainting", "Depth masks"],
         hero_mode="inset",
         hero="ps_hero.jpg",
@@ -215,7 +215,7 @@ def feeding():
     ("Water · M7–M8", "UE5 <strong>Single Layer Water</strong> shading with two <strong>panning normal maps</strong> at different scales and speeds. Absorption and scattering colours set the look: murky jade green (M7) and dark, mirror-like ink (M8) for night.",
      "Why it works", "One master, two instances. Only colour, roughness and ripple speed change between the day town and the night river."),
     ("Architecture · M9–M12", "Stone pillar, roof tile, lacquered attic wood and a weathered pedestal. A <strong>top-down world-normal mask</strong> adds dirt and moss on upward faces, and a height-lerp mask chips red lacquer to reveal wood underneath (M11).",
-     "Why it works", "Ageing is procedural, so every modular piece gets unique wear without new textures, which suits an abandoned temple and a burned town."),
+     "Why it works", "Ageing is procedural, so modular pieces can vary in wear while sharing textures, which suits an abandoned temple and a burned town."),
     ("Decoration · M13–M16", "Two wood instances (red-brown and dark) from one wood master, aged paper for the book, and a <strong>paper lantern</strong> with a calligraphy texture, two-sided subsurface and an <strong>emissive parameter</strong> with a gentle flicker, paired with a point light.",
      "Why it works", "The lantern's emissive plus its real light source makes candlelit scenes read correctly both in camera and in reflections."),
 ], labels=("Family", "Result"))}
@@ -266,7 +266,7 @@ def feeding():
         ("Stretched textures on vertical cliffs",
          "Gaea mountains and PCG cliffs have steep faces where standard UVs smear.",
          "Slope masks + world-aligned texturing",
-         "Rock goes onto steep faces by slope, and cliff meshes use world-aligned projection, so surfaces stay crisp from any angle."),
+         "Rock goes onto steep faces by slope, and cliff meshes use world-aligned projection, to reduce texture stretching on steep faces."),
         ("Hand-placing a mountain range doesn't scale",
          "Dressing huge karst cliffs with rocks and moss by hand would take too long and look repetitive.",
          "Two PCG graphs",
@@ -281,14 +281,14 @@ def feeding():
          "Adjusted patterns and collision, re-simulated in Marvelous Designer, and imported the result as an Alembic cache matched to the animation."),
     ])))
     S.append(("research", "Research & pre-production", f"""
-<p>I researched Miao culture (Gu sorcery, stilt-house architecture, silver ornaments and ritual), Chinese folk-horror games such as <em>Paper Dolls</em>, and audience data. A YouGov (2024) survey showed psychological and supernatural as top horror subgenres, and Steam's horror tags lean first-person and atmospheric. Both pointed to a first-person, atmosphere-first direction. Two player interviews confirmed it: limited light and environmental storytelling, not jump scares.</p>
+<p>My research included Miao architecture, silver ornaments and folklore, Chinese folk-horror games such as <em>Paper Dolls</em>, and horror-audience research. Two player interviews helped shape the emphasis on limited light and environmental storytelling. The priestess and ritual belong to the film&#8217;s fictional horror story.</p>
 {gallery([("ref_town.jpg", "Inspiration: river town in western Hunan"), ("ref_gu.jpg", "Gu creatures"), ("ref_miao_dress.jpg", "Miao traditional clothing"), ("ref_miao_silver.jpg", "Silver ornaments"), ("ref_ritual.jpg", "Traditional ritual"), ("ref_village.jpg", "Miao village"), ("ref_stilt.jpg", "Chinese architecture study"), ("ref_paperdolls.jpg", "<em>Paper Dolls</em> (game research)")], cols=4, ar="1/1")}
 <h3>Storyboards</h3>
 {gallery([("sb_1.jpg", "Scene 1 · Mountain & god statue"), ("sb_2.jpg", "Scene 2 · Town & memory transition"), ("sb_3.jpg", "Scene 3 · Temple & priest (night)")], cols=3, cls="contain", ar="4/3")}
 """))
     return dict(
         slug="theFeeding", title="The Feeding", cat="render", catname=CATNAME["render"],
-        question="How did I build a fog-drenched Miao mountain world in UE 5.6, with a 16-material library, Gaea terrain, PCG cliffs and moss, MetaHumans, lighting and a Movie Render Queue cinematic?",
+        question="A solo Unreal Engine short film combining environment art, procedural placement, character animation and cinematic lighting.",
         tags=["Unreal Engine 5.6", "Material instances", "Landscape materials", "PCG", "Blueprints", "Lighting", "MetaHuman", "Gaea", "Marvelous Designer", "Sequencer / MRQ"],
         hero_mode="wide",
         hero="r1_mountain.jpg",
@@ -406,12 +406,12 @@ def rhythm():
 {gallery([("itch_1.jpg", "Instrument trial chamber"), ("itch_2.jpg", "The World Tree gate at dusk"), ("itch_3.jpg", "Instrument altar: a trial in progress")], cols=3, ar="16/9")}
 """))
     S.append(("pipeline", "Production: an agile month", f"""
-<p>We had one month, nine people and six disciplines. As producer (with Kyrene Zhang) I ran it as four one-week sprints, each ending in a build everyone could play. Scope was decided by what the last playtest showed, not by the original plan, which is how a nine-realm idea became a four-realm demo that actually shipped.</p>
+<p>Kyrene Zhang and I organised the nine-person team into four weekly sprints, each ending with a playable build. Playtest feedback helped us reduce the initial nine-realm scope to a four-realm demo.</p>
 {pipeline()}
-<p>Because I was also the integrator, every hand-off landed on my desk first. When one broke, I changed the rule for the whole team instead of fixing a single file: music arrives with its tempo and bar count, dialogue arrives as CN / EN text fields, art arrives as meshes ready to place.</p>
+<p>I also handled integration. When hand-offs caused problems, I updated the team&#8217;s delivery requirements: tempo and bar count for music, CN / EN fields for dialogue and placement-ready meshes for art.</p>
 """))
     S.append(("visuals", "Visuals: set dressing & materials", f"""
-<p>The art team made the hero pieces; I turned them into places. For each realm I blocked out and dressed the space, placed and scaled the instruments, statues and architecture, and applied materials in Unreal: a landscape material instance on the ground, polished marble, red granite and oxidized metal for the altars, and small gold and silver masters for the relics. Props that never move were merged into single static meshes so each room draws in a few calls instead of dozens.</p>
+<p>The art team made the hero assets, and I handled their placement and materials in Unreal. For each realm I blocked out and dressed the space, placed and scaled the instruments, statues and architecture, and applied materials in Unreal: a landscape material instance on the ground, polished marble, red granite and oxidized metal for the altars, and small gold and silver masters for the relics. Props that never move were merged into single static meshes so each room draws in a few calls instead of dozens.</p>
 {fig("stage_tree.jpg", "<b>The rhythm stage.</b> The bronze-and-marble tree where each instrument trial is played: set dressed with materials applied in engine. The instruments hang from its branches until the player wakes them.")}
 {gallery([("inst_drum.jpg", "Drum relic"), ("inst_lusheng.jpg", "Lusheng (reed pipes)"), ("inst_gupiaoqin.jpg", "Gupiaoqin (two-string folk instrument)")], cols=3, ar="1/1")}
 <p>Each instrument sits in a cave pool of warm light against a cool marble floor, so the playable object always reads as the brightest, warmest thing in frame.</p>
@@ -442,14 +442,14 @@ def rhythm():
 """))
     S.append(("rhythm-engine", "Code: the rhythm engine", f"""
 <h3>Why Quartz</h3>
-<p>A rhythm game lives or dies on timing. If notes are timed with the game's frame clock, a heavy realm that drops frames makes every note land late while the music plays on. <strong>Quartz</strong> is Unreal's clock that runs on the <em>audio</em> thread: it counts bars and beats in step with the sound actually coming out of the speakers, and fires events exactly on beat boundaries. I built the rhythm engine on it:</p>
+<p>I used <strong>Quartz</strong> to schedule rhythm events against Unreal&#8217;s audio clock, reducing dependence on frame-based timing. The rhythm system combines that clock with charts expressed in bars and beats:</p>
 {steps([
     "<b>One clock per song.</b> The manager creates a Quartz clock, sets it to the chart's <code>BPM_Base</code> and time signature, and starts the music quantized to that clock, so the song and the clock start on the same sample.",
     "<b>Gameplay counts in beats, not seconds.</b> On every Quartz tick the manager advances <code>PlayBeats</code>. Notes, spawning and misses are all measured in beats against that value.",
     "<b>Only the hit window is in seconds.</b> <code>HitWindowSeconds</code> is converted with <code>SecondsPerBeat</code>, so a fast song and a slow song feel equally fair.",
 ])}
 <h3>Charting with our audio artist</h3>
-<p>We didn't auto-detect beats: every note was placed by hand. To make that workable across two people and a deadline, Katria and I agreed to speak the same language as her music software, <strong>bars and beats</strong>, instead of timestamps.</p>
+<p>Katria and I charted the notes using <strong>bars and beats</strong>, matching the way she worked in her music software. This made revisions easier to discuss and transfer to Unreal.</p>
 {flow([
     ("1 · Audio", "Track + tempo", "Katria delivers each chapter track (drum, gupiaoqin, lusheng, finale) with its BPM and bar count"),
     ("2 · Set up", "Chart asset", "BPM, beats per bar, start bar and pre-roll go into a <code>DA_Chart_Song</code>"),
@@ -462,7 +462,7 @@ def rhythm():
 <p>The instruments share one interface (<code>BPI_Drum</code>), so the same judgement line drives the drum, lusheng and gupiaoqin trials, and a manager swaps in a dedicated rhythm input context for the duration of each song.</p>
 """))
     S.append(("puzzles", "Code: puzzles & level flow", f"""
-<p>Each realm pairs its rhythm trial with a puzzle. Oley Zhou and Kyrene Zhang led the puzzle builds; I assisted them on the logic and owned the glue that made three separate puzzles feel like one journey: a single progress state, save, and level transitions.</p>
+<p>Each realm pairs its rhythm trial with a puzzle. Oley Zhou and Kyrene Zhang led the puzzle builds; I assisted them on the logic and built the shared systems connecting the three puzzles: a single progress state, save, and level transitions.</p>
 {flow([
     ("Room 2", "Tile path", "<code>BP_Puzzle1Manager</code> counts correct tiles; stand on a <code>BP_PuzzleTile</code> for its hold time to light it, a wrong tile resets all"),
     ("Room 3", "RGB light mix", "<code>BP_RGB_Master</code> validates left and right sub-puzzles; each is solved when its R, G and B units add up to white"),
@@ -472,12 +472,12 @@ def rhythm():
 <p>Because every puzzle actor just listens for a state change, a designer could place a door, light or NPC and tick which stages it appears in, without editing any puzzle Blueprint.</p>
 """))
     S.append(("ip", "IP research", f"""
-<p>The WIPO × Global Game Jam brief asked young teams for a game with <strong>franchise potential</strong>, thinking about how copyright, trademarks and design rights protect characters, music and branding from day one. I researched how successful game IPs build a world that outlives one title, and we built <em>Rhythm</em> around an asset no one else could claim in the same way: the living music of China's ethnic-minority instruments.</p>
+<p>The WIPO × Global Game Jam brief asked teams to consider how a game could develop beyond a single release. We explored that through an original fictional world, music and instrument-based puzzles inspired by China&#8217;s ethnic-minority musical traditions.</p>
 {fig("keyart.jpg", "Title key art by the art team: the seal-style 律 mark and bilingual title were designed to work as a logo on their own.")}
 {contrib([
-    ("fa-solid fa-drum", "Instruments as characters", "The drum, the lusheng reed pipes and the gupiaoqin are the realms' 'bosses' and relics. Each is a designable, ownable object that can carry merchandise, collectibles and a soundtrack."),
+    ("fa-solid fa-drum", "Instruments as characters", "The drum, the lusheng reed pipes and the gupiaoqin are the realms' 'bosses' and relics. Our fictional instrument designs provide recurring visual motifs for the game and possible future projects."),
     ("fa-solid fa-music", "Music as the rule of the world", "Every realm is sealed by silence and opened by a rhythm. The Room 4 doors use the names of the Chinese pentatonic scale (gong, shang, jue, zhi, yu), so music theory itself becomes the mechanic."),
-    ("fa-solid fa-copyright", "Original, protectable layers", "Original chapter tracks per instrument, an original story and emblem (the World Tree Ruomu) and a distinct bilingual brand: the layers WIPO's sessions framed as copyright and trademark."),
+    ("fa-solid fa-copyright", "Original project elements", "Original chapter tracks per instrument, an original story and emblem (the World Tree Ruomu) and a distinct bilingual brand: the layers WIPO's sessions framed as copyright and trademark."),
     ("fa-solid fa-map", "Built to expand", "The lore describes nine realms; the jam build ships four. Each new realm is a new instrument, song and puzzle on the same systems, which is how the IP grows into sequels, albums or other media."),
 ])}
 """))
@@ -485,27 +485,27 @@ def rhythm():
         ("Four moods, no time to bake",
          "Each realm needed its own time of day and atmosphere, and lighting was still changing in the last hours of the jam. Baked lighting would have cost hours per change and inflated the build.",
          "Fully dynamic Lumen and one sky system",
-         "I turned static lighting off, lit with Lumen, VSM and ray tracing, and built every realm on the same Ultra Dynamic Sky setup tuned per level. A sky change became a slider, not a rebake."),
+         "I turned static lighting off, lit with Lumen, VSM and ray tracing, and built every realm on the same Ultra Dynamic Sky setup tuned per level. This let me preview sky changes without rebuilding baked lighting."),
         ("Notes drifting away from the music",
          "Timing notes on frame time makes a rhythm game feel wrong the moment the frame rate dips, and our realms are heavy scenes.",
          "Quartz clock and beat-space math",
-         "The engine runs on a Quartz audio-thread clock, charts are written in bars and beats with the audio artist, and only the hit window is in seconds. One offset value fixes a whole song's feel."),
+         "The engine runs on a Quartz audio-thread clock, charts are written in bars and beats with the audio artist, and only the hit window is in seconds. A per-song offset allows timing adjustments during testing."),
         ("Nine people, six disciplines, one build",
          "Music, writing, art and three developers all had to land in the same Unreal project inside one month.",
          "Weekly sprints and data hand-offs",
-         "Four one-week sprints, each ending in a shared playtest build. Songs came in with tempo and bar count, dialogue as CN / EN fields, art as ready meshes; when a hand-off broke I fixed the rule, not the file."),
+         "Four one-week sprints, each ending in a shared playtest build. Songs came in with tempo and bar count, dialogue as CN / EN fields, art as ready meshes; delivery requirements were revised when integration issues appeared."),
         ("Three puzzles by different hands",
          "Separate puzzle Blueprints risked three disconnected mini-games.",
          "Shared progress state",
          "I wired a GameInstance progress enum with save, state-switch components and teleporters, so every realm reads and advances the same journey."),
         ("A heavy download for a jam game",
-         "Players were downloading from itch.io; a bloated build loses them before the menu.",
+         "Players were downloading from itch.io; download size was an important consideration.",
          "Build-size pass",
          "Shipping config with IoStore and Oodle compression, shared shader code, no lightmaps, merged meshes, one level per realm and only referenced content cooked."),
     ])))
     return dict(
         slug="rhythmEcho", title="Rhythm: Echo of the Disciple", cat="render", catname=CATNAME["render"],
-        question="How did I light, program and produce a mythic 3D rhythm world in Unreal Engine with a 9-person jam team?",
+        question="Lighting, rhythm programming and production for a nine-person Unreal Engine game-jam team.",
         tags=["Unreal Engine 5.6", "Lumen", "Skies & lighting", "Quartz", "Blueprints", "Production", "IP design"],
         hero_mode="wide",
         hero="gate_dusk.jpg",
@@ -549,7 +549,7 @@ def promptlab():
     <div class="pl-row pinned"><small>seed</small><code>884213 + index</code></div>
     <div class="pl-row live"><small>prompt</small><code>low-poly 2D hand-drawn cartoon, warm palette, brown outlines, centred on white &ndash; <b class="pl-subj">{firstsub}</b> of <b class="pl-city">{first}</b></code></div>
   </div>
-  <p class="pl-foot">Six of the seven lines never change. That is the whole trick: consistency comes from the pinned graph, not from how well the prompt was phrased that day.</p>
+  <p class="pl-foot">Most prompt fields stay fixed across the batch. The subject fields identify the souvenir to generate.</p>
 </div>"""
 
 
@@ -558,7 +558,7 @@ def traveltrove():
     S = []
     S.append(("overview", "Overview", f"""
 <p class="lead"><em>TravelTrove</em> is a gamified travel app that turns your trips into a cozy digital home. Exploring real cities earns e-souvenirs to decorate your virtual house, and an AI pet companion plans personalized itineraries, flags safety concerns and connects you with like-minded travelers.</p>
-<p>It's a design and research project, but the technical-art story is how I used generative AI <strong>at the concept stage</strong>: I built a pinned ComfyUI workflow – style LoRA, style reference, framing control, fixed sampling – so dozens of independently generated souvenir assets read as one coherent art style, then built everything into a hi-fi Figma prototype.</p>
+<p>This is a design and research prototype. I used a saved ComfyUI workflow with a style LoRA, reference image, framing controls and fixed sampling settings to develop a consistent souvenir collection, then incorporated the assets into a Figma prototype.</p>
 {fig("banner.jpg", "Final display: the virtual home is the main screen. Souvenirs collected from real trips decorate the room.")}
 """))
     S.append(("contributions", "My contributions", contrib([
@@ -568,45 +568,45 @@ def traveltrove():
         ("fa-solid fa-comments", "Testing & iteration", "Ran prototype tests with live walkthroughs and folded feedback into customization, privacy and safety features."),
     ])))
     S.append(("ai-pipeline", "AI concept-art pipeline", f"""
-<p>The app needs a lot of collectible art: a souvenir for every landmark, in every city, all reading as one game. Hand-painting all of it for a concept wasn't realistic, and a raw text-to-image call drifts in style from run to run. I treated it the way I would treat any asset pipeline: <strong>lock everything except the subject</strong>, then batch it.</p>
+<p>The concept needed a collection of souvenirs that could sit together in the same room. Early text-to-image results varied in palette and line weight, so I fixed the generation settings and changed the subject for each asset.</p>
 
 <h3>The stack</h3>
 {code_list([
     ("ComfyUI", "Node-graph runner, so the whole generation is a saved JSON workflow rather than a chat history. The graph is the thing under version control."),
-    ("SDXL checkpoint", "Base model, fixed for the whole set. Changing checkpoints mid-project is the single fastest way to lose style consistency."),
+    ("SDXL checkpoint", "Base model, fixed for the whole set. Keeping the checkpoint fixed made comparisons between runs more useful."),
     ("Style LoRA", "Trained in kohya_ss on ~40 curated reference frames in the cozy-isometric look I was targeting (<em>Animal Crossing</em>-style: flat warm palette, brown outlines, soft shading). Applied at a fixed weight – see the section below for how it was trained and tuned."),
-    ("IP-Adapter", "A single style reference image on every run, so the LoRA has a second anchor and new subjects can't pull the palette around."),
+    ("IP-Adapter", "A single style reference image on every run, so the LoRA has a second anchor and new subjects are less likely to shift the palette."),
     ("ControlNet (depth / lineart)", "Feeds a simple silhouette block-in, so each souvenir lands at the same scale, angle and framing instead of a random camera."),
     ("Fixed sampling", "Same sampler, steps, CFG and seed schedule across the batch. Only the subject token moves."),
     ("RMBG + Real-ESRGAN", "Background removal to transparent PNG, then upscale, so assets drop straight into the UI as sprites."),
 ])}
 
 <h3>Training the style LoRA</h3>
-<p>A LoRA is a small low-rank delta added to the base model's attention weights. That one fact decided almost every choice below: because it is a <em>delta</em>, it biases the model rather than filtering the output, and because it is <em>low-rank</em>, it has only so much capacity – which is a feature when what you want it to learn is a look and not a set of objects.</p>
+<p>I trained a style LoRA to guide the souvenir illustrations toward a shared palette, outline style and shading treatment. I compared settings using subjects outside the training set to check whether the style carried over.</p>
 
 {code_list([
     ("Dataset · ~40 frames", "Curated for style, not subject. I deliberately picked frames with <em>different</em> objects – furniture, exteriors, characters, props – so the network had nothing consistent to latch onto except the rendering. Anything with UI, text or a strong recognisable silhouette was cut."),
     ("Prep · 1024 buckets", "Cropped into SDXL's resolution buckets so nothing was squashed. Aspect distortion teaches the model the distortion."),
-    ("Captions · describe the subject, never the style", "This is the part people get backwards. Whatever you caption becomes <em>variable</em>; whatever you leave out gets absorbed into the LoRA itself. So I captioned the contents (&ldquo;a wooden stool, a potted fern&rdquo;) and never wrote &ldquo;warm palette&rdquo; or &ldquo;brown outlines&rdquo; – those had to become the default, not a phrase I would need to remember to type."),
-    ("Rank · dim 12 / alpha 6", "Deliberately small. Rank is capacity: a high-rank LoRA has enough room to memorise the training images, and then new subjects start coming out wearing shapes from the dataset. A style is a low-dimensional change, so it should get a low-dimensional adapter."),
-    ("Learning rate · 1e-4 UNet, 4e-5 text encoder", "The text encoder is kept on a much shorter leash. Train it hard and the trigger token starts swallowing the whole prompt, so the model stops listening to the subject – exactly the failure I was trying to avoid."),
+    ("Captions · subject descriptions", "I captioned the objects in each training image, such as a stool or fern, while leaving recurring style descriptions out. The aim was to associate the visual treatment with the adapter while retaining control over the subject."),
+    ("Rank · dim 12 / alpha 6", "I started with a low rank to limit training capacity, then checked whether new subjects retained the intended style without reproducing training compositions."),
+    ("Learning rate · 1e-4 UNet, 4e-5 text encoder", "I used a lower learning rate for the text encoder and checked whether test prompts still produced the requested subjects."),
     ("Schedule · ~1600 steps, saved every epoch", "Batch 2, cosine decay, roughly 10 epochs over 40 images. I saved a checkpoint per epoch and chose between them by generating the same held-out subjects with each, not by looking at the loss curve. Loss going down and the LoRA being usable are different things."),
-    ("No regularisation images", "Prior preservation exists to stop a concept bleeding into everything. For a style LoRA the bleed <em>is</em> the product, so it would have worked against me."),
+    ("No regularisation images", "I did not use prior-preservation images for this style experiment. I evaluated the results by comparing the same held-out subjects across checkpoints."),
 ])}
 
-<h3>Reading what the LoRA was doing, and changing strategy</h3>
-<p>Once you know it is a low-rank bias on attention, the failure modes stop being mysterious and start telling you which lever to pull. Two symptoms, two very different fixes:</p>
+<h3>Evaluating and revising the LoRA</h3>
+<p>I used recurring problems in the test images to decide which training settings to revisit:</p>
 {code_list([
-    ("Overfitting · new subjects inherit old shapes", "When a prompt for a souvenir came back looking like a piece of furniture from the training set, that is capacity being spent on memorisation. The fix is at <em>training</em> time – drop the rank, cut epochs, broaden the dataset – not at inference. Turning the weight down instead just gives you a washed-out version of the same wrong thing."),
-    ("Underfitting · style drifts between runs", "Outlines thinning out, palette wandering. That is the opposite problem, and lowering the LoRA weight or leaning on style words in the prompt only papers over it. More epochs or a slightly higher rank is the real answer."),
+    ("Overfitting · new subjects inherit old shapes", "Some test souvenirs resembled objects from the training images. I treated this as a possible sign of overfitting and revisited the rank, training duration and variety of references."),
+    ("Underfitting · style drifts between runs", "When outlines or colours varied too much across the set, I compared training duration and rank alongside the reference conditioning. I judged changes against the same test prompts."),
     ("Weight · swept, not guessed", "I generated the same three subjects at 0.4 / 0.6 / 0.8 / 1.0 and read them as a set. Below about 0.6 the palette drifted; at 1.0 the model started ignoring the subject and reproducing composition from the dataset. 0.78 was where style held and prompts were still obeyed."),
-    ("Composition · let each tool hold one thing", "Because a LoRA is additive, it stacks with other conditioning instead of competing with it. Rather than pushing the LoRA hard enough to hold palette <em>and</em> framing <em>and</em> colour key – which is how you end up overfitting – I let the LoRA own brushwork and outlines, IP-Adapter own the overall colour key, and ControlNet own scale and framing. Three light constraints at three different injection points beat one heavy one."),
-    ("Checkpoint coupling", "The delta is trained against one specific base model, so it is only meaningful on that model. This is the real reason the checkpoint is pinned in the graph: changing it does not degrade the LoRA, it invalidates it."),
+    ("Composition · let each tool hold one thing", "I combined the LoRA with IP-Adapter and ControlNet: the LoRA guided the rendering style, the reference image supported the palette, and ControlNet guided framing. I tuned their strengths together and checked the collection for consistency."),
+    ("Checkpoint coupling", "I kept the base checkpoint fixed because the LoRA was trained and evaluated against that model. Changing it would require testing the style and prompt response again."),
 ])}
-{note("The most useful habit was judging every change against the same small set of held-out subjects that never appeared in training. A LoRA can look excellent on things it has seen and fall apart on the first new landmark, and a batch of souvenirs is nothing <em>but</em> new landmarks.")}
+{note("I evaluated changes with a fixed set of subjects outside the training data, then checked whether the resulting souvenirs matched the rest of the collection.")}
 
-<h3>Lock the style, vary only the subject</h3>
-<p>Once the graph was stable, the only thing that changed between assets was two tokens. Everything else – model, LoRA, weight, reference image, sampler, seed offset – stayed pinned, which is exactly the master-material-and-instances pattern from a real material library.</p>
+<h3>Batch generation settings</h3>
+<p>Once the graph was stable, I changed the subject tokens while keeping the model, LoRA weight, reference image and sampling settings fixed for the batch.</p>
 {promptlab()}
 {steps([
     "<b>Explore:</b> generate candidates for several landmarks off the base checkpoint and measure how far apart they drift on line weight, palette and rendering.",
@@ -615,7 +615,7 @@ def traveltrove():
     "<b>Batch:</b> drive that workflow through the ComfyUI API from a list of places, swapping only the subject tokens, so a city's whole souvenir set comes out in one run.",
     "<b>Post:</b> background removal to transparent PNG, upscale, then drop into the Figma UI and judge the set together, not one image at a time.",
 ])}
-{note("Judging generated assets <em>as a set</em> was the part that mattered. Any single souvenir looks fine; style drift only shows up when twelve of them sit on one shelf in the virtual room.")}
+{note("I reviewed the souvenirs together in the virtual room. Differences in line weight, colour and shading were easier to spot across a collection than in individual images.")}
 {gallery([("final_album.jpg", "Memory album: landmark souvenirs from the same pinned workflow"), ("final_explore.jpg", "Explore page: safety alerts, nearby spots, meet-ups")], cols=1, cls="natural")}
 """))
     S.append(("prototype", "Prototype", f"""
@@ -626,12 +626,12 @@ def traveltrove():
     S.append(("challenges", "Challenges & solutions", cs([
         ("AI assets didn't match each other",
          "Each generation came back with different line weights, palettes and rendering styles, so twelve souvenirs on one shelf didn't read as one game.",
-         "Pin the graph, not the prompt",
-         "A style LoRA plus a fixed IP-Adapter reference, ControlNet framing and sampler settings, saved as one ComfyUI workflow. Only the subject tokens vary, so consistency is a property of the pipeline rather than of how well I phrased a prompt that day."),
+         "Saved generation workflow",
+         "A style LoRA plus a fixed IP-Adapter reference, ControlNet framing and sampler settings, saved as one ComfyUI workflow. Only the subject tokens vary, to reduce variation between generations."),
         ("Is it a game, a tool or a social app?",
          "The SWOT flagged an unclear genre fit and strong competitors: cozy games, travel planners and AI chatbots.",
-         "Entertainment as the hook, utility as the value",
-         "The cozy home and collection loop drives engagement. Planning, safety and community make it useful on a real trip."),
+         "Collection and travel features",
+         "The prototype pairs a home-decoration and collection loop with travel-planning and community features."),
         ("Safety and privacy concerns",
          "Interviewees ranked safety first, but location and home visits raise privacy risks.",
          "Feedback-driven safety features",
@@ -642,7 +642,7 @@ def traveltrove():
 """))
     return dict(
         slug="travelTrove", title="TravelTrove", cat="pipeline", catname=CATNAME["pipeline"],
-        question="How did I set up a controlled AI generation workflow at the concept stage, so independently generated assets read as one coherent art style in a gamified travel app?",
+        question="A travel-app concept with a shared AI-assisted souvenir-art workflow and an interactive Figma prototype.",
         tags=["ComfyUI", "SDXL + LoRA", "IP-Adapter", "ControlNet", "Batch generation", "Figma"],
         hero_mode="full",
         hero="banner.jpg",
@@ -673,10 +673,10 @@ def river():
     S.append(("world", "World & assets", f"""
 {fig("bridge.jpg", "Naihe Bridge at night: floating lanterns and a red spirit tree frame the crossing souls must make.")}
 {gallery([("scene_night.jpg", "Brewing courtyard"), ("herb_boxes.jpg", "Herb boxes, emissive so they read in the dark"), ("handbook.jpg", "Meng Po's handbook: recipes and lore")], cols=3, ar="16/10")}
-<h3>General decorations to set the tone</h3>
+<h3>Environment and props</h3>
 {gallery([("mdl_table.jpg", "Altar table set, clay"), ("mdl_table2.jpg", "Altar table set, textured"), ("mdl_boat_clay.jpg", "Ferry boat, clay"), ("mdl_boat.jpg", "Ferry boat, textured"), ("mdl_stilt.jpg", "Pavilion house")], cols=5, cls="contain", ar="1/1")}
 {gallery([("mat_tree.jpg", "Large · red spirit tree"), ("mdl_bridge.jpg", "Large · Naihe bridge"), ("mdl_temple.jpg", "Large · temple hall")], cols=3, cls="contain", ar="4/3")}
-<h3>Herbs: the main objects players interact with</h3>
+<h3>Interactive herbs</h3>
 {gallery([(f"herb_{i:02d}.jpg", "") for i in range(15)], cols=5, cls="contain", ar="1/1")}
 """))
     S.append(("systems", "Systems & code", f"""
@@ -696,7 +696,7 @@ def river():
          "Highlight on hover + emissive herbs",
          "Interact.cs highlights anything under the cursor, and herb boxes glow so ingredients read against the night palette."),
         ("Branching outcomes without complex state",
-         "Each soul's result needed to feed a meaningful ending without a tangle of flags.",
+         "Each soul's result needed to feed a meaningful ending with a manageable amount of state tracking.",
          "Central progress manager",
          "Each submission records correct or incorrect. One manager computes accuracy after the last NPC and picks the ending."),
     ])))
@@ -706,7 +706,7 @@ def river():
 """))
     return dict(
         slug="riverOfForgetting", title="River of Forgetting", cat="gameplay", catname=CATNAME["gameplay"],
-        question="How did I build a brewing system and accuracy-based endings for a first-person mythic narrative game, and light it so it still reads in the dark?",
+        question="A solo Unity narrative game with a brewing system, lantern-lit environments and endings based on player choices.",
         tags=["Unity", "C#", "3D", "Interaction systems", "Environment art"],
         hero_mode="full",
         hero="bridge.jpg",
@@ -750,7 +750,7 @@ def broken():
 """))
     S.append(("challenges", "Challenges & solutions", cs([
         ("Replayable puzzles with varied input",
-         "Research on replayable escape rooms showed variety keeps players engaged, but each new input type risked one-off code.",
+         "I wanted varied puzzle inputs, while keeping the underlying components reusable across rooms.",
          "Reusable input components",
          "Built button-based and keyboard-based password panels plus a generic click-to-inspect system, reused across rooms."),
         ("Endings that reflect player choices",
@@ -759,12 +759,12 @@ def broken():
          "Tracked specific in-game actions and branched to <em>Being Fired</em> or <em>Gain Impacts</em> accordingly."),
     ])))
     S.append(("research", "Research", f"""
-<p>The story was informed by real K-pop industry cases, including the Burning Sun scandal and the Jang Ja-yeon and Goo Hara cases. It aims to spark conversation about power, exploitation and the media's role, using approachable puzzles so players uncover the truth by interacting with it rather than watching it.</p>
+<p>The story draws on reporting about the Burning Sun scandal and the Jang Ja-yeon and Goo Hara cases. I used a fictional investigation to explore power, exploitation and the media&#8217;s role, with clues revealed through room-based puzzles.</p>
 {gallery([("s_room.jpg", "CEO office"), ("s_email.jpg", "Bilingual email clue"), ("s_laptop.jpg", "Laptop password lock"), ("asset_keys.jpg", "Hand-drawn item assets")], cols=4, ar="16/10")}
 """))
     return dict(
         slug="brokenStage", title="Broken Stage", cat="gameplay", catname=CATNAME["gameplay"],
-        question="How did I build reusable interaction, puzzle and branching-ending systems for a bilingual 2D mystery game?",
+        question="Interaction, puzzle and branching-ending systems for a solo bilingual mystery game in Unity.",
         tags=["Unity", "C#", "2D", "Puzzle systems", "UI", "Bilingual"],
         hero_mode="full",
         hero="banner.jpg",
@@ -905,11 +905,11 @@ def puppet():
         ("Seven people, three months",
          "Design, narrative, art and code all had to land in one competition build.",
          "Lead-dev + producer role",
-         "Owned the core systems myself while running the schedule, keeping scope to a polished 10-minute demo."),
+         "Built the core systems and managed the schedule, with scope focused on a 10-minute demo."),
     ])))
     return dict(
         slug="puppetMystery", title="Puppet Mystery", cat="gameplay", catname=CATNAME["gameplay"],
-        question="How did I architect additive room loading and drag-and-drop puzzles for a browser-playable deduction game, while producing a 7-person team in three months?",
+        question="Unity room-loading and puzzle systems for a browser-playable deduction game, developed with a seven-person team.",
         tags=["Unity", "C#", "WebGL", "Scene management", "UI / EventSystem", "Team lead"],
         hero_mode="wide",
         hero="hero_wide.jpg",
@@ -940,7 +940,7 @@ def gravitas():
         ("fa-solid fa-sliders", "Implementation-ready audio", "Delivered cues as discrete Unity-ready clips so each game state could trigger its own music and SFX."),
     ])))
     S.append(("music", "Soundtrack", f"""
-<p>Each game state gets its own musical identity, so players always know where they are: calm at the menu, tension rising through the combat cues, mystery for the tarot and magic-book moments. Excerpts are 60 seconds.</p>
+<p>I used distinct cues for the menu, combat, tarot and magic-book scenes. The combat tracks increase in intensity as play progresses. The excerpts below are 60 seconds long.</p>
 {tracks([
     ("gravitas_003_main_menu.mp3", "Main Menu", "Title theme"),
     ("gravitas_001_interlude.mp3", "Interlude", "Story beat between battles"),
@@ -954,7 +954,7 @@ def gravitas():
 ])}
 """))
     S.append(("sfx", "Sound effects", f"""
-<p>Short, readable feedback matters on a busy pixel battlefield. Click to play:</p>
+<p>Short effects distinguish placement, attacks, damage and UI actions. Click to listen:</p>
 {sfx([("gravitas_019_place_pawn.mp3", "Place pawn"), ("gravitas_011_melee.mp3", "Melee"), ("gravitas_008_archer.mp3", "Archer"), ("gravitas_014_magica.mp3", "Magic"), ("gravitas_016_dragon_fire.mp3", "Dragon fire"), ("gravitas_015_get_hit.mp3", "Get hit"), ("gravitas_004_stone.mp3", "Stone"), ("gravitas_020_klee.mp3", "Character voice"), ("gravitas_013_click.mp3", "UI click")])}
 {gallery([("gameplay_01.jpg", "Battlefield: summon and place units"), ("gameplay_02.jpg", "The wizard's narrative encounter"), ("gameplay_03.jpg", "Tarot draw: upright blessings, reversed challenges")], cols=3, ar="16/9")}
 """))
@@ -972,13 +972,13 @@ def gravitas():
          "Story at natural breaks",
          "Placed story beats (interludes, the wizard, tarot readings) between battles, each with its own musical cue."),
     ])))
-    S.append(("ta-link", "Why it matters for technical art", ul([
+    S.append(("ta-link", "What I learned", ul([
         "Audio taught me to design for <strong>game states</strong> and triggers, the same way I think about lighting states and VFX cues.",
         "Composing for pacing is why I can build rhythm systems (<a href='rhythmEcho.html' style='color:var(--accent)'>Rhythm</a>) and time cameras and sound in cinematics (<a href='theFeeding.html' style='color:var(--accent)'>The Feeding</a>).",
     ])))
     return dict(
         slug="gravitas", title="Gravitas", cat="beyond", catname=CATNAME["beyond"],
-        question="How did I score and sound-design a pixel tower-defense game so that every game state has its own identity, and pace its story between battles?",
+        question="Original music, sound effects and narrative design for a pixel-art tower-defense game.",
         tags=["Original soundtrack", "Sound design", "Narrative design", "Unity", "Game jam"],
         hero_mode="wide",
         hero="gameplay_01.jpg",
@@ -996,7 +996,7 @@ def village():
     set_slug("theVillage")
     S = []
     S.append(("overview", "Overview", f"""
-<p class="lead">Costume &amp; Makeup Head for <em>The Village</em>, NUS King Edward VII Hall Chinese Drama. I directed a 29-member team to design and produce costumes and makeup for <strong>33 characters</strong> – one visual language across a whole cast, with hard practical constraints.</p>
+<p class="lead">Costume &amp; Makeup Head for <em>The Village</em>, NUS King Edward VII Hall Chinese Drama. I directed a 29-member team to design and produce costumes and makeup for <strong>33 characters</strong> – balancing period styling with movement, quick changes and stage lighting.</p>
 <p>The production received the <strong>NUS Achievement Award (Commendation) for Arts Production of the Year</strong>.</p>
 {stats([("33", "Characters styled"), ("29", "Team members led"), ("1", "Shared period palette"), ("Award", "Arts Production of the Year")])}
 """))
@@ -1016,30 +1016,30 @@ def village():
         ("33 characters, one world",
          "Every character needed to be instantly distinct, but the cast had to read as one coherent period on a single stage.",
          "Shared rules, individual variation",
-         "Fixed a shared palette and garment language for the whole cast, then varied texture, pattern and hair per character – the same structure as a master material with per-asset instances."),
+         "Fixed a shared palette and garment language for the whole cast, then varied texture, pattern and hair per character."),
         ("Art intent vs. performance constraints",
          "Costumes had to survive movement, quick changes and hot stage lighting while still looking right from the back row.",
-         "Design inside the technical budget",
-         "Chose silhouettes and materials that held up in performance. That is the same trade-off a technical artist makes between art intent and frame budget."),
+         "Materials and performance needs",
+         "Chose silhouettes and materials that held up in performance. Movement, quick changes and stage lighting informed those choices."),
         ("A 29-person art team",
          "Large art teams drift without clear direction and hand-offs.",
          "Clear briefs and ownership",
          "Split the cast into character concepts and production tasks so work ran in parallel without the look fragmenting."),
     ])))
-    S.append(("ta-link", "Why it matters for technical art", ul([
-        "Look-dev is costume design at scale: a <strong>style guide plus per-asset variation</strong>, always checked under the final lighting.",
-        "Directing a 29-person art team toward one visual target is the same job as holding art direction across a shared shader and material library.",
+    S.append(("ta-link", "What I learned", ul([
+        "The production taught me to establish <strong>shared styling guidelines</strong>, then check individual looks under stage lighting.",
+        "Leading 29 people also taught me how clear references and task assignments help a team maintain a consistent result.",
     ])))
     return dict(
         slug="theVillage", title="The Village", cat="beyond", catname=CATNAME["beyond"],
-        question="How did I lead a 29-person costume & makeup team to give 33 characters one cohesive visual language?",
+        question="Costume and makeup direction for 33 characters, leading a 29-person theatre team.",
         tags=["Art direction", "Costume design", "Makeup", "Character styling", "Team leadership"],
         hero_mode="poster", hero_caption="Production poster &middot; 寶島一村 &middot; NUS King Edward VII Hall Chinese Drama",
         hero="poster.jpg",
         facts=[("Role", "Costume &amp; Makeup Head"), ("Production", "NUS KE VII Hall Chinese Drama"), ("Year", "2024"), ("Team", "29 people"), ("Award", "NUS Achievement Award (Commendation)")],
         links=[("fa-brands fa-youtube", "Watch The Village", "https://www.youtube.com/watch?v=jYukGMt2NT4")],
-        ta=["Built a cast-wide visual language across 33 characters (look-dev in fabric)",
-            "Led a 29-person art team to a single look",
+        ta=["Developed costume and makeup guidelines for 33 characters",
+            "Led a 29-person costume and makeup team",
             "Balanced art intent against practical performance constraints"],
         sections=S)
 
@@ -1049,7 +1049,7 @@ def insanity():
     set_slug("theInsanity")
     S = []
     S.append(("overview", "Overview", f"""
-<p class="lead">Costume Designer and Assistant Producer for <em>The Insanity</em> (你好，疯子！), NUS King Edward VII Hall Chinese Drama – a contemporary chamber piece where clothing has to do the characterization, and where I also ran the money and the schedule.</p>
+<p class="lead">Costume Designer and Assistant Producer for <em>The Insanity</em> (你好，疯子！), NUS King Edward VII Hall Chinese Drama – a contemporary ensemble play. I designed the costumes and coordinated sponsorship, budget and scheduling.</p>
 <p>I secured <strong>SGD 7,000</strong> in external sponsorship and managed the production budget for a performance seen by <strong>600 people</strong>.</p>
 {stats([("SGD 7,000", "Sponsorship secured"), ("600", "Audience"), ("7", "Principal looks designed"), ("End-to-end", "Production management")])}
 """))
@@ -1064,8 +1064,8 @@ def insanity():
 {gallery([(f"insanity_{i:02d}.jpg", "") for i in (4, 5, 7, 8, 9, 10, 11, 6)], cols=4, ar="2/3")}
 """))
     S.append(("challenges", "Challenges & solutions", cs([
-        ("Contemporary clothes have no costume shorthand",
-         "In a period piece the palette does the work; in modern dress everyone is just wearing clothes, and characters blur together.",
+        ("Distinguishing contemporary characters",
+         "The characters wear everyday clothing, so I needed clear differences in silhouette, colour and pattern to distinguish them on stage.",
          "One signature per character",
          "Gave each character a single dominant garment idea – pattern, uniform, cut or colour – and kept everything else neutral, so the ensemble stays readable as a group shot."),
         ("A sponsored production has a hard budget",
@@ -1077,13 +1077,13 @@ def insanity():
          "Timeline and risk tracking",
          "Planned the schedule backwards from the performance with explicit owners and risk coordination across functions."),
     ])))
-    S.append(("ta-link", "Why it matters for technical art", ul([
-        "Producing a show on a sponsored budget is the same discipline as the <a href='../index.html#professional' style='color:var(--accent)'>production and pipeline management side of TA work</a>: fixed date, fixed budget, cross-functional dependencies.",
-        "Designing for instant readability in a group shot is character look-dev – the silhouette and value read matter before any detail does.",
+    S.append(("ta-link", "What I learned", ul([
+        "Managing sponsorship taught me to plan around a confirmed budget, a fixed date and dependencies across departments. I also draw on this experience in my <a href='../index.html#professional' style='color:var(--accent)'>production work</a>.",
+        "I learned to assess costumes as an ensemble, checking silhouettes and colour relationships from the audience&#8217;s distance.",
     ])))
     return dict(
         slug="theInsanity", title="The Insanity", cat="beyond", catname=CATNAME["beyond"],
-        question="How did I design a contemporary cast that stays readable as an ensemble, while securing the sponsorship and running the production?",
+        question="Costume design, sponsorship and production coordination for a contemporary ensemble play.",
         tags=["Costume design", "Character styling", "Production", "Sponsorship", "Budget management"],
         hero_mode="wide",
         hero="insanity_02.jpg",
@@ -1182,9 +1182,9 @@ def bubble():
         ("fa-solid fa-people-group", "Lead developer", "Led programming across a 3-person code team to ship a playable build in 48 hours."),
     ])))
     S.append(("materials", "Materials & shading", f"""
-<p>The whole game had to read as one candy-colored world at a glance. I built a small set of URP materials that do most of the visual work:</p>
+<p>I used a small set of URP materials to establish the pink factory setting within the jam deadline:</p>
 {cs([
-    ("Bubble & bubble shield", "Transparent URP surface with <strong>premultiplied alpha</strong> and <strong>ZWrite off</strong> in the transparent queue (3000), so overlapping bubbles layer cleanly and highlights stay bright. <strong>Environment/cubemap reflections</strong> give the soap-film sheen. A Shader Graph layer adds a <strong>Fresnel rim</strong> and <strong>normal distortion</strong> for the fake refraction.",
+    ("Bubble & bubble shield", "Transparent URP surface with <strong>premultiplied alpha</strong> and <strong>ZWrite off</strong> in the transparent queue (3000), to preserve bright highlights and improve overlapping transparency. <strong>Environment/cubemap reflections</strong> give the soap-film sheen. A Shader Graph layer adds a <strong>Fresnel rim</strong> and <strong>normal distortion</strong> for the fake refraction.",
      "Where it's used", "Assigned to the drifting bubbles (<code>Bubble1–3</code>) and the player's <code>Shield</code>, so the pickup and the power-up it grants share one visual language."),
     ("Gum-lake surface", "A normal-mapped, specular water material retinted and re-tuned into glossy pink bubble gum rather than water.",
      "Why", "Getting a reflective, wavy surface from an existing shader and tuning it to the art direction saved hours in a 48-hour jam."),
@@ -1210,19 +1210,19 @@ def bubble():
         ("Transparent bubbles sorting badly",
          "Overlapping translucent bubbles and the shield can flicker or darken if they write depth or blend like opaque surfaces.",
          "Premultiplied, depth-write-off transparency",
-         "Rendered bubbles in the transparent queue with ZWrite off and premultiplied alpha, so they layer correctly and keep bright specular highlights."),
+         "Rendered bubbles in the transparent queue with ZWrite off and premultiplied alpha, to improve blending and preserve bright highlights."),
         ("Players not knowing what's interactive",
          "In a busy, uniformly pink level, gum pickups blended into the scene.",
          "HDR emissive highlight on focus",
          "Swapped in an HDR emissive material on look-at, so interactables glow and bloom without extra UI."),
-        ("A whole look in 48 hours",
+        ("Limited environment-production time",
          "No time to model and texture a detailed environment.",
-         "Let materials carry the art direction",
+         "A small shared material set",
          "A few strong materials (bubbles, gum lake, candy sky, glowing pickups) establish the world over simple prototype geometry."),
     ])))
     return dict(
         slug="bubbleFactory", title="Bubble Factory", cat="render", catname=CATNAME["render"],
-        question="How did I make materials carry a whole art direction in 48 hours, with translucent bubble shields, a glossy gum lake and glowing pickups, while leading gameplay programming?",
+        question="Unity gameplay programming, level design and stylised materials for a 48-hour Global Game Jam project.",
         tags=["Unity URP", "Shader Graph", "Fresnel", "Transparency", "HDR emission", "C#", "Game jam"],
         hero_mode="inset",
         hero="gum_lake.jpg",
@@ -1523,15 +1523,15 @@ def headspace():
     S = []
     S.append(("overview", "Overview", f"""
 <p class="lead"><em>Headspace</em> is a narrative game in Unreal Engine 5.8, built by a 14-person team for USC's CTIN 594 studio. The player follows Mia through the inside of her own mind: the game opens by walking out of an eye along a path of tears, and each act ends with a memory breaking apart.</p>
-<p>I am the team's <strong>technical artist</strong>, responsible for two areas: <strong>materials</strong>, hand-authored and designer-tunable, with the editor tools that feed them, starting with the tear path; and a <strong>destruction system</strong> that turns Houdini simulations into moments Unreal can play back cheaply, starting with a shattering screen and a collapsing piano staircase.</p>
+<p>I am the team&#8217;s <strong>technical artist</strong>, working on adjustable materials, editor tools and a <strong>destruction workflow</strong> that brings Houdini animation into Unreal. Current examples include the tear path, shattering screen and collapsing piano staircase.</p>
 {stats([("14", "People on the team"), ("2", "Systems I own: materials & destruction"), ("2", "Editor tools shipped to the team"), ("0.001 mm", "Max error, Houdini → Unreal")])}
 {fig("tearpath_eye.jpg", "<b>The entrance.</b> The player starts at the foot of the eye and follows the tear path out into the headspace.")}
 {note("In active development: more materials and the Act 3 destruction are in progress. Characters and the eye are placeholders from the team's art pipeline.")}
 """))
     # ---------------------------------------------------------------- MATERIALS
     S.append(("materials", "Material · Tear path", f"""
-<p>Every material I build for the project follows the same contract: <strong>one master material holds all the logic, instances hold all the look</strong>, meshes carry whatever data the shader needs, and an editor tool produces that data so nobody bakes it by hand. The tear path is the first material built this way.</p>
-<p>The tears had to read as liquid from any distance, run downhill, bead on the steep cheek, fall off the edge as a waterfall and ripple when the player steps in them, all without a fluid simulation.</p>
+<p>I keep shader logic in a <strong>master material</strong> and expose visual controls through instances. The tear path also uses mesh data prepared by an editor tool, so designers can change its shape without rebuilding the material setup.</p>
+<p>The tears needed to remain recognisable at different viewing distances, run downhill, bead on the steep cheek, fall off the edge as a waterfall and ripple when the player steps in them, all without a fluid simulation.</p>
 {clip("tearpath_walk.mp4", "In engine: walking the tear path. Each footstep leaves a ring; the flow runs downhill and highlights slide along the stream.", poster="tearpath_walk_poster.jpg")}
 {gallery([("tearpath_cheek.jpg", "Steep cheek: stretched flow waves and sliding beads"), ("tearpath_waterfall.jpg", "The waterfall where the path drops off the edge"), ("tearpath_preview.jpg", "Silhouette line where water meets the bank")], cols=3, ar="16/9")}
 <h3>The master material</h3>
@@ -1539,12 +1539,12 @@ def headspace():
 {mgraph(TP_GRAPH)}
 {hs_listing("TearFilm shader", "HLSL · custom nodes", TP_HLSL)}
 <h3>Designing the parameters</h3>
-<p>I designed the parameters for the people who would tune them, not for the graph. They sit in six numbered groups ordered by what you are trying to change, every value is in real units (centimetres, seconds), and each group has one <em>main knob</em> that does most of the work. The table shows the master defaults next to the red instance used in game, so you can see which values the look actually moves:</p>
+<p>I grouped the controls by task, such as colour, flow and footstep response. Where applicable, values use centimetres and seconds. The table compares the master defaults with the red material instance used in the game:</p>
 {ptable(TP_PARAMS)}
 {fig("mat_preview.jpg", "<b>MI_TearPath_Tear_Red</b> in the instance editor preview. Every change updates live with no recompile; the master stays untouched.")}
 <p>Rules that keep it safe for a team: tune only in the instance, never the master; make a new instance (<code>MI_TearPath_Tear_&lt;Variant&gt;</code>) for another room; refraction scales down automatically where the film is thin; velocity output stays off because the silhouette reads scene depth. I wrote a team guide with <em>quick recipes</em> (more see-through, redder, calmer, stronger footsteps) so the art director can get a look without opening the graph.</p>
 <h3>Data lives on the mesh</h3>
-<p>The shader never guesses where it is. Every tear mesh carries its data in spare UV channels, so the same material works on the path, the waterfall and any water surface an artist models:</p>
+<p>The tear meshes store flow and mask data in spare UV channels. This lets the same material support the path, waterfall and other prepared water meshes:</p>
 {code_list([
     ("UV0", "Flow direction × speed (world XY). Drives a two-phase flow map, so the pattern always runs downhill."),
     ("UV1.x · UV1.y", "Water depth and steepness. Depth controls coverage, tint and roughness; steepness switches on beads and extra wave strength."),
@@ -1555,7 +1555,7 @@ def headspace():
 <div class="toolbox reveal">
 <span class="toolbox-tag">Tools in engine</span>
 <h3>Headspace Tools: the plugin that produces the data</h3>
-<p>A shader that depends on baked mesh data is only useful if nobody bakes it by hand. So I wrote <strong>Headspace Tools</strong>, a project plugin that adds a <em>Tear Path</em> section to <em>Tools</em> and to every actor's right-click menu. It is pure Python on top of Unreal's Python scripting and <strong>Geometry Script</strong> plugins: no C++, nothing to compile or install, so it works for every teammate straight after a Perforce sync.</p>
+<p>I wrote <strong>Headspace Tools</strong> to prepare the mesh data in Unreal. The project plugin adds a <em>Tear Path</em> section to the Tools and actor context menus, using Unreal&#8217;s Python scripting and <strong>Geometry Script</strong>. It is distributed with the project through Perforce.</p>
 {code_list([
     ("HeadspaceTools.uplugin", "Declares the dependencies (PythonScriptPlugin, GeometryScripting) so the editor enables them automatically."),
     ("Content/Python/init_unreal.py", "Runs on editor start-up and registers the menus."),
@@ -1584,7 +1584,7 @@ def headspace():
 """))
     # ---------------------------------------------------------------- DESTRUCTION SYSTEM
     S.append(("destruction", "Destruction system · Pipeline", f"""
-<p>Each act of <em>Headspace</em> ends with a memory breaking. Real-time Chaos destruction would give us neither the emotional timing nor the performance we need, so the system is: <strong>simulate and direct in Houdini, bake, and play back in Unreal as an ordinary animation.</strong></p>
+<p>Each act ends with a memory breaking apart. I chose to <strong>prepare the motion in Houdini and play it back as baked animation in Unreal</strong>, giving us control over timing without running the destruction simulation during gameplay.</p>
 <h3>Houdini Apprentice → Blender → Unreal</h3>
 <p>I work on a <strong>Houdini Apprentice</strong> licence, which can't export the FBX or skinned animation Unreal normally takes from Houdini. Instead of paying for a licence the project doesn't have, I built the export around what Apprentice <em>can</em> write and let Python and Blender do the rest:</p>
 {flow([
@@ -1594,7 +1594,7 @@ def headspace():
     ("Blender", "Bridge", "Opens the skinned file, converts to FBX whenever Unreal's glTF import misbehaves"),
     ("Unreal", "Play", "Skeletal mesh + animation, swapped in for the intact mesh on the trigger"),
 ])}
-<p>The shared output, a <strong>skeletal mesh with one rigidly weighted bone per piece</strong>, costs one draw call per material, needs no physics at runtime and can be triggered from any gameplay event. Before building anything I wrote a feasibility study deciding, per act, how much Houdini each one needed:</p>
+<p>The shared output, a <strong>skeletal mesh with one rigidly weighted bone per piece</strong>, groups pieces into a skeletal mesh and needs no destruction physics at runtime and can be triggered from any gameplay event. Before building anything I wrote a feasibility study deciding, per act, how much Houdini each one needed:</p>
 {code_list([
     ("Act 1 · Mia screen", "Glass fracture with directed timing → baked skeletal animation. <b>Built.</b>"),
     ("Act 2 · Piano stair", "Whole keys, choreographed collapse → baked skeletal animation, plus dissolve, lighting zone and per-step notes. <b>Built.</b>"),
@@ -1604,7 +1604,7 @@ def headspace():
     S.append(("mia-screen", "Destruction · The breaking screen", f"""
 <p>An LED wall reads "MIA". Mia recognises herself, a hit lands on the <strong>I</strong>, cracks race outward and the screen collapses to the floor, opening onto the next memory. 64 shards, 120 frames at 24 fps. The challenge here was <strong>believable glass that still hits a story beat</strong>.</p>
 {clip("mia_shatter.mp4", "In Unreal 5.8, both showroom variants breaking at once: crack reveal and flicker, the impact on the “I”, Niagara sparks and glass dust, then the baked collapse. Left: pieces stay on the floor. Right: pieces sink away.", poster="mia_shatter_poster.jpg")}
-<h3>Houdini: a real simulation, directed by timing</h3>
+<h3>Houdini simulation and release timing</h3>
 {steps([
     "<b>Prep.</b> Import the 160 × 90 cm panel, convert to metres, keep per-face UVs, weld it into a watertight slab so it can be cut.",
     "<b>Fracture.</b> RBD Material Fracture in glass mode: radial cracks from the centre of “MIA”, 64 flat panes.",
@@ -1645,7 +1645,7 @@ def headspace():
     ("Impossible loop", "Four flights of 15 / 5 / 5 / 15 keys joined by three-key fan corners: 52 steps, no landings, no flat areas. Every step goes up, yet the loop closes on itself – but only from the presentation camera, a long lens (FOV 7.5) lined up with the closure gap."),
     ("Real keys", "Real piano proportions and materials: ivory tops on wooden bodies, ebony black keys lying on top in the real C-based pattern, so the stair is literally a keyboard. Mood comes from lighting, not from the mesh colour."),
     ("Whole keys only", "Keys never fragment; white and black keys break away as complete pieces. It reads clearer and keeps the cost low."),
-    ("Built to scale", "Modelled at real key size in Houdini (7 cm rise, 30 cm tread, 1.5 m long) and scaled 2.5× in Unreal, so each key is exactly one stair step for a 165 cm character."),
+    ("Built to scale", "Modelled as oversized piano keys in Houdini (7 cm rise, 30 cm tread, 1.5 m long) and scaled 2.5× in Unreal, so each key is exactly one stair step for a 165 cm character."),
 ])}
 
 <h3>Houdini: procedural build, choreographed motion</h3>
@@ -1693,7 +1693,7 @@ def headspace():
          "Shading driven by baked mesh data",
          "Flow, depth, steepness and masks are baked into UV channels; a translucent Substrate material animates them. Footsteps are four contacts in a parameter collection."),
         ("Other people have to use it",
-         "A material that needs hand-baked data is a trap for a 14-person team working through Perforce.",
+         "Manually preparing mesh data would add repetitive work for a 14-person team sharing assets through Perforce.",
          "Master / instance contract, tools and a guide",
          "Logic in one master, look in grouped instance parameters with one main knob each, two one-click tools, and a written guide with quick recipes."),
         ("No FBX from Houdini Apprentice",
@@ -1711,7 +1711,7 @@ def headspace():
     ])))
     return dict(
         slug="headspace", title="Headspace", cat="render", catname=CATNAME["render"],
-        question="How am I building the rendering and destruction systems for a 14-person Unreal 5.8 team, from custom materials and editor tools to Houdini-driven destruction?",
+        question="Materials, editor tools and Houdini destruction workflows for a 14-person Unreal Engine team. In development.",
         tags=["Unreal Engine 5.8", "Houdini", "Substrate", "Material authoring", "RBD / Bullet", "VEX", "Niagara", "Python tools"],
         hero_mode="full",
         hero="tearpath_path.jpg",

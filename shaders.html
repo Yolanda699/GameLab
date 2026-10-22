@@ -24,7 +24,7 @@
     <button class="nav-toggle" aria-label="Menu"><i class="fa-solid fa-bars"></i></button>
     <ul class="nav-links">
       <li><a href="index.html#professional">Professional Work</a></li>
-      <li class="has-menu"><a href="index.html#work">Projects</a><div class="menu"><div class="grp"><small>Rendering & Shading</small><a href="projects/headspace.html">Headspace <em class="wip">Work in progress</em><span>UE 5.8 · Rendering & Destruction System</span></a><a href="projects/noWayOut.html">No Way Out<span>Unity URP · 3D art, lighting, VFX, UI</span></a><a href="projects/littleWorld.html">Little World <em class="wip">Work in progress</em><span>UE 5.8 · Maya modelling, rigging, animation</span></a><a href="projects/theFeeding.html">The Feeding<span>UE 5.6 · PCG, materials, lighting</span></a><a href="projects/rhythmEcho.html">Rhythm: Echo of the Disciple<span>Skies, lighting, rhythm engine</span></a><a href="projects/bubbleFactory.html">Bubble Factory<span>Shader Graph bubbles · URP materials</span></a></div><div class="grp"><small>Tools & AI Pipeline</small><a href="projects/sdMaterialTool.html">AI Tiling Material Generator<span>Substance 3D Designer plugin · PBR maps</span></a><a href="projects/psAiToolkit.html">AI Creative Toolkit<span>Photoshop UXP plugin · 11 features</span></a><a href="projects/travelTrove.html">TravelTrove<span>Stylized concept-art workflow</span></a></div><div class="grp"><small>Gameplay Systems</small><a href="projects/riverOfForgetting.html">River of Forgetting<span>Unity · brewing & endings</span></a><a href="projects/brokenStage.html">Broken Stage<span>Unity · puzzle systems</span></a><a href="projects/puppetMystery.html">Puppet Mystery<span>Unity · lead dev & producer</span></a></div><div class="grp"><small>Beyond the Engine</small><a href="projects/gravitas.html">Gravitas<span>Audio & narrative design</span></a><a href="projects/theVillage.html">The Village<span>Costume & makeup head · 33 characters</span></a><a href="projects/theInsanity.html">The Insanity<span>Costume design & production</span></a></div><div class="grp"><small>Written by hand</small><a href="shaders.html">Shader Lab<span>Live GLSL: fog, PBR, water, bubble, POM, dissolve</span></a></div></div></li>
+      <li class="has-menu"><a href="index.html#work">Projects</a><div class="menu"><div class="grp"><small>Rendering & Shading</small><a href="projects/headspace.html">Headspace <em class="wip">Work in progress</em><span>UE 5.8 · Rendering & Destruction System</span></a><a href="projects/noWayOut.html">No Way Out<span>Unity URP · 3D art, lighting, VFX, UI</span></a><a href="projects/littleWorld.html">Little World <em class="wip">Work in progress</em><span>UE 5.8 · Maya modelling, rigging, animation</span></a><a href="projects/theFeeding.html">The Feeding<span>UE 5.6 · PCG, materials, lighting</span></a><a href="projects/rhythmEcho.html">Rhythm: Echo of the Disciple<span>Skies, lighting, rhythm engine</span></a><a href="projects/bubbleFactory.html">Bubble Factory<span>Shader Graph bubbles · URP materials</span></a></div><div class="grp"><small>Tools & AI Pipeline</small><a href="projects/sdMaterialTool.html">AI Tiling Material Generator<span>Substance 3D Designer plugin · PBR maps</span></a><a href="projects/psAiToolkit.html">AI Creative Toolkit<span>Photoshop UXP plugin · 11 features</span></a><a href="projects/travelTrove.html">TravelTrove<span>Stylized concept-art workflow</span></a></div><div class="grp"><small>Gameplay Systems</small><a href="projects/riverOfForgetting.html">River of Forgetting<span>Unity · brewing & endings</span></a><a href="projects/brokenStage.html">Broken Stage<span>Unity · puzzle systems</span></a><a href="projects/puppetMystery.html">Puppet Mystery<span>Unity · lead dev & producer</span></a></div><div class="grp"><small>Beyond the Engine</small><a href="projects/gravitas.html">Gravitas<span>Audio & narrative design</span></a><a href="projects/theVillage.html">The Village<span>Costume & makeup head · 33 characters</span></a><a href="projects/theInsanity.html">The Insanity<span>Costume design & production</span></a></div><div class="grp"><small>Shader studies</small><a href="shaders.html">Shader Lab<span>Live GLSL: fog, PBR, water, bubble, POM, dissolve</span></a></div></div></li>
       <li><a href="shaders.html">Shader Lab</a></li>
       <li><a href="index.html#skills">Skills</a></li>
       <li><a href="index.html#about">About</a></li>
@@ -39,8 +39,8 @@
   <div class="wrap">
     <div class="crumbs"><a href="index.html">Home</a> / Shader Lab</div>
     <div class="eyebrow">Shader Lab</div>
-    <h1>Shaders I wrote,<br>running on your GPU.</h1>
-    <p class="q">Six fragment shaders, no libraries. Every canvas below compiles the exact source printed underneath it, so you can read the code, drag the parameters and edit it in place. It is the fastest way I know to show that I understand what a material graph is doing underneath.</p>
+    <h1>Interactive shader studies</h1>
+    <p class="q">Six fragment-shader studies with editable source and live controls. Each canvas runs the code shown below it; adjust the parameters or edit the source to see how the result changes.</p>
     <div class="p-links">
       <a class="btn primary" href="#mist"><i class="fa-solid fa-play"></i> Start with the fog</a>
       <a class="btn" href="index.html#work"><i class="fa-solid fa-layer-group"></i> Production work</a>
@@ -50,7 +50,7 @@
 
 <div class="wrap">
   <div class="lab-note reveal">
-    <div><b>Why this page exists.</b> Technical art job posts ask for shader authoring, PBR fundamentals, profiling and 3D maths. Node graphs are how I ship, but writing the same effects by hand is how I learned what each node costs and why it behaves the way it does.</div>
+    <div><b>About these studies.</b> I use these small GLSL examples to explore effects I also work with in engine material graphs, including fog, surface shading and parallax.</div>
     <div><b>How to read it.</b> Sliders are uniforms. <i class="fa-solid fa-pen"></i> <b>Edit live</b> turns the code block into a real editor – change a number, and the shader recompiles on the next keystroke. Compile errors show up exactly as the GPU reports them.</div>
   </div>
   
@@ -80,7 +80,7 @@
     <div class="study-notes">
       <h3>How it works</h3>
       <ul><li><b>Value noise + fBm.</b> A hash-based noise sampled over 5 octaves, each double the frequency and half the amplitude. This is the same building block as a Perlin/Simplex node in a material graph.</li><li><b>Ridges from 1D noise.</b> Sampling the noise along x only gives a height per column; a <code>smoothstep</code> across that height turns it into an antialiased silhouette.</li><li><b>Depth cues.</b> Nearer layers are darker, move faster and sit lower, so parallax alone reads as distance.</li></ul>
-      <p class="engine"><i class="fa-solid fa-diagram-project"></i> <span>In <em>The Feeding</em> this is Exponential Height Fog with volumetric scattering plus a directional light. Writing it by hand is how I learned what the fog density and scattering parameters are actually doing.</span>
+      <p class="engine"><i class="fa-solid fa-diagram-project"></i> <span>In <em>The Feeding</em> this is Exponential Height Fog with volumetric scattering plus a directional light. This study helped me explore how density and colour affect the sense of depth.</span>
         <a href="projects/theFeeding.html">The Feeding →</a></p>
     </div>
   </div>
@@ -119,11 +119,11 @@
             <output data-readout="u_metal">0.9</output></label><label class="ctrl"><span>Base colour</span>
             <input type="range" data-uniform="u_hue" min="0" max="1.0" step="0.01" value="0.08">
             <output data-readout="u_hue">0.08</output></label></div>
-      <p class="study-blurb">A full metallic-roughness BRDF written from scratch: GGX distribution, Smith visibility, Schlick Fresnel, plus a stand-in environment probe. Drag the sliders the way you would in a material instance.</p>
+      <p class="study-blurb">A metallic-roughness shading study using GGX distribution, Smith visibility, Schlick Fresnel, plus a stand-in environment probe. Drag the sliders the way you would in a material instance.</p>
     </div>
     <div class="study-notes">
       <h3>How it works</h3>
-      <ul><li><b>D · G · F.</b> GGX normal distribution for the highlight shape, Smith geometry for shadowing between microfacets, Schlick Fresnel for grazing angles. The same three terms Unreal and Unity evaluate per pixel.</li><li><b>Metallic workflow.</b> <code>F0</code> lerps from 4% for dielectrics to the base colour for metals, and diffuse is scaled to zero as metalness rises – exactly why a metal has no albedo.</li><li><b>Fake IBL.</b> The environment function widens the sun and flattens the gradient with roughness, which is what a prefiltered mip chain does on a real reflection probe.</li><li><b>ACES tone map</b> and a gamma curve at the end, because lighting must be done in linear space.</li></ul>
+      <ul><li><b>D · G · F.</b> GGX normal distribution for the highlight shape, Smith geometry for shadowing between microfacets, Schlick Fresnel for grazing angles. The same three terms Unreal and Unity evaluate per pixel.</li><li><b>Metallic workflow.</b> <code>F0</code> lerps from 4% for dielectrics to the base colour for metals, and diffuse is scaled to zero as metalness rises in this metallic-roughness model.</li><li><b>Fake IBL.</b> The environment function widens the sun and flattens the gradient with roughness, as a simple approximation of rough environment reflections.</li><li><b>ACES tone map</b> and a gamma curve at the end, because lighting must be done in linear space.</li></ul>
       <p class="engine"><i class="fa-solid fa-diagram-project"></i> <span>This is the model behind every material I authored for <em>The Feeding</em>, and behind the cross-platform validation benchmarks I helped set up at Tencent: if albedo and roughness are sane here, they are sane in engine.</span>
         <a href="projects/theFeeding.html#materials">The Feeding · materials →</a></p>
     </div>
@@ -167,7 +167,7 @@
     </div>
     <div class="study-notes">
       <h3>How it works</h3>
-      <ul><li><b>Procedural normal map.</b> The height field is sampled three times and differenced, which is how a normal map is generated from a height map – here it happens per pixel instead of being baked.</li><li><b>Two panning layers</b> at different scales and directions, the standard trick for water that never visibly repeats.</li><li><b>Fresnel + absorption.</b> Glancing angles reflect the sky; steep angles show a Beer-Lambert absorption colour. Those are the scattering and absorption coefficients of Unreal’s Single Layer Water.</li><li><b>Distance fade</b> on the normal strength keeps the far field from aliasing – the hand-written version of a mip bias.</li></ul>
+      <ul><li><b>Procedural normal map.</b> The height field is sampled three times and differenced, which is how a normal map is generated from a height map – here it happens per pixel instead of being baked.</li><li><b>Two panning layers</b> at different scales and directions, to reduce obvious repetition in the water pattern.</li><li><b>Fresnel + absorption.</b> Glancing angles reflect the sky; steep angles show a Beer-Lambert absorption colour. Those are the scattering and absorption coefficients of Unreal’s Single Layer Water.</li><li><b>Distance fade.</b> Reducing normal strength with distance limits fine detail in the far field.</li></ul>
       <p class="engine"><i class="fa-solid fa-diagram-project"></i> <span>M7 and M8 in <em>The Feeding</em> are two instances of one water master: same normals, different absorption and roughness for the day town and the night river.</span>
         <a href="projects/theFeeding.html#materials">The Feeding · materials →</a></p>
     </div>
@@ -251,12 +251,12 @@
             <output data-readout="u_light">2.1</output></label><label class="ctrl"><span>Self-shadow</span>
             <input type="range" data-uniform="u_shadow" min="0.0" max="1.0" step="0.01" value="0.85">
             <output data-readout="u_shadow">0.85</output></label></div>
-      <p class="study-blurb">A completely flat quad with real depth in it. The view ray marches down through a procedural height field until it hits, so the mortar recedes, the brick faces occlude each other, and the whole surface shifts correctly as you move the cursor.</p>
+      <p class="study-blurb">A flat quad with an illusion of depth. The view ray marches down through a procedural height field until it hits, so the mortar recedes, the brick faces occlude each other, and the whole surface shifts correctly as you move the cursor.</p>
     </div>
     <div class="study-notes">
       <h3>How it works</h3>
-      <ul><li><b>March, don’t offset.</b> Classic parallax mapping shifts the UV once and breaks at grazing angles. Here the ray steps down through 28 even height layers until the surface is above it – steep parallax – so silhouettes stay correct.</li><li><b>Relief refinement.</b> One binary interpolation between the last two samples removes the stair-stepping that a fixed step count leaves behind. Two lines of maths, and the edges go clean.</li><li><b>Self-shadowing.</b> From the hit point, a second short march runs back toward the light. If anything blocks it, that pixel sits in the shadow of the brick above it – the thing that actually sells the depth.</li><li><b>Normals by central difference.</b> The height field is sampled either side of the pixel and differenced, which is exactly what a height-to-normal converter does, just evaluated live instead of baked.</li></ul>
-      <p class="engine"><i class="fa-solid fa-diagram-project"></i> <span>Parallax occlusion is a material node in both Unreal and Unity. Writing the march by hand is how I understood its real cost: every sample is another texture fetch, which is why it belongs on hero surfaces and not on a whole level.</span>
+      <ul><li><b>Height-field sampling.</b> Classic parallax mapping shifts the UV once and breaks at grazing angles. Here the ray steps down through 28 even height layers until the surface is above it – steep parallax – to approximate depth within the surface.</li><li><b>Relief refinement.</b> One binary interpolation between the last two samples removes the stair-stepping that a fixed step count leaves behind. This reduces visible stepping between samples.</li><li><b>Self-shadowing.</b> From the hit point, a second short march runs back toward the light. If anything blocks it, that pixel sits in the shadow of the brick above it to reinforce the impression of depth.</li><li><b>Normals by central difference.</b> The height field is sampled either side of the pixel and differenced, which is exactly what a height-to-normal converter does, just evaluated live instead of baked.</li></ul>
+      <p class="engine"><i class="fa-solid fa-diagram-project"></i> <span>Parallax occlusion is a material node in both Unreal and Unity. The sample count affects its cost, so I would profile the effect before using it across a scene.</span>
         <a href="projects/theFeeding.html#materials">The Feeding · materials →</a></p>
     </div>
   </div>
@@ -295,11 +295,11 @@
             <output data-readout="u_heat">1.0</output></label><label class="ctrl"><span>Noise scale</span>
             <input type="range" data-uniform="u_scale" min="1.0" max="14.0" step="0.1" value="4.5">
             <output data-readout="u_scale">4.5</output></label></div>
-      <p class="study-blurb">A carved panel burning away and reforming. One noise field, one moving threshold, and three smoothsteps off it produce the char, the white-hot rim and the hole – the effect every engine builds the same way.</p>
+      <p class="study-blurb">A carved panel burning away and reforming. One noise field, one moving threshold, and three smoothsteps off it produce the char, the white-hot rim and the hole in this procedural dissolve study.</p>
     </div>
     <div class="study-notes">
       <h3>How it works</h3>
-      <ul><li><b>One mask, three reads.</b> A single fBm field is compared against a moving threshold three times at different offsets: past it the panel is gone, at it the rim burns, just inside it the wood chars. The whole effect is offsets on one number.</li><li><b>The gradient decides the look.</b> Biasing the noise with a diagonal sweep makes the burn travel across the panel instead of appearing everywhere at once – the same trick as a gradient mask driving a dissolve in a material graph.</li><li><b>Emissive above 1.0.</b> The rim colour is pushed past white so a bloom pass would catch it, which is how a dissolve reads as heat rather than as orange paint.</li><li><b>Embers gated by the mask.</b> The particles only brighten near the burn line, so the sparks and the erosion stay locked together without any particle system.</li></ul>
+      <ul><li><b>Dissolve, rim and char.</b> A single fBm field is compared against a moving threshold three times at different offsets: past it the panel is gone, at it the rim burns, just inside it the wood chars. The whole effect is offsets on one number.</li><li><b>Directional burn.</b> Biasing the noise with a diagonal sweep makes the burn travel across the panel instead of appearing everywhere at once – the same trick as a gradient mask driving a dissolve in a material graph.</li><li><b>Emissive above 1.0.</b> The rim colour is pushed past white so a bloom pass would catch it, which is how a dissolve reads as heat rather than as orange paint.</li><li><b>Embers gated by the mask.</b> The particles only brighten near the burn line, so the sparks and the erosion stay locked together without any particle system.</li></ul>
       <p class="engine"><i class="fa-solid fa-diagram-project"></i> <span>This is the dissolve I would build in Unreal as an Opacity Mask driven by a noise texture and a scalar parameter, with the edge band wired to Emissive. <em>The Feeding</em> uses the same threshold-on-noise idea for its fire and ember shading.</span>
         <a href="projects/theFeeding.html">The Feeding →</a></p>
     </div>
@@ -971,7 +971,7 @@ void main() {
   <div class="wrap">
     <div class="footer-grid">
       <div>
-        <h3>Let’s build better art pipelines.</h3>
+        <h3>Get in touch</h3>
         <p>Open to Technical Art roles &amp; collaborations – <a href="mailto:xingyan@usc.edu" style="color:var(--accent)">xingyan@usc.edu</a></p>
       </div>
       <div class="socials">

@@ -30,15 +30,15 @@ def head(title, desc, root=""):
 
 
 MENU = [
-    ("Rendering & Shading", [("headspace", "Headspace", "UE 5.8 · Rendering & Destruction System"), ("theFeeding", "The Feeding", "UE 5.6 · PCG, materials, lighting"), ("rhythmEcho", "Rhythm: Echo of the Disciple", "Skies, lighting, rhythm engine"), ("bubbleFactory", "Bubble Factory", "Shader Graph bubbles · URP materials")]),
+    ("Rendering & Shading", [("headspace", "Headspace", "UE 5.8 · Rendering & Destruction System"), ("noWayOut", "No Way Out", "Unity URP · 3D art, lighting, VFX, UI"), ("littleWorld", "Little World", "UE 5.8 · Maya modelling, rigging, animation"), ("theFeeding", "The Feeding", "UE 5.6 · PCG, materials, lighting"), ("rhythmEcho", "Rhythm: Echo of the Disciple", "Skies, lighting, rhythm engine"), ("bubbleFactory", "Bubble Factory", "Shader Graph bubbles · URP materials")]),
     ("Tools & AI Pipeline", [("sdMaterialTool", "AI Tiling Material Generator", "Substance 3D Designer plugin · PBR maps"), ("psAiToolkit", "AI Creative Toolkit", "Photoshop UXP plugin · 11 features"), ("travelTrove", "TravelTrove", "Stylized concept-art workflow")]),
     ("Gameplay Systems", [("riverOfForgetting", "River of Forgetting", "Unity · brewing & endings"), ("brokenStage", "Broken Stage", "Unity · puzzle systems"), ("puppetMystery", "Puppet Mystery", "Unity · lead dev & producer")]),
     ("Beyond the Engine", [("gravitas", "Gravitas", "Audio & narrative design"), ("theVillage", "The Village", "Costume & makeup head · 33 characters"), ("theInsanity", "The Insanity", "Costume design & production")]),
-    ("Written by hand", [("__lab", "Shader Lab", "Live GLSL: fog, PBR, water, bubble, POM, dissolve")]),
+    ("Shader studies", [("__lab", "Shader Lab", "Live GLSL: fog, PBR, water, bubble, POM, dissolve")]),
 ]
 
 
-WIP = {"headspace"}   # projects still in development: flagged in the menu, cards and page header
+WIP = {"headspace", "littleWorld"}   # projects still in development: flagged in the menu, cards and page header
 WIP_BADGE = '<em class="wip">Work in progress</em>'
 
 
@@ -77,7 +77,7 @@ def footer(root="", scripts=()):
   <div class="wrap">
     <div class="footer-grid">
       <div>
-        <h3>Let's build better art pipelines.</h3>
+        <h3>Get in touch</h3>
         <p>Open to Technical Art roles &amp; collaborations – <a href="mailto:{EMAIL}" style="color:var(--accent)">{EMAIL}</a></p>
       </div>
       <div class="socials">

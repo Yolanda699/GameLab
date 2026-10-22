@@ -668,7 +668,7 @@ STUDIES = [
             "<b>Ridges from 1D noise.</b> Sampling the noise along x only gives a height per column; a <code>smoothstep</code> across that height turns it into an antialiased silhouette.",
             "<b>Depth cues.</b> Nearer layers are darker, move faster and sit lower, so parallax alone reads as distance.",
         ],
-        engine="In <em>The Feeding</em> this is Exponential Height Fog with volumetric scattering plus a directional light. Writing it by hand is how I learned what the fog density and scattering parameters are actually doing.",
+        engine="In <em>The Feeding</em> this is Exponential Height Fog with volumetric scattering plus a directional light. This study helped me explore how density and colour affect the sense of depth.",
         link=("The Feeding", "projects/theFeeding.html"),
         controls=[("u_density", "Fog density", 0, 1.6, 0.01, 0.9),
                   ("u_wind", "Wind", 0, 2.0, 0.01, 1.0),
@@ -678,11 +678,11 @@ STUDIES = [
     dict(
         id="pbr", shader="frag-pbr", title="Cook-Torrance PBR sphere",
         tag="GGX · Smith · Schlick",
-        blurb="A full metallic-roughness BRDF written from scratch: GGX distribution, Smith visibility, Schlick Fresnel, plus a stand-in environment probe. Drag the sliders the way you would in a material instance.",
+        blurb="A metallic-roughness shading study using GGX distribution, Smith visibility, Schlick Fresnel, plus a stand-in environment probe. Drag the sliders the way you would in a material instance.",
         how=[
             "<b>D · G · F.</b> GGX normal distribution for the highlight shape, Smith geometry for shadowing between microfacets, Schlick Fresnel for grazing angles. The same three terms Unreal and Unity evaluate per pixel.",
-            "<b>Metallic workflow.</b> <code>F0</code> lerps from 4% for dielectrics to the base colour for metals, and diffuse is scaled to zero as metalness rises – exactly why a metal has no albedo.",
-            "<b>Fake IBL.</b> The environment function widens the sun and flattens the gradient with roughness, which is what a prefiltered mip chain does on a real reflection probe.",
+            "<b>Metallic workflow.</b> <code>F0</code> lerps from 4% for dielectrics to the base colour for metals, and diffuse is scaled to zero as metalness rises in this metallic-roughness model.",
+            "<b>Fake IBL.</b> The environment function widens the sun and flattens the gradient with roughness, as a simple approximation of rough environment reflections.",
             "<b>ACES tone map</b> and a gamma curve at the end, because lighting must be done in linear space.",
         ],
         engine="This is the model behind every material I authored for <em>The Feeding</em>, and behind the cross-platform validation benchmarks I helped set up at Tencent: if albedo and roughness are sane here, they are sane in engine.",
@@ -698,9 +698,9 @@ STUDIES = [
         blurb="A ray-plane intersection gives a receding water surface, two panning noise layers become a procedural normal map, and Fresnel decides where you see sky and where you see the water body.",
         how=[
             "<b>Procedural normal map.</b> The height field is sampled three times and differenced, which is how a normal map is generated from a height map – here it happens per pixel instead of being baked.",
-            "<b>Two panning layers</b> at different scales and directions, the standard trick for water that never visibly repeats.",
+            "<b>Two panning layers</b> at different scales and directions, to reduce obvious repetition in the water pattern.",
             "<b>Fresnel + absorption.</b> Glancing angles reflect the sky; steep angles show a Beer-Lambert absorption colour. Those are the scattering and absorption coefficients of Unreal's Single Layer Water.",
-            "<b>Distance fade</b> on the normal strength keeps the far field from aliasing – the hand-written version of a mip bias.",
+            "<b>Distance fade.</b> Reducing normal strength with distance limits fine detail in the far field.",
         ],
         engine="M7 and M8 in <em>The Feeding</em> are two instances of one water master: same normals, different absorption and roughness for the day town and the night river.",
         link=("The Feeding · materials", "projects/theFeeding.html#materials"),
@@ -729,14 +729,14 @@ STUDIES = [
     dict(
         id="pom", shader="frag-pom", title="Parallax occlusion mapping",
         tag="Steep parallax · relief refine · self-shadow",
-        blurb="A completely flat quad with real depth in it. The view ray marches down through a procedural height field until it hits, so the mortar recedes, the brick faces occlude each other, and the whole surface shifts correctly as you move the cursor.",
+        blurb="A flat quad with an illusion of depth. The view ray marches down through a procedural height field until it hits, so the mortar recedes, the brick faces occlude each other, and the whole surface shifts correctly as you move the cursor.",
         how=[
-            "<b>March, don't offset.</b> Classic parallax mapping shifts the UV once and breaks at grazing angles. Here the ray steps down through 28 even height layers until the surface is above it – steep parallax – so silhouettes stay correct.",
-            "<b>Relief refinement.</b> One binary interpolation between the last two samples removes the stair-stepping that a fixed step count leaves behind. Two lines of maths, and the edges go clean.",
-            "<b>Self-shadowing.</b> From the hit point, a second short march runs back toward the light. If anything blocks it, that pixel sits in the shadow of the brick above it – the thing that actually sells the depth.",
+            "<b>Height-field sampling.</b> Classic parallax mapping shifts the UV once and breaks at grazing angles. Here the ray steps down through 28 even height layers until the surface is above it – steep parallax – to approximate depth within the surface.",
+            "<b>Relief refinement.</b> One binary interpolation between the last two samples removes the stair-stepping that a fixed step count leaves behind. This reduces visible stepping between samples.",
+            "<b>Self-shadowing.</b> From the hit point, a second short march runs back toward the light. If anything blocks it, that pixel sits in the shadow of the brick above it to reinforce the impression of depth.",
             "<b>Normals by central difference.</b> The height field is sampled either side of the pixel and differenced, which is exactly what a height-to-normal converter does, just evaluated live instead of baked.",
         ],
-        engine="Parallax occlusion is a material node in both Unreal and Unity. Writing the march by hand is how I understood its real cost: every sample is another texture fetch, which is why it belongs on hero surfaces and not on a whole level.",
+        engine="Parallax occlusion is a material node in both Unreal and Unity. The sample count affects its cost, so I would profile the effect before using it across a scene.",
         link=("The Feeding · materials", "projects/theFeeding.html#materials"),
         controls=[("u_depth", "Height scale", 0.0, 2.0, 0.01, 1.0),
                   ("u_light", "Light angle", 0.0, 6.28, 0.01, 2.1),
@@ -746,10 +746,10 @@ STUDIES = [
     dict(
         id="dissolve", shader="frag-dissolve", title="Burning dissolve",
         tag="Noise threshold · edge band · emissive rim",
-        blurb="A carved panel burning away and reforming. One noise field, one moving threshold, and three smoothsteps off it produce the char, the white-hot rim and the hole – the effect every engine builds the same way.",
+        blurb="A carved panel burning away and reforming. One noise field, one moving threshold, and three smoothsteps off it produce the char, the white-hot rim and the hole in this procedural dissolve study.",
         how=[
-            "<b>One mask, three reads.</b> A single fBm field is compared against a moving threshold three times at different offsets: past it the panel is gone, at it the rim burns, just inside it the wood chars. The whole effect is offsets on one number.",
-            "<b>The gradient decides the look.</b> Biasing the noise with a diagonal sweep makes the burn travel across the panel instead of appearing everywhere at once – the same trick as a gradient mask driving a dissolve in a material graph.",
+            "<b>Dissolve, rim and char.</b> A single fBm field is compared against a moving threshold three times at different offsets: past it the panel is gone, at it the rim burns, just inside it the wood chars. The whole effect is offsets on one number.",
+            "<b>Directional burn.</b> Biasing the noise with a diagonal sweep makes the burn travel across the panel instead of appearing everywhere at once – the same trick as a gradient mask driving a dissolve in a material graph.",
             "<b>Emissive above 1.0.</b> The rim colour is pushed past white so a bloom pass would catch it, which is how a dissolve reads as heat rather than as orange paint.",
             "<b>Embers gated by the mask.</b> The particles only brighten near the burn line, so the sparks and the erosion stay locked together without any particle system.",
         ],
@@ -826,8 +826,8 @@ def build():
   <div class="wrap">
     <div class="crumbs"><a href="index.html">Home</a> / Shader Lab</div>
     <div class="eyebrow">Shader Lab</div>
-    <h1>Shaders I wrote,<br>running on your GPU.</h1>
-    <p class="q">Six fragment shaders, no libraries. Every canvas below compiles the exact source printed underneath it, so you can read the code, drag the parameters and edit it in place. It is the fastest way I know to show that I understand what a material graph is doing underneath.</p>
+    <h1>Interactive shader studies</h1>
+    <p class="q">Six fragment-shader studies with editable source and live controls. Each canvas runs the code shown below it; adjust the parameters or edit the source to see how the result changes.</p>
     <div class="p-links">
       <a class="btn primary" href="#mist"><i class="fa-solid fa-play"></i> Start with the fog</a>
       <a class="btn" href="index.html#work"><i class="fa-solid fa-layer-group"></i> Production work</a>
@@ -837,7 +837,7 @@ def build():
 
 <div class="wrap">
   <div class="lab-note reveal">
-    <div><b>Why this page exists.</b> Technical art job posts ask for shader authoring, PBR fundamentals, profiling and 3D maths. Node graphs are how I ship, but writing the same effects by hand is how I learned what each node costs and why it behaves the way it does.</div>
+    <div><b>About these studies.</b> I use these small GLSL examples to explore effects I also work with in engine material graphs, including fog, surface shading and parallax.</div>
     <div><b>How to read it.</b> Sliders are uniforms. <i class="fa-solid fa-pen"></i> <b>Edit live</b> turns the code block into a real editor – change a number, and the shader recompiles on the next keystroke. Compile errors show up exactly as the GPU reports them.</div>
   </div>
   {studies}

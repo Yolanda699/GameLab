@@ -4,6 +4,11 @@ from blocks import set_slug, _src, _check
 
 def page(p, prev_p, next_p):
     """p: dict(slug,title,cat,catname,question,tags,hero,facts,links,ta,sections)"""
+    # These standalone pages sit between the generated Headspace and Feeding pages.
+    if p["slug"] == "headspace":
+        next_p = {"slug": "noWayOut", "title": "No Way Out"}
+    elif p["slug"] == "theFeeding":
+        prev_p = {"slug": "littleWorld", "title": "Little World"}
     set_slug(p["slug"])
     _check(p["hero"])
     tags = "".join(f'<span class="tag">{t}</span>' for t in p["tags"])
@@ -69,7 +74,7 @@ def page(p, prev_p, next_p):
       <div class="next-proj"><a href="{next_p['slug']}.html"><small>NEXT PROJECT</small>{next_p['title']} →</a></div>
     </aside>
     <main class="p-content">
-      <div class="ta-box reveal"><h3><i class="fa-solid fa-bolt"></i> Technical art highlights</h3><ul>{ta}</ul></div>
+      <div class="ta-box reveal"><h3><i class="fa-solid fa-bolt"></i> Project highlights</h3><ul>{ta}</ul></div>
       {body}
       {nav_next}
     </main>

@@ -4,67 +4,77 @@ from shaderlab import hero_script, orb_script
 PROJECTS = [
     dict(slug="sdMaterialTool", cat="pipeline", when="2026 · Tencent Games",
          title="AI Tiling Material Generator for Substance 3D Designer",
-         hook="How do you get a seamless, production-ready PBR material set from a prompt without ever leaving Substance Designer?",
+         hook="A Substance Designer plugin for generating, tiling and processing PBR materials, developed for the Delta Force art team.",
          role="Technical Artist (Tools & Pipeline) · Delta Force, TiMi J3 Studio",
          tags=["Python", "PySide", "Substance Designer API", "PBR maps", "ONNX", "Seamless tiling"]),
     dict(slug="psAiToolkit", cat="pipeline", when="2026 · Tencent Games",
          title="AI Creative Toolkit for Photoshop",
-         hook="How do you put eleven AI capabilities inside Photoshop without ever costing an artist a layer?",
+         hook="A Photoshop extension with eleven AI-assisted image tools, editable layer output and centralised updates for the art team.",
          role="Technical Artist (Tools & Pipeline) · Delta Force, TiMi J3 Studio",
          tags=["Photoshop UXP API", "JavaScript", "ComfyUI", "Multimodal VLM", "Depth masks"]),
     dict(slug="travelTrove", cat="pipeline", when="2025 · Solo",
          title="TravelTrove",
-         hook="How did I set up a controlled AI generation workflow so independently generated concept assets read as one art style?",
+         hook="A travel-app concept with a shared AI-assisted souvenir-art workflow and an interactive Figma prototype.",
          role="Solo: research, UX, concept art pipeline, hi-fi prototype",
          tags=["Figma", "Sora", "Prompt design", "User research"]),
     dict(slug="headspace", cat="render", when="2026 · Team of 14",
          title="Headspace",
-         hook="How am I building the rendering and destruction systems for a 14-person Unreal 5.8 team, from custom materials and editor tools to Houdini-driven destruction?",
+         hook="Materials, editor tools and Houdini destruction workflows for a 14-person Unreal Engine team. In development.",
          role="Technical Artist",
          tags=["Unreal 5.8", "Houdini", "Substrate", "RBD", "VEX", "Niagara"]),
+    dict(slug="noWayOut", cat="render", when="2026 · Team of 2",
+         title="No Way Out",
+         hook="Environment art, lighting and effects for a campus escape game, with Maya prop and character work and an AI-assisted Blender workflow.",
+         role="3D Art · Lighting · VFX · UI · Rigging",
+         tags=["Unity URP", "Blender + AI (MCP)", "Maya", "Rigging", "Lighting", "Particle VFX", "UI Toolkit"]),
+    dict(slug="littleWorld", cat="render", when="2026 · Team of 2",
+         title="Little World",
+         hook="Maya modelling, materials, rigging and animation for a stylised boat ride in Unreal Engine 5.8. Work in progress.",
+         role="3D Art · Texturing · Rigging · Animation",
+         tags=["Maya", "Unreal 5.8", "Rigging", "Skinning", "Animation", "Material instances"]),
     dict(slug="theFeeding", cat="render", when="2025 · Solo",
          title="The Feeding",
-         hook="How did I build a fog-drenched Miao mountain world in UE 5.6, from terrain and PCG foliage to materials, MetaHumans and a cinematic render?",
+         hook="A solo Unreal Engine short film combining environment art, procedural placement, character animation and cinematic lighting.",
          role="Solo: environment, materials, lighting, characters, cinematics",
          tags=["Unreal 5.6", "PCG", "Materials", "MetaHuman", "Gaea", "Sequencer / MRQ"]),
     dict(slug="rhythmEcho", cat="render", when="2025 · Team of 9",
          title="Rhythm: Echo of the Disciple",
-         hook="How did I light, program and produce a mythic 3D rhythm world with a 9-person jam team?",
+         hook="Lighting, rhythm programming and production for a nine-person Unreal Engine game-jam team.",
          role="Producer · Developer · Technical Artist",
          tags=["Unreal 5.6", "Lumen", "Skies & lighting", "Quartz", "Blueprints"]),
     dict(slug="bubbleFactory", cat="render", when="2025 · Global Game Jam",
          title="Bubble Factory",
-         hook="How did I make materials carry a whole art direction in 48 hours, with translucent bubble shields, a gum lake and glowing pickups?",
+         hook="Unity gameplay programming, level design and stylised materials for a 48-hour Global Game Jam project.",
          role="Lead Developer · Level Designer · Technical Artist",
          tags=["Unity URP", "Shader Graph", "Fresnel", "Transparency", "HDR emission"]),
     dict(slug="riverOfForgetting", cat="gameplay", when="2025 · Solo",
          title="River of Forgetting",
-         hook="How did I build a brewing system and accuracy-based endings for a first-person mythic narrative game?",
+         hook="A solo Unity narrative game with a brewing system, lantern-lit environments and endings based on player choices.",
          role="Solo: design, C# systems, environment assets",
          tags=["Unity", "C#", "3D", "Narrative systems"]),
     dict(slug="brokenStage", cat="gameplay", when="2024 · Solo",
          title="Broken Stage",
-         hook="How did I build interaction, puzzle and branching-ending systems for a bilingual 2D mystery game?",
+         hook="Interaction, puzzle and branching-ending systems for a solo bilingual mystery game in Unity.",
          role="Solo: design, C# systems, UI, narrative",
          tags=["Unity", "C#", "2D", "Puzzle systems"]),
     dict(slug="puppetMystery", cat="gameplay", when="2025 · Team of 7",
          title="Puppet Mystery",
-         hook="How did I architect additive room loading and drag-and-drop puzzles while leading a 7-person team?",
+         hook="Unity room-loading and puzzle systems for a browser-playable deduction game, developed with a seven-person team.",
          role="Lead Developer · Producer · Level Designer",
          tags=["Unity", "C#", "WebGL", "Scene management", "Team lead"]),
     dict(slug="gravitas", cat="beyond", when="2024 · Team game",
          title="Gravitas",
-         hook="How did I score and sound-design a pixel tower-defense game so every game state has its own identity?",
+         hook="Original music, sound effects and narrative design for a pixel-art tower-defense game.",
          role="Audio Designer · Narrative Designer",
          tags=["Original soundtrack", "SFX", "Narrative pacing", "Unity"]),
     dict(slug="theVillage", cat="beyond", when="2024 · NUS",
          title="The Village",
-         hook="How did I lead a 29-person costume & makeup team to give 33 characters one cohesive visual language?",
+         hook="Costume and makeup direction for 33 characters, leading a 29-person theatre team.",
          role="Costume & Makeup Head",
          tags=["Art direction", "Costume design", "Character styling", "Team lead"]),
     dict(slug="theInsanity", cat="beyond", when="2023 · NUS",
          title="The Insanity",
-         hook="How did I design a contemporary cast that stays readable as an ensemble, while securing the sponsorship and running the production?",
+         hook="Costume design, sponsorship and production coordination for a contemporary ensemble play.",
          role="Costume Designer · Assistant Producer",
          tags=["Costume design", "Production", "Sponsorship", "Budget management"]),
 ]
@@ -106,7 +116,7 @@ def hero():
       <div>
         <div class="eyebrow">Portfolio · 2026</div>
         <h1>Yolanda Liu<span class="role">Technical Artist<br>&amp; Producer</span></h1>
-        <p class="lede">I build the tools, shaders and pipelines that let artists move faster, from AI-assisted material and concept workflows shipped to a AAA art team at Tencent to real-time scenes lit and rendered in Unreal Engine 5.</p>
+        <p class="lede">I develop DCC tools, shaders and real-time environments. My work includes AI-assisted production tools for Tencent&#8217;s Delta Force art team and game projects in Unreal Engine and Unity.</p>
         <ul class="hero-meta">
           <li><span>Now</span><span>MFA, Interactive Media &amp; Games, USC (2026–2029)</span></li>
           <li><span>Recently</span><span>Technical Art Intern, Tools &amp; Pipeline · <em>Delta Force</em>, Tencent TiMi J3</span></li>
@@ -182,7 +192,7 @@ def professional():
         <div class="eyebrow">Industry experience</div>
         <h2>Professional work</h2>
       </div>
-      <p>Two roles at Tencent Games' TiMi Studio Group, one in technical art and one in production. Pick a tab to see each area of ownership.</p>
+      <p>Two roles at Tencent Games' TiMi Studio Group, one in technical art and one in production. The tabs below cover my contributions in each role.</p>
     </div>
 
     <div class="pro-head reveal">
@@ -213,7 +223,7 @@ def professional():
             <ul>
               <li>Designed and built a <strong>PBR tiling-material generator for Substance Designer</strong>: AI seeding, seamless tiling, automatic Base Color / Normal / Roughness / Height / Metallic maps, de-lighting and a searchable material library.</li>
               <li>Built a <strong>Photoshop AI toolkit</strong> with 11 features, including text-to-image, inpainting, canvas expansion, multi-view, object extraction, upscaling, VLM analysis and semantic/depth layer decomposition. Results arrive as non-destructive layers.</li>
-              <li>Architected a <strong>gateway-based, model-agnostic</strong> client so new providers plug in without UI changes.</li>
+              <li>Designed a <strong>shared client interface and gateway routing</strong> so providers could be added without redesigning the panel.</li>
               <li>Co-designed <strong>silent JS hotfixes + mandatory installer updates</strong> to keep a large art team on compatible builds.</li>
             </ul>
             <a class="btn" href="projects/sdMaterialTool.html">Substance Designer case study <i class="fa-solid fa-arrow-right"></i></a>
@@ -249,12 +259,12 @@ def professional():
             <h4>Production pipelines for TA / VFX</h4>
             <div class="meta">G1 Studio · Unannounced AAA title · Agile</div>
             <ul>
-              <li>Managed end-to-end production pipelines for gameplay features and <strong>Technical Art / VFX assets</strong>, from feature planning and risk management through implementation, asset integration, validation and milestone delivery.</li>
+              <li>Coordinated gameplay and <strong>Technical Art / VFX production</strong>, including planning, risk tracking, asset integration, validation and milestone delivery.</li>
               <li>Coordinated iteration planning and production schedules to keep scope, timelines and quality objectives aligned.</li>
             </ul>
           </div>
           <div class="wib" style="grid-template-columns:1fr">
-            <div><small>Why it matters for TA</small><p>Seeing the TA/VFX pipeline from the producer's side taught me where assets actually stall (hand-offs, validation, integration). I now design tools to remove those bottlenecks.</p></div>
+            <div><small>Why it matters for TA</small><p>Production work showed me how hand-offs, validation and integration affect artists&#8217; time. Those experiences inform the tools I build.</p></div>
           </div>
         </div>
       </div>
@@ -332,11 +342,11 @@ SKILLS = [
 ]
 
 SOFT = [
-    ("fa-solid fa-lightbulb", "Product mindset for tools", "Treat every tool as a product: interview artists, scope an MVP, prioritize by time saved, ship, then iterate on adoption and feedback."),
-    ("fa-solid fa-arrows-left-right", "Cross-discipline communication", "Translate artists' pain points into technical specs, and engine or model limits back into workflows artists can follow."),
-    ("fa-solid fa-sliders", "User-centered tool design", "Parameters grouped by intent, safe defaults and non-destructive operations, so artists can tune without breaking things."),
-    ("fa-solid fa-life-ring", "Artist &amp; vendor enablement", "Shading standards external vendors could follow, onboarding guides, and silent updates so no artist had to chase a build."),
-    ("fa-solid fa-file-pen", "Technical documentation", "Architecture diagrams, team guides and quick recipes for every tool I ship. Published research at DiGRA 2026."),
+    ("fa-solid fa-lightbulb", "Product mindset for tools", "Interview artists, define an initial scope and revise tools based on how the team uses them."),
+    ("fa-solid fa-arrows-left-right", "Cross-discipline communication", "Translate artists&#8217; requests into technical requirements and explain engine or model constraints in practical terms."),
+    ("fa-solid fa-sliders", "User-centered tool design", "Group controls by task, choose useful defaults and preserve source assets during editing."),
+    ("fa-solid fa-life-ring", "Artist &amp; vendor enablement", "Document shading standards for vendors, prepare onboarding guides and support tool updates."),
+    ("fa-solid fa-file-pen", "Technical documentation", "Architecture diagrams, team guides and usage examples. Published research at DiGRA 2026."),
     ("fa-solid fa-list-check", "Production &amp; planning", "Agile sprints, estimation, risk and milestone tracking for TA / VFX pipelines on a AAA title; producer for teams of 7 and 9."),
 ]
 
@@ -372,7 +382,7 @@ def skills():
         <div class="eyebrow">What I bring</div>
         <h2>Core skills</h2>
       </div>
-      <p>A technical artist sits between art, engineering and production. What I can build, how I work with a team, and the software I use to do it.</p>
+      <p>My experience spans rendering, DCC tools, gameplay scripting and production coordination.</p>
     </div>
     <div class="tabs skills-tabs" role="tablist" data-tabs="skills">
       <button class="tab active" role="tab" aria-selected="true"><small>A</small>Hard skills</button>
@@ -404,15 +414,15 @@ def about():
       <div class="about-photo reveal"><img src="assets/img/profile.jpg" alt="Portrait of Yolanda Liu"></div>
       <div class="about-text reveal">
         <div class="eyebrow">About</div>
-        <h2>An artist's eye, an engineer's toolbox, a producer's instincts.</h2>
+        <h2>Art, tools and production</h2>
         <p>I'm Yolanda (Liu Xingyan), a Technical Artist pursuing an MFA in Interactive Media &amp; Games at the University of Southern California. Before USC, I was a Technical Art Intern at Tencent Games' TiMi J3 Studio on <em>Delta Force</em>, working on shader development, art pipelines, production tools and AI-assisted workflows.</p>
-        <p>I work where artistic goals meet technical problems: shaders, real-time VFX, procedural systems, rendering, and the tools and pipelines that connect them. I care most about solutions that hold up in production – reusable, easy for artists to use, and reliable enough for a whole team to build on.</p>
-        <p>Outside the engine, I work in three other crafts, and each one shapes how I approach technical art:</p>
+        <p>My main interests are shaders, real-time VFX, procedural systems and rendering tools. I enjoy working with artists to turn a visual idea into something the team can use and maintain.</p>
+        <p>I also work in theatre, music and production:</p>
 
         <details class="acc">
           <summary><span class="ico"><i class="fa-solid fa-shirt"></i></span><div><b>Costume &amp; makeup design</b><span class="s">→ character readability, palette and visual systems</span></div></summary>
           <div class="acc-body">
-            <p>As Costume &amp; Makeup Head for <em>The Village</em>, I led 29 people to style 33 characters in one period look. As costume designer for <em>The Insanity</em>, I used silhouette and color to separate personalities that still read as one ensemble. It's the same problem as look-dev: keep one style while every asset stays readable.</p>
+            <p>As Costume &amp; Makeup Head for <em>The Village</em>, I led 29 people to style 33 characters in one period look. As costume designer for <em>The Insanity</em>, I used silhouette and color to separate personalities that still read as one ensemble. Both projects taught me to balance a consistent overall style with distinct characters.</p>
             <div class="thumbs">{thumbs}</div>
             <a class="btn" href="projects/theVillage.html">See the costume work <i class="fa-solid fa-arrow-right"></i></a>
           </div>
@@ -431,7 +441,7 @@ def about():
         <details class="acc">
           <summary><span class="ico"><i class="fa-solid fa-masks-theater"></i></span><div><b>Theatre production</b><span class="s">→ budgets, risk and shipping on a fixed date</span></div></summary>
           <div class="acc-body">
-            <p>As assistant producer for <em>The Insanity</em>, I secured SGD 7,000 in sponsorship, managed the budget and coordinated timelines, resources and risk for a show seen by 600 people. Opening night doesn't move, which is good practice for milestones.</p>
+            <p>As assistant producer for <em>The Insanity</em>, I secured SGD 7,000 in sponsorship, managed the budget and coordinated timelines, resources and risk for a show seen by 600 people. This involved planning around a fixed performance date and coordinating several departments.</p>
             <a class="btn" href="projects/theInsanity.html">Production details <i class="fa-solid fa-arrow-right"></i></a>
           </div>
         </details>
