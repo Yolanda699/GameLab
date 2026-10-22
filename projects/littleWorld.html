@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Little World · Yolanda Liu, Technical Artist</title>
+<meta name="description" content="How am I building a whole boat ride of dolls, sets and props in Maya, from modelling and texturing to rigging and animation, so that all of it drops into Unreal 5.8 as one consistent kit?">
+<meta property="og:title" content="Little World · Yolanda Liu, Technical Artist">
+<meta property="og:description" content="How am I building a whole boat ride of dolls, sets and props in Maya, from modelling and texturing to rigging and animation, so that all of it drops into Unreal 5.8 as one consistent kit?">
+<meta name="theme-color" content="#F2EEE6">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><rect width='64' height='64' fill='%23F2EEE6'/><text x='32' y='44' font-family='Georgia,serif' font-size='34' text-anchor='middle' fill='%23A8412A'>YL</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..700;1,9..144,300..700&family=Inter:wght@300..600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/css/site.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<style>.lw-split{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:28px;align-items:center;margin:28px 0}.lw-split .fig{margin:0}.lw-split h4{margin-top:0}@media (max-width:700px){.lw-split{grid-template-columns:1fr}}</style>
+</head>
+<body>
+<nav class="nav">
+  <div class="wrap">
+    <a class="brand" href="../index.html">
+      <span class="brand-text">Yolanda Liu<small>TECHNICAL ARTIST &amp; PRODUCER</small></span>
+    </a>
+    <button class="nav-toggle" aria-label="Menu"><i class="fa-solid fa-bars"></i></button>
+    <ul class="nav-links">
+      <li><a href="../index.html#professional">Professional Work</a></li>
+      <li class="has-menu"><a href="../index.html#work">Projects</a><div class="menu"><div class="grp"><small>Rendering & Shading</small><a href="../projects/headspace.html">Headspace <em class="wip">Work in progress</em><span>UE 5.8 · Rendering & Destruction System</span></a><a href="../projects/noWayOut.html">No Way Out<span>Unity URP · 3D art, lighting, VFX, UI</span></a><a href="../projects/littleWorld.html">Little World <em class="wip">Work in progress</em><span>UE 5.8 · Maya modelling, rigging, animation</span></a><a href="../projects/theFeeding.html">The Feeding<span>UE 5.6 · PCG, materials, lighting</span></a><a href="../projects/rhythmEcho.html">Rhythm: Echo of the Disciple<span>Skies, lighting, rhythm engine</span></a><a href="../projects/bubbleFactory.html">Bubble Factory<span>Shader Graph bubbles · URP materials</span></a></div><div class="grp"><small>Tools & AI Pipeline</small><a href="../projects/sdMaterialTool.html">AI Tiling Material Generator<span>Substance 3D Designer plugin · PBR maps</span></a><a href="../projects/psAiToolkit.html">AI Creative Toolkit<span>Photoshop UXP plugin · 11 features</span></a><a href="../projects/travelTrove.html">TravelTrove<span>Stylized concept-art workflow</span></a></div><div class="grp"><small>Gameplay Systems</small><a href="../projects/riverOfForgetting.html">River of Forgetting<span>Unity · brewing & endings</span></a><a href="../projects/brokenStage.html">Broken Stage<span>Unity · puzzle systems</span></a><a href="../projects/puppetMystery.html">Puppet Mystery<span>Unity · lead dev & producer</span></a></div><div class="grp"><small>Beyond the Engine</small><a href="../projects/gravitas.html">Gravitas<span>Audio & narrative design</span></a><a href="../projects/theVillage.html">The Village<span>Costume & makeup head · 33 characters</span></a><a href="../projects/theInsanity.html">The Insanity<span>Costume design & production</span></a></div><div class="grp"><small>Written by hand</small><a href="../shaders.html">Shader Lab<span>Live GLSL: fog, PBR, water, bubble, POM, dissolve</span></a></div></div></li>
+      <li><a href="../shaders.html">Shader Lab</a></li>
+      <li><a href="../index.html#skills">Skills</a></li>
+      <li><a href="../index.html#about">About</a></li>
+      <li><a href="../resume.html">Resume</a></li>
+      <li><a class="btn-nav" href="../resume.html#contact-top">Contact</a></li>
+    </ul>
+  </div>
+</nav>
+
+<header class="p-hero h-full">
+  <div class="wrap">
+    <div class="crumbs"><a href="../index.html#work">Work</a> / <a href="../index.html#work-render">Rendering & Shading</a> / Little World</div>
+    <span class="tag render">Rendering & Shading</span> <em class="wip">Work in progress</em>
+    <h1>Little World</h1>
+    <p class="q">How am I building a whole boat ride of dolls, sets and props in Maya, from modelling and texturing to rigging and animation, so that all of it drops into Unreal 5.8 as one consistent kit?</p>
+    <div class="tags"><span class="tag">Maya 2026</span><span class="tag">Unreal Engine 5.8</span><span class="tag">Stylised modelling</span><span class="tag">Tileable texturing</span><span class="tag">Material instances</span><span class="tag">IK/FK rigging</span><span class="tag">Skinning</span><span class="tag">Keyframe animation</span><span class="tag">FBX pipeline</span><span class="tag">Perforce</span></div>
+  </div>
+  <div class="bg"><img src="../assets/img/littleWorld/ue_hero.jpg" alt="Little World in Unreal 5.8: the ride canal winds under a red bridge between doll pedestals, a pagoda and paper lanterns" width="1494" height="924"></div>
+</header>
+<div class="wrap">
+  <div class="facts"><div><small>Role</small><span>Artist &amp; technical artist: models, textures, rigs, animation, lighting, VFX, sound, UI</span></div><div><small>Team</small><span>Me (art, tech art) · Katrina Xiao (level, systems, engineering)</span></div><div><small>Year</small><span>2026 · in development</span></div><div><small>Tools</small><span>Maya 2026, Unreal 5.8, Perforce</span></div><div><small>Course</small><span>USC CTIN 534</span></div></div>
+  <div class="p-links"></div>
+  <div class="p-layout">
+    <aside class="toc">
+      <h4>On this page</h4>
+      <ol><li><a href="#overview">Overview</a></li><li><a href="#modelling">Modelling</a></li><li><a href="#texturing">Texturing</a></li><li><a href="#rigging">Rigging</a></li><li><a href="#animation">Animation</a></li><li><a href="#engine">Into Unreal</a></li><li><a href="#status">Status &amp; next</a></li></ol>
+      <div class="next-proj"><a href="theFeeding.html"><small>NEXT PROJECT</small>The Feeding →</a></div>
+    </aside>
+    <main class="p-content">
+      <div class="ta-box reveal"><h3><i class="fa-solid fa-bolt"></i> Maya pipeline highlights</h3><ul><li>76 asset scenes in Maya: 23 dolls, 16 buildings, 12 flats, 24 props and the ride boat</li><li>One doll kit: 23 costumes on a shared body, all bound to the same 13-joint skeleton</li><li>10 tileable texture sets (BC / N / R) tinted into 85 Maya materials</li><li>Every Maya material named after its Unreal instance: 126 MIs off one master</li><li>IK/FK arms with pole vectors, colour-coded controls, max 4 influences per vertex</li><li>17 keyframed clips on referenced rigs, playing on all 23 dolls in Unreal</li></ul></div>
+
+<section class="p-sec" id="overview"><h2><span class="n">01</span>Overview</h2>
+
+<p class="lead"><em>Little World</em> is a short psychological-horror ride inspired by <em>It's a Small World</em> at Hong Kong Disneyland. You queue under a clock tower, step into a boat and drift down a canal through a showroom of singing dolls in costumes from across Asia. Everything is cheerful, bright and perfectly in time, which is exactly what should start to feel wrong. We are aiming for unease rather than jump scares.</p>
+<p>It is a two-person <strong>USC CTIN 534</strong> project in <strong>Unreal Engine 5.8</strong>. <strong>I am the artist and technical artist</strong>; <strong>Katrina Xiao</strong> owns level design, systems and engineering (the ride path, the boat and the music zones). The game is still in production, so <strong>for now this page covers only my Maya work</strong>: how the dolls and the set were modelled, textured, rigged and animated, and how they get into the engine. Lighting, VFX, sound and UI will follow once those passes are done.</p>
+<div class="stat-row"><div><b>76</b><span>Asset scenes in Maya, one per asset</span></div><div><b>23</b><span>Rigged dolls on one 13-joint skeleton</span></div><div><b>17</b><span>Keyframed clips: 13 dolls, 4 props</span></div><div><b>126</b><span>Material instances off one master in Unreal</span></div></div>
+<figure class="fig reveal"><img src="../assets/img/littleWorld/maya_cast_lineup.jpg" alt="Twelve of the 23 dolls lined up in the Maya viewport" width="1920" height="960" loading="lazy"><figcaption><b>Part of the cast in Maya.</b> Twelve of the 23 dolls in Viewport 2.0: kimono, Thai court dancer, Qing emperor and empress, hanbok, sari, samurai, Hina doll, choir girl and bride. Same body, same proportions, different costume.</figcaption></figure>
+
+<h3>The pipeline at a glance</h3>
+<p>Every asset moves through the same five stages, and every stage leaves the asset in a state the next one can rely on. That is what lets one artist keep 76 assets consistent.</p>
+<div class="pipe reveal"><div class="pipe-row" style="grid-template-columns:repeat(5,minmax(0,1fr))">
+  <div class="pipe-stage"><h4>Model</h4><span class="who">Maya · one scene per asset</span><p>Real-world scale in cm, pivot at the base, history deleted, transforms frozen, named <code>SM_</code> / <code>SK_</code>.</p></div>
+  <div class="pipe-stage"><h4>Texture</h4><span class="who">Shared library</span><p>10 tileable sets, tinted per material; Maya shader names match the Unreal instances.</p></div>
+  <div class="pipe-stage"><h4>Rig</h4><span class="who">One skeleton for 23 dolls</span><p>13 bind joints with engine-friendly names, IK/FK arms, separate control and joint layers.</p></div>
+  <div class="pipe-stage"><h4>Animate</h4><span class="who">Referenced rig</span><p>Clips keyed on controls in their own scenes, so a rig fix reaches every clip.</p></div>
+  <div class="pipe-stage me"><h4>Integrate</h4><span class="who">Unreal 5.8</span><p>FBX into a folder tree that mirrors Maya; one skeleton, one master material.</p></div>
+</div></div>
+</section>
+
+<section class="p-sec" id="modelling"><h2><span class="n">02</span>Modelling</h2>
+
+<h3>The doll kit</h3>
+<p>The dolls are the heart of the ride, and there are a lot of them, so I built them as a kit rather than 23 one-offs. Every doll shares the same proportions: an oversized round head, a short body, small hands and stub shoes, read clearly from a moving boat. Costume, hair and headwear change per doll. Each doll is split into named parts (<code>Head_GEO</code>, <code>Hair_GEO</code>, <code>Body_GEO</code>, <code>Arm_l_GEO</code>, <code>Sleeve_l_GEO</code>, <code>Hand_l_GEO</code>, <code>Shoes_GEO</code>, plus hats and hand props) so each part can carry its own material and be skinned on its own.</p>
+<div class="gallery g4 reveal" style="--ar:8/11"><figure><img src="../assets/img/littleWorld/maya_turn_000.jpg" alt="Thai dancer doll, front" width="640" height="880" loading="lazy"><figcaption><b>Front.</b> Thai court dancer</figcaption></figure><figure><img src="../assets/img/littleWorld/maya_turn_045.jpg" alt="Thai dancer doll, three-quarter" width="640" height="880" loading="lazy"><figcaption><b>¾.</b> The silhouette reads from the boat</figcaption></figure><figure><img src="../assets/img/littleWorld/maya_turn_090.jpg" alt="Thai dancer doll, side" width="640" height="880" loading="lazy"><figcaption><b>Side.</b> Shoulder flares and sleeve tips</figcaption></figure><figure><img src="../assets/img/littleWorld/maya_turn_180.jpg" alt="Thai dancer doll, back" width="640" height="880" loading="lazy"><figcaption><b>Back.</b> Finished all the way round</figcaption></figure></div>
+<div class="gallery g4 reveal" style="--ar:8/11"><figure><img src="../assets/img/littleWorld/maya_turn_wire_000.jpg" alt="Thai dancer doll wireframe, front" width="640" height="880" loading="lazy"></figure><figure><img src="../assets/img/littleWorld/maya_turn_wire_045.jpg" alt="Thai dancer doll wireframe, three-quarter" width="640" height="880" loading="lazy"></figure><figure><img src="../assets/img/littleWorld/maya_turn_wire_090.jpg" alt="Thai dancer doll wireframe, side" width="640" height="880" loading="lazy"></figure><figure><img src="../assets/img/littleWorld/maya_turn_wire_180.jpg" alt="Thai dancer doll wireframe, back" width="640" height="880" loading="lazy"></figure></div>
+<p class="note">Clay and wireframe of the same turnaround: a quad-based, evenly spaced grid (95% quads, triangles only at the poles), so sleeves and shoulders bend cleanly once skinned.</p>
+<div class="lw-split reveal">
+<figure class="fig" style="margin:0"><img src="../assets/img/littleWorld/maya_head_topology.jpg" alt="Doll head topology close-up with modelled eyes, brows, cheeks and mouth" width="1000" height="1000" loading="lazy"></figure>
+<div><h4 style="margin-top:0">The face is geometry, not a texture</h4><p>Eyes, brows, cheeks, nose and mouth are modelled as separate shapes sitting on the head, each with its own material. That keeps the face razor-sharp at any distance with no texture memory, lets me restyle an expression by moving vertices, and means the face can be animated later without repainting anything.</p></div>
+</div>
+<div class="code-list"><div><code>Heads</code><p>About 7.8k faces on a sphere-based grid; the same head on every doll.</p></div><div><code>Dolls</code><p>44k to 74k triangles each in Maya, 26k to 46k vertices in Unreal.</p></div><div><code>Parts</code><p>8 to 12 meshes per doll, one material slot each, so every costume colour is a material swap.</p></div></div>
+<figure class="fig reveal"><img src="../assets/img/littleWorld/maya_cast_wire.jpg" alt="Wireframe on shaded view of the doll lineup" width="1920" height="960" loading="lazy"><figcaption><b>Wireframe on shaded.</b> Density stays even across the cast: costumes add silhouette, not noise.</figcaption></figure>
+
+<h3>Set pieces</h3>
+<p>The showroom is a run of landmarks the boat passes: a torii gate, a Korean gate, a Chinese pagoda, a Thai prang and chedi, a minaret and a Taj Mahal-style palace. Like a real dark ride, they are <strong>stylised stage flats and dioramas</strong>, not architecture: simple primitives with strong profiles, readable from one side of the canal, with the detail spent where the camera sees it.</p>
+<figure class="fig reveal"><img src="../assets/img/littleWorld/maya_architecture.jpg" alt="Seven architecture set pieces lined up in Maya" width="1520" height="510" loading="lazy"><figcaption><b>The Asia set, side by side at true scale.</b> Minaret (11 m), pagoda, Korean gate, palace (12.8 m), torii, Thai prang and golden chedi. 12 architecture scenes in total.</figcaption></figure>
+<p>Around them sit 24 props and 12 flats: lanterns, lotus flowers, fans, pinwheels, clouds, a dragon, topiary, lamp posts and the ride boat itself.</p>
+<div class="gallery g5 reveal" style="--ar:1/1"><figure><img src="../assets/img/littleWorld/maya_asset_DragonFlat.jpg" alt="Dragon flat" width="640" height="640" loading="lazy"><figcaption><b>SM_Asia_DragonFlat</b></figcaption></figure><figure><img src="../assets/img/littleWorld/maya_asset_RideBoat.jpg" alt="Ride boat" width="640" height="640" loading="lazy"><figcaption><b>SM_Boat_RideBoat</b></figcaption></figure><figure><img src="../assets/img/littleWorld/maya_asset_SunFan.jpg" alt="Sun fan" width="640" height="640" loading="lazy"><figcaption><b>SM_Asia_SunFan</b></figcaption></figure><figure><img src="../assets/img/littleWorld/maya_asset_CloudSwirl.jpg" alt="Cloud swirl" width="640" height="640" loading="lazy"><figcaption><b>SM_Asia_CloudSwirl</b></figcaption></figure><figure><img src="../assets/img/littleWorld/maya_asset_LotusFlower.jpg" alt="Lotus flower" width="640" height="640" loading="lazy"><figcaption><b>SM_Asia_LotusFlower</b></figcaption></figure><figure><img src="../assets/img/littleWorld/maya_asset_PaperLantern.jpg" alt="Paper lantern" width="640" height="640" loading="lazy"><figcaption><b>SM_Asia_PaperLantern</b></figcaption></figure><figure><img src="../assets/img/littleWorld/maya_asset_KoreanLantern.jpg" alt="Korean lantern" width="640" height="640" loading="lazy"><figcaption><b>SM_Asia_KoreanLantern</b></figcaption></figure><figure><img src="../assets/img/littleWorld/maya_asset_PinwheelFlat.jpg" alt="Pinwheel flat" width="640" height="640" loading="lazy"><figcaption><b>SM_Asia_PinwheelFlat</b></figcaption></figure><figure><img src="../assets/img/littleWorld/maya_asset_TopiaryBall.jpg" alt="Topiary ball" width="640" height="640" loading="lazy"><figcaption><b>SM_Queue_TopiaryBall</b></figcaption></figure><figure><img src="../assets/img/littleWorld/maya_asset_LampPost.jpg" alt="Lamp post" width="640" height="640" loading="lazy"><figcaption><b>SM_Queue_LampPost</b></figcaption></figure></div>
+<div class="gallery g5 reveal" style="--ar:1/1"><figure><img src="../assets/img/littleWorld/maya_asset_wire_RideBoat.jpg" alt="Ride boat wireframe" width="640" height="640" loading="lazy"></figure><figure><img src="../assets/img/littleWorld/maya_asset_wire_SunFan.jpg" alt="Sun fan wireframe" width="640" height="640" loading="lazy"></figure><figure><img src="../assets/img/littleWorld/maya_asset_wire_CloudSwirl.jpg" alt="Cloud swirl wireframe" width="640" height="640" loading="lazy"></figure><figure><img src="../assets/img/littleWorld/maya_asset_wire_PaperLantern.jpg" alt="Paper lantern wireframe" width="640" height="640" loading="lazy"></figure><figure><img src="../assets/img/littleWorld/maya_asset_wire_TopiaryBall.jpg" alt="Topiary ball wireframe" width="640" height="640" loading="lazy"></figure></div>
+
+<h3>Scene conventions</h3>
+<p>One asset per scene, and every scene opens the same way. This is what makes 76 files exportable without opening each one to check it.</p>
+<div class="code-list"><div><code>Naming</code><p><code>SM_</code> for static meshes, <code>SK_</code> for skinned ones, <code>A_</code> for animation scenes, then area and asset: <code>SM_Asia_KoreanGate</code>, <code>SK_Doll_Samurai</code>, <code>A_Doll_FanDance</code>.</p></div><div><code>Folders</code><p><code>scenes/Asia/Architecture</code>, <code>Asia/Flats</code>, <code>Asia/Props</code>, <code>Characters/Doll</code>, <code>Queue/…</code>, <code>Boat/…</code>: the same tree the assets land in inside Unreal.</p></div><div><code>Scale &amp; pivot</code><p>Centimetres, Y-up, the asset sitting on the origin with its pivot at the base, so it snaps to the floor when placed in the level.</p></div><div><code>Hierarchy</code><p>Static assets: one top node with named meshes. Skinned assets: <code>SKEL</code>, <code>GEO</code> and <code>RIG</code> groups under the asset node.</p></div></div>
+</section>
+
+<section class="p-sec" id="texturing"><h2><span class="n">03</span>Texturing</h2>
+
+<p>With 76 assets and one artist, unique texture sets per asset were never an option. Instead the whole ride shares <strong>one library of ten tileable texture sets</strong>, each with a base colour, a tangent-space normal and a roughness map at 1024². Most are near-neutral, so one set can become many materials by tinting: the same <em>Fabric</em> set is a red kimono, a navy samurai coat and a pastel hanbok.</p>
+<figure class="fig reveal"><img src="../assets/img/littleWorld/maya_texture_library.jpg" alt="The ten shared texture sets: base colour, normal and roughness" width="1574" height="502" loading="lazy"><figcaption><b>The shared library,</b> <code>T_LW_&lt;Set&gt;_BC / _N / _R</code>. Brocade, Brushed metal, Fabric, Gold leaf, Kimono floral, Paint, Saekdong stripes, Seigaiha waves, Water and Wood. Patterned sets (floral, saekdong, seigaiha) keep their colour; the rest are tinted.</figcaption></figure>
+<figure class="fig reveal"><img src="../assets/img/littleWorld/maya_material_library.jpg" alt="Twelve doll and set materials on shader balls in Maya" width="1680" height="580" loading="lazy"><figcaption><b>Twelve of the 85 Maya materials on shader balls.</b> Top: kimono floral, seigaiha, saekdong, gold brocade, pink brocade, gold. Bottom: doll red, skin, hair, dancheong red, roof grey, water. Each is a Standard Surface built from the shared maps.</figcaption></figure>
+
+<h3>One material model in both tools</h3>
+<p>Every Maya material is wired the same way and <strong>named after the Unreal instance it becomes</strong> (<code>MI_LW_Doll_Red</code> in Maya is <code>MI_LW_Doll_Red</code> in the Content Browser). All 85 material names used across the Maya scenes exist as instances in Unreal, so a re-import never creates a stray material and a look tweak happens in exactly one place.</p>
+<div class="tbl-wrap reveal"><table class="p-table"><thead><tr><th>Maya (Standard Surface network)</th><th>Unreal (<code>M_LW_Surface</code> parameter)</th><th>What it controls</th></tr></thead><tbody>
+<tr><td><code>*_BC_FILE</code> → Base Color</td><td><code>BaseColorMap</code></td><td>The shared tileable pattern</td></tr>
+<tr><td>File <code>colorGain</code></td><td><code>BaseColor</code> · <code>BaseColorStrength</code></td><td>The tint that turns one set into many materials</td></tr>
+<tr><td><code>*_N_FILE</code> → <code>bump2d</code> (tangent normal)</td><td><code>NormalMap</code> · <code>NormalStrength</code></td><td>Weave, wood grain, hammered gold, ripples</td></tr>
+<tr><td><code>*_R_FILE</code> (Raw) → Specular Roughness</td><td><code>RoughnessMap</code> · <code>Roughness</code> · <code>RoughnessVariation</code></td><td>Lacquer versus cloth versus metal</td></tr>
+<tr><td>Metalness</td><td><code>Metallic</code></td><td>0 for paint and fabric, 0.85 for gold</td></tr>
+<tr><td><code>place2dTexture</code> repeat</td><td><code>Tiling</code></td><td>Pattern scale per material</td></tr>
+<tr><td>–</td><td><code>EmissiveStrength</code> · <code>PanSpeed</code></td><td>Engine-only: glowing lanterns and the moving canal water</td></tr>
+</tbody></table></div>
+
+<h3>Consistent texel density</h3>
+<div class="lw-split reveal">
+<figure class="fig" style="margin:0"><img src="../assets/img/littleWorld/maya_texel_checker.jpg" alt="Checker texture on a kimono doll showing even texel density" width="960" height="1200" loading="lazy"></figure>
+<div><p>Tileable textures only work if every surface is UV'd at the same scale; otherwise the weave on a sleeve is twice the size of the weave on the body. The doll UVs are laid out in world-proportional space rather than squeezed into 0–1, so a checker lands the same size on head, hair, sleeves and skirt.</p><p>Pattern scale is then a single number per material (<code>Tiling</code>), not a UV edit per mesh, and it carries straight across to Unreal.</p></div>
+</div>
+</section>
+
+<section class="p-sec" id="rigging"><h2><span class="n">04</span>Rigging</h2>
+
+<p>23 dolls that all need to wave, bow and dance would be 23 rigs to maintain. They are one. Every doll is bound to the <strong>same 13-joint skeleton</strong>, with joint names chosen for the engine (<code>root</code>, <code>pelvis</code>, <code>spine</code>, <code>neck</code>, <code>head</code>, <code>clavicle_l</code>, <code>upperarm_l</code>, <code>lowerarm_l</code>, <code>hand_l</code> and the right side), so in Unreal they share one Skeleton asset and every clip plays on every doll.</p>
+<div class="gallery g3 reveal" style="--ar:4/5"><figure><img src="../assets/img/littleWorld/maya_rig_controls.jpg" alt="Thai dancer doll with rig controls" width="960" height="1200" loading="lazy"><figcaption><b>Controls on the model.</b> What the animator sees: the mesh is referenced (unselectable), only curves can be picked.</figcaption></figure><figure><img src="../assets/img/littleWorld/maya_rig_xray.jpg" alt="X-ray view of the doll rig with joints and controls" width="960" height="1200" loading="lazy"><figcaption><b>X-ray.</b> Bind joints inside the body; blue left, red right, yellow centre, cyan IK and settings, green global.</figcaption></figure><figure><img src="../assets/img/littleWorld/maya_skin_influence.jpg" alt="Skin weight influence map in colour per joint" width="960" height="1200" loading="lazy"><figcaption><b>Skin weights as colour</b> (one colour per joint, blended by weight). Rigid head and hat, soft shoulder and elbow falloff, skirt on the pelvis.</figcaption></figure></div>
+<div class="flow reveal"><div><small>Skeleton</small><b>13 bind joints</b><span>A short spine (pelvis, spine, neck, head) and full arm chains; no legs, because the dolls glide on their pedestals</span></div><div><small>Arms</small><b>IK / FK</b><span>Separate <code>FK_</code> and <code>IK_</code> chains blended onto the bind arm, pole vector controls, one <code>ikFk</code> switch per side on <code>arm_*_settings_CTRL</code></span></div><div><small>Controls</small><b>20 curves</b><span><code>global</code>, <code>root</code>, <code>cog</code>, spine, neck, head, clavicles and arms, each on an offset group so they zero cleanly</span></div><div><small>Skinning</small><b>Per-part clusters</b><span>One skin cluster per mesh part, max 4 influences per vertex for real-time</span></div><div><small>Layers</small><b>GEO · JNT · CTRL</b><span>Mesh layer referenced, joints hidden, controls on their own layer: an animator can only grab what they should</span></div></div>
+
+<h3>Rigged props</h3>
+<p>The same approach runs through the moving set pieces, each with a small purpose-built skeleton:</p>
+<div class="code-list"><div><code>SK_Asia_Kite</code><p>6 joints: a root, the kite body and a four-joint tail, so the tail follows through behind the swing.</p></div><div><code>SK_Asia_Parasol</code><p>2 joints: shaft and canopy, so the canopy can spin independently while a doll holds the shaft.</p></div><div><code>SK_Queue_ClockTower</code><p>6 joints: hour and minute hands, the pendulum and two doors that open for the parade.</p></div></div>
+</section>
+
+<section class="p-sec" id="animation"><h2><span class="n">05</span>Animation</h2>
+
+<p>Each clip lives in its own scene (<code>A_Doll_Wave.ma</code>, <code>A_Doll_FanDance.ma</code>…) that <strong>references the rig</strong> under a <code>rig:</code> namespace instead of copying it. Keys sit on the controls only. If the rig changes, every clip picks it up on the next open, and because every doll shares the skeleton, one set of 13 clips animates all 23 dolls.</p>
+<figure class="fig reveal"><video src="../assets/img/littleWorld/anim_doll_library.mp4" poster="../assets/img/littleWorld/anim_doll_library_poster.jpg" autoplay muted loop playsinline preload="metadata"></video><figcaption><b>Twelve of the 13 doll clips,</b> playblasted from Maya on the kimono doll, each looping at its own length. 24 fps; clips run 48, 72 or 96 frames (2, 3 or 4 seconds).</figcaption></figure>
+<div class="code-list"><div><code>Ambient</code><p><code>Idle</code>, <code>HeadTilt</code>, <code>Turn</code>, <code>Wave</code>, <code>Bow</code>: the background dolls that line the canal.</p></div><div><code>Performers</code><p><code>Dance</code>, <code>FanDance</code>, <code>FanFlutter</code>, <code>Parasol</code>, <code>Plates</code>: the featured dolls on stages and pedestals.</p></div><div><code>Musicians</code><p><code>Drum</code>, <code>Cymbal</code>, <code>HoldSing</code>: the band and the choir, kept on simple, readable beats.</p></div></div>
+<figure class="fig reveal"><video src="../assets/img/littleWorld/anim_props.mp4" poster="../assets/img/littleWorld/anim_props_poster.jpg" autoplay muted loop playsinline preload="metadata"></video><figcaption><b>Prop animation.</b> Parasol spin, kite swing with tail follow-through, and the clock tower's idle and parade states (hands, pendulum and doors). 96 frames each.</figcaption></figure>
+</section>
+
+<section class="p-sec" id="engine"><h2><span class="n">06</span>Into Unreal</h2>
+
+<p>Because the Maya side is already organised the way the engine wants it, integration is mostly a matter of mapping one structure onto another:</p>
+<div class="tbl-wrap reveal"><table class="p-table"><thead><tr><th>Maya</th><th>Unreal 5.8</th><th>Count</th></tr></thead><tbody>
+<tr><td><code>scenes/Asia/…</code>, <code>Queue/…</code>, <code>Boat/…</code></td><td><code>/Game/LittleWorld/Art/…</code>, same sub-folders</td><td>76 assets</td></tr>
+<tr><td><code>SM_*.ma</code></td><td>Static Mesh</td><td>50</td></tr>
+<tr><td><code>SK_Doll_*.ma</code></td><td>Skeletal Mesh on one shared <code>SKEL_Doll</code></td><td>23 meshes, 1 skeleton, 13 bones</td></tr>
+<tr><td><code>SK_Asia_Kite</code>, <code>SK_Asia_Parasol</code>, <code>SK_Queue_ClockTower</code></td><td>Skeletal Mesh with its own skeleton</td><td>3</td></tr>
+<tr><td><code>A_*.ma</code> (referenced rig)</td><td>Anim Sequence</td><td>13 doll + 4 prop</td></tr>
+<tr><td><code>MI_LW_*</code> Standard Surface</td><td>Material Instance of <code>M_LW_Surface</code></td><td>126 instances, 1 master</td></tr>
+<tr><td><code>sourceimages/Shared/T_LW_*</code></td><td>Texture 2D</td><td>30 textures</td></tr>
+</tbody></table></div>
+<figure class="fig reveal"><img src="../assets/img/littleWorld/ue_showroom_wide.jpg" alt="Wide view of the showroom in Unreal: canal, pagodas, lanterns and dolls" width="1355" height="762" loading="lazy"><figcaption><b>The showroom in Unreal 5.8.</b> Every mesh, material and animated doll here comes out of the Maya pipeline above; the level layout and ride path are Katrina's.</figcaption></figure>
+<div class="gallery g2 reveal" style="--ar:16/9"><figure><img src="../assets/img/littleWorld/ue_thai_dancer.jpg" alt="Thai dancer doll on a pedestal in Unreal" width="1355" height="762" loading="lazy"><figcaption><b>Thai dancer</b> in front of the stage arch and prang</figcaption></figure><figure><img src="../assets/img/littleWorld/ue_kimono_floral.jpg" alt="Kimono floral doll with parasol among lotus flowers" width="1355" height="762" loading="lazy"><figcaption><b>Parasol girl</b> among the lotus and fan flats</figcaption></figure><figure><img src="../assets/img/littleWorld/ue_thai_stage.jpg" alt="Thai stage with dancers and drummers by the canal" width="1355" height="762" loading="lazy"><figcaption><b>The Thai stage:</b> dancers, drummers and chedis along the canal</figcaption></figure><figure><img src="../assets/img/littleWorld/ue_hina_platform.jpg" alt="Hina doll platform under the torii gate" width="1355" height="762" loading="lazy"><figcaption><b>Hina platform</b> under the torii gate</figcaption></figure><figure><img src="../assets/img/littleWorld/ue_qing_consort.jpg" alt="Qing consort doll in front of the Chinese pagoda" width="1355" height="762" loading="lazy"><figcaption><b>Qing consort</b> by the pagoda and dragon</figcaption></figure><figure><img src="../assets/img/littleWorld/ue_choir_cakes.jpg" alt="Choir dolls on lit cake platforms" width="1355" height="762" loading="lazy"><figcaption><b>The choir</b> on their cake platforms</figcaption></figure><figure><img src="../assets/img/littleWorld/ue_farewell_bridge.jpg" alt="The farewell bridge over the canal" width="1355" height="762" loading="lazy"><figcaption><b>The farewell bridge</b> at the end of the ride</figcaption></figure><figure><img src="../assets/img/littleWorld/ue_queue_hall.jpg" alt="The queue hall with the clock tower facade" width="1355" height="762" loading="lazy"><figcaption><b>The queue hall:</b> facade, spires, stanchions and the clock tower</figcaption></figure></div>
+</section>
+
+<section class="p-sec" id="status"><h2><span class="n">07</span>Status &amp; next</h2>
+
+<p class="note">Work in progress. The Maya kit above is in the engine and playing; the screenshots are editor captures from the current build, not final lighting.</p>
+<div class="cs"><div class="cs-item reveal"><div class="ch"><small>Challenge</small><h4>23 dolls, one artist</h4><p>A unique model, rig and animation set per doll would never fit a course schedule, and they would drift apart in style.</p></div><div class="so"><small>Solution</small><h4>Build a kit, not a cast</h4><p>Shared body and proportions, one skeleton, one clip library. A new doll is a new costume, skinned to a rig that already works.</p></div></div><div class="cs-item reveal"><div class="ch"><small>Challenge</small><h4>Hundreds of surfaces, one look</h4><p>Per-asset textures would cost memory and make every colour change a repaint.</p></div><div class="so"><small>Solution</small><h4>Ten tileable sets and a shared material model</h4><p>Tint and tiling are parameters, set once in Maya and mirrored on one Unreal master, with the same names on both sides.</p></div></div><div class="cs-item reveal"><div class="ch"><small>Challenge</small><h4>Rig changes after animation started</h4><p>Copying a rig into every clip scene means fixing it 17 times.</p></div><div class="so"><small>Solution</small><h4>Reference, don't copy</h4><p>Clips reference the rig file and key only controls, so a rig update flows into every clip and every re-export.</p></div></div></div>
+<h3>Next passes</h3>
+<div class="code-list"><div><code>Lighting</code><p>A lighting pass per scene of the ride, then the shift from cheerful to uneasy as the boat goes deeper.</p></div><div><code>VFX &amp; sound</code><p>Lantern glow, water and the music cues that the dolls perform to.</p></div><div><code>Animation</code><p>More variation per doll, offsets so the crowd never moves in perfect unison (until it should).</p></div><div><code>Clean-up</code><p>Consolidate leftover per-import skeleton assets onto <code>SKEL_Doll</code> and tidy duplicate animation imports.</p></div></div>
+</section>
+
+    <div class="p-next">
+      <a href="noWayOut.html"><small>← PREVIOUS</small><b>No Way Out</b></a>
+      <a class="r" href="theFeeding.html"><small>NEXT PROJECT →</small><b>The Feeding</b></a>
+    </div>
+    </main>
+  </div>
+</div>
+<footer class="footer" id="contact">
+  <div class="wrap">
+    <div class="footer-grid">
+      <div>
+        <h3>Let’s build better art pipelines.</h3>
+        <p>Open to Technical Art roles &amp; collaborations – <a href="mailto:xingyan@usc.edu" style="color:var(--accent)">xingyan@usc.edu</a></p>
+      </div>
+      <div class="socials">
+        <a href="mailto:xingyan@usc.edu" aria-label="Email"><i class="fa-solid fa-envelope"></i></a>
+        <a href="https://www.linkedin.com/in/liu-xingyan-yolanda6" target="_blank" rel="noopener" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+        <a href="https://yollienarae.itch.io" target="_blank" rel="noopener" aria-label="itch.io"><i class="fa-brands fa-itch-io"></i></a>
+        <a href="../resume.html" aria-label="Resume"><i class="fa-solid fa-file-lines"></i></a>
+      </div>
+    </div>
+    <div class="copyright">© 2026 Yolanda Liu · All rights reserved</div>
+  </div>
+</footer>
+<script src="../assets/js/gl.js"></script>
+<script src="../assets/js/site.js"></script>
+</body>
+</html>
